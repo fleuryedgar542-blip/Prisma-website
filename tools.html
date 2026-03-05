@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools — PRISMA Systemen</title>
+  <meta name="description" content="Simpele, werkbare tools voor een neurodivergent brein. Gratis dagplanner en betaalde weektracker van PRISMA Systemen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="stijl.css" />
+  <style>
+    /* ── TOOLS-SPECIFIEK ── */
+
+    .tool-kaart {
+      border: 1px solid var(--beige-dark);
+      background: var(--wit);
+      padding: clamp(1.75rem, 4vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .tool-kaart + .tool-kaart {
+      margin-top: 1.25rem;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-badge {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--groen);
+      color: var(--groen-dark);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tool-badge.binnenkort {
+      border-color: var(--blauw);
+      color: var(--blauw);
+    }
+
+    .tool-kaart h2 {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .tool-kaart p {
+      color: var(--grijs-mid);
+      font-size: 0.92rem;
+      max-width: 54ch;
+    }
+
+    /* Stappen */
+    .tool-stappen {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      border-top: 1px solid var(--beige-dark);
+      padding-top: 1.25rem;
+    }
+
+    .stap {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .stap-nummer {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.75rem;
+      color: var(--groen-dark);
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+      min-width: 2.5rem;
+    }
+
+    .stap p {
+      font-size: 0.87rem;
+      color: var(--grijs-mid);
+    }
+
+    /* Prijs */
+    .tool-prijs {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .prijs-bedrag {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--grijs);
+    }
+
+    .prijs-label {
+      font-size: 0.8rem;
+      color: var(--grijs-licht);
+    }
+
+    /* Binnenkort kaart */
+    .tool-kaart.dimmed {
+      opacity: 0.7;
+    }
+
+    .tool-kaart-acties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .binnenkort-tekst {
+      font-size: 0.82rem;
+      color: var(--grijs-licht);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✦ NAVIGATIE -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="PRISMA Systemen" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="over.html">Over</a></li>
+      <li><a href="tools.html" class="actief">Tools</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobiel-menu" id="mobiel-menu">
+    <a href="index.html">Home</a>
+    <a href="over.html">Over Fleur</a>
+    <a href="tools.html" class="actief">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ✦ PAGINA HERO -->
+  <div class="pagina-hero sectie-beige">
+    <div class="container">
+      <span class="sectie-label">Tools</span>
+      <h1>Simpel. Werkbaar. Van jou.</h1>
+    </div>
+  </div>
+
+  <!-- ✦ TOOLS -->
+  <section class="sectie sectie-wit">
+    <div class="container">
+
+      <!-- Tool 1 — Dagplanner -->
+      <div class="tool-kaart fade-in">
+        <div class="tool-header">
+          <h2>PRISMA Dagplanner</h2>
+          <span class="tool-badge">Gratis</span>
+        </div>
+
+        <p>
+          Een interactieve check-in die je helpt inschatten hoeveel energie je hebt
+          en welke taken daarbij passen. Drie stappen: energieniveau kiezen, behoeften
+          aanvinken, één intentie invullen. Resultaat op maat — zonder oordeel.
+        </p>
+
+        <div class="tool-stappen">
+          <div class="stap">
+            <span class="stap-nummer">één</span>
+            <p>Kies je energieniveau van 1 tot 5</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">twee</span>
+            <p>Vink aan wat je vandaag nodig hebt</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">drie</span>
+            <p>Stel één intentie in voor de dag</p>
+          </div>
+        </div>
+
+        <div class="tool-kaart-acties">
+          <div class="tool-prijs">
+            <span class="prijs-bedrag">Gratis</span>
+          </div>
+          <!-- ✦ AANPASSEN: verander href naar Stan.store link zodra die er is -->
+          <a href="#" class="knop knop-groen">Probeer de dagplanner</a>
+        </div>
+      </div>
+
+      <!-- Tool 2 — Weektracker -->
+      <div class="tool-kaart dimmed fade-in">
+        <div class="tool-header">
+          <h2>PRISMA Weektracker</h2>
+          <span class="tool-badge binnenkort">Binnenkort</span>
+        </div>
+
+        <p>
+          Zeven dagen bijhouden, patroonanalyse aan het einde van de week,
+          en concrete suggesties voor de week erna. Zodat je niet elke maandag
+          opnieuw begint maar verder bouwt op wat je al weet.
+        </p>
+
+        <div class="tool-stappen">
+          <div class="stap">
+            <span class="stap-nummer">één</span>
+            <p>Dagelijks energieniveau en taken bijhouden</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">twee</span>
+            <p>Weekoverzicht met patronen en inzichten</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">drie</span>
+            <p>Suggesties voor de week erna op basis van jouw data</p>
+          </div>
+        </div>
+
+        <div class="tool-kaart-acties">
+          <div class="tool-prijs">
+            <span class="prijs-bedrag">€9 – €15</span>
+          </div>
+          <span class="binnenkort-tekst">Beschikbaar na de zomer van 2026</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ✦ FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="logo.png" alt="PRISMA Systemen" />
+        </div>
+        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="over.html">Over</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="footer-bottom">
+          <span>© 2026 PRISMA Systemen</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

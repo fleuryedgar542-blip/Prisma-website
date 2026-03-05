@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Over Fleur — PRISMA Systemen</title>
+  <meta name="description" content="Fleur is oprichter van PRISMA Systemen. Ze heeft ADHD en autisme en bouwt dit terwijl ze er zelf middenin zit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="stijl.css" />
+  <style>
+    /* ── OVER-SPECIFIEK ── */
+
+    .over-tekst-blok {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 56ch;
+    }
+
+    .over-tekst-blok p {
+      color: var(--grijs-mid);
+      font-size: 0.97rem;
+    }
+
+    .over-tekst-blok p strong {
+      color: var(--grijs);
+      font-weight: 500;
+    }
+
+    .over-sectie {
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+      border-bottom: 1px solid var(--beige-dark);
+    }
+
+    .over-sectie:last-of-type { border-bottom: none; }
+
+    .over-sectie h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Citaat */
+    .citaat {
+      border-left: 2px solid var(--groen);
+      padding: 1rem 0 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .citaat p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--grijs);
+      line-height: 1.6;
+    }
+
+    /* Waarden */
+    .waarden-lijst {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .waarden-lijst li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .waarden-mark {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--groen);
+      margin-top: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .waarden-lijst p {
+      font-size: 0.9rem;
+      color: var(--grijs-mid);
+    }
+
+    .waarden-lijst strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--grijs);
+      margin-bottom: 0.1rem;
+    }
+
+    /* CTA onderaan */
+    .over-cta {
+      background: var(--beige-mid);
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+    }
+
+    .over-cta-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .over-cta h2 { max-width: 22ch; }
+
+    .over-cta p {
+      color: var(--grijs-mid);
+      max-width: 46ch;
+      font-size: 0.95rem;
+    }
+
+    .over-cta-knoppen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✦ NAVIGATIE -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="PRISMA Systemen" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="over.html" class="actief">Over</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobiel-menu" id="mobiel-menu">
+    <a href="index.html">Home</a>
+    <a href="over.html" class="actief">Over Fleur</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ✦ PAGINA HERO -->
+  <div class="pagina-hero sectie-beige">
+    <div class="container">
+      <span class="sectie-label">Over Fleur</span>
+      <h1>Ik bouw dit terwijl ik er zelf middenin zit.</h1>
+    </div>
+  </div>
+
+  <!-- ✦ INTRO -->
+  <section class="sectie sectie-wit">
+    <div class="container">
+      <div class="over-tekst-blok fade-in">
+        <p>
+          Ik ben Fleur, 22 jaar, oprichter van PRISMA Systemen. Ik heb ADHD en autisme —
+          en ik weet hoe het is om ambitieus te zijn maar tegelijk vast te lopen op systemen
+          die niet voor jouw brein zijn gemaakt.
+        </p>
+
+        <div class="citaat">
+          <p>Ik heb niet alle antwoorden. Ik kijk niet terug vanuit een plek waar alles al opgelost is.</p>
+        </div>
+
+        <p>
+          Wat ik wel heb: eerlijkheid over hoe het echt is, en de tools die ik zelf had willen hebben.
+          PRISMA is gebouwd vanuit eigen ervaring — niet als afgerond verhaal, maar als zoektocht
+          die ik met je deel terwijl hij nog bezig is.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- ✦ WAAROM PRISMA -->
+  <section class="sectie sectie-beige">
+    <div class="container">
+      <div class="over-sectie fade-in">
+        <span class="sectie-label">Waarom PRISMA</span>
+        <h2>Wat PRISMA anders maakt.</h2>
+        <ul class="waarden-lijst">
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Geen motivatie, wel helderheid</strong>
+              <p>PRISMA verkoopt geen hustle en geen "jij kan het ook." Wat er wel is: structuur die klopt, en eerlijkheid over hoe het is.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Van binnenuit</strong>
+              <p>Ik begrijp neurodivergentie niet van buitenaf. Ik leef ermee, en dat maakt het verschil in hoe ik erover schrijf en wat ik bouw.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Autonomie als kern</strong>
+              <p>Het doel is nooit afhankelijkheid — van mij, van een app, van een systeem. Het doel is dat jij zelfstandig kunt zijn.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Rustig en systematisch</strong>
+              <p>Geen drukke visuals, geen schreeuwerige teksten, geen urgentie. Alleen wat werkt.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- ✦ OVER DE STUDIE -->
+  <section class="sectie sectie-wit">
+    <div class="container">
+      <div class="over-sectie fade-in">
+        <span class="sectie-label">Wat er verder speelt</span>
+        <h2>PRISMA naast het leven.</h2>
+        <div class="over-tekst-blok">
+          <p>
+            In september 2026 begin ik met de opleiding Social Work. PRISMA bouw ik nu, terwijl dat er nog niet is —
+            en daarna schaal ik af naar wat haalbaar is naast de studie.
+          </p>
+          <p>
+            Dat betekent: geen grote beloftes over beschikbaarheid of snelheid.
+            Wel eerlijkheid over wat er is en wat niet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ CTA -->
+  <div class="over-cta">
+    <div class="container">
+      <div class="over-cta-inner fade-in">
+        <span class="sectie-label">Wat nu</span>
+        <h2>Kijk wat PRISMA voor jou kan betekenen.</h2>
+        <p>Bekijk de gratis dagplanner, of neem contact op als je een vraag hebt.</p>
+        <div class="over-cta-knoppen">
+          <a href="tools.html" class="knop knop-groen">Bekijk de tools</a>
+          <a href="contact.html" class="knop">Neem contact op</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✦ FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="logo.png" alt="PRISMA Systemen" />
+        </div>
+        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="over.html">Over</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="footer-bottom">
+          <span>© 2026 PRISMA Systemen</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

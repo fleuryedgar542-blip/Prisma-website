@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — PRISMA Systemen</title>
+  <meta name="description" content="Neem contact op met PRISMA Systemen via Instagram." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="stijl.css" />
+  <style>
+    /* ── CONTACT-SPECIFIEK ── */
+
+    .contact-blok {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 52ch;
+    }
+
+    .contact-blok p {
+      color: var(--grijs-mid);
+      font-size: 0.95rem;
+    }
+
+    /* Instagram kaart */
+    .instagram-kaart {
+      border: 1px solid var(--beige-dark);
+      background: var(--wit);
+      padding: clamp(1.5rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      max-width: 420px;
+    }
+
+    .instagram-kaart-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .instagram-icoon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--beige-dark);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .instagram-icoon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--grijs-mid);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .instagram-naam {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--grijs);
+    }
+
+    .instagram-handle {
+      font-size: 0.78rem;
+      color: var(--grijs-licht);
+    }
+
+    .instagram-kaart p {
+      font-size: 0.87rem;
+      color: var(--grijs-mid);
+    }
+
+    /* Eerlijkheid blok */
+    .eerlijk-blok {
+      background: var(--beige-mid);
+      padding: clamp(2.5rem, 6vw, 4rem) 0;
+      margin-top: 0;
+    }
+
+    .eerlijk-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 52ch;
+    }
+
+    .eerlijk-inner h2 {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    .eerlijk-inner p {
+      color: var(--grijs-mid);
+      font-size: 0.92rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✦ NAVIGATIE -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="PRISMA Systemen" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="over.html">Over</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="contact.html" class="actief">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobiel-menu" id="mobiel-menu">
+    <a href="index.html">Home</a>
+    <a href="over.html">Over Fleur</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html" class="actief">Contact</a>
+  </div>
+
+  <!-- ✦ PAGINA HERO -->
+  <div class="pagina-hero sectie-beige">
+    <div class="container">
+      <span class="sectie-label">Contact</span>
+      <h1>Een vraag of wil je meer weten?</h1>
+    </div>
+  </div>
+
+  <!-- ✦ CONTACT -->
+  <section class="sectie sectie-wit">
+    <div class="container">
+      <div class="contact-blok fade-in">
+        <p>
+          Je kunt me bereiken via Instagram. Ik lees elk bericht en reageer als ik de ruimte heb.
+          Geen sales-funnel, geen automatisch antwoord.
+        </p>
+
+        <!-- ✦ AANPASSEN: verander de href naar jouw Instagram-URL -->
+        <div class="instagram-kaart">
+          <div class="instagram-kaart-header">
+            <div class="instagram-icoon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div>
+              <div class="instagram-naam">PRISMA Systemen</div>
+              <!-- ✦ AANPASSEN: jouw echte handle hieronder -->
+              <div class="instagram-handle">@prismasystemen</div>
+            </div>
+          </div>
+          <p>Stuur een DM via Instagram voor vragen over de tools, coaching of samenwerking.</p>
+          <!-- ✦ AANPASSEN: jouw echte Instagram-URL -->
+          <a href="https://www.instagram.com/prismasystemen" class="knop knop-groen" target="_blank" rel="noopener">
+            Open Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ EERLIJKHEID -->
+  <div class="eerlijk-blok">
+    <div class="container">
+      <div class="eerlijk-inner fade-in">
+        <span class="sectie-label">Wat je kunt verwachten</span>
+        <h2>Geen beloftes die ik niet kan waarmaken.</h2>
+        <p>
+          Ik ben één persoon, en ik bouw PRISMA naast mijn eigen leven.
+          Ik reageer niet altijd snel. Ik ben niet altijd beschikbaar.
+          Wat er wel is: eerlijkheid over wat er is en wat niet.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✦ FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="logo.png" alt="PRISMA Systemen" />
+        </div>
+        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="over.html">Over</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="footer-bottom">
+          <span>© 2026 PRISMA Systemen</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
