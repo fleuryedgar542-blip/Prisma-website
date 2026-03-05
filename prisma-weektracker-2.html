@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMA — Weektracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --beige: #F3EFE8;
+    --grijs: #2E2E2E;
+    --groen: #A8B5A2;
+    --blauw: #6E7C8C;
+    --grijs-licht: #E8E4DC;
+    --grijs-mid: #9A9A9A;
+    --wit: #ffffff;
+    --sidebar-w: 220px;
+  }
+
+  body {
+    background: var(--beige);
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--wit);
+    border-right: 1px solid var(--grijs-licht);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 10;
+  }
+
+  .sidebar-logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blauw);
+    padding: 0 28px 32px;
+    border-bottom: 1px solid var(--grijs-licht);
+    margin-bottom: 24px;
+  }
+
+  .sidebar-nav { flex: 1; }
+
+  .nav-section-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    padding: 0 28px;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    font-size: 12px;
+    color: var(--grijs-mid);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover { color: var(--grijs); background: var(--beige); }
+  .nav-item.active { color: var(--grijs); border-left-color: var(--groen); background: #F8FAF7; }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--grijs-licht);
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .nav-item.active .nav-dot,
+  .nav-item.done .nav-dot { background: var(--groen); }
+  .nav-item.done { color: var(--grijs); }
+
+  .nav-divider {
+    height: 1px;
+    background: var(--grijs-licht);
+    margin: 16px 28px;
+  }
+
+  .nav-item-maand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    font-size: 12px;
+    color: var(--grijs-mid);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+  .nav-item-maand:hover { color: var(--grijs); background: var(--beige); }
+  .nav-item-maand.active { color: var(--grijs); border-left-color: var(--blauw); background: #F0F3F6; }
+
+  /* MAIN */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 56px 80px;
+    width: calc(100% - var(--sidebar-w));
+    max-width: none;
+  }
+
+  /* PAGES */
+  .page { display: none; animation: fadeUp 0.4s ease forwards; }
+  .page.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HEADERS */
+  .page-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Noto Serif', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  /* DAG FORM */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 16px;
+  }
+
+  .form-section { margin-bottom: 36px; }
+
+  .energie-schaal { display: flex; flex-direction: column; gap: 8px; }
+
+  .energie-optie {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid transparent;
+    background: var(--wit);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+  }
+  .energie-optie:hover { border-color: var(--groen); }
+  .energie-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+
+  .energie-nummer { font-family: 'Noto Serif', serif; font-size: 20px; color: var(--groen); min-width: 24px; }
+  .energie-info { flex: 1; }
+  .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .energie-omschrijving { font-size: 11px; color: var(--blauw); line-height: 1.5; }
+  .energie-dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--grijs-mid); transition: all 0.2s; flex-shrink: 0; }
+  .energie-optie.selected .energie-dot { background: var(--groen); border-color: var(--groen); }
+
+  .behoeften-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .behoefte-tag {
+    padding: 7px 14px;
+    border: 1px solid var(--grijs-licht);
+    background: var(--wit);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: var(--grijs);
+  }
+  .behoefte-tag:hover { border-color: var(--groen); }
+  .behoefte-tag.selected { background: var(--groen); border-color: var(--groen); color: white; }
+
+  .tekst-input {
+    width: 100%;
+    background: var(--wit);
+    border: 1px solid var(--grijs-licht);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grijs);
+    resize: none;
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+  .tekst-input:focus { border-color: var(--groen); }
+  .tekst-input::placeholder { color: var(--grijs-mid); }
+  .tekst-input.kort { height: 70px; }
+  .tekst-input.lang { height: 90px; }
+
+  .opslaan-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+  .opslaan-btn:hover { background: var(--blauw); }
+  .opslaan-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
+
+  .dag-opgeslagen {
+    display: none;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: #F8FAF7;
+    border: 1px solid var(--groen);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--grijs);
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+  }
+
+  /* WEEKOVERZICHT */
+  .week-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+
+  .dag-kaart {
+    background: var(--wit);
+    border-radius: 8px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid var(--grijs-licht);
+  }
+
+  .dag-naam-col {
+    min-width: 90px;
+  }
+
+  .dag-naam { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+  .dag-datum { font-size: 11px; color: var(--grijs-mid); }
+
+  .energie-balk-wrap { flex: 1; }
+  .energie-balk-bg { height: 6px; background: var(--grijs-licht); border-radius: 4px; overflow: hidden; }
+  .energie-balk-fill { height: 100%; background: var(--groen); border-radius: 4px; transition: width 0.4s ease; }
+
+  .dag-niveau-label { font-size: 11px; color: var(--blauw); min-width: 60px; text-align: right; }
+  .dag-leeg { opacity: 0.4; font-size: 12px; color: var(--grijs-mid); font-style: italic; }
+
+  /* PATROON ANALYSE */
+  .analyse-blok {
+    background: var(--wit);
+    border-radius: 8px;
+    padding: 28px 28px;
+    margin-bottom: 20px;
+    border: 1px solid var(--grijs-licht);
+  }
+
+  .analyse-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .analyse-tekst {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.8;
+  }
+
+  .analyse-lijst { list-style: none; margin-top: 12px; }
+  .analyse-lijst li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 13px; line-height: 1.6; padding: 6px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+  }
+  .analyse-lijst li:last-child { border-bottom: none; }
+  .analyse-streep { width: 14px; height: 1px; background: var(--groen); margin-top: 10px; flex-shrink: 0; }
+
+  .reminder {
+    margin-top: 8px;
+    padding: 18px 22px;
+    background: var(--beige);
+    border-left: 2px solid var(--groen);
+    border-radius: 0 8px 8px 0;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--grijs);
+  }
+
+  /* MAANDOVERZICHT */
+  .maand-grid { display: flex; flex-direction: column; gap: 24px; }
+
+  .week-blok {
+    background: var(--wit);
+    border-radius: 8px;
+    border: 1px solid var(--grijs-licht);
+    overflow: hidden;
+  }
+
+  .week-header {
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .week-header-titel {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .week-gemiddelde {
+    font-family: 'Noto Serif', serif;
+    font-size: 13px;
+    color: var(--groen);
+  }
+
+  .week-dagen-rij {
+    display: flex;
+    padding: 16px 22px;
+    gap: 8px;
+  }
+
+  .mini-dag {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mini-dag-naam { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--grijs-mid); }
+
+  .mini-dag-bal {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif', serif;
+    font-size: 13px;
+    color: var(--grijs);
+    background: var(--grijs-licht);
+    transition: all 0.2s;
+  }
+
+  .mini-dag-bal.niveau-1 { background: #E8D5D5; }
+  .mini-dag-bal.niveau-2 { background: #EDE0D0; }
+  .mini-dag-bal.niveau-3 { background: #E8E4DC; }
+  .mini-dag-bal.niveau-4 { background: #D8E8D4; }
+  .mini-dag-bal.niveau-5 { background: var(--groen); color: white; }
+  .mini-dag-bal.leeg { opacity: 0.3; }
+
+  .nieuw-week-btn {
+    margin-top: 32px;
+    background: none;
+    border: 1px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    transition: all 0.2s ease;
+    border-radius: 8px;
+  }
+  .nieuw-week-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  /* MOBIEL */
+  @media (max-width: 640px) {
+    .sidebar { width: 100%; min-height: auto; position: relative; flex-direction: row; flex-wrap: wrap; padding: 20px 0 0; border-right: none; border-bottom: 1px solid var(--grijs-licht); }
+    .sidebar-logo { padding: 0 20px 16px; border-bottom: none; margin-bottom: 0; width: 100%; }
+    .sidebar-nav { display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; }
+    .nav-section-label { display: none; }
+    .nav-item, .nav-item-maand { padding: 10px 16px; border-left: none; border-bottom: 2px solid transparent; }
+    .nav-item.active { border-left: none; border-bottom-color: var(--groen); }
+    .nav-item-maand.active { border-left: none; border-bottom-color: var(--blauw); }
+    .nav-divider { display: none; }
+    body { flex-direction: column; }
+    .main { margin-left: 0; width: 100%; padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">PRISMA Systemen</div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Deze week</div>
+    <div class="nav-item active" id="nav-ma" onclick="navigeer('ma')"><div class="nav-dot"></div>Maandag</div>
+    <div class="nav-item" id="nav-di" onclick="navigeer('di')"><div class="nav-dot"></div>Dinsdag</div>
+    <div class="nav-item" id="nav-wo" onclick="navigeer('wo')"><div class="nav-dot"></div>Woensdag</div>
+    <div class="nav-item" id="nav-do" onclick="navigeer('do')"><div class="nav-dot"></div>Donderdag</div>
+    <div class="nav-item" id="nav-vr" onclick="navigeer('vr')"><div class="nav-dot"></div>Vrijdag</div>
+    <div class="nav-item" id="nav-za" onclick="navigeer('za')"><div class="nav-dot"></div>Zaterdag</div>
+    <div class="nav-item" id="nav-zo" onclick="navigeer('zo')"><div class="nav-dot"></div>Zondag</div>
+    <div class="nav-divider"></div>
+    <div class="nav-item" id="nav-week" onclick="navigeer('week')"><div class="nav-dot"></div>Weekoverzicht</div>
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Maand</div>
+    <div class="nav-item-maand" id="nav-maand" onclick="navigeer('maand')"><div class="nav-dot"></div>Maandoverzicht</div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- DAG PAGINAS -->
+  <div id="page-ma" class="page active"></div>
+  <div id="page-di" class="page"></div>
+  <div id="page-wo" class="page"></div>
+  <div id="page-do" class="page"></div>
+  <div id="page-vr" class="page"></div>
+  <div id="page-za" class="page"></div>
+  <div id="page-zo" class="page"></div>
+
+  <!-- WEEK OVERZICHT -->
+  <div id="page-week" class="page">
+    <div class="page-label">Weekoverzicht</div>
+    <h1>Hoe was je week?</h1>
+    <p class="page-subtitle">Een overzicht van je energieniveaus en wat je ervan kan leren voor volgende week.</p>
+    <div class="week-grid" id="week-grid"></div>
+    <div id="week-analyse"></div>
+  </div>
+
+  <!-- MAAND OVERZICHT -->
+  <div id="page-maand" class="page">
+    <div class="page-label">Maandoverzicht</div>
+    <h1>Jouw maand in energie</h1>
+    <p class="page-subtitle">Alle weken van deze maand op een rij. Zo zie je patronen over langere tijd.</p>
+    <div class="maand-grid" id="maand-grid"></div>
+    <button class="nieuw-week-btn" onclick="nieuweWeek()">Nieuwe week starten</button>
+  </div>
+
+</main>
+
+<script>
+  const DAGEN = ['ma','di','wo','do','vr','za','zo'];
+  const DAG_NAMEN = { ma:'Maandag', di:'Dinsdag', wo:'Woensdag', do:'Donderdag', vr:'Vrijdag', za:'Zaterdag', zo:'Zondag' };
+  const DAG_KORT = { ma:'Ma', di:'Di', wo:'Wo', do:'Do', vr:'Vr', za:'Za', zo:'Zo' };
+
+  const NIVEAU_NAMEN = { 1:'Bijna leeg', 2:'Laag', 3:'Midden', 4:'Goed', 5:'Vol' };
+  const NIVEAU_OMSCHRIJVING = {
+    1:'Je lijf en hoofd vragen om rust. Alles voelt zwaar.',
+    2:'Je kan iets doen, maar niet veel. Lichte taken zijn haalbaar.',
+    3:'Redelijk stabiel. Je kan functioneren, maar niet forceren.',
+    4:'Je hebt ruimte. Gebruik het bewust, niet meteen alles.',
+    5:'Je voelt je goed. Goede dag voor iets wat meer vraagt.'
+  };
+
+  // Data opslag in geheugen
+  let weekData = {};
+  let maandData = JSON.parse(localStorage.getItem('prisma-maand') || '[]');
+  let huidigePagina = 'ma';
+
+  // Bouw dag pagina's
+  DAGEN.forEach(dag => {
+    document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
+  });
+
+  function buildDagPagina(dag) {
+    return `
+      <div class="page-label">Deze week — ${DAG_NAMEN[dag]}</div>
+      <h1>Hoe is je energie vandaag?</h1>
+      <p class="page-subtitle">Geen goed of fout antwoord. Je energie is informatie — geen oordeel.</p>
+
+      <div class="form-section">
+        <div class="section-label">Stap 1 — Energieniveau</div>
+        <div class="energie-schaal" id="schaal-${dag}">
+          ${[1,2,3,4,5].map(n => `
+            <div class="energie-optie" data-niveau="${n}" onclick="selecteerEnergie('${dag}', this)">
+              <div class="energie-nummer">${n}</div>
+              <div class="energie-info">
+                <div class="energie-naam">${NIVEAU_NAMEN[n]}</div>
+                <div class="energie-omschrijving">${NIVEAU_OMSCHRIJVING[n]}</div>
+              </div>
+              <div class="energie-dot"></div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Stap 2 — Wat had je energie nodig?</div>
+        <div class="behoeften-grid" id="behoeften-${dag}">
+          ${['Rust','Stilte','Beweging','Structuur','Contact','Creativiteit','Afleiding','Natuur','Routines'].map(b =>
+            `<div class="behoefte-tag" onclick="toggleBehoefte(this)">${b}</div>`).join('')}
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Stap 3 — Wat kostte energie?</div>
+        <textarea class="tekst-input kort" id="kostte-${dag}" placeholder="Wat zoog energie uit je vandaag?"></textarea>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Stap 4 — Wat gaf energie?</div>
+        <textarea class="tekst-input kort" id="gaf-${dag}" placeholder="Wat gaf je energie of rust?"></textarea>
+      </div>
+
+      <button class="opslaan-btn" id="btn-${dag}" onclick="slaanOp('${dag}')" disabled>Dag opslaan</button>
+      <div class="dag-opgeslagen" id="bevestiging-${dag}">Dag opgeslagen. Je kan verder naar de volgende dag.</div>
+    `;
+  }
+
+  function selecteerEnergie(dag, el) {
+    el.closest('.energie-schaal').querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    if (!weekData[dag]) weekData[dag] = {};
+    weekData[dag].niveau = parseInt(el.dataset.niveau);
+    document.getElementById('btn-' + dag).disabled = false;
+  }
+
+  function toggleBehoefte(el) { el.classList.toggle('selected'); }
+
+  function slaanOp(dag) {
+    if (!weekData[dag] || !weekData[dag].niveau) return;
+    const behoeften = [...document.querySelectorAll(`#behoeften-${dag} .behoefte-tag.selected`)].map(t => t.textContent);
+    weekData[dag].behoeften = behoeften;
+    weekData[dag].kostte = document.getElementById('kostte-' + dag).value.trim();
+    weekData[dag].gaf = document.getElementById('gaf-' + dag).value.trim();
+    weekData[dag].naam = DAG_NAMEN[dag];
+
+    document.getElementById('bevestiging-' + dag).style.display = 'block';
+    document.getElementById('nav-' + dag).classList.add('done');
+
+    const volgendeDag = DAGEN[DAGEN.indexOf(dag) + 1];
+    if (volgendeDag) {
+      setTimeout(() => navigeer(volgendeDag), 800);
+    } else {
+      setTimeout(() => navigeer('week'), 800);
+    }
+  }
+
+  function navigeer(pagina) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item, .nav-item-maand').forEach(n => n.classList.remove('active'));
+
+    document.getElementById('page-' + pagina).classList.add('active');
+    const navEl = document.getElementById('nav-' + pagina);
+    if (navEl) navEl.classList.add('active');
+
+    if (pagina === 'week') buildWeekOverzicht();
+    if (pagina === 'maand') buildMaandOverzicht();
+
+    huidigePagina = pagina;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function buildWeekOverzicht() {
+    const grid = document.getElementById('week-grid');
+    const analyse = document.getElementById('week-analyse');
+    grid.innerHTML = '';
+
+    DAGEN.forEach(dag => {
+      const d = weekData[dag];
+      const kaart = document.createElement('div');
+      kaart.className = 'dag-kaart';
+      if (d && d.niveau) {
+        const pct = (d.niveau / 5) * 100;
+        kaart.innerHTML = `
+          <div class="dag-naam-col">
+            <div class="dag-naam">${DAG_NAMEN[dag]}</div>
+            <div class="dag-datum">${NIVEAU_NAMEN[d.niveau]}</div>
+          </div>
+          <div class="energie-balk-wrap">
+            <div class="energie-balk-bg"><div class="energie-balk-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div class="dag-niveau-label">${d.niveau} / 5</div>
+        `;
+      } else {
+        kaart.innerHTML = `
+          <div class="dag-naam-col"><div class="dag-naam">${DAG_NAMEN[dag]}</div></div>
+          <div class="dag-leeg">Nog niet ingevuld</div>
+        `;
+      }
+      grid.appendChild(kaart);
+    });
+
+    // Analyse
+    const ingevuld = DAGEN.filter(d => weekData[d] && weekData[d].niveau);
+    if (ingevuld.length < 3) {
+      analyse.innerHTML = `<div class="reminder">Vul nog wat meer dagen in om je weekpatroon te zien.</div>`;
+      return;
+    }
+
+    const niveaus = ingevuld.map(d => weekData[d].niveau);
+    const gem = (niveaus.reduce((a,b) => a+b, 0) / niveaus.length).toFixed(1);
+    const laagsteDag = ingevuld.reduce((a,b) => weekData[a].niveau < weekData[b].niveau ? a : b);
+    const hoogstetDag = ingevuld.reduce((a,b) => weekData[a].niveau > weekData[b].niveau ? a : b);
+
+    const alleKostte = ingevuld.filter(d => weekData[d].kostte).map(d => weekData[d].kostte);
+    const alleGaf = ingevuld.filter(d => weekData[d].gaf).map(d => weekData[d].gaf);
+
+    const alleBehoeften = ingevuld.flatMap(d => weekData[d].behoeften || []);
+    const behoeftenCount = {};
+    alleBehoeften.forEach(b => { behoeftenCount[b] = (behoeftenCount[b] || 0) + 1; });
+    const topBehoefte = Object.entries(behoeftenCount).sort((a,b) => b[1]-a[1]).slice(0,2).map(e => e[0]);
+
+    const laagNiveaus = niveaus.filter(n => n <= 2).length;
+    const hoogNiveaus = niveaus.filter(n => n >= 4).length;
+
+    let advies = [];
+    if (laagNiveaus >= 3) advies.push('Je had meerdere dagen met weinig energie. Kijk of je volgende week meer rustmomenten kan inplannen — niet als beloning, maar als onderdeel van je dag.');
+    if (hoogNiveaus >= 3) advies.push('Je had een energieke week. Zorg dat je de goede dagen niet overlaadt — spaar ook iets voor de dagen erna.');
+    if (topBehoefte.includes('Rust') || topBehoefte.includes('Stilte')) advies.push('Je brein vroeg deze week regelmatig om rust of stilte. Dat is informatie: misschien waren er meer prikkels dan normaal.');
+    if (topBehoefte.includes('Structuur')) advies.push('Structuur was deze week een terugkerende behoefte. Een vaste ochtend- of avondroutine kan helpen om die structuur minder afhankelijk te maken van hoe je je voelt.');
+    if (advies.length === 0) advies.push('Je week zag er redelijk stabiel uit. Dat is waardevol — houd bij wat werkte en probeer dat vast te houden.');
+
+    analyse.innerHTML = `
+      <div class="analyse-blok">
+        <div class="analyse-titel">Jouw weekpatroon</div>
+        <div class="analyse-tekst">Gemiddeld energieniveau deze week: <strong>${gem} / 5</strong>. Je laagste dag was ${DAG_NAMEN[laagsteDag]}, je hoogste dag was ${DAG_NAMEN[hoogstetDag]}.</div>
+        ${topBehoefte.length ? `<ul class="analyse-lijst">${topBehoefte.map(b => `<li><div class="analyse-streep"></div><div>Je energie vroeg deze week vaak om: <strong>${b}</strong></div></li>`).join('')}</ul>` : ''}
+      </div>
+      ${alleKostte.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie kostte</div><ul class="analyse-lijst">${alleKostte.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
+      ${alleGaf.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie gaf</div><ul class="analyse-lijst">${alleGaf.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
+      <div class="analyse-blok">
+        <div class="analyse-titel">Voor volgende week</div>
+        <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
+      </div>
+      <div class="reminder">Patronen veranderen niet in één week. Maar elke week dat je bijhoudt is een week dat je je energie serieus neemt.</div>
+      <button class="nieuw-week-btn" style="margin-top:24px" onclick="weekOpslaan()">Week opslaan en nieuwe week starten</button>
+    `;
+  }
+
+  function weekOpslaan() {
+    const weekNr = maandData.length + 1;
+    maandData.push({ week: weekNr, data: {...weekData} });
+    try { localStorage.setItem('prisma-maand', JSON.stringify(maandData)); } catch(e) {}
+    nieuweWeek();
+    navigeer('maand');
+  }
+
+  function nieuweWeek() {
+    weekData = {};
+    DAGEN.forEach(dag => {
+      document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
+      const nav = document.getElementById('nav-' + dag);
+      nav.classList.remove('done', 'active');
+    });
+    document.getElementById('nav-ma').classList.add('active');
+    navigeer('ma');
+  }
+
+  function buildMaandOverzicht() {
+    const grid = document.getElementById('maand-grid');
+    grid.innerHTML = '';
+
+    if (maandData.length === 0) {
+      grid.innerHTML = `<div style="font-size:13px;color:var(--grijs-mid);font-style:italic;font-family:'Noto Serif',serif;">Nog geen weken opgeslagen. Vul een week in en sla hem op om hem hier te zien.</div>`;
+      return;
+    }
+
+    maandData.forEach(week => {
+      const niveaus = DAGEN.map(d => week.data[d] ? week.data[d].niveau : null);
+      const ingevuld = niveaus.filter(n => n !== null);
+      const gem = ingevuld.length ? (ingevuld.reduce((a,b) => a+b,0) / ingevuld.length).toFixed(1) : '-';
+
+      const blok = document.createElement('div');
+      blok.className = 'week-blok';
+      blok.innerHTML = `
+        <div class="week-header">
+          <div class="week-header-titel">Week ${week.week}</div>
+          <div class="week-gemiddelde">gem. ${gem} / 5</div>
+        </div>
+        <div class="week-dagen-rij">
+          ${DAGEN.map((dag, i) => {
+            const n = niveaus[i];
+            return `<div class="mini-dag">
+              <div class="mini-dag-naam">${DAG_KORT[dag]}</div>
+              <div class="mini-dag-bal ${n ? 'niveau-' + n : 'leeg'}">${n || '—'}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      `;
+      grid.appendChild(blok);
+    });
+  }
+</script>
+</body>
+</html>
