@@ -546,66 +546,112 @@
     }
   }
 
-  const niveauData = {
-    1: {
-      naam: 'Niveau 1 — Bijna leeg',
-      titel: 'Vandaag is een rustdag. Dat is genoeg.',
-      tekst: 'Je hoeft vandaag niks te bewijzen. Een lege dag is geen mislukte dag — het is een dag waarop je lijf iets nodig heeft. Luister ernaar.',
-      taken: ['Één kleine taak die niet veel kost — iets wat je al weet hoe je het doet', 'Hydrateer, eet iets, beweeg een beetje als het kan', 'Alles wat kan wachten — laat het wachten'],
-      reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.'
-    },
-    2: {
-      naam: 'Niveau 2 — Laag',
-      titel: 'Licht en haalbaar. Niet meer dan dat.',
-      tekst: 'Je kan iets doen, maar forceren kost je morgen ook energie. Kies taken die weinig beslissingen vragen en weinig prikkels geven.',
-      taken: ['Routinetaken — dingen die je al kent en niet hoeft na te denken', 'Korte sessies van max 30 minuten, met pauzes ertussen', 'Geen nieuwe dingen starten of grote beslissingen nemen'],
-      reminder: 'Op een lage dag iets doen wat haalbaar was, is al een prestatie. Niet niks.'
-    },
-    3: {
-      naam: 'Niveau 3 — Midden',
-      titel: 'Redelijk stabiel. Gebruik het bewust.',
-      tekst: 'Je hebt genoeg energie om te functioneren. Niet genoeg om alles tegelijk te doen. Kies één ding dat telt vandaag.',
-      taken: ['Één taak die iets vraagt maar niet overweldigend is', 'Sociale contacten zijn haalbaar, maar houd het kort', 'Vermijd impulsieve besluiten of overplanning voor de rest van de week'],
-      reminder: 'Een gemiddelde dag is geen teleurstelling. Het is gewoon een dag. Die mag er ook zijn.'
-    },
-    4: {
-      naam: 'Niveau 4 — Goed',
-      titel: 'Je hebt ruimte. Gebruik het met beleid.',
-      tekst: 'Een goede dag is waardevol — maar gebruik het niet om alles in te halen wat je eerder niet deed. Kies bewust waar je deze energie in steekt.',
-      taken: ['Taken die wat meer concentratie of creativiteit vragen', 'Iets aanpakken wat je al een tijdje uitstelde', 'Verbinding zoeken — een gesprek, een bericht, aanwezig zijn'],
-      reminder: 'Een goede dag is geen verplichting om alles te doen. Het is een kans om iets te doen wat telt.'
-    },
-    5: {
-      naam: 'Niveau 5 — Vol',
-      titel: 'Goede dag. Benut hem, maar spaar ook.',
-      tekst: 'Je voelt je goed. Dit is een dag voor dingen die meer vragen — maar onthoud: ook volle dagen eindigen. Bouw iets in voor morgen.',
-      taken: ['Werk aan iets wat je energie en aandacht vraagt', 'Maak beslissingen die je uitstelde', 'Plan ook rust in — zodat morgen ook een goede dag kan zijn'],
-      reminder: 'Op volle energie iets bouwen is waardevol. Maar zorg ook dat je morgen nog wat over hebt.'
-    }
+  // Basisteksten per niveau
+  const niveauBase = {
+    1: { naam: 'Niveau 1 — Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
+    2: { naam: 'Niveau 2 — Laag', titel: 'Licht en haalbaar. Niet meer dan dat.', reminder: 'Op een lage dag iets doen wat haalbaar was, is al een prestatie. Niet niks.' },
+    3: { naam: 'Niveau 3 — Midden', titel: 'Redelijk stabiel. Gebruik het bewust.', reminder: 'Een gemiddelde dag is geen teleurstelling. Het is gewoon een dag. Die mag er ook zijn.' },
+    4: { naam: 'Niveau 4 — Goed', titel: 'Je hebt ruimte. Gebruik het met beleid.', reminder: 'Een goede dag is geen verplichting om alles te doen. Het is een kans om iets te doen wat telt.' },
+    5: { naam: 'Niveau 5 — Vol', titel: 'Goede dag. Benut hem, maar spaar ook.', reminder: 'Op volle energie iets bouwen is waardevol. Maar zorg ook dat je morgen nog wat over hebt.' }
   };
+
+  // Gepersonaliseerde tekst op basis van niveau + behoeften
+  function bouwAdvies(niveau, behoeften) {
+    const heeftRust = behoeften.includes('Rust') || behoeften.includes('Stilte');
+    const heeftBeweging = behoeften.includes('Beweging') || behoeften.includes('Natuur');
+    const heeftContact = behoeften.includes('Contact');
+    const heeftStructuur = behoeften.includes('Structuur') || behoeften.includes('Routines');
+    const heeftCreativiteit = behoeften.includes('Creativiteit');
+    const heeftAfleiding = behoeften.includes('Afleiding');
+
+    let tekst = '';
+    let taken = [];
+
+    if (niveau <= 2) {
+      if (heeftRust) {
+        tekst = 'Je energie is laag én je brein vraagt om rust. Dat is een duidelijk signaal. Geef jezelf toestemming om vandaag zo min mogelijk te doen.';
+        taken = ['Zet prikkels zoveel mogelijk uit: notificaties uit, scherm weg', 'Lig, zit, of wandel rustig — zonder doel', 'Geen besluiten nemen, geen plannen maken'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen — als je het rustig houdt. Geen sport, wel bewegen.';
+        taken = ['Een korte wandeling van 10-15 minuten, liefst buiten', 'Stretch of beweeg even tussendoor zonder druk', 'Daarna rust: beweging mag energie geven, niet kosten'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact — een berichtje, geen lang gesprek.';
+        taken = ['Stuur iemand een kort berichtje, zonder verwachting van een gesprek', 'Geen sociale verplichtingen aangaan vandaag', 'Onthoud: verbinding hoeft niet uitputtend te zijn'];
+      } else if (heeftStructuur) {
+        tekst = 'Je energie is laag en je zoekt houvast. Gebruik een kleine, vaste routine als anker — niet om productief te zijn, maar om stabiel te blijven.';
+        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
+      } else {
+        tekst = 'Je energie is laag. Forceren kost je morgen ook energie. Kies taken die weinig beslissingen vragen.';
+        taken = ['Routinetaken die je al kent en niet hoeft na te denken', 'Korte sessies van max 30 minuten met pauzes', 'Geen nieuwe dingen starten of grote beslissingen nemen'];
+      }
+    } else if (niveau === 3) {
+      if (heeftRust) {
+        tekst = 'Je energie is redelijk, maar je brein vraagt toch om rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
+        taken = ['Kies één taak die echt belangrijk is en doe die eerst', 'Plan daarna actief een pauze in — niet als beloning, als onderdeel van de dag', 'Vermijd overvolle agenda\'s en last-minute beslissingen'];
+      } else if (heeftCreativiteit) {
+        tekst = 'Je energie is stabiel en je hebt zin in iets creatiefs. Goed moment voor taken die ruimte vragen in plaats van druk.';
+        taken = ['Pak iets aan waar je creatief in kunt zijn: schrijven, ontwerpen, bedenken', 'Houd het bij één creatief project — niet alles tegelijk', 'Geef jezelf ruimte om te experimenteren zonder eindresultaat te verwachten'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag — het helpt je hoofd ook.';
+        taken = ['Begin met een wandeling of lichte beweging voor je aan het werk gaat', 'Wissel daarna zitten en bewegen af als dat kan', 'Plan de zwaardere taken na de beweging, niet ervoor'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is stabiel en je hebt behoefte aan verbinding. Goede dag voor een echt gesprek of samenwerken.';
+        taken = ['Plan een gesprek of check-in met iemand die je energie geeft', 'Houd het bij één of twee sociale momenten', 'Daarna ook tijd voor jezelf inbouwen'];
+      } else if (heeftStructuur) {
+        tekst = 'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag — dat voorkomt besluitmoeheid.';
+        taken = ['Schrijf de drie dingen op die je vandaag wil doen, op volgorde', 'Werk ze af voor je iets anders erbij pakt', 'Sluit de dag af door te checken wat je deed — niet wat je niet deed'];
+      } else {
+        tekst = 'Je energie is redelijk stabiel. Niet genoeg om alles te doen, wel genoeg voor één ding dat telt.';
+        taken = ['Één taak die iets vraagt maar niet overweldigend is', 'Sociale contacten zijn haalbaar, maar houd het kort', 'Vermijd impulsieve besluiten of overplanning'];
+      }
+    } else {
+      // niveau 4-5
+      if (heeftCreativiteit) {
+        tekst = 'Je energie is goed én je hebt zin om iets te maken. Dit is precies het moment om iets te bouwen waar je trots op kunt zijn.';
+        taken = ['Werk aan iets creatiefs dat je al een tijdje wil oppakken', 'Blokkeer tijd zonder onderbrekingen voor dit project', 'Sla op wat je maakt — ook als het nog niet af is'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof — en zorg dat je daarna ook echt iets gedaan krijgt.';
+        taken = ['Begin met bewegen: hardlopen, fietsen, of wat je energie geeft', 'Gebruik de energie daarna gericht voor je belangrijkste taak', 'Plan aan het einde van de dag ook rust in'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is goed en je hebt zin in verbinding. Goede dag voor gesprekken, samenwerken, of mensen opzoeken die je al lang niet hebt gezien.';
+        taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Gebruik je energie ook voor iets wat je alleen doet — balans is key', 'Sla op wat je hebt afgesproken of besloten'];
+      } else if (heeftAfleiding) {
+        tekst = 'Je energie is goed, maar je brein wil afleiding. Pas op: afleiding op een goede dag kan je energie wegsluizen. Geef jezelf structuur.';
+        taken = ['Werk eerst de belangrijkste taak af voordat je afleiding toelaat', 'Gebruik de afleiding bewust als beloning achteraf', 'Zet tijdlimieten op afleiding — wees eerlijk over hoelang je ermee bezig bent'];
+      } else if (heeftRust) {
+        tekst = 'Je energie is goed, maar je vraagt ook om rust. Dat betekent: doe iets dat telt, maar overdrijf niet. Spaar voor morgen.';
+        taken = ['Kies één of twee taken die echt belangrijk zijn', 'Plan rustmomenten actief in — niet als bijzaak', 'Goede dag is geen vrijbrief om alles in te halen'];
+      } else {
+        tekst = 'Je energie is goed. Gebruik het bewust — niet om alles in te halen, maar om iets te doen wat telt.';
+        taken = ['Werk aan iets wat concentratie of creativiteit vraagt', 'Iets aanpakken wat je al een tijdje uitstelde', 'Plan ook rust in zodat morgen ook een goede dag kan zijn'];
+      }
+    }
+
+    return { tekst, taken };
+  }
 
   function toonResultaat() {
     if (!geselecteerdNiveau) return;
-    const data = niveauData[geselecteerdNiveau];
+    const base = niveauBase[geselecteerdNiveau];
+    const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.textContent);
     const intentie = document.getElementById('intentie').value.trim();
+    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften);
 
-    document.getElementById('res-niveau').textContent = data.naam;
-    document.getElementById('res-titel').textContent = data.titel;
-    document.getElementById('res-tekst').textContent = data.tekst;
-    document.getElementById('res-reminder').textContent = data.reminder;
+    document.getElementById('res-niveau').textContent = base.naam;
+    document.getElementById('res-titel').textContent = base.titel;
+    document.getElementById('res-tekst').textContent = tekst;
+    document.getElementById('res-reminder').textContent = base.reminder;
 
     const takenEl = document.getElementById('res-taken');
     takenEl.innerHTML = '';
-    let taken = [...data.taken];
-    if (intentie) taken.unshift('Jouw intentie voor vandaag: ' + intentie);
-    taken.forEach(t => {
+    let alleTaken = [...taken];
+    if (intentie) alleTaken.unshift('Jouw intentie voor vandaag: ' + intentie);
+    alleTaken.forEach(t => {
       takenEl.innerHTML += `<div class="taak-item"><div class="taak-streep"></div><div>${t}</div></div>`;
     });
 
-    // Verberg formulier, toon resultaat
     document.getElementById('voortgang').style.display = 'none';
     document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
-
     const resultaatEl = document.getElementById('resultaat');
     resultaatEl.classList.add('zichtbaar');
     window.scrollTo({ top: 0, behavior: 'smooth' });
