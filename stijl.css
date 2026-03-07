@@ -21,7 +21,7 @@
   --serif:  'Noto Serif', Georgia, serif;
   --sans:   'Montserrat', sans-serif;
 
-  --nav-hoogte: 68px;
+  --nav-hoogte: 76px;
   --max-breedte: 760px;
   --rand-m: clamp(1.25rem, 5vw, 2.5rem);
   --rand-l: clamp(3rem, 8vw, 6rem);
@@ -108,7 +108,7 @@ nav.gescrold {
 }
 
 .nav-logo img {
-  height: 44px;
+  height: 56px;
   width: auto;
   display: block;
 }
@@ -286,10 +286,11 @@ footer {
 }
 
 .footer-logo img {
-  height: 32px;
+  height: 40px;
   width: auto;
-  opacity: 0.85;
+  display: block;
   filter: brightness(0) invert(1);
+  opacity: 0.9;
 }
 
 .footer-tekst {
