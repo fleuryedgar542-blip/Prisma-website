@@ -7,7 +7,7 @@
   <meta name="description" content="Simpele, werkbare tools voor een neurodivergent brein. Gratis dagplanner en betaalde weektracker van PRISMA Systemen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="stijl.css" />
   <style>
     /* ── TOOLS-SPECIFIEK ── */
@@ -131,12 +131,10 @@
 
   <!-- ✦ NAVIGATIE -->
   <nav id="nav">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="PRISMA Systemen" />
-    </a>
+    <a href="index.html" class="nav-logo">PRISMA <span>Systemen</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="over.html">Over</a></li>
+      <li><a href="over.html">Over mij</a></li>
       <li><a href="tools.html" class="actief">Tools</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -147,7 +145,7 @@
 
   <div class="mobiel-menu" id="mobiel-menu">
     <a href="index.html">Home</a>
-    <a href="over.html">Over Fleur</a>
+    <a href="over.html">Over mij</a>
     <a href="tools.html" class="actief">Tools</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -174,20 +172,20 @@
         <p>
           Een interactieve check-in die je helpt inschatten hoeveel energie je hebt
           en welke taken daarbij passen. Drie stappen: energieniveau kiezen, behoeften
-          aanvinken, één intentie invullen. Resultaat op maat, zonder oordeel.
+          aanvinken, één intentie invullen. Resultaat op maat — zonder oordeel.
         </p>
 
         <div class="tool-stappen">
           <div class="stap">
-            <span class="stap-nummer">01</span>
+            <span class="stap-nummer">één</span>
             <p>Kies je energieniveau van 1 tot 5</p>
           </div>
           <div class="stap">
-            <span class="stap-nummer">02</span>
+            <span class="stap-nummer">twee</span>
             <p>Vink aan wat je vandaag nodig hebt</p>
           </div>
           <div class="stap">
-            <span class="stap-nummer">03</span>
+            <span class="stap-nummer">drie</span>
             <p>Stel één intentie in voor de dag</p>
           </div>
         </div>
@@ -197,7 +195,7 @@
             <span class="prijs-bedrag">Gratis</span>
           </div>
           <!-- ✦ AANPASSEN: verander href naar Stan.store link zodra die er is -->
-          <a href="prisma-dagplanner.html" class="knop knop-groen">Probeer de dagplanner</a>
+          <a href="#" class="knop knop-groen">Probeer de dagplanner</a>
         </div>
       </div>
 
@@ -216,20 +214,23 @@
 
         <div class="tool-stappen">
           <div class="stap">
-            <span class="stap-nummer">01</span>
+            <span class="stap-nummer">één</span>
             <p>Dagelijks energieniveau en taken bijhouden</p>
           </div>
           <div class="stap">
-            <span class="stap-nummer">02</span>
+            <span class="stap-nummer">twee</span>
             <p>Weekoverzicht met patronen en inzichten</p>
           </div>
           <div class="stap">
-            <span class="stap-nummer">03</span>
+            <span class="stap-nummer">drie</span>
             <p>Suggesties voor de week erna op basis van jouw data</p>
           </div>
         </div>
 
         <div class="tool-kaart-acties">
+          <div class="tool-prijs">
+            <span class="prijs-bedrag">€9 – €15</span>
+          </div>
           <span class="binnenkort-tekst">Beschikbaar na de zomer van 2026</span>
         </div>
       </div>
@@ -241,13 +242,11 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo">
-          <img src="logo.png" alt="PRISMA Systemen" />
-        </div>
+        <div class="footer-logo">PRISMA <span>Systemen</span></div>
         <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
         <ul class="footer-nav">
           <li><a href="index.html">Home</a></li>
-          <li><a href="over.html">Over</a></li>
+          <li><a href="over.html">Over mij</a></li>
           <li><a href="tools.html">Tools</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>

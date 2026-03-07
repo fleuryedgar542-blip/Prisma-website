@@ -68,43 +68,27 @@
     /* Scrollindicator */
     .scroll-indicator {
       position: absolute;
-      bottom: 1.5rem;
+      bottom: 1.75rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      animation: opkomen 0.6s ease 1s both;
+      justify-content: center;
+      animation: opkomen 0.6s ease 1s both, bobben 2s ease-in-out 1.5s infinite;
       cursor: pointer;
       text-decoration: none;
+      color: var(--groen-dark);
+      opacity: 0.7;
+      transition: opacity 0.2s;
     }
-    .scroll-indicator span {
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--grijs-licht);
+    .scroll-indicator:hover { opacity: 1; }
+    .scroll-pijl {
+      width: 32px;
+      height: 32px;
     }
-    .scroll-lijn {
-      width: 1px;
-      height: 36px;
-      background: var(--beige-dark);
-      position: relative;
-      overflow: hidden;
-    }
-    .scroll-lijn::after {
-      content: '';
-      position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--groen-dark));
-      animation: scrollbeweging 2s ease-in-out infinite;
-    }
-    @keyframes scrollbeweging {
-      0%   { top: -100%; }
-      100% { top: 100%; }
+    @keyframes bobben {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
     }
 
     /* Intro blokken */
@@ -187,10 +171,10 @@
 
   <!-- ✦ NAVIGATIE -->
   <nav id="nav">
-    <a href="index.html" class="nav-logo">logo.png<span>PRISMA systemen</span></a>
+    <a href="index.html" class="nav-logo">PRISMA <span>Systemen</span></a>
     <ul class="nav-links">
       <li><a href="index.html" class="actief">Home</a></li>
-      <li><a href="over.html">Over</a></li>
+      <li><a href="over.html">Over mij</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -202,7 +186,7 @@
   <!-- Mobiel menu -->
   <div class="mobiel-menu" id="mobiel-menu">
     <a href="index.html" class="actief">Home</a>
-    <a href="over.html">Over Fleur</a>
+    <a href="over.html">Over mij</a>
     <a href="tools.html">Tools</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -219,13 +203,15 @@
         </p>
         <div class="hero-acties">
           <a href="tools.html" class="knop knop-groen">Bekijk de tools</a>
-          <a href="over.html" class="knop">Over Fleur</a>
+          <a href="over.html" class="knop">Over mij</a>
         </div>
       </div>
     </div>
-    <a class="scroll-indicator" href="#pijlers">
-      <span>Scroll</span>
-      <div class="scroll-lijn"></div>
+    <a class="scroll-indicator" href="#pijlers" aria-label="Scroll naar beneden">
+      <svg class="scroll-pijl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="4" x2="12" y2="18" stroke="currentColor" stroke-width="1"/>
+        <polyline points="6,13 12,20 18,13" fill="none" stroke="currentColor" stroke-width="1"/>
+      </svg>
     </a>
   </section>
 
@@ -269,7 +255,7 @@
         <h2>Ik bouw dit terwijl ik er zelf middenin zit.</h2>
         <p>
           Geen afgerond verhaal vanuit een plek waar alles al opgelost is.
-          Wel eerlijkheid, herkenning, en systemen die ik zelf had willen hebben.
+          Wel eerlijkheid, herkenning en systemen die ik zelf had willen hebben.
         </p>
         <a href="over.html" class="knop">Lees meer over Fleur</a>
       </div>
@@ -286,7 +272,7 @@
         </p>
         <ul class="footer-nav">
           <li><a href="index.html">Home</a></li>
-          <li><a href="over.html">Over</a></li>
+          <li><a href="over.html">Over mij</a></li>
           <li><a href="tools.html">Tools</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
