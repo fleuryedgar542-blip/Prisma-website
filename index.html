@@ -7,17 +7,18 @@
   <meta name="description" content="PRISMA Systemen helpt neurodivergente jongvolwassenen autonomie bouwen via simpele, werkbare systemen. Geen hustle. Wel rust en richting." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="stijl.css" />
   <style>
     /* ── HOME-SPECIFIEK ── */
 
-    /* Hero */
+    /* Hero — iets minder hoog zodat volgende sectie net zichtbaar is */
     .hero {
-      min-height: calc(90vh - var(--nav-hoogte));
+      min-height: calc(85vh - var(--nav-hoogte));
       display: flex;
       align-items: center;
-      padding: clamp(3rem, 8vw, 6rem) 0;
+      padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+      position: relative;
     }
 
     .hero-inner {
@@ -62,6 +63,48 @@
     @keyframes opkomen {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scrollindicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: opkomen 0.6s ease 1s both;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .scroll-indicator span {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grijs-licht);
+    }
+    .scroll-lijn {
+      width: 1px;
+      height: 36px;
+      background: var(--beige-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-lijn::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--groen-dark));
+      animation: scrollbeweging 2s ease-in-out infinite;
+    }
+    @keyframes scrollbeweging {
+      0%   { top: -100%; }
+      100% { top: 100%; }
     }
 
     /* Intro blokken */
@@ -144,12 +187,10 @@
 
   <!-- ✦ NAVIGATIE -->
   <nav id="nav">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="PRISMA Systemen" />
-    </a>
+    <a href="index.html" class="nav-logo">PRISMA <span>Systemen</span></a>
     <ul class="nav-links">
       <li><a href="index.html" class="actief">Home</a></li>
-      <li><a href="over.html">Over mij</a></li>
+      <li><a href="over.html">Over</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -161,7 +202,7 @@
   <!-- Mobiel menu -->
   <div class="mobiel-menu" id="mobiel-menu">
     <a href="index.html" class="actief">Home</a>
-    <a href="over.html">Over mij</a>
+    <a href="over.html">Over Fleur</a>
     <a href="tools.html">Tools</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -178,16 +219,20 @@
         </p>
         <div class="hero-acties">
           <a href="tools.html" class="knop knop-groen">Bekijk de tools</a>
-          <a href="over.html" class="knop">Over mij</a>
+          <a href="over.html" class="knop">Over Fleur</a>
         </div>
       </div>
     </div>
+    <a class="scroll-indicator" href="#pijlers">
+      <span>Scroll</span>
+      <div class="scroll-lijn"></div>
+    </a>
   </section>
 
   <hr class="lijn" />
 
   <!-- ✦ DE 4 PIJLERS -->
-  <section class="sectie sectie-wit">
+  <section class="sectie sectie-wit" id="pijlers">
     <div class="container">
       <span class="sectie-label">De aanpak</span>
       <h2>Alles draait om autonomie.</h2>
@@ -206,12 +251,12 @@
         <div class="intro-blok">
           <span class="intro-nummer">03</span>
           <h3>Ambitie reguleren</h3>
-          <p>Niet over je grenzen gaan, ook als je hoofd vol zit met plannen.</p>
+          <p>Niet over je grenzen gaan — ook als je hoofd vol zit met plannen.</p>
         </div>
         <div class="intro-blok">
           <span class="intro-nummer">04</span>
           <h3>Financiële basis</h3>
-          <p>Buffer, overzicht en lange termijn, ook als geld overweldigend aanvoelt.</p>
+          <p>Buffer, overzicht en lange termijn — ook als geld overweldigend aanvoelt.</p>
         </div>
       </div>
     </div>
@@ -226,7 +271,7 @@
           Geen afgerond verhaal vanuit een plek waar alles al opgelost is.
           Wel eerlijkheid, herkenning, en systemen die ik zelf had willen hebben.
         </p>
-        <a href="over.html" class="knop">Lees meer over mij</a>
+        <a href="over.html" class="knop">Lees meer over Fleur</a>
       </div>
     </div>
   </div>
@@ -235,9 +280,7 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo">
-          <img src="logo.png" alt="PRISMA Systemen" />
-        </div>
+        <div class="footer-logo">PRISMA <span>Systemen</span></div>
         <p class="footer-tekst">
           Rust en richting voor een neurodivergent brein. Gebouwd vanuit eigen ervaring, voor mensen die systemen nodig hebben die bij hun brein passen.
         </p>
