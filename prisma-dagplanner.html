@@ -345,12 +345,58 @@
   }
   .opnieuw-btn:hover { border-color: var(--grijs); color: var(--grijs); }
 
+  .home-link {
+    display: inline-block;
+    margin-top: 28px;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .home-link:hover { border-color: var(--grijs); color: var(--grijs); }
+
   /* DIVIDER */
   .divider {
     height: 1px;
     background: var(--grijs-licht);
     margin: 40px 0;
   }
+
+  /* WERKSTIJL */
+  .werkstijl-grid { display: flex; flex-direction: column; gap: 8px; }
+  .werkstijl-optie {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid transparent;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .werkstijl-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
+  .werkstijl-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+  .werkstijl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-mid);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
+  .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .werkstijl-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -387,13 +433,23 @@
     <div class="stap-lijn" id="lijn-2"></div>
     <div class="stap-item">
       <div class="stap-cirkel" id="cirkel-3">3</div>
-      <span class="stap-label" id="label-3">Intentie</span>
+      <span class="stap-label" id="label-3">Werkstijl</span>
+    </div>
+    <div class="stap-lijn" id="lijn-3"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-4">4</div>
+      <span class="stap-label" id="label-4">Wie</span>
+    </div>
+    <div class="stap-lijn" id="lijn-4"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-5">5</div>
+      <span class="stap-label" id="label-5">Intentie</span>
     </div>
   </div>
 
   <!-- STAP 1 -->
   <div class="stap actief" id="stap-1">
-    <div class="section-label">Stap 1 — Energieniveau</div>
+    <div class="section-label">Stap 1 — Hoeveel energie heb je nu?</div>
     <div class="energie-schaal">
       <div class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
         <div class="energie-nummer">1</div>
@@ -444,17 +500,17 @@
 
   <!-- STAP 2 -->
   <div class="stap" id="stap-2">
-    <div class="section-label">Stap 2 — Wat heeft je energie nodig?</div>
+    <div class="section-label">Stap 2 — Wat heeft je lijf of hoofd nodig?</div>
     <div class="behoeften-grid">
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Rust</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Stilte</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Beweging</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Structuur</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Contact</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Creativiteit</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Afleiding</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Natuur</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">Routines</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Even niks hoeven</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Minder prikkels</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Bewegen of buiten zijn</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Weten wat ik ga doen</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Verbinding met iemand</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Iets maken of bedenken</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets erbij doen terwijl ik werk</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Muziek of geluid op de achtergrond</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Duidelijke tijdsgrenzen</div>
     </div>
     <p class="stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</p>
     <div class="knop-rij">
@@ -465,11 +521,62 @@
 
   <!-- STAP 3 -->
   <div class="stap" id="stap-3">
-    <div class="section-label">Stap 3 — Één ding dat vandaag mag lukken</div>
-    <textarea class="intentie-input" id="intentie" placeholder="Niet wat je moet. Wat realistisch is."></textarea>
+    <div class="section-label">Stap 3 — Hoe werk jij het beste?</div>
+    <div class="werkstijl-grid">
+      <div class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
+          <div class="werkstijl-omschrijving">Een video aan terwijl je de was doet — zo houd je het vol.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Één ding tegelijk, snel afmaken</div>
+          <div class="werkstijl-omschrijving">Je wil ergens mee klaar zijn voordat je verder gaat.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Blokken met pauzes</div>
+          <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Structuur helpt jou.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Ik ga mee met hoe ik me voel</div>
+          <div class="werkstijl-omschrijving">Geen vaste aanpak — je volgt je energie van moment tot moment.</div>
+        </div>
+      </div>
+    </div>
     <p class="stap-hint">Mag ook leeg blijven als je het nog niet weet.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(2)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(4)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 4 -->
+  <div class="stap" id="stap-4">
+    <div class="section-label">Stap 4 — Wie wil je vandaag zijn?</div>
+    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
+    <p class="stap-hint">Eén woord of een zin. Wat ook voelt goed.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(3)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(5)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 5 -->
+  <div class="stap" id="stap-5">
+    <div class="section-label">Stap 5 — Eén ding dat vandaag mag lukken</div>
+    <textarea class="intentie-input" id="intentie" placeholder="Niet wat je moet. Wat realistisch is."></textarea>
+    <p class="stap-hint">Mag ook leeg blijven als je het nog niet weet.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(4)">← Terug</button>
       <button class="verder-btn" onclick="toonResultaat()">Bekijk mijn dag →</button>
     </div>
   </div>
@@ -484,18 +591,29 @@
     <div id="res-taken"></div>
     <div class="reminder" id="res-reminder"></div>
     <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw invullen</button>
+    <a href="https://prismasystemen.nl" class="home-link">← Terug naar de website</a>
   </div>
 
 </div>
 
 <script>
   let geselecteerdNiveau = null;
+  let geselecteerdeWerkstijl = null;
   let huidigStap = 1;
 
   const hints = {
     1: 'Geen goed of fout. Kies wat het dichtst bij vandaag ligt.',
-    2: 'Wat heeft je energie vandaag nodig om te kunnen functioneren?',
-    3: 'Één ding. Niet vijf. Eén.'
+    2: 'Wat heeft je lijf of hoofd nodig om te kunnen functioneren?',
+    3: 'Geen goed of fout antwoord. Iedereen werkt anders.',
+    4: 'Één woord of een zin. Wat ook voelt goed.',
+    5: 'Één ding. Niet vijf. Eén.'
+  };
+
+  const werkstijlTips = {
+    multi: 'Zet iets op de achtergrond — muziek, podcast, video — zodat je brein bezig blijft terwijl je werkt.',
+    focus: 'Maak één ding af voordat je aan het volgende begint. Geen open tabbladen, geen halverwege stoppen.',
+    blokken: 'Werk 25-30 minuten, stop dan bewust. Pauze is onderdeel van de aanpak, niet iets wat je verdient.',
+    stroom: 'Kijk wat je energie nu vraagt en begin daarmee. Je hoeft het niet van tevoren te weten.'
   };
 
   const niveauHints = {
@@ -516,6 +634,12 @@
 
   function toggleBehoefte(el) { el.classList.toggle('selected'); }
 
+  function selecteerWerkstijl(el) {
+    document.querySelectorAll('.werkstijl-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    geselecteerdeWerkstijl = el.dataset.stijl;
+  }
+
   function naarStap(n) {
     document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
     document.getElementById('stap-' + n).classList.add('actief');
@@ -525,7 +649,7 @@
   }
 
   function updateVoortgang(actief) {
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 5; i++) {
       const cirkel = document.getElementById('cirkel-' + i);
       const label = document.getElementById('label-' + i);
       cirkel.className = 'stap-cirkel';
@@ -540,7 +664,7 @@
       } else {
         cirkel.innerHTML = i;
       }
-      if (i < 3) {
+      if (i < 5) {
         document.getElementById('lijn-' + i).className = 'stap-lijn' + (i < actief ? ' klaar' : '');
       }
     }
@@ -557,12 +681,12 @@
 
   // Gepersonaliseerde tekst op basis van niveau + behoeften
   function bouwAdvies(niveau, behoeften) {
-    const heeftRust = behoeften.includes('Rust') || behoeften.includes('Stilte');
-    const heeftBeweging = behoeften.includes('Beweging') || behoeften.includes('Natuur');
-    const heeftContact = behoeften.includes('Contact');
-    const heeftStructuur = behoeften.includes('Structuur') || behoeften.includes('Routines');
-    const heeftCreativiteit = behoeften.includes('Creativiteit');
-    const heeftAfleiding = behoeften.includes('Afleiding');
+    const heeftRust = behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'));
+    const heeftBeweging = behoeften.some(b => b.includes('Bewegen'));
+    const heeftContact = behoeften.some(b => b.includes('Verbinding'));
+    const heeftStructuur = behoeften.some(b => b.includes('Weten wat'));
+    const heeftCreativiteit = behoeften.some(b => b.includes('maken of bedenken'));
+    const heeftAfleiding = behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek'));
 
     let tekst = '';
     let taken = [];
@@ -635,17 +759,22 @@
     const base = niveauBase[geselecteerdNiveau];
     const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.textContent);
     const intentie = document.getElementById('intentie').value.trim();
+    const wie = document.getElementById('wie').value.trim();
     const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften);
 
     document.getElementById('res-niveau').textContent = base.naam;
     document.getElementById('res-titel').textContent = base.titel;
     document.getElementById('res-tekst').textContent = tekst;
-    document.getElementById('res-reminder').textContent = base.reminder;
+
+    let reminderTekst = base.reminder;
+    if (wie) reminderTekst += ' Jij wil vandaag zijn: ' + wie + '. Houd dat vast als het moeilijk wordt.';
+    document.getElementById('res-reminder').textContent = reminderTekst;
 
     const takenEl = document.getElementById('res-taken');
     takenEl.innerHTML = '';
     let alleTaken = [...taken];
     if (intentie) alleTaken.unshift('Jouw intentie voor vandaag: ' + intentie);
+    if (geselecteerdeWerkstijl && werkstijlTips[geselecteerdeWerkstijl]) alleTaken.push(werkstijlTips[geselecteerdeWerkstijl]);
     alleTaken.forEach(t => {
       takenEl.innerHTML += `<div class="taak-item"><div class="taak-streep"></div><div>${t}</div></div>`;
     });
@@ -660,9 +789,12 @@
   function opnieuw() {
     document.querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
     document.querySelectorAll('.behoefte-tag').forEach(t => t.classList.remove('selected'));
+    document.querySelectorAll('.werkstijl-optie').forEach(o => o.classList.remove('selected'));
     document.getElementById('intentie').value = '';
+    document.getElementById('wie').value = '';
     document.getElementById('hint-1').textContent = '';
     geselecteerdNiveau = null;
+    geselecteerdeWerkstijl = null;
     document.getElementById('btn-stap1').disabled = true;
 
     document.getElementById('resultaat').classList.remove('zichtbaar');
