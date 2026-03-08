@@ -605,65 +605,6 @@
   }
   .home-link:hover { border-color: var(--grijs); color: var(--grijs); }
 
-  /* ── INTRODUCTIE ── */
-  .intro-blok {
-    background: white;
-    border-radius: 10px;
-    padding: 24px 26px;
-    margin-bottom: 36px;
-    border: 1px solid var(--grijs-licht);
-  }
-  .intro-blok-titel {
-    font-family: 'Noto Serif', serif;
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    color: var(--grijs);
-  }
-  .intro-blok-tekst {
-    font-size: 13px;
-    color: var(--blauw);
-    line-height: 1.8;
-    margin-bottom: 16px;
-  }
-  .intro-blok-lijst {
-    list-style: none;
-    margin-bottom: 20px;
-  }
-  .intro-blok-lijst li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 13px;
-    color: var(--grijs);
-    line-height: 1.6;
-    padding: 5px 0;
-    border-bottom: 1px solid var(--grijs-licht);
-  }
-  .intro-blok-lijst li:last-child { border-bottom: none; }
-  .intro-streep {
-    width: 14px;
-    height: 1px;
-    background: var(--groen);
-    margin-top: 10px;
-    flex-shrink: 0;
-  }
-  .intro-sluiten-btn {
-    background: var(--grijs);
-    color: var(--beige);
-    border: none;
-    padding: 13px 24px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-radius: 10px;
-  }
-  .intro-sluiten-btn:hover { background: var(--blauw); }
-
   /* ── DAG VOORTGANG ── */
   .dag-voortgang {
     display: flex;
@@ -725,6 +666,88 @@
     font-style: italic; font-family: 'Noto Serif', serif;
     margin-top: 10px; min-height: 18px;
   }
+
+  /* ── INTRO BLOK ── */
+  .intro-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(243,239,232,0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .intro-overlay.zichtbaar { display: flex; }
+  .intro-blok {
+    background: white;
+    border: 1px solid var(--grijs-licht);
+    border-radius: 10px;
+    padding: clamp(28px, 5vw, 48px) clamp(24px, 5vw, 44px);
+    max-width: 480px;
+    width: 100%;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .intro-logo {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blauw);
+    margin-bottom: 20px;
+    font-family: 'Noto Serif', serif;
+  }
+  .intro-blok h2 {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--grijs);
+  }
+  .intro-blok-tekst {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .intro-lijst {
+    list-style: none;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .intro-lijst li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--grijs);
+    line-height: 1.6;
+  }
+  .intro-streep {
+    width: 14px;
+    height: 1px;
+    background: var(--groen);
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+  .intro-sluiten-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .intro-sluiten-btn:hover { background: var(--blauw); }
 
   /* ── MOBIEL ── */
   @media (max-width: 640px) {
@@ -819,22 +842,29 @@
   </div>
 </nav>
 
+<!-- INTRO OVERLAY -->
+<div class="intro-overlay" id="intro-overlay">
+  <div class="intro-blok">
+    <div class="intro-logo">PRISMA Week</div>
+    <h2>Zeven dagen je energie bijhouden.</h2>
+    <p class="intro-blok-tekst">
+      Elke dag één check-in: hoe is je energie, wat had je nodig, wat werkte?
+      Aan het einde van de week zie je het patroon — en wat je de week erna anders kan doen.
+    </p>
+    <ul class="intro-lijst">
+      <li><div class="intro-streep"></div><div>Dagelijkse check-in in zes stappen</div></li>
+      <li><div class="intro-streep"></div><div>Weekoverzicht met patronen en inzichten</div></li>
+      <li><div class="intro-streep"></div><div>Maandoverzicht als heatmap — patronen over tijd</div></li>
+      <li><div class="intro-streep"></div><div>Alles blijft op jouw apparaat — geen account nodig</div></li>
+    </ul>
+    <button class="intro-sluiten-btn" onclick="sluitIntro()">Beginnen →</button>
+  </div>
+</div>
+
 <main class="main">
 
   <!-- DAG PAGINAS -->
-  <div id="page-ma" class="page active">
-    <div class="intro-blok" id="intro-blok">
-      <div class="intro-blok-titel">Welkom bij PRISMA Week</div>
-      <div class="intro-blok-tekst">Elke dag vul je in hoe je energie is, wat je nodig hebt, en wat je opviel. Aan het einde van de week zie je je patroon terug.</div>
-      <ul class="intro-blok-lijst">
-        <li><div class="intro-streep"></div><div>Vul elke dag in via de navigatie links of onderaan op je telefoon</div></li>
-        <li><div class="intro-streep"></div><div>Alles mag leeg blijven — vul in wat voelt, niet wat moet</div></li>
-        <li><div class="intro-streep"></div><div>Je weekoverzicht wordt zichtbaar zodra je een paar dagen hebt ingevuld</div></li>
-        <li><div class="intro-streep"></div><div>Je data wordt opgeslagen op je eigen apparaat</div></li>
-      </ul>
-      <button class="intro-sluiten-btn" onclick="sluitIntro()">Beginnen →</button>
-    </div>
-  </div>
+  <div id="page-ma" class="page active"></div>
   <div id="page-di" class="page"></div>
   <div id="page-wo" class="page"></div>
   <div id="page-do" class="page"></div>
@@ -883,27 +913,9 @@
   try { maandData = JSON.parse(localStorage.getItem('prisma-maand') || '[]'); } catch(e) {}
   let huidigePagina = 'ma';
 
-  const introGezien = (() => { try { return localStorage.getItem('prisma-intro-gezien'); } catch(e) { return null; } })();
   DAGEN.forEach(dag => {
-    if (dag === 'ma' && !introGezien) return;
     document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
   });
-  if (introGezien) {
-    document.getElementById('page-ma').innerHTML = buildDagPagina('ma');
-  }
-
-  function sluitIntro() {
-    const intro = document.getElementById('intro-blok');
-    if (intro) {
-      intro.style.opacity = '0';
-      intro.style.transition = 'opacity 0.3s ease';
-      setTimeout(() => {
-        intro.style.display = 'none';
-        document.getElementById('page-ma').innerHTML = buildDagPagina('ma');
-      }, 300);
-    }
-    try { localStorage.setItem('prisma-intro-gezien', '1'); } catch(e) {}
-  }
 
   function buildDagPagina(dag) {
     return `
@@ -1057,29 +1069,45 @@
     5: 'Volle energie. Spaar ook iets voor morgen.'
   };
 
-  // Gepersonaliseerd advies op basis van niveau + behoeften
-  function bouwAdvies(niveau, behoeften) {
-    const heeftRust = behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'));
-    const heeftBeweging = behoeften.some(b => b.includes('Bewegen'));
-    const heeftContact = behoeften.some(b => b.includes('Verbinding'));
-    const heeftStructuur = behoeften.some(b => b.includes('Weten wat'));
-    const heeftCreativiteit = behoeften.some(b => b.includes('maken of bedenken'));
-    const heeftAfleiding = behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek'));
+  // Volledig gepersonaliseerd advies op basis van alle inputs
+  function bouwAdvies(niveau, behoeften, werkstijl) {
+    const h = {
+      rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels')),
+      bewegen: behoeften.some(b => b.includes('Bewegen')),
+      contact: behoeften.some(b => b.includes('Verbinding')),
+      structuur: behoeften.some(b => b.includes('Weten wat')),
+      creativiteit: behoeften.some(b => b.includes('maken of bedenken')),
+      afleiding: behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek')),
+      tijdsgrenzen: behoeften.some(b => b.includes('tijdsgrenzen'))
+    };
 
     let tekst = '';
     let taken = [];
 
+    // ── KERNADVIES: niveau + behoeftecombinaties ──
     if (niveau <= 2) {
-      if (heeftRust) {
+      if (h.rust && h.contact) {
+        tekst = 'Energie laag én behoefte aan rust, maar ook aan verbinding. Licht contact is mogelijk zonder uitputtend te zijn.';
+        taken = ['Één kort berichtje sturen, zonder verwachting van een gesprek', 'Telefoon daarna bewust wegleggen', 'Verbinding hoeft niet intensief te zijn op een lage dag'];
+      } else if (h.rust && h.structuur) {
+        tekst = 'Energie laag en hoofd vraagt rust én houvast. Een kleine vaste routine als anker — niet voor productiviteit, maar voor stabiliteit.';
+        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan op vaste tijden', 'Schrijf maximaal één ding op dat echt moet', 'Alles wat niet op die lijst staat mag wachten'];
+      } else if (h.bewegen && h.rust) {
+        tekst = 'Energie laag, hoofd wil rust maar lijf wil bewegen. Rustig buiten bewegen zonder doel is precies de combinatie die hier helpt.';
+        taken = ['Rustige wandeling van 10-15 minuten, zonder podcast of telefoon', 'Daarna bewust niks doen — liggen, zitten, ademen', 'Beweging mag rust zijn als je het rustig houdt'];
+      } else if (h.rust) {
         tekst = 'Energie laag én behoefte aan rust. Duidelijk signaal — zo min mogelijk doen is het juiste antwoord.';
         taken = ['Prikkels uitzetten: notificaties, scherm, geluid', 'Liggen, zitten, of rustig wandelen zonder doel', 'Geen besluiten nemen, geen plannen maken'];
-      } else if (heeftBeweging) {
+      } else if (h.bewegen) {
         tekst = 'Energie laag, maar lichaam vraagt beweging. Rustig bewegen kan helpen — geen sport, wel bewegen.';
         taken = ['Korte wandeling van 10-15 minuten, liefst buiten', 'Licht stretchen tussendoor', 'Daarna rust — beweging mag energie geven, niet kosten'];
-      } else if (heeftContact) {
-        tekst = 'Energie laag, maar je hebt behoefte aan verbinding. Kies voor licht contact, geen lang gesprek.';
+      } else if (h.contact) {
+        tekst = 'Energie laag, maar behoefte aan verbinding. Kies voor licht contact, geen lang gesprek.';
         taken = ['Een kort berichtje sturen, zonder verwachting', 'Geen sociale verplichtingen aangaan', 'Verbinding hoeft niet uitputtend te zijn'];
-      } else if (heeftStructuur) {
+      } else if (h.structuur && h.tijdsgrenzen) {
+        tekst = 'Energie laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet.';
+        taken = ['Schrijf drie tijdsblokken: ochtend / middag / avond — wat mag er in elk blok?', 'Houd je aan de grenzen, ook als het "mee zou kunnen"', 'Stop op tijd, niet als je klaar bent maar als de tijd om is'];
+      } else if (h.structuur) {
         tekst = 'Energie laag en je zoekt houvast. Een kleine vaste routine als anker — niet voor productiviteit, maar voor stabiliteit.';
         taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
       } else {
@@ -1087,19 +1115,28 @@
         taken = ['Routinetaken die je al kent', 'Korte sessies van max 30 minuten met pauzes', 'Geen nieuwe dingen starten'];
       }
     } else if (niveau === 3) {
-      if (heeftRust) {
+      if (h.rust && h.contact) {
+        tekst = 'Stabiele energie, hoofd vraagt rust én verbinding. Één rustig gesprek, dan tijd voor jezelf.';
+        taken = ['Plan één gesprek met iemand die energie geeft — niet meerdere', 'Houd het rustig en ongedwongen', 'Plan daarna bewust tijd voor jezelf in'];
+      } else if (h.bewegen && h.creativiteit) {
+        tekst = 'Stabiele energie, lichaam wil bewegen én hoofd wil iets maken. Beweging als opstap naar creatief werk werkt goed bij dit niveau.';
+        taken = ['Begin met 15-20 minuten bewegen buiten', 'Ga daarna direct aan het creatieve project zitten', 'Houd het bij één creatief ding — niet alles tegelijk'];
+      } else if (h.structuur && h.tijdsgrenzen) {
+        tekst = 'Stabiele energie én behoefte aan structuur en grenzen. Gestructureerde dag met heldere tijdsblokken past hier perfect bij.';
+        taken = ['Schrijf de dag op in blokken: werk, pauze, werk, vrij — met tijden erbij', 'Houd je aan de geplande stoptijd', 'Dag afsluiten: wat deed je, niet wat deed je niet'];
+      } else if (h.rust) {
         tekst = 'Stabiele energie, maar behoefte aan rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
         taken = ['Één taak die echt belangrijk is, als eerste', 'Daarna een geplande pauze — niet als beloning, als onderdeel', 'Vermijd overvolle agenda'];
-      } else if (heeftCreativiteit) {
+      } else if (h.creativiteit) {
         tekst = 'Stabiele energie én zin in iets maken. Goed moment voor taken die ruimte vragen.';
         taken = ['Één creatief project, niet alles tegelijk', 'Ruimte om te experimenteren zonder eindresultaat te verwachten', 'Houd het bij dit project'];
-      } else if (heeftBeweging) {
-        tekst = 'Stabiele energie en lichaam wil bewegen. Gebruik dat als begin van je dag.';
+      } else if (h.bewegen) {
+        tekst = 'Stabiele energie en lichaam wil bewegen. Gebruik dat als begin van de dag.';
         taken = ['Begin met beweging voor je aan het werk gaat', 'Wissel zitten en bewegen af', 'Zwaardere taken na de beweging plannen'];
-      } else if (heeftContact) {
+      } else if (h.contact) {
         tekst = 'Stabiele energie en behoefte aan verbinding. Goed moment voor een echt gesprek.';
         taken = ['Een gesprek of check-in met iemand die energie geeft', 'Één of twee sociale momenten, niet meer', 'Daarna ook tijd voor jezelf'];
-      } else if (heeftStructuur) {
+      } else if (h.structuur) {
         tekst = 'Stabiele energie en structuur helpt. Een duidelijke volgorde voorkomt besluitmoeheid.';
         taken = ['Drie dingen opschrijven die je wil doen, op volgorde', 'Afwerken voor je iets anders erbij pakt', 'Dag afsluiten met wat je deed, niet wat je niet deed'];
       } else {
@@ -1107,19 +1144,28 @@
         taken = ['Één taak die iets vraagt maar niet overweldigend is', 'Sociaal contact haalbaar, maar kort houden', 'Impulsieve besluiten vermijden'];
       }
     } else {
-      if (heeftCreativiteit) {
+      if (h.creativiteit && h.bewegen) {
+        tekst = 'Goede energie, lichaam wil bewegen én zin in iets maken. Beweeg eerst, bouw daarna.';
+        taken = ['Begin met bewegen — hardlopen, fietsen, of wat energie geeft', 'Zet daarna direct door naar het creatieve project', 'Een dag om iets te maken waar je trots op kunt zijn'];
+      } else if (h.contact && h.creativiteit) {
+        tekst = 'Goede energie, zin in verbinding én in iets maken. Goed om samen te werken of iemand te betrekken.';
+        taken = ['Werk aan het creatieve project — eventueel met iemand als sparringspartner', 'Plan een gesprek met iemand die input kan geven', 'Sla op wat je maakt en bespreekt'];
+      } else if (h.rust && h.structuur) {
+        tekst = 'Goede energie, maar ook behoefte aan rust én houvast. Doe iets dat telt, maar overdrijf niet.';
+        taken = ['Kies twee taken die echt belangrijk zijn — niet meer', 'Werk ze af in gestructureerde blokken met echte pauzes', 'Stop als de taken af zijn, ook als de dag nog lang is'];
+      } else if (h.creativiteit) {
         tekst = 'Goede energie én zin in iets maken. Dit is het moment om iets te bouwen.';
         taken = ['Werk aan iets creatiefs wat je al wil oppakken', 'Blokkeer tijd zonder onderbrekingen', 'Sla op wat je maakt, ook als het niet af is'];
-      } else if (heeftBeweging) {
+      } else if (h.bewegen) {
         tekst = 'Goede energie en lichaam wil bewegen. Gebruik dat als brandstof.';
-        taken = ['Begin met bewegen: hardlopen, fietsen, of wat energie geeft', 'Gebruik de energie daarna gericht voor je belangrijkste taak', 'Plan aan het einde ook rust in'];
-      } else if (heeftContact) {
+        taken = ['Begin met bewegen: hardlopen, fietsen, of wat energie geeft', 'Gebruik de energie daarna gericht voor de belangrijkste taak', 'Plan aan het einde ook rust in'];
+      } else if (h.contact) {
         tekst = 'Goede energie en zin in verbinding. Goed moment voor mensen opzoeken of samen werken.';
         taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Balans: ook iets voor jezelf doen', 'Sla op wat je hebt afgesproken'];
-      } else if (heeftAfleiding) {
+      } else if (h.afleiding) {
         tekst = 'Goede energie, maar brein wil afleiding. Geef jezelf eerst structuur, dan afleiding.';
         taken = ['Belangrijkste taak afmaken voordat je afleiding toelaat', 'Afleiding bewust gebruiken als beloning achteraf', 'Tijdlimieten zetten op afleiding'];
-      } else if (heeftRust) {
+      } else if (h.rust) {
         tekst = 'Goede energie, maar ook behoefte aan rust. Doe iets dat telt maar overdrijf niet.';
         taken = ['Één of twee taken die echt belangrijk zijn', 'Rustmomenten actief inplannen', 'Goede dag is geen vrijbrief om alles in te halen'];
       } else {
@@ -1127,12 +1173,28 @@
         taken = ['Iets aanpakken wat concentratie vraagt', 'Iets oppakken wat je al een tijdje uitstelde', 'Rust inplannen zodat morgen ook goed is'];
       }
     }
+
+    // ── WERKSTIJL — beïnvloedt de adviestekst concreet ──
+    if (werkstijl === 'multi') {
+      tekst += ' Jij werkt het beste met iets op de achtergrond — gebruik dat bewust als steun.';
+      taken.push('Zet iets op de achtergrond: muziek, podcast, of rustig ambient geluid');
+    } else if (werkstijl === 'focus') {
+      tekst += ' Jij werkt het beste door één ding af te maken voor je verder gaat.';
+      taken.unshift('Start met één taak — sluit alles wat daarmee niets te maken heeft');
+    } else if (werkstijl === 'blokken') {
+      tekst += ' Bouw de dag op in blokken: werk, stop bewust, laad op, werk weer.';
+      taken.push('Werk in blokken van 25-30 minuten — stop dan bewust, ook als het goed gaat');
+    } else if (werkstijl === 'stroom') {
+      tekst += ' Je hoeft het niet van tevoren te plannen — kijk van moment tot moment wat je energie vraagt.';
+      taken.push('Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?');
+    }
+
     return { tekst, taken };
   }
 
   function dagAdviesTekst(dag) {
     if (!weekData[dag] || !weekData[dag].niveau) return '';
-    const { tekst } = bouwAdvies(weekData[dag].niveau, weekData[dag].behoeften || []);
+    const { tekst } = bouwAdvies(weekData[dag].niveau, weekData[dag].behoeften || [], weekData[dag].werkstijl || null);
     return tekst;
   }
 
@@ -1238,8 +1300,25 @@
       kaart.className = 'dag-kaart';
       if (d && d.niveau) {
         const pct = (d.niveau / 5) * 100;
-        const { tekst } = bouwAdvies(d.niveau, d.behoeften || []);
+        const { tekst } = bouwAdvies(d.niveau, d.behoeften || [], d.werkstijl || null);
         const behoeftenTekst = d.behoeften && d.behoeften.length ? d.behoeften.join(', ') : null;
+
+        // Kostte/gaf: toon als terugblik én toekomstgerichte tip
+        let kostteHtml = '';
+        let gafHtml = '';
+        if (d.kostte) {
+          kostteHtml = `<div class="dag-behoeften" style="color:var(--blauw)">− Kostte energie: ${d.kostte}</div>`;
+        }
+        if (d.gaf) {
+          gafHtml = `<div class="dag-behoeften" style="color:var(--groen)">+ Gaf energie: ${d.gaf}</div>`;
+        }
+
+        // Wie: toon als kleine quote als het ingevuld is
+        let wieHtml = '';
+        if (d.wie) {
+          wieHtml = `<div class="dag-advies" style="font-size:11px; border-top: none; padding-top: 0; margin-top: -4px; color: var(--grijs-mid)">Wilde zijn: ${d.wie}</div>`;
+        }
+
         kaart.innerHTML = `
           <div class="dag-kaart-top">
             <div class="dag-naam-col">
@@ -1252,6 +1331,7 @@
             <div class="dag-niveau-label">${d.niveau}/5</div>
           </div>
           ${behoeftenTekst ? `<div class="dag-behoeften">Nodig: ${behoeftenTekst}</div>` : ''}
+          ${kostteHtml}${gafHtml}${wieHtml}
           <div class="dag-advies">${tekst}</div>
         `;
       } else {
@@ -1285,15 +1365,43 @@
     alleBehoeften.forEach(b => { behoeftenCount[b] = (behoeftenCount[b] || 0) + 1; });
     const topBehoefte = Object.entries(behoeftenCount).sort((a,b) => b[1]-a[1]).slice(0,2).map(e => e[0]);
 
+    // Werkstijlen analyseren
+    const alleWerkstijlen = ingevuld.filter(d => weekData[d].werkstijl).map(d => weekData[d].werkstijl);
+    const werkstijlCount = {};
+    alleWerkstijlen.forEach(w => { werkstijlCount[w] = (werkstijlCount[w] || 0) + 1; });
+    const dominanteWerkstijl = Object.entries(werkstijlCount).sort((a,b) => b[1]-a[1])[0];
+
     const laagNiveaus = niveaus.filter(n => n <= 2).length;
     const hoogNiveaus = niveaus.filter(n => n >= 4).length;
+
+    // Patronen in kostte/gaf herkennen
+    let kosttePatroon = '';
+    let gafPatroon = '';
+    if (alleKostte.length >= 2) {
+      kosttePatroon = `Je noemde meerdere keren wat energie kostte. Dat is een patroon waard om te onthouden — kijk volgende week of je dat kan verminderen of er bewuster mee om kan gaan.`;
+    }
+    if (alleGaf.length >= 2) {
+      gafPatroon = `Je noemde meerdere keren wat energie gaf. Dat is waardevolle informatie: dit zijn de dingen die je vaker in je week wil inbouwen.`;
+    }
 
     let advies = [];
     if (laagNiveaus >= 3) advies.push('Je had meerdere dagen met weinig energie. Kijk of je volgende week meer rustmomenten kan inplannen — niet als beloning, maar als onderdeel van je dag.');
     if (hoogNiveaus >= 3) advies.push('Je had een energieke week. Zorg dat je de goede dagen niet overlaadt — spaar ook iets voor de dagen erna.');
-    if (topBehoefte.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'))) advies.push('Je brein vroeg deze week regelmatig om rust of minder prikkels. Dat is informatie: misschien waren er meer prikkels dan normaal.');
+    if (topBehoefte.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'))) advies.push('Je brein vroeg deze week regelmatig om rust of minder prikkels. Misschien waren er meer prikkels dan normaal — wat kan je volgende week anders doen?');
     if (topBehoefte.some(b => b.includes('Weten wat'))) advies.push('Structuur was deze week een terugkerende behoefte. Een vaste ochtend- of avondroutine kan helpen om die structuur minder afhankelijk te maken van hoe je je voelt.');
+    if (dominanteWerkstijl && dominanteWerkstijl[1] >= 2) {
+      const werkstijlNamen = { multi: 'meerdere dingen tegelijk', focus: 'één ding tegelijk afmaken', blokken: 'blokken met pauzes', stroom: 'meegaan met je energie' };
+      advies.push(`Je werkstijl deze week was voornamelijk: ${werkstijlNamen[dominanteWerkstijl[0]] || dominanteWerkstijl[0]}. Als dat goed voelde, bevestig dat dan als jouw aanpak voor volgende week.`);
+    }
+    if (kosttePatroon) advies.push(kosttePatroon);
+    if (gafPatroon) advies.push(gafPatroon);
     if (advies.length === 0) advies.push('Je week zag er redelijk stabiel uit. Dat is waardevol — houd bij wat werkte en probeer dat vast te houden.');
+
+    // "Wie" patroon: herken terugkerende intenties
+    const wieWoorden = alleWie.map(w => w.wie.toLowerCase().trim());
+    const wiePatroonTekst = wieWoorden.length >= 2
+      ? `<div class="analyse-blok"><div class="analyse-titel">Wie je wilde zijn</div><ul class="analyse-lijst">${alleWie.map(w => `<li><div class="analyse-streep"></div><div><strong>${w.dag}:</strong> ${w.wie}</div></li>`).join('')}</ul>${wieWoorden.length >= 3 ? `<div class="analyse-tekst" style="margin-top:10px">Je had deze week meerdere keren een intentie voor wie je wilde zijn. Dat is een teken van zelfbewustzijn — ook als het niet altijd gelukt is.</div>` : ''}</div>`
+      : alleWie.length === 1 ? `<div class="analyse-blok"><div class="analyse-titel">Wie je wilde zijn</div><ul class="analyse-lijst"><li><div class="analyse-streep"></div><div><strong>${alleWie[0].dag}:</strong> ${alleWie[0].wie}</div></li></ul></div>` : '';
 
     analyse.innerHTML = `
       <div class="analyse-blok">
@@ -1301,9 +1409,9 @@
         <div class="analyse-tekst">Gemiddeld energieniveau deze week: <strong>${gem} / 5</strong>. Je laagste dag was ${DAG_NAMEN[laagsteDag]}, je hoogste dag was ${DAG_NAMEN[hoogstetDag]}.</div>
         ${topBehoefte.length ? `<ul class="analyse-lijst">${topBehoefte.map(b => `<li><div class="analyse-streep"></div><div>Je energie vroeg deze week vaak om: <strong>${b}</strong></div></li>`).join('')}</ul>` : ''}
       </div>
-      ${alleKostte.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie kostte</div><ul class="analyse-lijst">${alleKostte.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
-      ${alleGaf.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie gaf</div><ul class="analyse-lijst">${alleGaf.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
-      ${alleWie.length ? `<div class="analyse-blok"><div class="analyse-titel">Wie je wilde zijn</div><ul class="analyse-lijst">${alleWie.map(w => `<li><div class="analyse-streep"></div><div><strong>${w.dag}:</strong> ${w.wie}</div></li>`).join('')}</ul></div>` : ''}
+      ${alleKostte.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie kostte</div><ul class="analyse-lijst">${alleKostte.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul>${kosttePatroon ? `<div class="analyse-tekst" style="margin-top:10px; font-style:italic">${kosttePatroon}</div>` : ''}</div>` : ''}
+      ${alleGaf.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie gaf</div><ul class="analyse-lijst">${alleGaf.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul>${gafPatroon ? `<div class="analyse-tekst" style="margin-top:10px; font-style:italic">${gafPatroon}</div>` : ''}</div>` : ''}
+      ${wiePatroonTekst}
       <div class="analyse-blok">
         <div class="analyse-titel">Voor volgende week</div>
         <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
@@ -1379,6 +1487,18 @@
       grid.appendChild(blok);
     });
   }
+  function sluitIntro() {
+    document.getElementById('intro-overlay').classList.remove('zichtbaar');
+    try { localStorage.setItem('prisma-intro-gezien', '1'); } catch(e) {}
+  }
+
+  // Toon intro als eerste bezoek
+  try {
+    if (!localStorage.getItem('prisma-intro-gezien')) {
+      document.getElementById('intro-overlay').classList.add('zichtbaar');
+    }
+  } catch(e) {}
+
 </script>
 </body>
 </html>
