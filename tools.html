@@ -45,7 +45,7 @@
       flex-shrink: 0;
     }
 
-    .tool-badge.binnenkort {
+    .tool-badge.betaald {
       border-color: var(--blauw);
       color: var(--blauw);
     }
@@ -108,22 +108,11 @@
       color: var(--grijs-licht);
     }
 
-    /* Binnenkort kaart */
-    .tool-kaart.dimmed {
-      opacity: 0.7;
-    }
-
     .tool-kaart-acties {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
       align-items: center;
-    }
-
-    .binnenkort-tekst {
-      font-size: 0.82rem;
-      color: var(--grijs-licht);
-      font-style: italic;
     }
   </style>
 </head>
@@ -162,17 +151,17 @@
   <section class="sectie sectie-wit">
     <div class="container">
 
-      <!-- Tool 1 — Dagplanner -->
+      <!-- Tool 1 — PRISMA Dag -->
       <div class="tool-kaart fade-in">
         <div class="tool-header">
-          <h2>PRISMA dag</h2>
+          <h2>PRISMA Dag</h2>
           <span class="tool-badge">Gratis</span>
         </div>
 
         <p>
           Een interactieve check-in die je helpt inschatten hoeveel energie je hebt
-          en welke taken daarbij passen. Drie stappen: energieniveau kiezen, behoeften
-          aanvinken, één intentie invullen. Resultaat op maat — zonder oordeel.
+          en welke taken daarbij passen. Vijf stappen: energieniveau kiezen, behoeften
+          aanvinken, werkstijl kiezen, intentie invullen. Resultaat op maat — zonder oordeel.
         </p>
 
         <div class="tool-stappen">
@@ -186,6 +175,14 @@
           </div>
           <div class="stap">
             <span class="stap-nummer">03</span>
+            <p>Kies hoe jij vandaag het beste werkt</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">04</span>
+            <p>Wie wil je vandaag zijn?</p>
+          </div>
+          <div class="stap">
+            <span class="stap-nummer">05</span>
             <p>Stel één intentie in voor de dag</p>
           </div>
         </div>
@@ -194,16 +191,15 @@
           <div class="tool-prijs">
             <span class="prijs-bedrag">Gratis</span>
           </div>
-          <!-- ✦ AANPASSEN: verander href naar Stan.store link zodra die er is -->
-          <a href="prisma-dag.html" class="knop knop-groen">Probeer PRISMA dag</a>
+          <a href="prisma-dag.html" class="knop knop-groen">Probeer PRISMA Dag</a>
         </div>
       </div>
 
-      <!-- Tool 2 — Weektracker -->
-      <div class="tool-kaart dimmed fade-in">
+      <!-- Tool 2 — PRISMA Week -->
+      <div class="tool-kaart fade-in">
         <div class="tool-header">
           <h2>PRISMA Week</h2>
-          <span class="tool-badge binnenkort">Binnenkort</span>
+          <span class="tool-badge betaald">Abonnement</span>
         </div>
 
         <p>
@@ -215,7 +211,7 @@
         <div class="tool-stappen">
           <div class="stap">
             <span class="stap-nummer">01</span>
-            <p>Dagelijks energieniveau en taken bijhouden</p>
+            <p>Dagelijks energieniveau en behoeften bijhouden</p>
           </div>
           <div class="stap">
             <span class="stap-nummer">02</span>
@@ -223,15 +219,17 @@
           </div>
           <div class="stap">
             <span class="stap-nummer">03</span>
-            <p>Suggesties voor de week erna op basis van jouw data</p>
+            <p>Maandoverzicht als heatmap — patronen over tijd zichtbaar</p>
           </div>
         </div>
 
         <div class="tool-kaart-acties">
           <div class="tool-prijs">
             <span class="prijs-bedrag">€4,99</span>
+            <span class="prijs-label">per maand</span>
           </div>
-          <span class="binnenkort-tekst">Beschikbaar na de zomer van 2026</span>
+          <!-- ✦ AANPASSEN: vervang href door Payhip-link zodra die live staat -->
+          <a href="#" class="knop knop-groen">Start PRISMA Week</a>
         </div>
       </div>
 
