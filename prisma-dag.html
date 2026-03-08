@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMA Dag</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --beige: #F3EFE8;
+    --grijs: #2E2E2E;
+    --groen: #A8B5A2;
+    --blauw: #6E7C8C;
+    --grijs-licht: #E8E4DC;
+    --grijs-mid: #9A9A9A;
+  }
+
+  body {
+    background: var(--beige);
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+  }
+
+  .container { max-width: 560px; margin: 0 auto; }
+
+  /* HEADER */
+  header { margin-bottom: 48px; animation: fadeUp 0.5s ease forwards; }
+  .logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blauw);
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: 'Noto Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.7;
+  }
+
+  /* VOORTGANG */
+  .voortgang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+  .stap-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stap-cirkel {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--grijs-mid);
+    font-family: 'Noto Serif', serif;
+    transition: all 0.3s ease;
+    background: white;
+  }
+  .stap-cirkel.actief {
+    border-color: var(--blauw);
+    color: var(--blauw);
+    background: white;
+  }
+  .stap-cirkel.klaar {
+    border-color: var(--groen);
+    background: var(--groen);
+    color: white;
+  }
+  .stap-lijn {
+    flex: 1;
+    height: 1px;
+    background: var(--grijs-licht);
+    transition: background 0.3s ease;
+  }
+  .stap-lijn.klaar { background: var(--groen); }
+  .stap-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    transition: color 0.3s;
+  }
+  .stap-label.actief { color: var(--grijs); }
+
+  /* STAPPEN */
+  .stap { display: none; }
+  .stap.actief {
+    display: block;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 20px;
+  }
+
+  /* ENERGIESCHAAL */
+  .energie-schaal { display: flex; flex-direction: column; gap: 8px; }
+
+  .energie-optie {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid transparent;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .energie-optie::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    border-radius: 10px 0 0 10px;
+  }
+  .energie-optie[data-niveau="1"]::before { background: #C4A882; }
+  .energie-optie[data-niveau="2"]::before { background: #B8B89A; }
+  .energie-optie[data-niveau="3"]::before { background: var(--blauw); }
+  .energie-optie[data-niveau="4"]::before { background: #8BAF86; }
+  .energie-optie[data-niveau="5"]::before { background: var(--groen); }
+
+  .energie-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
+  .energie-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+  .energie-optie.selected::before { opacity: 1; }
+
+  .energie-nummer {
+    font-family: 'Noto Serif', serif;
+    font-size: 20px;
+    min-width: 26px;
+    transition: color 0.2s;
+  }
+  .energie-optie[data-niveau="1"] .energie-nummer { color: #C4A882; }
+  .energie-optie[data-niveau="2"] .energie-nummer { color: #B8B89A; }
+  .energie-optie[data-niveau="3"] .energie-nummer { color: var(--blauw); }
+  .energie-optie[data-niveau="4"] .energie-nummer { color: #8BAF86; }
+  .energie-optie[data-niveau="5"] .energie-nummer { color: var(--groen); }
+
+  .energie-info { flex: 1; }
+  .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .energie-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+  .energie-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-mid);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .energie-optie.selected .energie-dot { background: var(--groen); border-color: var(--groen); }
+
+  /* BEHOEFTEN */
+  .behoeften-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .behoefte-tag {
+    padding: 9px 16px;
+    border: 1.5px solid var(--grijs-licht);
+    background: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: var(--grijs);
+  }
+  .behoefte-tag:hover { border-color: var(--groen); }
+  .behoefte-tag.selected { background: var(--groen); border-color: var(--groen); color: white; }
+
+  /* INTENTIE */
+  .intentie-input {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--grijs-licht);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grijs);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+  .intentie-input:focus { border-color: var(--groen); }
+  .intentie-input::placeholder { color: var(--grijs-mid); }
+
+  /* KNOPPEN */
+  .knop-rij { display: flex; gap: 12px; margin-top: 32px; }
+
+  .verder-btn {
+    flex: 1;
+    padding: 17px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .verder-btn:hover { background: var(--blauw); }
+  .verder-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
+
+  .terug-btn {
+    padding: 17px 20px;
+    background: none;
+    color: var(--grijs-mid);
+    border: 1.5px solid var(--grijs-licht);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .terug-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  /* HINT */
+  .stap-hint {
+    font-size: 12px;
+    color: var(--grijs-mid);
+    font-style: italic;
+    font-family: 'Noto Serif', serif;
+    margin-top: 12px;
+    min-height: 18px;
+    transition: opacity 0.3s;
+  }
+
+  /* RESULTAAT */
+  .resultaat {
+    display: none;
+    animation: fadeUp 0.5s ease forwards;
+    padding-top: 8px;
+  }
+  .resultaat.zichtbaar { display: block; }
+
+  .resultaat-niveau {
+    font-family: 'Noto Serif', serif;
+    font-size: 13px;
+    color: var(--groen);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .resultaat-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .resultaat-tekst {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .taken-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 16px;
+  }
+  .taak-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .taak-item:last-child { border-bottom: none; }
+  .taak-streep {
+    width: 16px;
+    height: 1px;
+    background: var(--groen);
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+
+  .reminder {
+    margin-top: 32px;
+    padding: 22px 26px;
+    background: white;
+    border-left: 2px solid var(--groen);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--grijs);
+  }
+
+  .opnieuw-btn {
+    margin-top: 28px;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .opnieuw-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 28px;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .home-link:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  /* WEEKTRACKER BRUG */
+  .weektracker-brug {
+    margin-top: 40px;
+    padding: 24px 26px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .weektracker-brug-tekst {
+    flex: 1;
+  }
+  .weektracker-brug-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 6px;
+  }
+  .weektracker-brug-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--grijs);
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  .weektracker-brug-omschrijving {
+    font-size: 12px;
+    color: var(--blauw);
+    line-height: 1.6;
+  }
+  .weektracker-brug-btn {
+    flex-shrink: 0;
+    padding: 13px 20px;
+    background: none;
+    color: var(--grijs);
+    border: 1.5px solid var(--grijs-licht);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .weektracker-brug-btn:hover { border-color: var(--groen); color: var(--groen); }
+
+  @media (max-width: 480px) {
+    .weektracker-brug { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .weektracker-brug-btn { width: 100%; text-align: center; }
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--grijs-licht);
+    margin: 40px 0;
+  }
+
+  /* WERKSTIJL */
+  .werkstijl-grid { display: flex; flex-direction: column; gap: 8px; }
+  .werkstijl-optie {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid transparent;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .werkstijl-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
+  .werkstijl-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+  .werkstijl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-mid);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
+  .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .werkstijl-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 32px 20px 60px; }
+    h1 { font-size: 24px; }
+    .stap-label { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">PRISMA Dag</div>
+    <h1>Hoe is je energie vandaag?</h1>
+    <p class="subtitle">Geen goed of fout antwoord. Je energie is informatie — geen oordeel.</p>
+  </header>
+
+  <!-- VOORTGANG -->
+  <div class="voortgang" id="voortgang">
+    <div class="stap-item">
+      <div class="stap-cirkel actief" id="cirkel-1">1</div>
+      <span class="stap-label actief" id="label-1">Energie</span>
+    </div>
+    <div class="stap-lijn" id="lijn-1"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-2">2</div>
+      <span class="stap-label" id="label-2">Behoeften</span>
+    </div>
+    <div class="stap-lijn" id="lijn-2"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-3">3</div>
+      <span class="stap-label" id="label-3">Werkstijl</span>
+    </div>
+    <div class="stap-lijn" id="lijn-3"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-4">4</div>
+      <span class="stap-label" id="label-4">Wie</span>
+    </div>
+    <div class="stap-lijn" id="lijn-4"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-5">5</div>
+      <span class="stap-label" id="label-5">Intentie</span>
+    </div>
+  </div>
+
+  <!-- STAP 1 -->
+  <div class="stap actief" id="stap-1">
+    <div class="section-label">Stap 1 — Hoeveel energie heb je nu?</div>
+    <div class="energie-schaal">
+      <div class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
+        <div class="energie-nummer">1</div>
+        <div class="energie-info">
+          <div class="energie-naam">Bijna leeg</div>
+          <div class="energie-omschrijving">Je lijf en hoofd vragen om rust. Alles voelt zwaar.</div>
+        </div>
+        <div class="energie-dot"></div>
+      </div>
+      <div class="energie-optie" data-niveau="2" onclick="selecteerEnergie(this)">
+        <div class="energie-nummer">2</div>
+        <div class="energie-info">
+          <div class="energie-naam">Laag</div>
+          <div class="energie-omschrijving">Je kan iets doen, maar niet veel. Lichte taken zijn haalbaar.</div>
+        </div>
+        <div class="energie-dot"></div>
+      </div>
+      <div class="energie-optie" data-niveau="3" onclick="selecteerEnergie(this)">
+        <div class="energie-nummer">3</div>
+        <div class="energie-info">
+          <div class="energie-naam">Midden</div>
+          <div class="energie-omschrijving">Redelijk stabiel. Je kan functioneren, maar niet forceren.</div>
+        </div>
+        <div class="energie-dot"></div>
+      </div>
+      <div class="energie-optie" data-niveau="4" onclick="selecteerEnergie(this)">
+        <div class="energie-nummer">4</div>
+        <div class="energie-info">
+          <div class="energie-naam">Goed</div>
+          <div class="energie-omschrijving">Je hebt ruimte. Gebruik het bewust, niet meteen alles.</div>
+        </div>
+        <div class="energie-dot"></div>
+      </div>
+      <div class="energie-optie" data-niveau="5" onclick="selecteerEnergie(this)">
+        <div class="energie-nummer">5</div>
+        <div class="energie-info">
+          <div class="energie-naam">Vol</div>
+          <div class="energie-omschrijving">Je voelt je goed. Goede dag voor iets wat meer vraagt.</div>
+        </div>
+        <div class="energie-dot"></div>
+      </div>
+    </div>
+    <div class="stap-hint" id="hint-1"></div>
+    <div class="knop-rij">
+      <button class="verder-btn" id="btn-stap1" onclick="naarStap(2)" disabled>Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 2 -->
+  <div class="stap" id="stap-2">
+    <div class="section-label">Stap 2 — Wat heeft je lijf of hoofd nodig?</div>
+    <div class="behoeften-grid">
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Even niks hoeven</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Minder prikkels</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Bewegen of buiten zijn</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Weten wat ik ga doen</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Verbinding met iemand</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Iets maken of bedenken</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets erbij doen terwijl ik werk</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Muziek of geluid op de achtergrond</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Duidelijke tijdsgrenzen</div>
+    </div>
+    <p class="stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(1)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(3)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 3 -->
+  <div class="stap" id="stap-3">
+    <div class="section-label">Stap 3 — Hoe werk jij het beste?</div>
+    <div class="werkstijl-grid">
+      <div class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
+          <div class="werkstijl-omschrijving">Een video aan terwijl je de was doet — zo houd je het vol.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Één ding tegelijk, snel afmaken</div>
+          <div class="werkstijl-omschrijving">Je wil ergens mee klaar zijn voordat je verder gaat.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Blokken met pauzes</div>
+          <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Structuur helpt jou.</div>
+        </div>
+      </div>
+      <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
+        <div class="werkstijl-dot"></div>
+        <div>
+          <div class="werkstijl-naam">Ik ga mee met hoe ik me voel</div>
+          <div class="werkstijl-omschrijving">Geen vaste aanpak — je volgt je energie van moment tot moment.</div>
+        </div>
+      </div>
+    </div>
+    <p class="stap-hint">Mag ook leeg blijven als je het nog niet weet.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(2)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(4)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 4 -->
+  <div class="stap" id="stap-4">
+    <div class="section-label">Stap 4 — Wie wil je vandaag zijn?</div>
+    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
+    <p class="stap-hint">Eén woord of een zin. Wat ook voelt goed.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(3)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(5)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 5 -->
+  <div class="stap" id="stap-5">
+    <div class="section-label">Stap 5 — Eén ding dat vandaag mag lukken</div>
+    <textarea class="intentie-input" id="intentie" placeholder="Niet wat je moet. Wat realistisch is."></textarea>
+    <p class="stap-hint">Mag ook leeg blijven als je het nog niet weet.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(4)">← Terug</button>
+      <button class="verder-btn" onclick="toonResultaat()">Bekijk mijn dag →</button>
+    </div>
+  </div>
+
+  <!-- RESULTAAT -->
+  <div class="resultaat" id="resultaat">
+    <div class="divider"></div>
+    <div class="resultaat-niveau" id="res-niveau"></div>
+    <div class="resultaat-titel" id="res-titel"></div>
+    <div class="resultaat-tekst" id="res-tekst"></div>
+    <div class="taken-label">Wat past bij vandaag</div>
+    <div id="res-taken"></div>
+    <div class="reminder" id="res-reminder"></div>
+    <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw invullen</button>
+
+    <div class="weektracker-brug">
+      <div class="weektracker-brug-tekst">
+        <div class="weektracker-brug-label">PRISMA Week</div>
+        <div class="weektracker-brug-titel">Wil je dit een week bijhouden?</div>
+        <div class="weektracker-brug-omschrijving">Zie je energiepatroon over de hele week. Herken wat energie kost, wat het geeft, en wat je nodig hebt.</div>
+      </div>
+      <a href="https://prismasystemen.nl/weektracker" class="weektracker-brug-btn">Bekijk PRISMA Week →</a>
+    </div>
+
+    <a href="https://prismasystemen.nl" class="home-link">← Terug naar de website</a>
+  </div>
+
+</div>
+
+<script>
+  let geselecteerdNiveau = null;
+  let geselecteerdeWerkstijl = null;
+  let huidigStap = 1;
+
+  const hints = {
+    1: 'Geen goed of fout. Kies wat het dichtst bij vandaag ligt.',
+    2: 'Wat heeft je lijf of hoofd nodig om te kunnen functioneren?',
+    3: 'Geen goed of fout antwoord. Iedereen werkt anders.',
+    4: 'Één woord of een zin. Wat ook voelt goed.',
+    5: 'Één ding. Niet vijf. Eén.'
+  };
+
+  const werkstijlTips = {
+    multi: 'Zet iets op de achtergrond — muziek, podcast, video — zodat je brein bezig blijft terwijl je werkt.',
+    focus: 'Maak één ding af voordat je aan het volgende begint. Geen open tabbladen, geen halverwege stoppen.',
+    blokken: 'Werk 25-30 minuten, stop dan bewust. Pauze is onderdeel van de aanpak, niet iets wat je verdient.',
+    stroom: 'Kijk wat je energie nu vraagt en begin daarmee. Je hoeft het niet van tevoren te weten.'
+  };
+
+  const niveauHints = {
+    1: 'Vandaag is een rustdag. Dat is genoeg.',
+    2: 'Licht en haalbaar. Niet meer dan dat.',
+    3: 'Een gemiddelde dag is geen teleurstelling.',
+    4: 'Goede dag. Gebruik het bewust.',
+    5: 'Volle energie. Spaar ook iets voor morgen.'
+  };
+
+  function selecteerEnergie(el) {
+    document.querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    geselecteerdNiveau = parseInt(el.dataset.niveau);
+    document.getElementById('btn-stap1').disabled = false;
+    document.getElementById('hint-1').textContent = niveauHints[geselecteerdNiveau];
+  }
+
+  function toggleBehoefte(el) { el.classList.toggle('selected'); }
+
+  function selecteerWerkstijl(el) {
+    document.querySelectorAll('.werkstijl-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    geselecteerdeWerkstijl = el.dataset.stijl;
+  }
+
+  function naarStap(n) {
+    document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
+    document.getElementById('stap-' + n).classList.add('actief');
+    huidigStap = n;
+    updateVoortgang(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateVoortgang(actief) {
+    for (let i = 1; i <= 5; i++) {
+      const cirkel = document.getElementById('cirkel-' + i);
+      const label = document.getElementById('label-' + i);
+      cirkel.className = 'stap-cirkel';
+      label.className = 'stap-label';
+      if (i < actief) {
+        cirkel.classList.add('klaar');
+        cirkel.innerHTML = '✓';
+      } else if (i === actief) {
+        cirkel.classList.add('actief');
+        cirkel.innerHTML = i;
+        label.classList.add('actief');
+      } else {
+        cirkel.innerHTML = i;
+      }
+      if (i < 5) {
+        document.getElementById('lijn-' + i).className = 'stap-lijn' + (i < actief ? ' klaar' : '');
+      }
+    }
+  }
+
+  // Basisteksten per niveau
+  const niveauBase = {
+    1: { naam: 'Niveau 1 — Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
+    2: { naam: 'Niveau 2 — Laag', titel: 'Licht en haalbaar. Niet meer dan dat.', reminder: 'Op een lage dag iets doen wat haalbaar was, is al een prestatie. Niet niks.' },
+    3: { naam: 'Niveau 3 — Midden', titel: 'Redelijk stabiel. Gebruik het bewust.', reminder: 'Een gemiddelde dag is geen teleurstelling. Het is gewoon een dag. Die mag er ook zijn.' },
+    4: { naam: 'Niveau 4 — Goed', titel: 'Je hebt ruimte. Gebruik het met beleid.', reminder: 'Een goede dag is geen verplichting om alles te doen. Het is een kans om iets te doen wat telt.' },
+    5: { naam: 'Niveau 5 — Vol', titel: 'Goede dag. Benut hem, maar spaar ook.', reminder: 'Op volle energie iets bouwen is waardevol. Maar zorg ook dat je morgen nog wat over hebt.' }
+  };
+
+  // Gepersonaliseerde tekst op basis van niveau + behoeften
+  function bouwAdvies(niveau, behoeften) {
+    const heeftRust = behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'));
+    const heeftBeweging = behoeften.some(b => b.includes('Bewegen'));
+    const heeftContact = behoeften.some(b => b.includes('Verbinding'));
+    const heeftStructuur = behoeften.some(b => b.includes('Weten wat'));
+    const heeftCreativiteit = behoeften.some(b => b.includes('maken of bedenken'));
+    const heeftAfleiding = behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek'));
+
+    let tekst = '';
+    let taken = [];
+
+    if (niveau <= 2) {
+      if (heeftRust) {
+        tekst = 'Je energie is laag én je brein vraagt om rust. Dat is een duidelijk signaal. Geef jezelf toestemming om vandaag zo min mogelijk te doen.';
+        taken = ['Zet prikkels zoveel mogelijk uit: notificaties uit, scherm weg', 'Lig, zit, of wandel rustig — zonder doel', 'Geen besluiten nemen, geen plannen maken'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen — als je het rustig houdt. Geen sport, wel bewegen.';
+        taken = ['Een korte wandeling van 10-15 minuten, liefst buiten', 'Stretch of beweeg even tussendoor zonder druk', 'Daarna rust: beweging mag energie geven, niet kosten'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact — een berichtje, geen lang gesprek.';
+        taken = ['Stuur iemand een kort berichtje, zonder verwachting van een gesprek', 'Geen sociale verplichtingen aangaan vandaag', 'Onthoud: verbinding hoeft niet uitputtend te zijn'];
+      } else if (heeftStructuur) {
+        tekst = 'Je energie is laag en je zoekt houvast. Gebruik een kleine, vaste routine als anker — niet om productief te zijn, maar om stabiel te blijven.';
+        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
+      } else {
+        tekst = 'Je energie is laag. Forceren kost je morgen ook energie. Kies taken die weinig beslissingen vragen.';
+        taken = ['Routinetaken die je al kent en niet hoeft na te denken', 'Korte sessies van max 30 minuten met pauzes', 'Geen nieuwe dingen starten of grote beslissingen nemen'];
+      }
+    } else if (niveau === 3) {
+      if (heeftRust) {
+        tekst = 'Je energie is redelijk, maar je brein vraagt toch om rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
+        taken = ['Kies één taak die echt belangrijk is en doe die eerst', 'Plan daarna actief een pauze in — niet als beloning, als onderdeel van de dag', 'Vermijd overvolle agenda\'s en last-minute beslissingen'];
+      } else if (heeftCreativiteit) {
+        tekst = 'Je energie is stabiel en je hebt zin in iets creatiefs. Goed moment voor taken die ruimte vragen in plaats van druk.';
+        taken = ['Pak iets aan waar je creatief in kunt zijn: schrijven, ontwerpen, bedenken', 'Houd het bij één creatief project — niet alles tegelijk', 'Geef jezelf ruimte om te experimenteren zonder eindresultaat te verwachten'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag — het helpt je hoofd ook.';
+        taken = ['Begin met een wandeling of lichte beweging voor je aan het werk gaat', 'Wissel daarna zitten en bewegen af als dat kan', 'Plan de zwaardere taken na de beweging, niet ervoor'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is stabiel en je hebt behoefte aan verbinding. Goede dag voor een echt gesprek of samenwerken.';
+        taken = ['Plan een gesprek of check-in met iemand die je energie geeft', 'Houd het bij één of twee sociale momenten', 'Daarna ook tijd voor jezelf inbouwen'];
+      } else if (heeftStructuur) {
+        tekst = 'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag — dat voorkomt besluitmoeheid.';
+        taken = ['Schrijf de drie dingen op die je vandaag wil doen, op volgorde', 'Werk ze af voor je iets anders erbij pakt', 'Sluit de dag af door te checken wat je deed — niet wat je niet deed'];
+      } else {
+        tekst = 'Je energie is redelijk stabiel. Niet genoeg om alles te doen, wel genoeg voor één ding dat telt.';
+        taken = ['Één taak die iets vraagt maar niet overweldigend is', 'Sociale contacten zijn haalbaar, maar houd het kort', 'Vermijd impulsieve besluiten of overplanning'];
+      }
+    } else {
+      // niveau 4-5
+      if (heeftCreativiteit) {
+        tekst = 'Je energie is goed én je hebt zin om iets te maken. Dit is precies het moment om iets te bouwen waar je trots op kunt zijn.';
+        taken = ['Werk aan iets creatiefs dat je al een tijdje wil oppakken', 'Blokkeer tijd zonder onderbrekingen voor dit project', 'Sla op wat je maakt — ook als het nog niet af is'];
+      } else if (heeftBeweging) {
+        tekst = 'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof — en zorg dat je daarna ook echt iets gedaan krijgt.';
+        taken = ['Begin met bewegen: hardlopen, fietsen, of wat je energie geeft', 'Gebruik de energie daarna gericht voor je belangrijkste taak', 'Plan aan het einde van de dag ook rust in'];
+      } else if (heeftContact) {
+        tekst = 'Je energie is goed en je hebt zin in verbinding. Goede dag voor gesprekken, samenwerken, of mensen opzoeken die je al lang niet hebt gezien.';
+        taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Gebruik je energie ook voor iets wat je alleen doet — balans is key', 'Sla op wat je hebt afgesproken of besloten'];
+      } else if (heeftAfleiding) {
+        tekst = 'Je energie is goed, maar je brein wil afleiding. Pas op: afleiding op een goede dag kan je energie wegsluizen. Geef jezelf structuur.';
+        taken = ['Werk eerst de belangrijkste taak af voordat je afleiding toelaat', 'Gebruik de afleiding bewust als beloning achteraf', 'Zet tijdlimieten op afleiding — wees eerlijk over hoelang je ermee bezig bent'];
+      } else if (heeftRust) {
+        tekst = 'Je energie is goed, maar je vraagt ook om rust. Dat betekent: doe iets dat telt, maar overdrijf niet. Spaar voor morgen.';
+        taken = ['Kies één of twee taken die echt belangrijk zijn', 'Plan rustmomenten actief in — niet als bijzaak', 'Goede dag is geen vrijbrief om alles in te halen'];
+      } else {
+        tekst = 'Je energie is goed. Gebruik het bewust — niet om alles in te halen, maar om iets te doen wat telt.';
+        taken = ['Werk aan iets wat concentratie of creativiteit vraagt', 'Iets aanpakken wat je al een tijdje uitstelde', 'Plan ook rust in zodat morgen ook een goede dag kan zijn'];
+      }
+    }
+
+    return { tekst, taken };
+  }
+
+  function toonResultaat() {
+    if (!geselecteerdNiveau) return;
+    const base = niveauBase[geselecteerdNiveau];
+    const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.textContent);
+    const intentie = document.getElementById('intentie').value.trim();
+    const wie = document.getElementById('wie').value.trim();
+    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften);
+
+    document.getElementById('res-niveau').textContent = base.naam;
+    document.getElementById('res-titel').textContent = base.titel;
+    document.getElementById('res-tekst').textContent = tekst;
+
+    let reminderTekst = base.reminder;
+    if (wie) reminderTekst += ' Jij wil vandaag zijn: ' + wie + '. Houd dat vast als het moeilijk wordt.';
+    document.getElementById('res-reminder').textContent = reminderTekst;
+
+    const takenEl = document.getElementById('res-taken');
+    takenEl.innerHTML = '';
+    let alleTaken = [...taken];
+    if (intentie) alleTaken.unshift('Jouw intentie voor vandaag: ' + intentie);
+    if (geselecteerdeWerkstijl && werkstijlTips[geselecteerdeWerkstijl]) alleTaken.push(werkstijlTips[geselecteerdeWerkstijl]);
+    alleTaken.forEach(t => {
+      takenEl.innerHTML += `<div class="taak-item"><div class="taak-streep"></div><div>${t}</div></div>`;
+    });
+
+    document.getElementById('voortgang').style.display = 'none';
+    document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
+    const resultaatEl = document.getElementById('resultaat');
+    resultaatEl.classList.add('zichtbaar');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function opnieuw() {
+    document.querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.behoefte-tag').forEach(t => t.classList.remove('selected'));
+    document.querySelectorAll('.werkstijl-optie').forEach(o => o.classList.remove('selected'));
+    document.getElementById('intentie').value = '';
+    document.getElementById('wie').value = '';
+    document.getElementById('hint-1').textContent = '';
+    geselecteerdNiveau = null;
+    geselecteerdeWerkstijl = null;
+    document.getElementById('btn-stap1').disabled = true;
+
+    document.getElementById('resultaat').classList.remove('zichtbaar');
+    document.getElementById('voortgang').style.display = 'flex';
+    naarStap(1);
+  }
+</script>
+</body>
+</html>

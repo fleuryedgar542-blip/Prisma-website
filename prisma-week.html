@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMA Week</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --beige: #F3EFE8;
+    --grijs: #2E2E2E;
+    --groen: #A8B5A2;
+    --blauw: #6E7C8C;
+    --grijs-licht: #E8E4DC;
+    --grijs-mid: #9A9A9A;
+    --wit: #ffffff;
+    --sidebar-w: 220px;
+    --nav-h: 64px;
+  }
+
+  body {
+    background: var(--beige);
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* ── SIDEBAR (desktop) ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--wit);
+    border-right: 1px solid var(--grijs-licht);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 10;
+  }
+
+  .sidebar-logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blauw);
+    padding: 0 28px 28px;
+    border-bottom: 1px solid var(--grijs-licht);
+    margin-bottom: 20px;
+  }
+
+  .sidebar-nav { flex: 1; }
+
+  .nav-section-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    padding: 0 28px;
+    margin-bottom: 6px;
+    margin-top: 18px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    font-size: 12px;
+    color: var(--grijs-mid);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--grijs); background: var(--beige); }
+  .nav-item.active { color: var(--grijs); border-left-color: var(--groen); background: #F8FAF7; }
+  .nav-item.done { color: var(--grijs); }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--grijs-licht);
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .nav-item.active .nav-dot { background: var(--blauw); }
+  .nav-item.done .nav-dot { background: var(--groen); }
+
+  .nav-check {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--groen);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 8px;
+    color: white;
+  }
+  .nav-item.done .nav-check { display: flex; }
+  .nav-item.done .nav-dot { display: none; }
+
+  .nav-divider { height: 1px; background: var(--grijs-licht); margin: 14px 28px; }
+
+  .nav-item-maand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 28px;
+    font-size: 12px;
+    color: var(--grijs-mid);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+  .nav-item-maand:hover { color: var(--grijs); background: var(--beige); }
+  .nav-item-maand.active { color: var(--grijs); border-left-color: var(--blauw); background: #F0F3F6; }
+
+  /* ── MOBIELE NAVIGATIE (onderaan) ── */
+  .mobiel-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--wit);
+    border-top: 1px solid var(--grijs-licht);
+    z-index: 20;
+    padding: 0;
+  }
+
+  .mobiel-nav-inner {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobiel-nav-inner::-webkit-scrollbar { display: none; }
+
+  .mob-item {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    font-size: 10px;
+    color: var(--grijs-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+    border-top: 2px solid transparent;
+    min-width: 52px;
+    letter-spacing: 0.04em;
+  }
+  .mob-item:hover { color: var(--grijs); }
+  .mob-item.active { color: var(--grijs); border-top-color: var(--groen); }
+  .mob-item.done { color: var(--groen); }
+
+  .mob-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--grijs-licht);
+    transition: background 0.15s;
+  }
+  .mob-item.active .mob-dot { background: var(--blauw); }
+  .mob-item.done .mob-dot { background: var(--groen); }
+
+  .mob-sep {
+    width: 1px;
+    background: var(--grijs-licht);
+    align-self: stretch;
+    margin: 8px 0;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 56px 72px 80px;
+    width: calc(100% - var(--sidebar-w));
+    max-width: 760px;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; animation: fadeUp 0.35s ease forwards; }
+  .page.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TYPOGRAFIE ── */
+  .page-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Noto Serif', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 14px;
+  }
+
+  /* ── DAG FORM ── */
+  .form-section { margin-bottom: 32px; }
+
+  .energie-schaal { display: flex; flex-direction: column; gap: 7px; }
+
+  .energie-optie {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 18px;
+    border: 1.5px solid transparent;
+    background: var(--wit);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .energie-optie::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 10px 0 0 10px;
+  }
+  .energie-optie[data-niveau="1"]::before { background: #C4A882; }
+  .energie-optie[data-niveau="2"]::before { background: #B8B89A; }
+  .energie-optie[data-niveau="3"]::before { background: var(--blauw); }
+  .energie-optie[data-niveau="4"]::before { background: #8BAF86; }
+  .energie-optie[data-niveau="5"]::before { background: var(--groen); }
+
+  .energie-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
+  .energie-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+  .energie-optie.selected::before { opacity: 1; }
+
+  .energie-nummer {
+    font-family: 'Noto Serif', serif;
+    font-size: 18px;
+    min-width: 22px;
+  }
+  .energie-optie[data-niveau="1"] .energie-nummer { color: #C4A882; }
+  .energie-optie[data-niveau="2"] .energie-nummer { color: #B8B89A; }
+  .energie-optie[data-niveau="3"] .energie-nummer { color: var(--blauw); }
+  .energie-optie[data-niveau="4"] .energie-nummer { color: #8BAF86; }
+  .energie-optie[data-niveau="5"] .energie-nummer { color: var(--groen); }
+
+  .energie-info { flex: 1; }
+  .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .energie-omschrijving { font-size: 11px; color: var(--blauw); line-height: 1.5; }
+  .energie-dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--grijs-mid); transition: all 0.2s; flex-shrink: 0; }
+  .energie-optie.selected .energie-dot { background: var(--groen); border-color: var(--groen); }
+
+  .behoeften-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .behoefte-tag {
+    padding: 7px 14px;
+    border: 1.5px solid var(--grijs-licht);
+    background: var(--wit);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: var(--grijs);
+  }
+  .behoefte-tag:hover { border-color: var(--groen); }
+  .behoefte-tag.selected { background: var(--groen); border-color: var(--groen); color: white; }
+
+  /* WERKSTIJL */
+  .werkstijl-grid { display: flex; flex-direction: column; gap: 7px; }
+  .werkstijl-optie {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid transparent;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .werkstijl-optie:hover { border-color: var(--grijs-licht); }
+  .werkstijl-optie.selected { border-color: var(--groen); background: #F8FAF7; }
+  .werkstijl-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-mid);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
+  .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .werkstijl-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+
+  .tekst-input {
+    width: 100%;
+    background: var(--wit);
+    border: 1.5px solid var(--grijs-licht);
+    border-radius: 10px;
+    padding: 13px 17px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grijs);
+    resize: none;
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+  .tekst-input:focus { border-color: var(--groen); }
+  .tekst-input::placeholder { color: var(--grijs-mid); }
+  .tekst-input.kort { height: 70px; }
+
+  .opslaan-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+  .opslaan-btn:hover { background: var(--blauw); }
+  .opslaan-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
+
+  .dag-opgeslagen {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #F8FAF7;
+    border: 1px solid var(--groen);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--grijs);
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+  }
+
+  /* ── WEEKOVERZICHT ── */
+  .week-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+
+  .dag-kaart {
+    background: var(--wit);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--grijs-licht);
+    transition: border-color 0.2s;
+  }
+  .dag-kaart:hover { border-color: var(--groen); }
+
+  .dag-kaart-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .dag-naam-col { min-width: 86px; }
+  .dag-naam { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+  .dag-datum { font-size: 11px; color: var(--grijs-mid); }
+
+  .energie-balk-wrap { flex: 1; }
+  .energie-balk-bg { height: 5px; background: var(--grijs-licht); border-radius: 4px; overflow: hidden; }
+  .energie-balk-fill { height: 100%; background: var(--groen); border-radius: 4px; transition: width 0.5s ease; }
+
+  .dag-niveau-label { font-size: 11px; color: var(--blauw); min-width: 36px; text-align: right; font-family: 'Noto Serif', serif; }
+  .dag-leeg { opacity: 0.4; font-size: 12px; color: var(--grijs-mid); font-style: italic; flex: 1; }
+
+  .dag-behoeften {
+    font-size: 11px;
+    color: var(--grijs-mid);
+    letter-spacing: 0.02em;
+  }
+
+  .dag-advies {
+    font-size: 12px;
+    color: var(--blauw);
+    line-height: 1.7;
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+    padding-top: 4px;
+    border-top: 1px solid var(--grijs-licht);
+  }
+
+  /* ── ANALYSE ── */
+  .analyse-blok {
+    background: var(--wit);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    border: 1px solid var(--grijs-licht);
+  }
+  .analyse-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .analyse-tekst { font-size: 13px; color: var(--blauw); line-height: 1.8; }
+  .analyse-lijst { list-style: none; margin-top: 10px; }
+  .analyse-lijst li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 13px; line-height: 1.6; padding: 6px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+  }
+  .analyse-lijst li:last-child { border-bottom: none; }
+  .analyse-streep { width: 14px; height: 1px; background: var(--groen); margin-top: 10px; flex-shrink: 0; }
+
+  .reminder {
+    margin-top: 8px;
+    padding: 18px 22px;
+    background: var(--beige);
+    border-left: 2px solid var(--groen);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--grijs);
+  }
+
+  /* ── WEEK OPSLAAN KNOP ── */
+  .week-afsluiten {
+    margin-top: 28px;
+    padding: 24px 26px;
+    background: var(--wit);
+    border-radius: 10px;
+    border: 1.5px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .week-afsluiten-tekst {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .week-afsluiten-tekst strong {
+    display: block;
+    font-family: 'Noto Serif', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--grijs);
+    margin-bottom: 4px;
+  }
+  .week-opslaan-btn {
+    flex-shrink: 0;
+    padding: 14px 24px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .week-opslaan-btn:hover { background: var(--blauw); }
+
+  /* ── MAANDOVERZICHT ── */
+  .maand-intro {
+    margin-bottom: 28px;
+  }
+
+  .maand-grid { display: flex; flex-direction: column; gap: 20px; }
+
+  .week-blok {
+    background: var(--wit);
+    border-radius: 10px;
+    border: 1px solid var(--grijs-licht);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .week-blok:hover { border-color: var(--groen); }
+
+  .week-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .week-header-titel { font-size: 12px; font-weight: 500; }
+  .week-gemiddelde { font-family: 'Noto Serif', serif; font-size: 13px; color: var(--groen); }
+
+  .week-dagen-rij {
+    display: flex;
+    padding: 16px 20px;
+    gap: 6px;
+  }
+
+  .mini-dag {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .mini-dag-naam { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--grijs-mid); }
+
+  /* Heatmap cellen */
+  .mini-dag-cel {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif', serif;
+    font-size: 12px;
+    color: var(--grijs);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .mini-dag-cel.leeg { background: var(--grijs-licht); opacity: 0.3; color: transparent; }
+  .mini-dag-cel.niveau-1 { background: #E8D5C8; color: #7A5840; }
+  .mini-dag-cel.niveau-2 { background: #DFD9C8; color: #6B6045; }
+  .mini-dag-cel.niveau-3 { background: #D4DCE6; color: var(--blauw); }
+  .mini-dag-cel.niveau-4 { background: #C8DCC5; color: #4A7A45; }
+  .mini-dag-cel.niveau-5 { background: var(--groen); color: white; }
+
+  /* Lege staat maand */
+  .maand-leeg {
+    text-align: center;
+    padding: 48px 24px;
+    font-size: 13px;
+    color: var(--grijs-mid);
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  .nieuw-week-btn {
+    margin-top: 28px;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .nieuw-week-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 28px;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--grijs-mid);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .home-link:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  /* ── INTRODUCTIE ── */
+  .intro-blok {
+    background: white;
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 36px;
+    border: 1px solid var(--grijs-licht);
+  }
+  .intro-blok-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: var(--grijs);
+  }
+  .intro-blok-tekst {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .intro-blok-lijst {
+    list-style: none;
+    margin-bottom: 20px;
+  }
+  .intro-blok-lijst li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--grijs);
+    line-height: 1.6;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+  }
+  .intro-blok-lijst li:last-child { border-bottom: none; }
+  .intro-streep {
+    width: 14px;
+    height: 1px;
+    background: var(--groen);
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+  .intro-sluiten-btn {
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    padding: 13px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+  }
+  .intro-sluiten-btn:hover { background: var(--blauw); }
+
+  /* ── DAG VOORTGANG ── */
+  .dag-voortgang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .dag-stap-item { display: flex; align-items: center; gap: 8px; }
+  .dag-stap-cirkel {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-licht);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: var(--grijs-mid);
+    font-family: 'Noto Serif', serif;
+    transition: all 0.3s ease;
+    background: white;
+    flex-shrink: 0;
+  }
+  .dag-stap-cirkel.actief { border-color: var(--blauw); color: var(--blauw); }
+  .dag-stap-cirkel.klaar { border-color: var(--groen); background: var(--groen); color: white; font-size: 9px; }
+  .dag-stap-lijn {
+    flex: 1; height: 1px;
+    background: var(--grijs-licht);
+    transition: background 0.3s ease;
+    min-width: 12px;
+  }
+  .dag-stap-lijn.klaar { background: var(--groen); }
+
+  /* DAG SUBSTAPPEN */
+  .dag-substap { display: none; }
+  .dag-substap.actief { display: block; animation: fadeUp 0.35s ease forwards; }
+
+  .dag-knop-rij { display: flex; gap: 10px; margin-top: 28px; }
+  .dag-verder-btn {
+    flex: 1; padding: 15px;
+    background: var(--grijs); color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s ease; border-radius: 10px;
+  }
+  .dag-verder-btn:hover { background: var(--blauw); }
+  .dag-verder-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
+  .dag-terug-btn {
+    padding: 15px 18px;
+    background: none; color: var(--grijs-mid);
+    border: 1.5px solid var(--grijs-licht);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s ease; border-radius: 10px;
+  }
+  .dag-terug-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+  .dag-stap-hint {
+    font-size: 12px; color: var(--grijs-mid);
+    font-style: italic; font-family: 'Noto Serif', serif;
+    margin-top: 10px; min-height: 18px;
+  }
+
+  /* ── MOBIEL ── */
+  @media (max-width: 640px) {
+    .sidebar { display: none; }
+    .mobiel-nav { display: flex; }
+    body { flex-direction: column; }
+    .main {
+      margin-left: 0;
+      width: 100%;
+      padding: 32px 20px calc(var(--nav-h) + 20px);
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 900px) {
+    :root { --sidebar-w: 180px; }
+    .main { padding: 48px 40px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DESKTOP SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">PRISMA Week</div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Deze week</div>
+    <div class="nav-item active" id="nav-ma" onclick="navigeer('ma')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Maandag
+    </div>
+    <div class="nav-item" id="nav-di" onclick="navigeer('di')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Dinsdag
+    </div>
+    <div class="nav-item" id="nav-wo" onclick="navigeer('wo')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Woensdag
+    </div>
+    <div class="nav-item" id="nav-do" onclick="navigeer('do')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Donderdag
+    </div>
+    <div class="nav-item" id="nav-vr" onclick="navigeer('vr')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Vrijdag
+    </div>
+    <div class="nav-item" id="nav-za" onclick="navigeer('za')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Zaterdag
+    </div>
+    <div class="nav-item" id="nav-zo" onclick="navigeer('zo')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Zondag
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-item" id="nav-week" onclick="navigeer('week')">
+      <div class="nav-dot"></div><div class="nav-check">✓</div>Weekoverzicht
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Geschiedenis</div>
+    <div class="nav-item-maand" id="nav-maand" onclick="navigeer('maand')">
+      <div class="nav-dot"></div>Maandoverzicht
+    </div>
+  </div>
+</nav>
+
+<!-- MOBIELE NAV (onderaan) -->
+<nav class="mobiel-nav">
+  <div class="mobiel-nav-inner">
+    <div class="mob-item active" id="mob-ma" onclick="navigeer('ma')">
+      <div class="mob-dot"></div>Ma
+    </div>
+    <div class="mob-item" id="mob-di" onclick="navigeer('di')">
+      <div class="mob-dot"></div>Di
+    </div>
+    <div class="mob-item" id="mob-wo" onclick="navigeer('wo')">
+      <div class="mob-dot"></div>Wo
+    </div>
+    <div class="mob-item" id="mob-do" onclick="navigeer('do')">
+      <div class="mob-dot"></div>Do
+    </div>
+    <div class="mob-item" id="mob-vr" onclick="navigeer('vr')">
+      <div class="mob-dot"></div>Vr
+    </div>
+    <div class="mob-item" id="mob-za" onclick="navigeer('za')">
+      <div class="mob-dot"></div>Za
+    </div>
+    <div class="mob-item" id="mob-zo" onclick="navigeer('zo')">
+      <div class="mob-dot"></div>Zo
+    </div>
+    <div class="mob-sep"></div>
+    <div class="mob-item" id="mob-week" onclick="navigeer('week')">
+      <div class="mob-dot"></div>Week
+    </div>
+    <div class="mob-sep"></div>
+    <div class="mob-item" id="mob-maand" onclick="navigeer('maand')">
+      <div class="mob-dot"></div>Maand
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- DAG PAGINAS -->
+  <div id="page-ma" class="page active">
+    <div class="intro-blok" id="intro-blok">
+      <div class="intro-blok-titel">Welkom bij PRISMA Week</div>
+      <div class="intro-blok-tekst">Elke dag vul je in hoe je energie is, wat je nodig hebt, en wat je opviel. Aan het einde van de week zie je je patroon terug.</div>
+      <ul class="intro-blok-lijst">
+        <li><div class="intro-streep"></div><div>Vul elke dag in via de navigatie links of onderaan op je telefoon</div></li>
+        <li><div class="intro-streep"></div><div>Alles mag leeg blijven — vul in wat voelt, niet wat moet</div></li>
+        <li><div class="intro-streep"></div><div>Je weekoverzicht wordt zichtbaar zodra je een paar dagen hebt ingevuld</div></li>
+        <li><div class="intro-streep"></div><div>Je data wordt opgeslagen op je eigen apparaat</div></li>
+      </ul>
+      <button class="intro-sluiten-btn" onclick="sluitIntro()">Beginnen →</button>
+    </div>
+  </div>
+  <div id="page-di" class="page"></div>
+  <div id="page-wo" class="page"></div>
+  <div id="page-do" class="page"></div>
+  <div id="page-vr" class="page"></div>
+  <div id="page-za" class="page"></div>
+  <div id="page-zo" class="page"></div>
+
+  <!-- WEEKOVERZICHT -->
+  <div id="page-week" class="page">
+    <div class="page-label">Weekoverzicht</div>
+    <h1>Hoe was je week?</h1>
+    <p class="page-subtitle">Een overzicht van je energieniveaus en wat je ervan kan leren voor volgende week.</p>
+    <div class="week-grid" id="week-grid"></div>
+    <div id="week-analyse"></div>
+  </div>
+
+  <!-- MAANDOVERZICHT -->
+  <div id="page-maand" class="page">
+    <div class="page-label">Maandoverzicht</div>
+    <h1>Jouw maand in energie</h1>
+    <p class="page-subtitle">Alle opgeslagen weken op een rij. Zo zie je patronen over langere tijd.</p>
+    <div class="maand-grid" id="maand-grid"></div>
+    <button class="nieuw-week-btn" onclick="nieuweWeek()">↺ Nieuwe week starten</button>
+    <br>
+    <a href="https://prismasystemen.nl" class="home-link">← Terug naar de website</a>
+  </div>
+
+</main>
+
+<script>
+  const DAGEN = ['ma','di','wo','do','vr','za','zo'];
+  const DAG_NAMEN = { ma:'Maandag', di:'Dinsdag', wo:'Woensdag', do:'Donderdag', vr:'Vrijdag', za:'Zaterdag', zo:'Zondag' };
+  const DAG_KORT = { ma:'Ma', di:'Di', wo:'Wo', do:'Do', vr:'Vr', za:'Za', zo:'Zo' };
+
+  const NIVEAU_NAMEN = { 1:'Bijna leeg', 2:'Laag', 3:'Midden', 4:'Goed', 5:'Vol' };
+  const NIVEAU_OMSCHRIJVING = {
+    1:'Je lijf en hoofd vragen om rust. Alles voelt zwaar.',
+    2:'Je kan iets doen, maar niet veel. Lichte taken zijn haalbaar.',
+    3:'Redelijk stabiel. Je kan functioneren, maar niet forceren.',
+    4:'Je hebt ruimte. Gebruik het bewust, niet meteen alles.',
+    5:'Je voelt je goed. Goede dag voor iets wat meer vraagt.'
+  };
+
+  let weekData = {};
+  let maandData = [];
+  try { maandData = JSON.parse(localStorage.getItem('prisma-maand') || '[]'); } catch(e) {}
+  let huidigePagina = 'ma';
+
+  const introGezien = (() => { try { return localStorage.getItem('prisma-intro-gezien'); } catch(e) { return null; } })();
+  DAGEN.forEach(dag => {
+    if (dag === 'ma' && !introGezien) return;
+    document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
+  });
+  if (introGezien) {
+    document.getElementById('page-ma').innerHTML = buildDagPagina('ma');
+  }
+
+  function sluitIntro() {
+    const intro = document.getElementById('intro-blok');
+    if (intro) {
+      intro.style.opacity = '0';
+      intro.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => {
+        intro.style.display = 'none';
+        document.getElementById('page-ma').innerHTML = buildDagPagina('ma');
+      }, 300);
+    }
+    try { localStorage.setItem('prisma-intro-gezien', '1'); } catch(e) {}
+  }
+
+  function buildDagPagina(dag) {
+    return `
+      <div class="page-label">Deze week — ${DAG_NAMEN[dag]}</div>
+      <h1>Hoe is je energie vandaag?</h1>
+      <p class="page-subtitle">Geen goed of fout antwoord. Je energie is informatie — geen oordeel.</p>
+
+      <!-- VOORTGANG -->
+      <div class="dag-voortgang" id="voortgang-${dag}">
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel actief" id="dcirkel-${dag}-1">1</div>
+        </div>
+        <div class="dag-stap-lijn" id="dlijn-${dag}-1"></div>
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel" id="dcirkel-${dag}-2">2</div>
+        </div>
+        <div class="dag-stap-lijn" id="dlijn-${dag}-2"></div>
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel" id="dcirkel-${dag}-3">3</div>
+        </div>
+        <div class="dag-stap-lijn" id="dlijn-${dag}-3"></div>
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel" id="dcirkel-${dag}-4">4</div>
+        </div>
+        <div class="dag-stap-lijn" id="dlijn-${dag}-4"></div>
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel" id="dcirkel-${dag}-5">5</div>
+        </div>
+        <div class="dag-stap-lijn" id="dlijn-${dag}-5"></div>
+        <div class="dag-stap-item">
+          <div class="dag-stap-cirkel" id="dcirkel-${dag}-6">6</div>
+        </div>
+      </div>
+
+      <!-- STAP 1 -->
+      <div class="dag-substap actief" id="dstap-${dag}-1">
+        <div class="section-label">Stap 1 — Hoeveel energie heb je nu?</div>
+        <div class="energie-schaal" id="schaal-${dag}">
+          ${[1,2,3,4,5].map(n => `
+            <div class="energie-optie" data-niveau="${n}" onclick="selecteerEnergie('${dag}', this)">
+              <div class="energie-nummer">${n}</div>
+              <div class="energie-info">
+                <div class="energie-naam">${NIVEAU_NAMEN[n]}</div>
+                <div class="energie-omschrijving">${NIVEAU_OMSCHRIJVING[n]}</div>
+              </div>
+              <div class="energie-dot"></div>
+            </div>`).join('')}
+        </div>
+        <div class="dag-stap-hint" id="dhint-${dag}"></div>
+        <div class="dag-knop-rij">
+          <button class="dag-verder-btn" id="dbtn-${dag}-1" onclick="dagNaarStap('${dag}', 2)" disabled>Verder →</button>
+        </div>
+      </div>
+
+      <!-- STAP 2 -->
+      <div class="dag-substap" id="dstap-${dag}-2">
+        <div class="section-label">Stap 2 — Wat had je lijf of hoofd nodig?</div>
+        <div class="behoeften-grid" id="behoeften-${dag}">
+          ${['🛋 Even niks hoeven','🔇 Minder prikkels','🚶 Bewegen of buiten zijn','📋 Weten wat ik ga doen','💬 Verbinding met iemand','🎨 Iets maken of bedenken','📱 Iets erbij doen terwijl ik werk','🎧 Muziek of geluid op de achtergrond','⏱ Duidelijke tijdsgrenzen'].map(b =>
+            `<div class="behoefte-tag" onclick="toggleBehoefte(this)">${b}</div>`).join('')}
+        </div>
+        <div class="dag-stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</div>
+        <div class="dag-knop-rij">
+          <button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 1)">← Terug</button>
+          <button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 3)">Verder →</button>
+        </div>
+      </div>
+
+      <!-- STAP 3 -->
+      <div class="dag-substap" id="dstap-${dag}-3">
+        <div class="section-label">Stap 3 — Hoe werkte je vandaag het beste?</div>
+        <div class="werkstijl-grid" id="werkstijl-${dag}">
+          <div class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl('${dag}', this)">
+            <div class="werkstijl-dot"></div>
+            <div>
+              <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
+              <div class="werkstijl-omschrijving">Een video aan terwijl je iets deed — zo hield je het vol.</div>
+            </div>
+          </div>
+          <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl('${dag}', this)">
+            <div class="werkstijl-dot"></div>
+            <div>
+              <div class="werkstijl-naam">Één ding tegelijk, snel afmaken</div>
+              <div class="werkstijl-omschrijving">Ergens mee klaar zijn voordat je verder ging.</div>
+            </div>
+          </div>
+          <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl('${dag}', this)">
+            <div class="werkstijl-dot"></div>
+            <div>
+              <div class="werkstijl-naam">Blokken met pauzes</div>
+              <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken.</div>
+            </div>
+          </div>
+          <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl('${dag}', this)">
+            <div class="werkstijl-dot"></div>
+            <div>
+              <div class="werkstijl-naam">Meegaan met hoe ik me voelde</div>
+              <div class="werkstijl-omschrijving">Geen vaste aanpak — je volgde je energie van moment tot moment.</div>
+            </div>
+          </div>
+        </div>
+        <div class="dag-stap-hint">Mag ook leeg blijven.</div>
+        <div class="dag-knop-rij">
+          <button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 2)">← Terug</button>
+          <button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 4)">Verder →</button>
+        </div>
+      </div>
+
+      <!-- STAP 4 -->
+      <div class="dag-substap" id="dstap-${dag}-4">
+        <div class="section-label">Stap 4 — Wat kostte energie?</div>
+        <textarea class="tekst-input kort" id="kostte-${dag}" placeholder="Wat zoog energie uit je vandaag?"></textarea>
+        <div class="dag-stap-hint">Mag ook leeg blijven.</div>
+        <div class="dag-knop-rij">
+          <button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 3)">← Terug</button>
+          <button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 5)">Verder →</button>
+        </div>
+      </div>
+
+      <!-- STAP 5 -->
+      <div class="dag-substap" id="dstap-${dag}-5">
+        <div class="section-label">Stap 5 — Wat gaf energie?</div>
+        <textarea class="tekst-input kort" id="gaf-${dag}" placeholder="Wat gaf je energie of rust?"></textarea>
+        <div class="dag-stap-hint">Mag ook leeg blijven.</div>
+        <div class="dag-knop-rij">
+          <button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 4)">← Terug</button>
+          <button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 6)">Verder →</button>
+        </div>
+      </div>
+
+      <!-- STAP 6 -->
+      <div class="dag-substap" id="dstap-${dag}-6">
+        <div class="section-label">Stap 6 — Wie wilde je vandaag zijn?</div>
+        <textarea class="tekst-input kort" id="wie-${dag}" placeholder="Rustig? Aanwezig? Gewoon jezelf? Eén woord of zin."></textarea>
+        <div class="dag-stap-hint">Mag ook leeg blijven.</div>
+        <div class="dag-knop-rij">
+          <button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 5)">← Terug</button>
+          <button class="dag-verder-btn" id="btn-${dag}" onclick="slaanOp('${dag}')">Dag opslaan →</button>
+        </div>
+      </div>
+
+      <div class="dag-opgeslagen" id="bevestiging-${dag}">✓ Dag opgeslagen. Je gaat automatisch naar de volgende dag.</div>
+    `;
+  }
+
+  const NIVEAU_HINTS = {
+    1: 'Vandaag is een rustdag. Dat is genoeg.',
+    2: 'Licht en haalbaar. Niet meer dan dat.',
+    3: 'Een gemiddelde dag is geen teleurstelling.',
+    4: 'Goede dag. Gebruik het bewust.',
+    5: 'Volle energie. Spaar ook iets voor morgen.'
+  };
+
+  // Gepersonaliseerd advies op basis van niveau + behoeften
+  function bouwAdvies(niveau, behoeften) {
+    const heeftRust = behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'));
+    const heeftBeweging = behoeften.some(b => b.includes('Bewegen'));
+    const heeftContact = behoeften.some(b => b.includes('Verbinding'));
+    const heeftStructuur = behoeften.some(b => b.includes('Weten wat'));
+    const heeftCreativiteit = behoeften.some(b => b.includes('maken of bedenken'));
+    const heeftAfleiding = behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek'));
+
+    let tekst = '';
+    let taken = [];
+
+    if (niveau <= 2) {
+      if (heeftRust) {
+        tekst = 'Energie laag én behoefte aan rust. Duidelijk signaal — zo min mogelijk doen is het juiste antwoord.';
+        taken = ['Prikkels uitzetten: notificaties, scherm, geluid', 'Liggen, zitten, of rustig wandelen zonder doel', 'Geen besluiten nemen, geen plannen maken'];
+      } else if (heeftBeweging) {
+        tekst = 'Energie laag, maar lichaam vraagt beweging. Rustig bewegen kan helpen — geen sport, wel bewegen.';
+        taken = ['Korte wandeling van 10-15 minuten, liefst buiten', 'Licht stretchen tussendoor', 'Daarna rust — beweging mag energie geven, niet kosten'];
+      } else if (heeftContact) {
+        tekst = 'Energie laag, maar je hebt behoefte aan verbinding. Kies voor licht contact, geen lang gesprek.';
+        taken = ['Een kort berichtje sturen, zonder verwachting', 'Geen sociale verplichtingen aangaan', 'Verbinding hoeft niet uitputtend te zijn'];
+      } else if (heeftStructuur) {
+        tekst = 'Energie laag en je zoekt houvast. Een kleine vaste routine als anker — niet voor productiviteit, maar voor stabiliteit.';
+        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
+      } else {
+        tekst = 'Energie laag. Forceren kost je morgen ook energie.';
+        taken = ['Routinetaken die je al kent', 'Korte sessies van max 30 minuten met pauzes', 'Geen nieuwe dingen starten'];
+      }
+    } else if (niveau === 3) {
+      if (heeftRust) {
+        tekst = 'Stabiele energie, maar behoefte aan rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
+        taken = ['Één taak die echt belangrijk is, als eerste', 'Daarna een geplande pauze — niet als beloning, als onderdeel', 'Vermijd overvolle agenda'];
+      } else if (heeftCreativiteit) {
+        tekst = 'Stabiele energie én zin in iets maken. Goed moment voor taken die ruimte vragen.';
+        taken = ['Één creatief project, niet alles tegelijk', 'Ruimte om te experimenteren zonder eindresultaat te verwachten', 'Houd het bij dit project'];
+      } else if (heeftBeweging) {
+        tekst = 'Stabiele energie en lichaam wil bewegen. Gebruik dat als begin van je dag.';
+        taken = ['Begin met beweging voor je aan het werk gaat', 'Wissel zitten en bewegen af', 'Zwaardere taken na de beweging plannen'];
+      } else if (heeftContact) {
+        tekst = 'Stabiele energie en behoefte aan verbinding. Goed moment voor een echt gesprek.';
+        taken = ['Een gesprek of check-in met iemand die energie geeft', 'Één of twee sociale momenten, niet meer', 'Daarna ook tijd voor jezelf'];
+      } else if (heeftStructuur) {
+        tekst = 'Stabiele energie en structuur helpt. Een duidelijke volgorde voorkomt besluitmoeheid.';
+        taken = ['Drie dingen opschrijven die je wil doen, op volgorde', 'Afwerken voor je iets anders erbij pakt', 'Dag afsluiten met wat je deed, niet wat je niet deed'];
+      } else {
+        tekst = 'Stabiele energie. Niet genoeg voor alles, wel voor één ding dat telt.';
+        taken = ['Één taak die iets vraagt maar niet overweldigend is', 'Sociaal contact haalbaar, maar kort houden', 'Impulsieve besluiten vermijden'];
+      }
+    } else {
+      if (heeftCreativiteit) {
+        tekst = 'Goede energie én zin in iets maken. Dit is het moment om iets te bouwen.';
+        taken = ['Werk aan iets creatiefs wat je al wil oppakken', 'Blokkeer tijd zonder onderbrekingen', 'Sla op wat je maakt, ook als het niet af is'];
+      } else if (heeftBeweging) {
+        tekst = 'Goede energie en lichaam wil bewegen. Gebruik dat als brandstof.';
+        taken = ['Begin met bewegen: hardlopen, fietsen, of wat energie geeft', 'Gebruik de energie daarna gericht voor je belangrijkste taak', 'Plan aan het einde ook rust in'];
+      } else if (heeftContact) {
+        tekst = 'Goede energie en zin in verbinding. Goed moment voor mensen opzoeken of samen werken.';
+        taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Balans: ook iets voor jezelf doen', 'Sla op wat je hebt afgesproken'];
+      } else if (heeftAfleiding) {
+        tekst = 'Goede energie, maar brein wil afleiding. Geef jezelf eerst structuur, dan afleiding.';
+        taken = ['Belangrijkste taak afmaken voordat je afleiding toelaat', 'Afleiding bewust gebruiken als beloning achteraf', 'Tijdlimieten zetten op afleiding'];
+      } else if (heeftRust) {
+        tekst = 'Goede energie, maar ook behoefte aan rust. Doe iets dat telt maar overdrijf niet.';
+        taken = ['Één of twee taken die echt belangrijk zijn', 'Rustmomenten actief inplannen', 'Goede dag is geen vrijbrief om alles in te halen'];
+      } else {
+        tekst = 'Goede energie. Gebruik het bewust voor iets wat telt.';
+        taken = ['Iets aanpakken wat concentratie vraagt', 'Iets oppakken wat je al een tijdje uitstelde', 'Rust inplannen zodat morgen ook goed is'];
+      }
+    }
+    return { tekst, taken };
+  }
+
+  function dagAdviesTekst(dag) {
+    if (!weekData[dag] || !weekData[dag].niveau) return '';
+    const { tekst } = bouwAdvies(weekData[dag].niveau, weekData[dag].behoeften || []);
+    return tekst;
+  }
+
+  function dagNaarStap(dag, n) {
+    document.querySelectorAll(`#page-${dag} .dag-substap`).forEach(s => s.classList.remove('actief'));
+    document.getElementById(`dstap-${dag}-${n}`).classList.add('actief');
+    updateDagVoortgang(dag, n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateDagVoortgang(dag, actief) {
+    for (let i = 1; i <= 6; i++) {
+      const cirkel = document.getElementById(`dcirkel-${dag}-${i}`);
+      if (!cirkel) continue;
+      cirkel.className = 'dag-stap-cirkel';
+      if (i < actief) { cirkel.classList.add('klaar'); cirkel.textContent = '✓'; }
+      else if (i === actief) { cirkel.classList.add('actief'); cirkel.textContent = i; }
+      else { cirkel.textContent = i; }
+      if (i < 6) {
+        const lijn = document.getElementById(`dlijn-${dag}-${i}`);
+        if (lijn) lijn.className = 'dag-stap-lijn' + (i < actief ? ' klaar' : '');
+      }
+    }
+  }
+
+  function selecteerEnergie(dag, el) {
+    el.closest('.energie-schaal').querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    if (!weekData[dag]) weekData[dag] = {};
+    weekData[dag].niveau = parseInt(el.dataset.niveau);
+    const hint = document.getElementById('dhint-' + dag);
+    if (hint) hint.textContent = NIVEAU_HINTS[weekData[dag].niveau];
+    const btn = document.getElementById('dbtn-' + dag + '-1');
+    if (btn) btn.disabled = false;
+  }
+
+  function toggleBehoefte(el) { el.classList.toggle('selected'); }
+
+  function selecteerWerkstijl(dag, el) {
+    document.querySelectorAll(`#werkstijl-${dag} .werkstijl-optie`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    if (!weekData[dag]) weekData[dag] = {};
+    weekData[dag].werkstijl = el.dataset.stijl;
+  }
+
+  function slaanOp(dag) {
+    if (!weekData[dag] || !weekData[dag].niveau) return;
+    const behoeften = [...document.querySelectorAll(`#behoeften-${dag} .behoefte-tag.selected`)].map(t => t.textContent);
+    weekData[dag].behoeften = behoeften;
+    weekData[dag].kostte = document.getElementById('kostte-' + dag).value.trim();
+    weekData[dag].gaf = document.getElementById('gaf-' + dag).value.trim();
+    weekData[dag].wie = document.getElementById('wie-' + dag).value.trim();
+    weekData[dag].naam = DAG_NAMEN[dag];
+
+    document.getElementById('bevestiging-' + dag).style.display = 'block';
+
+    // Desktop nav
+    const navEl = document.getElementById('nav-' + dag);
+    if (navEl) navEl.classList.add('done');
+
+    // Mobiel nav
+    const mobEl = document.getElementById('mob-' + dag);
+    if (mobEl) mobEl.classList.add('done');
+
+    const volgendeDag = DAGEN[DAGEN.indexOf(dag) + 1];
+    if (volgendeDag) {
+      setTimeout(() => navigeer(volgendeDag), 900);
+    } else {
+      setTimeout(() => navigeer('week'), 900);
+    }
+  }
+
+  function navigeer(pagina) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item, .nav-item-maand').forEach(n => {
+      n.classList.remove('active');
+    });
+    document.querySelectorAll('.mob-item').forEach(n => n.classList.remove('active'));
+
+    document.getElementById('page-' + pagina).classList.add('active');
+
+    const navEl = document.getElementById('nav-' + pagina);
+    if (navEl) navEl.classList.add('active');
+
+    const mobEl = document.getElementById('mob-' + pagina);
+    if (mobEl) mobEl.classList.add('active');
+
+    if (pagina === 'week') buildWeekOverzicht();
+    if (pagina === 'maand') buildMaandOverzicht();
+
+    huidigePagina = pagina;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function buildWeekOverzicht() {
+    const grid = document.getElementById('week-grid');
+    const analyse = document.getElementById('week-analyse');
+    grid.innerHTML = '';
+
+    DAGEN.forEach(dag => {
+      const d = weekData[dag];
+      const kaart = document.createElement('div');
+      kaart.className = 'dag-kaart';
+      if (d && d.niveau) {
+        const pct = (d.niveau / 5) * 100;
+        const { tekst } = bouwAdvies(d.niveau, d.behoeften || []);
+        const behoeftenTekst = d.behoeften && d.behoeften.length ? d.behoeften.join(', ') : null;
+        kaart.innerHTML = `
+          <div class="dag-kaart-top">
+            <div class="dag-naam-col">
+              <div class="dag-naam">${DAG_NAMEN[dag]}</div>
+              <div class="dag-datum">${NIVEAU_NAMEN[d.niveau]}</div>
+            </div>
+            <div class="energie-balk-wrap">
+              <div class="energie-balk-bg"><div class="energie-balk-fill" style="width:${pct}%"></div></div>
+            </div>
+            <div class="dag-niveau-label">${d.niveau}/5</div>
+          </div>
+          ${behoeftenTekst ? `<div class="dag-behoeften">Nodig: ${behoeftenTekst}</div>` : ''}
+          <div class="dag-advies">${tekst}</div>
+        `;
+      } else {
+        kaart.innerHTML = `
+          <div class="dag-kaart-top">
+            <div class="dag-naam-col"><div class="dag-naam">${DAG_NAMEN[dag]}</div></div>
+            <div class="dag-leeg">Nog niet ingevuld</div>
+          </div>
+        `;
+      }
+      grid.appendChild(kaart);
+    });
+
+    const ingevuld = DAGEN.filter(d => weekData[d] && weekData[d].niveau);
+    if (ingevuld.length < 3) {
+      analyse.innerHTML = `<div class="reminder">Vul nog wat meer dagen in om je weekpatroon te zien.</div>`;
+      return;
+    }
+
+    const niveaus = ingevuld.map(d => weekData[d].niveau);
+    const gem = (niveaus.reduce((a,b) => a+b, 0) / niveaus.length).toFixed(1);
+    const laagsteDag = ingevuld.reduce((a,b) => weekData[a].niveau < weekData[b].niveau ? a : b);
+    const hoogstetDag = ingevuld.reduce((a,b) => weekData[a].niveau > weekData[b].niveau ? a : b);
+
+    const alleKostte = ingevuld.filter(d => weekData[d].kostte).map(d => weekData[d].kostte);
+    const alleGaf = ingevuld.filter(d => weekData[d].gaf).map(d => weekData[d].gaf);
+    const alleWie = ingevuld.filter(d => weekData[d].wie).map(d => ({ dag: DAG_NAMEN[d], wie: weekData[d].wie }));
+
+    const alleBehoeften = ingevuld.flatMap(d => weekData[d].behoeften || []);
+    const behoeftenCount = {};
+    alleBehoeften.forEach(b => { behoeftenCount[b] = (behoeftenCount[b] || 0) + 1; });
+    const topBehoefte = Object.entries(behoeftenCount).sort((a,b) => b[1]-a[1]).slice(0,2).map(e => e[0]);
+
+    const laagNiveaus = niveaus.filter(n => n <= 2).length;
+    const hoogNiveaus = niveaus.filter(n => n >= 4).length;
+
+    let advies = [];
+    if (laagNiveaus >= 3) advies.push('Je had meerdere dagen met weinig energie. Kijk of je volgende week meer rustmomenten kan inplannen — niet als beloning, maar als onderdeel van je dag.');
+    if (hoogNiveaus >= 3) advies.push('Je had een energieke week. Zorg dat je de goede dagen niet overlaadt — spaar ook iets voor de dagen erna.');
+    if (topBehoefte.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'))) advies.push('Je brein vroeg deze week regelmatig om rust of minder prikkels. Dat is informatie: misschien waren er meer prikkels dan normaal.');
+    if (topBehoefte.some(b => b.includes('Weten wat'))) advies.push('Structuur was deze week een terugkerende behoefte. Een vaste ochtend- of avondroutine kan helpen om die structuur minder afhankelijk te maken van hoe je je voelt.');
+    if (advies.length === 0) advies.push('Je week zag er redelijk stabiel uit. Dat is waardevol — houd bij wat werkte en probeer dat vast te houden.');
+
+    analyse.innerHTML = `
+      <div class="analyse-blok">
+        <div class="analyse-titel">Jouw weekpatroon</div>
+        <div class="analyse-tekst">Gemiddeld energieniveau deze week: <strong>${gem} / 5</strong>. Je laagste dag was ${DAG_NAMEN[laagsteDag]}, je hoogste dag was ${DAG_NAMEN[hoogstetDag]}.</div>
+        ${topBehoefte.length ? `<ul class="analyse-lijst">${topBehoefte.map(b => `<li><div class="analyse-streep"></div><div>Je energie vroeg deze week vaak om: <strong>${b}</strong></div></li>`).join('')}</ul>` : ''}
+      </div>
+      ${alleKostte.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie kostte</div><ul class="analyse-lijst">${alleKostte.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
+      ${alleGaf.length ? `<div class="analyse-blok"><div class="analyse-titel">Wat energie gaf</div><ul class="analyse-lijst">${alleGaf.map(t => `<li><div class="analyse-streep"></div><div>${t}</div></li>`).join('')}</ul></div>` : ''}
+      ${alleWie.length ? `<div class="analyse-blok"><div class="analyse-titel">Wie je wilde zijn</div><ul class="analyse-lijst">${alleWie.map(w => `<li><div class="analyse-streep"></div><div><strong>${w.dag}:</strong> ${w.wie}</div></li>`).join('')}</ul></div>` : ''}
+      <div class="analyse-blok">
+        <div class="analyse-titel">Voor volgende week</div>
+        <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
+      </div>
+      <div class="reminder">Patronen veranderen niet in één week. Maar elke week dat je bijhoudt is een week dat je je energie serieus neemt.</div>
+
+      <div class="week-afsluiten">
+        <div class="week-afsluiten-tekst">
+          <strong>Week afsluiten</strong>
+          Sla deze week op in je maandoverzicht en begin een nieuwe week.
+        </div>
+        <button class="week-opslaan-btn" onclick="weekOpslaan()">Week opslaan →</button>
+      </div>
+      <a href="https://prismasystemen.nl" class="home-link">← Terug naar de website</a>
+    `;
+  }
+
+  function weekOpslaan() {
+    const weekNr = maandData.length + 1;
+    maandData.push({ week: weekNr, data: {...weekData} });
+    try { localStorage.setItem('prisma-maand', JSON.stringify(maandData)); } catch(e) {}
+    nieuweWeek();
+    navigeer('maand');
+  }
+
+  function nieuweWeek() {
+    weekData = {};
+    DAGEN.forEach(dag => {
+      document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
+      const nav = document.getElementById('nav-' + dag);
+      if (nav) nav.classList.remove('done', 'active');
+      const mob = document.getElementById('mob-' + dag);
+      if (mob) mob.classList.remove('done', 'active');
+    });
+    const navMa = document.getElementById('nav-ma');
+    if (navMa) navMa.classList.add('active');
+    const mobMa = document.getElementById('mob-ma');
+    if (mobMa) mobMa.classList.add('active');
+    navigeer('ma');
+  }
+
+  function buildMaandOverzicht() {
+    const grid = document.getElementById('maand-grid');
+    grid.innerHTML = '';
+
+    if (maandData.length === 0) {
+      grid.innerHTML = `<div class="maand-leeg">Nog geen weken opgeslagen.<br>Vul een week in, sla hem op via het weekoverzicht,<br>en hij verschijnt hier.</div>`;
+      return;
+    }
+
+    maandData.forEach(week => {
+      const niveaus = DAGEN.map(d => week.data[d] ? week.data[d].niveau : null);
+      const ingevuld = niveaus.filter(n => n !== null);
+      const gem = ingevuld.length ? (ingevuld.reduce((a,b) => a+b,0) / ingevuld.length).toFixed(1) : '—';
+
+      const blok = document.createElement('div');
+      blok.className = 'week-blok';
+      blok.innerHTML = `
+        <div class="week-header">
+          <div class="week-header-titel">Week ${week.week}</div>
+          <div class="week-gemiddelde">gem. ${gem} / 5</div>
+        </div>
+        <div class="week-dagen-rij">
+          ${DAGEN.map((dag, i) => {
+            const n = niveaus[i];
+            return `<div class="mini-dag">
+              <div class="mini-dag-naam">${DAG_KORT[dag]}</div>
+              <div class="mini-dag-cel ${n ? 'niveau-' + n : 'leeg'}">${n || ''}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      `;
+      grid.appendChild(blok);
+    });
+  }
+</script>
+</body>
+</html>
