@@ -14,6 +14,8 @@
     --blauw: #6E7C8C;
     --grijs-licht: #E8E4DC;
     --grijs-mid: #9A9A9A;
+    --oker: #C9A05A;
+    --oker-dark: #A8873A;
     --wit: #ffffff;
     --sidebar-w: 220px;
     --nav-h: 64px;
@@ -179,9 +181,16 @@
   .main {
     margin-left: var(--sidebar-w);
     flex: 1;
-    padding: 56px 72px 80px;
     width: calc(100% - var(--sidebar-w));
-    max-width: 760px;
+    padding: 56px 48px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main > * {
+    width: 100%;
+    max-width: 640px;
   }
 
   /* ── PAGES ── */
@@ -338,8 +347,8 @@
   .opslaan-btn {
     width: 100%;
     padding: 16px;
-    background: var(--grijs);
-    color: var(--beige);
+    background: var(--oker);
+    color: var(--grijs);
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
@@ -351,7 +360,7 @@
     border-radius: 10px;
     margin-top: 8px;
   }
-  .opslaan-btn:hover { background: var(--blauw); }
+  .opslaan-btn:hover { background: var(--oker-dark); color: white; }
   .opslaan-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
 
   .dag-opgeslagen {
@@ -481,8 +490,8 @@
   .week-opslaan-btn {
     flex-shrink: 0;
     padding: 14px 24px;
-    background: var(--grijs);
-    color: var(--beige);
+    background: var(--oker);
+    color: var(--grijs);
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
@@ -494,7 +503,7 @@
     border-radius: 10px;
     white-space: nowrap;
   }
-  .week-opslaan-btn:hover { background: var(--blauw); }
+  .week-opslaan-btn:hover { background: var(--oker-dark); color: white; }
 
   /* ── MAANDOVERZICHT ── */
   .maand-intro {
@@ -642,14 +651,14 @@
   .dag-knop-rij { display: flex; gap: 10px; margin-top: 28px; }
   .dag-verder-btn {
     flex: 1; padding: 15px;
-    background: var(--grijs); color: var(--beige);
+    background: var(--oker); color: var(--grijs);
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 11px; font-weight: 500;
     letter-spacing: 0.15em; text-transform: uppercase;
     cursor: pointer; transition: all 0.2s ease; border-radius: 10px;
   }
-  .dag-verder-btn:hover { background: var(--blauw); }
+  .dag-verder-btn:hover { background: var(--oker-dark); color: white; }
   .dag-verder-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
   .dag-terug-btn {
     padding: 15px 18px;
@@ -735,8 +744,8 @@
   .intro-sluiten-btn {
     width: 100%;
     padding: 16px;
-    background: var(--grijs);
-    color: var(--beige);
+    background: var(--oker);
+    color: var(--grijs);
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
@@ -747,7 +756,7 @@
     transition: all 0.2s ease;
     border-radius: 10px;
   }
-  .intro-sluiten-btn:hover { background: var(--blauw); }
+  .intro-sluiten-btn:hover { background: var(--oker-dark); color: white; }
 
   /* ── MOBIEL ── */
   @media (max-width: 640px) {
