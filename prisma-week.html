@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F3EFE8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PRISMA">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>PRISMA Week</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -775,6 +782,13 @@
     .main { padding: 48px 40px 60px; }
   }
 </style>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js');
+    });
+  }
+</script>
 </head>
 <body>
 
@@ -983,7 +997,7 @@
       <div class="dag-substap" id="dstap-${dag}-2">
         <div class="section-label">Stap 2 — Wat had je lijf of hoofd nodig?</div>
         <div class="behoeften-grid" id="behoeften-${dag}">
-          ${['🛋 Even niks hoeven','🔇 Minder prikkels','🚶 Bewegen of buiten zijn','📋 Weten wat ik ga doen','💬 Verbinding met iemand','🎨 Iets maken of bedenken','📱 Iets erbij doen terwijl ik werk','🎧 Muziek of geluid op de achtergrond','⏱ Duidelijke tijdsgrenzen'].map(b =>
+          ${['🛋 Ik wil even niks hoeven','🔇 Ik wil minder prikkels','🚶 Ik wil bewegen of buiten zijn','📋 Ik wil weten wat ik ga doen','💬 Ik wil contact met iemand','🎨 Ik wil iets maken of bedenken','📱 Iets op de achtergrond hebben','🎧 Ik wil muziek of geluid erbij','⏱ Weten wanneer iets stopt','🙈 Niet aangesproken worden'].map(b =>
             `<div class="behoefte-tag" onclick="toggleBehoefte(this)">${b}</div>`).join('')}
         </div>
         <div class="dag-stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</div>
@@ -1001,28 +1015,28 @@
             <div class="werkstijl-dot"></div>
             <div>
               <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
-              <div class="werkstijl-omschrijving">Een video aan terwijl je iets deed — zo hield je het vol.</div>
+              <div class="werkstijl-omschrijving">Iets op de achtergrond terwijl je bezig was. Zo bleef je brein actief en hield je het vol.</div>
             </div>
           </div>
           <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl('${dag}', this)">
             <div class="werkstijl-dot"></div>
             <div>
               <div class="werkstijl-naam">Één ding tegelijk, snel afmaken</div>
-              <div class="werkstijl-omschrijving">Ergens mee klaar zijn voordat je verder ging.</div>
+              <div class="werkstijl-omschrijving">Eén ding echt afronden voordat je verder ging. Open eindjes voelden onrustig.</div>
             </div>
           </div>
           <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl('${dag}', this)">
             <div class="werkstijl-dot"></div>
             <div>
               <div class="werkstijl-naam">Blokken met pauzes</div>
-              <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken.</div>
+              <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Vaste blokken geven houvast.</div>
             </div>
           </div>
           <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl('${dag}', this)">
             <div class="werkstijl-dot"></div>
             <div>
               <div class="werkstijl-naam">Meegaan met hoe ik me voelde</div>
-              <div class="werkstijl-omschrijving">Geen vaste aanpak — je volgde je energie van moment tot moment.</div>
+              <div class="werkstijl-omschrijving">Geen vaste aanpak nodig. Je keek wat voelde en ging daarmee.</div>
             </div>
           </div>
         </div>
@@ -1081,13 +1095,13 @@
   // Volledig gepersonaliseerd advies op basis van alle inputs
   function bouwAdvies(niveau, behoeften, werkstijl) {
     const h = {
-      rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels')),
-      bewegen: behoeften.some(b => b.includes('Bewegen')),
-      contact: behoeften.some(b => b.includes('Verbinding')),
-      structuur: behoeften.some(b => b.includes('Weten wat')),
+      rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('minder prikkels')),
+      bewegen: behoeften.some(b => b.includes('bewegen of buiten')),
+      contact: behoeften.some(b => b.includes('contact met')),
+      structuur: behoeften.some(b => b.includes('weten wat')),
       creativiteit: behoeften.some(b => b.includes('maken of bedenken')),
-      afleiding: behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek')),
-      tijdsgrenzen: behoeften.some(b => b.includes('tijdsgrenzen'))
+      afleiding: behoeften.some(b => b.includes('op de achtergrond') || b.includes('muziek of geluid')),
+      tijdsgrenzen: behoeften.some(b => b.includes('wanneer iets stopt'))
     };
 
     let tekst = '';
@@ -1396,8 +1410,8 @@
     let advies = [];
     if (laagNiveaus >= 3) advies.push('Je had meerdere dagen met weinig energie. Kijk of je volgende week meer rustmomenten kan inplannen — niet als beloning, maar als onderdeel van je dag.');
     if (hoogNiveaus >= 3) advies.push('Je had een energieke week. Zorg dat je de goede dagen niet overlaadt — spaar ook iets voor de dagen erna.');
-    if (topBehoefte.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels'))) advies.push('Je brein vroeg deze week regelmatig om rust of minder prikkels. Misschien waren er meer prikkels dan normaal — wat kan je volgende week anders doen?');
-    if (topBehoefte.some(b => b.includes('Weten wat'))) advies.push('Structuur was deze week een terugkerende behoefte. Een vaste ochtend- of avondroutine kan helpen om die structuur minder afhankelijk te maken van hoe je je voelt.');
+    if (topBehoefte.some(b => b.includes('niks hoeven') || b.includes('minder prikkels'))) advies.push('Je brein vroeg deze week regelmatig om rust of minder prikkels. Misschien waren er meer prikkels dan normaal — wat kan je volgende week anders doen?');
+    if (topBehoefte.some(b => b.includes('weten wat'))) advies.push('Structuur was deze week een terugkerende behoefte. Een vaste ochtend- of avondroutine kan helpen om die structuur minder afhankelijk te maken van hoe je je voelt.');
     if (dominanteWerkstijl && dominanteWerkstijl[1] >= 2) {
       const werkstijlNamen = { multi: 'meerdere dingen tegelijk', focus: 'één ding tegelijk afmaken', blokken: 'blokken met pauzes', stroom: 'meegaan met je energie' };
       advies.push(`Je werkstijl deze week was voornamelijk: ${werkstijlNamen[dominanteWerkstijl[0]] || dominanteWerkstijl[0]}. Als dat goed voelde, bevestig dat dan als jouw aanpak voor volgende week.`);

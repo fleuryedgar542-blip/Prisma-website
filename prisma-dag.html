@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F3EFE8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PRISMA">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>PRISMA Dag</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -14,6 +21,8 @@
     --blauw: #6E7C8C;
     --grijs-licht: #E8E4DC;
     --grijs-mid: #9A9A9A;
+    --oker: #C9A05A;
+    --oker-dark: #A8873A;
   }
 
   body {
@@ -219,8 +228,8 @@
   .verder-btn {
     flex: 1;
     padding: 17px;
-    background: var(--grijs);
-    color: var(--beige);
+    background: var(--oker);
+    color: var(--grijs);
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
@@ -231,7 +240,7 @@
     transition: all 0.2s ease;
     border-radius: 10px;
   }
-  .verder-btn:hover { background: var(--blauw); }
+  .verder-btn:hover { background: var(--oker-dark); color: white; }
   .verder-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
 
   .terug-btn {
@@ -415,8 +424,10 @@
     border-radius: 10px;
     white-space: nowrap;
     display: inline-block;
+    background: var(--oker);
+    color: var(--grijs);
   }
-  .weektracker-brug-btn:hover { background: var(--blauw); }
+  .weektracker-brug-btn:hover { background: var(--oker-dark); color: white; }
   @media (max-width: 480px) {
     .weektracker-brug { flex-direction: column; align-items: flex-start; }
     .weektracker-brug-btn { width: 100%; text-align: center; }
@@ -465,6 +476,13 @@
     .stap-label { display: none; }
   }
 </style>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js');
+    });
+  }
+</script>
 </head>
 <body>
 <div class="container">
@@ -558,15 +576,16 @@
   <div class="stap" id="stap-2">
     <div class="section-label">Stap 2 — Wat heeft je lijf of hoofd nodig?</div>
     <div class="behoeften-grid">
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Even niks hoeven</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Minder prikkels</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Bewegen of buiten zijn</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Weten wat ik ga doen</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Verbinding met iemand</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Iets maken of bedenken</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets erbij doen terwijl ik werk</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Muziek of geluid op de achtergrond</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Duidelijke tijdsgrenzen</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Ik wil even niks hoeven</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Ik wil minder prikkels</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Ik wil bewegen of buiten zijn</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Ik wil weten wat ik ga doen</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Ik wil contact met iemand</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Ik wil iets maken of bedenken</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets op de achtergrond hebben</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Ik wil muziek of geluid erbij</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Weten wanneer iets stopt</div>
+      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🙈 Niet aangesproken worden</div>
     </div>
     <p class="stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</p>
     <div class="knop-rij">
@@ -583,28 +602,28 @@
         <div class="werkstijl-dot"></div>
         <div>
           <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
-          <div class="werkstijl-omschrijving">Een video aan terwijl je de was doet — zo houd je het vol.</div>
+          <div class="werkstijl-omschrijving">Iets op de achtergrond terwijl je bezig bent. Zo blijft je brein actief en hou je het vol.</div>
         </div>
       </div>
       <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
         <div class="werkstijl-dot"></div>
         <div>
           <div class="werkstijl-naam">Één ding tegelijk, snel afmaken</div>
-          <div class="werkstijl-omschrijving">Je wil ergens mee klaar zijn voordat je verder gaat.</div>
+          <div class="werkstijl-omschrijving">Je wil één ding echt afronden. Open eindjes voelen onrustig.</div>
         </div>
       </div>
       <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
         <div class="werkstijl-dot"></div>
         <div>
           <div class="werkstijl-naam">Blokken met pauzes</div>
-          <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Structuur helpt jou.</div>
+          <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Vaste blokken geven je houvast.</div>
         </div>
       </div>
       <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
         <div class="werkstijl-dot"></div>
         <div>
           <div class="werkstijl-naam">Ik ga mee met hoe ik me voel</div>
-          <div class="werkstijl-omschrijving">Geen vaste aanpak — je volgt je energie van moment tot moment.</div>
+          <div class="werkstijl-omschrijving">Geen vaste aanpak nodig. Je kijkt wat nu voelt en gaat daarmee.</div>
         </div>
       </div>
     </div>
@@ -733,13 +752,13 @@
   // Volledig gepersonaliseerd advies op basis van alle inputs
   function bouwAdvies(niveau, behoeften, werkstijl, wie, intentie) {
     const h = {
-      rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('Minder prikkels')),
-      bewegen: behoeften.some(b => b.includes('Bewegen')),
-      contact: behoeften.some(b => b.includes('Verbinding')),
-      structuur: behoeften.some(b => b.includes('Weten wat')),
+      rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('minder prikkels')),
+      bewegen: behoeften.some(b => b.includes('bewegen of buiten')),
+      contact: behoeften.some(b => b.includes('contact met')),
+      structuur: behoeften.some(b => b.includes('weten wat')),
       creativiteit: behoeften.some(b => b.includes('maken of bedenken')),
-      afleiding: behoeften.some(b => b.includes('erbij doen') || b.includes('Muziek')),
-      tijdsgrenzen: behoeften.some(b => b.includes('tijdsgrenzen'))
+      afleiding: behoeften.some(b => b.includes('op de achtergrond') || b.includes('muziek of geluid')),
+      tijdsgrenzen: behoeften.some(b => b.includes('wanneer iets stopt'))
     };
 
     let tekst = '';
