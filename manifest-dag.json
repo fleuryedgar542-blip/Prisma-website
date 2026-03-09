@@ -1,0 +1,25 @@
+{
+  "name": "PRISMA Dag",
+  "short_name": "PRISMA Dag",
+  "description": "Dagplanner voor neurodivergente jongvolwassenen.",
+  "start_url": "/prisma-dag.html",
+  "display": "standalone",
+  "background_color": "#F3EFE8",
+  "theme_color": "#F3EFE8",
+  "orientation": "portrait-primary",
+  "lang": "nl",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
