@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMA Week — Start je abonnement</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --beige: #F3EFE8;
+    --grijs: #2E2E2E;
+    --groen: #A8B5A2;
+    --blauw: #6E7C8C;
+    --grijs-licht: #E8E4DC;
+    --grijs-mid: #9A9A9A;
+    --oker: #C9A05A;
+    --oker-dark: #A8873A;
+    --wit: #FDFCFA;
+  }
+
+  body {
+    background: var(--beige);
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 72px;
+    background: var(--beige);
+    border-bottom: 1px solid var(--grijs-licht);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .nav-logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--grijs);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-logo img {
+    height: 140px;
+    width: auto;
+  }
+
+  .nav-terug {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-terug:hover { color: var(--grijs); }
+
+  /* ── MAIN ── */
+  main {
+    padding-top: 72px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    width: 100%;
+    max-width: 680px;
+    padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 5vw, 2rem) clamp(2rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--groen);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+    color: var(--grijs);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blauw);
+  }
+
+  .hero-subtitel {
+    font-size: 0.95rem;
+    color: var(--blauw);
+    line-height: 1.9;
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+
+  /* ── KAART ── */
+  .kaart-wrap {
+    width: 100%;
+    max-width: 680px;
+    padding: 0 clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .kaart {
+    background: var(--wit);
+    border: 1px solid var(--grijs-licht);
+    border-radius: 14px;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+
+  /* ── WAT JE KRIJGT ── */
+  .kaart-sectie {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--grijs-licht);
+  }
+
+  .kaart-sectie:last-child { border-bottom: none; }
+
+  .sectie-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 1.25rem;
+  }
+
+  .feature-lijst {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--grijs);
+  }
+
+  .feature-streep {
+    width: 14px;
+    height: 1px;
+    background: var(--groen);
+    flex-shrink: 0;
+    margin-top: 0.65rem;
+  }
+
+  /* ── PRIJS ── */
+  .prijs-sectie {
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .prijs-info {}
+
+  .prijs-bedrag {
+    font-family: 'Noto Serif', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--grijs);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .prijs-details {
+    font-size: 0.78rem;
+    color: var(--grijs-mid);
+    line-height: 1.6;
+  }
+
+  .koop-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--oker);
+    color: var(--grijs);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .koop-btn:hover {
+    background: var(--oker-dark);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  /* ── HOE HET WERKT ── */
+  .hoe-sectie {
+    padding: 1.75rem 2rem;
+  }
+
+  .stappen-lijst {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .stap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--grijs);
+  }
+
+  .stap-nr {
+    font-family: 'Noto Serif', serif;
+    font-size: 0.75rem;
+    color: var(--groen);
+    min-width: 18px;
+    padding-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  /* ── GERUSTSTELLING ── */
+  .gerust-wrap {
+    width: 100%;
+    max-width: 680px;
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .gerust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .gerust-item {
+    padding: 1.25rem;
+    background: var(--wit);
+    border: 1px solid var(--grijs-licht);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .gerust-icoon {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .gerust-tekst {
+    font-size: 0.78rem;
+    color: var(--blauw);
+    line-height: 1.6;
+  }
+
+  /* ── REMINDER ── */
+  .reminder-wrap {
+    width: 100%;
+    max-width: 680px;
+    padding: 0 clamp(1.5rem, 5vw, 2rem) clamp(3rem, 8vw, 5rem);
+  }
+
+  .reminder {
+    padding: 1.5rem 1.75rem;
+    background: var(--wit);
+    border-left: 2px solid var(--groen);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Noto Serif', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--grijs);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    width: 100%;
+    border-top: 1px solid var(--grijs-licht);
+    padding: 1.5rem clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-tekst {
+    font-size: 0.72rem;
+    color: var(--grijs-mid);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.72rem;
+    color: var(--grijs-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--grijs); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { animation: fadeUp 0.45s ease forwards; }
+  .gerust-wrap { animation: fadeUp 0.45s ease 0.2s both; }
+  .reminder-wrap { animation: fadeUp 0.45s ease 0.3s both; }
+
+  @media (max-width: 520px) {
+    .prijs-sectie { flex-direction: column; align-items: flex-start; }
+    .koop-btn { width: 100%; text-align: center; }
+    .gerust-grid { grid-template-columns: 1fr; }
+    .kaart-sectie, .prijs-sectie, .hoe-sectie { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="PRISMA Systemen" onerror="this.style.display='none'; this.parentNode.innerHTML='PRISMA Systemen'">
+  </a>
+  <a href="tools.html" class="nav-terug">← Terug naar tools</a>
+</nav>
+
+<main>
+
+  <div class="hero">
+    <span class="hero-label">PRISMA Week</span>
+    <h1>Elke week <em>verder bouwen</em><br>op wat je al weet.</h1>
+    <p class="hero-subtitel">Geen nieuw begin elke maandag. Gewoon bijhouden, terugkijken, en leren wat voor jou werkt.</p>
+  </div>
+
+  <div class="kaart-wrap">
+    <div class="kaart">
+
+      <!-- WAT JE KRIJGT -->
+      <div class="kaart-sectie">
+        <div class="sectie-label">Wat je krijgt</div>
+        <div class="feature-lijst">
+          <div class="feature-item">
+            <div class="feature-streep"></div>
+            <div>Dagelijks je energieniveau en behoeften bijhouden — in vijf minuten</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-streep"></div>
+            <div>Weekoverzicht met patronen, inzichten en concrete suggesties voor de week erna</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-streep"></div>
+            <div>Maandoverzicht als heatmap — zo zie je patronen over langere tijd</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-streep"></div>
+            <div>Gepersonaliseerd advies op basis van jouw energie én wat jij nodig hebt</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRIJS + KNOP -->
+      <div class="prijs-sectie">
+        <div class="prijs-info">
+          <div class="prijs-bedrag">€4,99</div>
+          <div class="prijs-details">per maand · opzegbaar wanneer je wil<br>Betaling via Stripe — veilig en versleuteld</div>
+        </div>
+        <a href="https://payhip.com/b/hupyI" class="koop-btn" target="_blank" rel="noopener">
+          Start PRISMA Week →
+        </a>
+      </div>
+
+      <!-- HOE HET WERKT -->
+      <div class="kaart-sectie hoe-sectie">
+        <div class="sectie-label">Hoe het werkt</div>
+        <div class="stappen-lijst">
+          <div class="stap-item">
+            <div class="stap-nr">1</div>
+            <div>Je maakt een account aan op de volgende pagina en vult je betaalgegevens in</div>
+          </div>
+          <div class="stap-item">
+            <div class="stap-nr">2</div>
+            <div>Je ontvangt direct een e-mail met een link naar PRISMA Week</div>
+          </div>
+          <div class="stap-item">
+            <div class="stap-nr">3</div>
+            <div>Je opent de tracker via die link — geen app store, geen extra installatie</div>
+          </div>
+          <div class="stap-item">
+            <div class="stap-nr">4</div>
+            <div>Optioneel: voeg de link toe aan je beginscherm zodat hij werkt als een app</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GERUSTSTELLING -->
+  <div class="gerust-wrap">
+    <div class="gerust-grid">
+      <div class="gerust-item">
+        <div class="gerust-icoon">🔒</div>
+        <div class="gerust-tekst">Je data blijft op jouw apparaat. Niemand anders kan het zien.</div>
+      </div>
+      <div class="gerust-item">
+        <div class="gerust-icoon">📴</div>
+        <div class="gerust-tekst">Werkt ook offline als je hem installeert op je telefoon.</div>
+      </div>
+      <div class="gerust-item">
+        <div class="gerust-icoon">✌️</div>
+        <div class="gerust-tekst">Opzegbaar wanneer je wil. Geen gedoe, geen verborgen kosten.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMINDER -->
+  <div class="reminder-wrap">
+    <div class="reminder">
+      Patronen veranderen niet in één week. Maar elke week dat je bijhoudt, is een week dat je je energie serieus neemt.
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-tekst">© 2025 PRISMA Systemen</span>
+    <div class="footer-links">
+      <a href="tools.html">Tools</a>
+      <a href="over.html">Over mij</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>
