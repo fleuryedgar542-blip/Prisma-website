@@ -347,6 +347,55 @@
     .gerust-grid { grid-template-columns: 1fr; }
     .kaart-sectie, .prijs-sectie, .hoe-sectie { padding: 1.5rem 1.25rem; }
   }
+
+  /* ── LANCERINGSBLOK ── */
+  .lancering-blok {
+    padding: 20px 24px;
+    background: white;
+    border: 1.5px solid var(--groen);
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .lancering-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--groen);
+    margin-bottom: 8px;
+  }
+  .lancering-hoofdtekst {
+    font-family: 'Noto Serif', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--grijs);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .lancering-subtekst {
+    font-size: 12px;
+    color: var(--blauw);
+    line-height: 1.7;
+  }
+  .lancering-code {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 14px;
+    background: var(--beige);
+    border: 1px solid var(--grijs-licht);
+    border-radius: 6px;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--grijs);
+  }
+  .prijs-oud {
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    color: var(--grijs-mid);
+    text-decoration: line-through;
+    margin-bottom: 2px;
+  }
+
 </style>
 </head>
 <body>
@@ -392,13 +441,22 @@
         </div>
       </div>
 
+      <!-- LANCERINGSBLOK -->
+      <div class="lancering-blok">
+        <div class="lancering-label">Lanceringsaanbieding — eerste 15 gebruikers</div>
+        <div class="lancering-hoofdtekst">Betaal €2,99/maand voor altijd</div>
+        <div class="lancering-subtekst">Gebruik onderstaande code bij het afrekenen. Ook als de prijs later stijgt, blijf jij op €2,99 — zolang je abonnee bent.</div>
+        <div class="lancering-code">EERSTE15</div>
+      </div>
+
       <!-- PRIJS + KNOP -->
       <div class="prijs-sectie">
         <div class="prijs-info">
-          <div class="prijs-bedrag">€4,99</div>
-          <div class="prijs-details">per maand · opzegbaar wanneer je wil<br>Betaling via Stripe — veilig en versleuteld</div>
+          <div class="prijs-oud">€5,99</div>
+          <div class="prijs-bedrag">€2,99</div>
+          <div class="prijs-details">per maand met code EERSTE15 · daarna €5,99<br>Betalen via iDEAL, creditcard of PayPal</div>
         </div>
-        <a href="https://payhip.com/b/hupyI" class="koop-btn" target="_blank" rel="noopener">
+        <a href="LEMON_SQUEEZY_URL" class="koop-btn" target="_blank" rel="noopener">
           Start PRISMA Week →
         </a>
       </div>
