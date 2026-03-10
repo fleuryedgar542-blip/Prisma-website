@@ -480,48 +480,53 @@
   .ios-banner {
     display: none;
     position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 48px);
-    max-width: 480px;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
     background: white;
     border: 1px solid #E8E4DC;
     border-radius: 10px;
-    padding: 16px 18px;
+    padding: 14px 16px;
     z-index: 999;
     box-shadow: 0 4px 24px rgba(46,46,46,0.10);
     animation: fadeUp 0.4s ease forwards;
+    box-sizing: border-box;
   }
   .ios-banner-inner {
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: center;
+    gap: 12px;
   }
-  .ios-banner-icoon { font-size: 22px; flex-shrink: 0; }
-  .ios-banner-tekst { flex: 1; }
+  .ios-banner-icoon { font-size: 20px; flex-shrink: 0; }
+  .ios-banner-tekst { flex: 1; min-width: 0; }
   .ios-banner-tekst strong {
     display: block;
     font-size: 13px;
     font-weight: 500;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     color: #2E2E2E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .ios-banner-tekst span {
-    font-size: 12px;
+    font-size: 11px;
     color: #6E7C8C;
-    line-height: 1.6;
+    line-height: 1.5;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .ios-banner-sluit {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     color: #9A9A9A;
     cursor: pointer;
-    padding: 0;
+    padding: 0 0 0 8px;
     line-height: 1;
     flex-shrink: 0;
-    margin-top: -2px;
   }
   .ios-banner-sluit:hover { color: #2E2E2E; }
 
@@ -542,7 +547,7 @@
       <div class="ios-banner-icoon">📲</div>
       <div class="ios-banner-tekst">
         <strong>Voeg PRISMA toe aan je beginscherm</strong>
-        <span>Tik op <strong>⎙</strong> onderaan Safari → <em>"Zet op beginscherm"</em></span>
+        <span>Tik op ⎙ onderaan → "Zet op beginscherm"</span>
       </div>
       <button class="ios-banner-sluit" onclick="sluitIosBanner()">×</button>
     </div>

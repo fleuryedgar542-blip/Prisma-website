@@ -786,10 +786,9 @@
   .ios-banner {
     display: none;
     position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 48px);
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
     max-width: 480px;
     background: white;
     border: 1px solid #E8E4DC;
@@ -805,18 +804,25 @@
     gap: 14px;
   }
   .ios-banner-icoon { font-size: 22px; flex-shrink: 0; }
-  .ios-banner-tekst { flex: 1; }
+  .ios-banner-tekst { flex: 1; min-width: 0; }
   .ios-banner-tekst strong {
     display: block;
     font-size: 13px;
     font-weight: 500;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     color: #2E2E2E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .ios-banner-tekst span {
-    font-size: 12px;
+    font-size: 11px;
     color: #6E7C8C;
-    line-height: 1.6;
+    line-height: 1.5;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .ios-banner-sluit {
     background: none;
@@ -847,7 +853,7 @@
       <div class="ios-banner-icoon">📲</div>
       <div class="ios-banner-tekst">
         <strong>Voeg PRISMA toe aan je beginscherm</strong>
-        <span>Tik op <strong>⎙</strong> onderaan Safari → <em>"Zet op beginscherm"</em></span>
+        <span>Tik op ⎙ onderaan → "Zet op beginscherm"</span>
       </div>
       <button class="ios-banner-sluit" onclick="sluitIosBanner()">×</button>
     </div>
