@@ -1,0 +1,24 @@
+{
+  "name": "PRISMA Signaal",
+  "short_name": "Signaal",
+  "description": "Check in 30 seconden hoeveel prikkels je systeem verwerkt.",
+  "start_url": "/prisma-signaal.html",
+  "display": "standalone",
+  "background_color": "#F3EFE8",
+  "theme_color": "#F3EFE8",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-prikkel-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-prikkel-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

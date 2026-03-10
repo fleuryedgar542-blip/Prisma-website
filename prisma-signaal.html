@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMA — Signaal</title>
+<meta name="description" content="Check in 30 seconden hoeveel prikkels je zintuiglijk systeem verwerkt. Gratis tool van PRISMA Systemen.">
+<link rel="manifest" href="manifest-prikkel.json">
+<meta name="theme-color" content="#F3EFE8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PRISMA Signaal">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --beige: #F3EFE8;
+    --grijs: #2E2E2E;
+    --groen: #A8B5A2;
+    --blauw: #6E7C8C;
+    --grijs-licht: #E8E4DC;
+    --grijs-mid: #9A9A9A;
+    --oker: #C9A05A;
+
+    /* Prikkel kleuren */
+    --prikkel-laag: #A8B5A2;
+    --prikkel-mid: #C9A05A;
+    --prikkel-hoog: #B07070;
+  }
+
+  body {
+    background: var(--beige);
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+  }
+
+  .container { max-width: 520px; margin: 0 auto; }
+
+  /* HEADER */
+  header { margin-bottom: 40px; animation: fadeUp 0.5s ease forwards; }
+
+  .logo {
+    font-family: 'Noto Serif', serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blauw);
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Noto Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--blauw);
+    line-height: 1.7;
+  }
+
+  /* VOORTGANG */
+  .voortgang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+
+  .stap-item { display: flex; align-items: center; gap: 8px; }
+
+  .stap-cirkel {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-licht);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: var(--grijs-mid);
+    font-family: 'Noto Serif', serif;
+    transition: all 0.3s ease;
+    background: white;
+  }
+  .stap-cirkel.actief { border-color: var(--blauw); color: var(--blauw); }
+  .stap-cirkel.klaar { border-color: var(--groen); background: var(--groen); color: white; }
+
+  .stap-lijn {
+    flex: 1; height: 1px;
+    background: var(--grijs-licht);
+    transition: background 0.3s ease;
+  }
+  .stap-lijn.klaar { background: var(--groen); }
+
+  .stap-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    transition: color 0.3s;
+  }
+  .stap-label.actief { color: var(--grijs); }
+
+  /* STAPPEN */
+  .stap { display: none; }
+  .stap.actief { display: block; animation: fadeUp 0.4s ease forwards; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 18px;
+  }
+
+  /* PRIKKEL SCHAAL — grote visuele meter */
+  .prikkel-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .prikkel-optie {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid transparent;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prikkel-optie::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    border-radius: 10px 0 0 10px;
+  }
+
+  .prikkel-optie[data-niveau="1"]::before { background: var(--prikkel-laag); }
+  .prikkel-optie[data-niveau="2"]::before { background: #B0BA9A; }
+  .prikkel-optie[data-niveau="3"]::before { background: var(--blauw); }
+  .prikkel-optie[data-niveau="4"]::before { background: var(--oker); }
+  .prikkel-optie[data-niveau="5"]::before { background: var(--prikkel-hoog); }
+
+  .prikkel-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
+  .prikkel-optie.selected { border-color: currentColor; background: #F8FAF7; }
+  .prikkel-optie[data-niveau="4"].selected { background: #FDF8F0; border-color: var(--oker); }
+  .prikkel-optie[data-niveau="5"].selected { background: #FDF5F5; border-color: var(--prikkel-hoog); }
+  .prikkel-optie.selected::before { opacity: 1; }
+
+  .prikkel-emoji {
+    font-size: 20px;
+    min-width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .prikkel-info { flex: 1; }
+  .prikkel-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .prikkel-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+
+  .prikkel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grijs-mid);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .prikkel-optie[data-niveau="1"].selected .prikkel-dot { background: var(--prikkel-laag); border-color: var(--prikkel-laag); }
+  .prikkel-optie[data-niveau="2"].selected .prikkel-dot { background: #B0BA9A; border-color: #B0BA9A; }
+  .prikkel-optie[data-niveau="3"].selected .prikkel-dot { background: var(--blauw); border-color: var(--blauw); }
+  .prikkel-optie[data-niveau="4"].selected .prikkel-dot { background: var(--oker); border-color: var(--oker); }
+  .prikkel-optie[data-niveau="5"].selected .prikkel-dot { background: var(--prikkel-hoog); border-color: var(--prikkel-hoog); }
+
+  /* PRIKKEL TYPES — zintuigen */
+  .zintuigen-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .zintuig-item {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 18px;
+    border: 1.5px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .zintuig-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .zintuig-emoji { font-size: 16px; flex-shrink: 0; }
+  .zintuig-naam { font-size: 13px; font-weight: 500; flex: 1; }
+
+  .zintuig-schaal {
+    display: flex;
+    gap: 6px;
+  }
+
+  .zintuig-niveau {
+    flex: 1;
+    height: 32px;
+    border-radius: 6px;
+    border: 1.5px solid var(--grijs-licht);
+    background: white;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--grijs-mid);
+    font-family: 'Noto Serif', serif;
+    font-weight: 400;
+  }
+
+  .zintuig-niveau:hover { border-color: var(--grijs-mid); }
+  .zintuig-niveau.selected-1 { background: #E8F0E8; border-color: var(--prikkel-laag); color: #5A7A56; }
+  .zintuig-niveau.selected-2 { background: #EEF0E8; border-color: #B0BA9A; color: #6A7050; }
+  .zintuig-niveau.selected-3 { background: #E8EDF2; border-color: var(--blauw); color: var(--blauw); }
+  .zintuig-niveau.selected-4 { background: #FDF4E8; border-color: var(--oker); color: #8A6030; }
+  .zintuig-niveau.selected-5 { background: #FBE8E8; border-color: var(--prikkel-hoog); color: #803030; }
+
+  .zintuig-niveau-label {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-top: 4px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+  }
+
+  /* CONTEXT TAGS */
+  .context-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .context-tag {
+    padding: 9px 16px;
+    border: 1.5px solid var(--grijs-licht);
+    background: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: var(--grijs);
+  }
+  .context-tag:hover { border-color: var(--blauw); }
+  .context-tag.selected { background: var(--blauw); border-color: var(--blauw); color: white; }
+
+  /* KNOPPEN */
+  .knop-rij { display: flex; gap: 12px; margin-top: 28px; }
+
+  .verder-btn {
+    flex: 1;
+    padding: 17px;
+    background: var(--grijs);
+    color: var(--beige);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s ease; border-radius: 10px;
+  }
+  .verder-btn:hover { background: var(--blauw); }
+  .verder-btn:disabled { background: var(--grijs-licht); color: var(--grijs-mid); cursor: not-allowed; }
+
+  .terug-btn {
+    padding: 17px 20px;
+    background: none; color: var(--grijs-mid);
+    border: 1.5px solid var(--grijs-licht);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s ease; border-radius: 10px;
+  }
+  .terug-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  .stap-hint {
+    font-size: 12px; color: var(--grijs-mid);
+    font-style: italic; font-family: 'Noto Serif', serif;
+    margin-top: 12px; min-height: 18px;
+  }
+
+  /* RESULTAAT */
+  .resultaat { display: none; animation: fadeUp 0.5s ease forwards; }
+  .resultaat.zichtbaar { display: block; }
+
+  .divider { height: 1px; background: var(--grijs-licht); margin: 36px 0; }
+
+  .resultaat-label {
+    font-family: 'Noto Serif', serif;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .resultaat-label.laag { color: var(--prikkel-laag); }
+  .resultaat-label.mid { color: var(--blauw); }
+  .resultaat-label.hoog { color: var(--oker); }
+  .resultaat-label.overvol { color: var(--prikkel-hoog); }
+
+  .resultaat-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 24px; font-weight: 400;
+    line-height: 1.4; margin-bottom: 12px;
+  }
+
+  .resultaat-tekst {
+    font-size: 13px; color: var(--blauw); line-height: 1.8; margin-bottom: 28px;
+  }
+
+  /* PRIKKEL BREAKDOWN */
+  .breakdown {
+    margin-bottom: 28px;
+  }
+
+  .breakdown-label {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--grijs-mid); margin-bottom: 14px;
+  }
+
+  .breakdown-rij {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+  }
+  .breakdown-rij:last-child { border-bottom: none; }
+
+  .breakdown-naam {
+    font-size: 13px; min-width: 100px; flex-shrink: 0;
+  }
+
+  .breakdown-balk-bg {
+    flex: 1; height: 4px;
+    background: var(--grijs-licht);
+    border-radius: 4px; overflow: hidden;
+  }
+
+  .breakdown-balk-fill {
+    height: 100%; border-radius: 4px;
+    transition: width 0.6s ease 0.2s;
+  }
+
+  .breakdown-balk-fill.n1 { background: var(--prikkel-laag); }
+  .breakdown-balk-fill.n2 { background: #B0BA9A; }
+  .breakdown-balk-fill.n3 { background: var(--blauw); }
+  .breakdown-balk-fill.n4 { background: var(--oker); }
+  .breakdown-balk-fill.n5 { background: var(--prikkel-hoog); }
+
+  .breakdown-score {
+    font-family: 'Noto Serif', serif;
+    font-size: 13px; min-width: 28px; text-align: right;
+    color: var(--grijs-mid);
+  }
+
+  /* TIPS LIJST */
+  .tips-label {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--grijs-mid); margin-bottom: 14px;
+  }
+
+  .tip-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 13px 0; border-bottom: 1px solid var(--grijs-licht);
+    font-size: 13px; line-height: 1.6;
+  }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-streep {
+    width: 16px; height: 1px;
+    background: var(--blauw);
+    margin-top: 10px; flex-shrink: 0;
+  }
+  .tip-item.urgent .tip-streep { background: var(--prikkel-hoog); }
+
+  .reminder {
+    margin-top: 28px; padding: 22px 26px;
+    background: white;
+    border-left: 2px solid var(--blauw);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px; font-style: italic;
+    line-height: 1.7; color: var(--grijs);
+  }
+  .reminder.rood { border-left-color: var(--prikkel-hoog); }
+
+  .knoppen-rij {
+    display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;
+  }
+
+  .opnieuw-btn {
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; color: var(--grijs-mid);
+    transition: all 0.2s ease; border-radius: 10px;
+  }
+  .opnieuw-btn:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  .week-link {
+    display: inline-block;
+    background: var(--grijs);
+    color: var(--beige);
+    padding: 12px 24px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s ease; border-radius: 10px;
+  }
+  .week-link:hover { background: var(--blauw); }
+
+  .home-link {
+    display: inline-block;
+    background: none;
+    border: 1.5px solid var(--grijs-licht);
+    padding: 12px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; color: var(--grijs-mid);
+    text-decoration: none;
+    transition: all 0.2s ease; border-radius: 10px;
+  }
+  .home-link:hover { border-color: var(--grijs); color: var(--grijs); }
+
+  /* IOS BANNER */
+  .ios-banner {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid var(--grijs-licht);
+    z-index: 100;
+    padding: 14px 20px;
+  }
+  .ios-banner-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ios-banner-tekst { flex: 1; font-size: 12px; color: var(--grijs); line-height: 1.5; }
+  .ios-banner-tekst strong { display: block; font-weight: 500; font-size: 13px; margin-bottom: 2px; }
+  .ios-banner-sluit { background: none; border: none; font-size: 18px; color: var(--grijs-mid); cursor: pointer; padding: 0; line-height: 1; flex-shrink: 0; }
+  .ios-banner-sluit:hover { color: var(--grijs); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 32px 20px 60px; }
+    h1 { font-size: 24px; }
+    .stap-label { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">PRISMA Systemen</div>
+    <h1>Hoe vol is je systeem nu?</h1>
+    <p class="subtitle">Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.</p>
+  </header>
+
+  <!-- VOORTGANG -->
+  <div class="voortgang" id="voortgang">
+    <div class="stap-item">
+      <div class="stap-cirkel actief" id="cirkel-1">1</div>
+      <span class="stap-label actief" id="label-1">Algeheel</span>
+    </div>
+    <div class="stap-lijn" id="lijn-1"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-2">2</div>
+      <span class="stap-label" id="label-2">Per zintuig</span>
+    </div>
+    <div class="stap-lijn" id="lijn-2"></div>
+    <div class="stap-item">
+      <div class="stap-cirkel" id="cirkel-3">3</div>
+      <span class="stap-label" id="label-3">Context</span>
+    </div>
+  </div>
+
+  <!-- STAP 1 — Algeheel niveau -->
+  <div class="stap actief" id="stap-1">
+    <div class="section-label">Stap 1 — Hoe vol voelt je systeem nu?</div>
+    <div class="prikkel-meter">
+      <div class="prikkel-optie" data-niveau="1" onclick="selecteerNiveau(this)">
+        <div class="prikkel-emoji">🌿</div>
+        <div class="prikkel-info">
+          <div class="prikkel-naam">Rustig</div>
+          <div class="prikkel-omschrijving">Je systeem is kalm. Weinig prikkels, veel ruimte.</div>
+        </div>
+        <div class="prikkel-dot"></div>
+      </div>
+      <div class="prikkel-optie" data-niveau="2" onclick="selecteerNiveau(this)">
+        <div class="prikkel-emoji">🌤</div>
+        <div class="prikkel-info">
+          <div class="prikkel-naam">Licht belast</div>
+          <div class="prikkel-omschrijving">Je merkt prikkels, maar het is nog behapbaar.</div>
+        </div>
+        <div class="prikkel-dot"></div>
+      </div>
+      <div class="prikkel-optie" data-niveau="3" onclick="selecteerNiveau(this)">
+        <div class="prikkel-emoji">⚖️</div>
+        <div class="prikkel-info">
+          <div class="prikkel-naam">Redelijk vol</div>
+          <div class="prikkel-omschrijving">Je systeem werkt, maar heeft weinig ruimte meer over.</div>
+        </div>
+        <div class="prikkel-dot"></div>
+      </div>
+      <div class="prikkel-optie" data-niveau="4" onclick="selecteerNiveau(this)">
+        <div class="prikkel-emoji">🌩</div>
+        <div class="prikkel-info">
+          <div class="prikkel-naam">Overbelast</div>
+          <div class="prikkel-omschrijving">Veel te verwerken. Alles voelt intenser dan normaal.</div>
+        </div>
+        <div class="prikkel-dot"></div>
+      </div>
+      <div class="prikkel-optie" data-niveau="5" onclick="selecteerNiveau(this)">
+        <div class="prikkel-emoji">🔴</div>
+        <div class="prikkel-info">
+          <div class="prikkel-naam">Overvol — shutdown nabij</div>
+          <div class="prikkel-omschrijving">Je systeem kan bijna niet meer. Rust is nu urgent.</div>
+        </div>
+        <div class="prikkel-dot"></div>
+      </div>
+    </div>
+    <div class="stap-hint" id="hint-1"></div>
+    <div class="knop-rij">
+      <button class="verder-btn" id="btn-stap1" onclick="naarStap(2)" disabled>Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 2 — Per zintuig -->
+  <div class="stap" id="stap-2">
+    <div class="section-label">Stap 2 — Welk zintuig is het meest belast?</div>
+    <div class="zintuigen-grid" id="zintuigen-grid">
+      <!-- gegenereerd via JS -->
+    </div>
+    <p class="stap-hint">Schat in per zintuig. Mag ook overgeslagen worden.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(1)">← Terug</button>
+      <button class="verder-btn" onclick="naarStap(3)">Verder →</button>
+    </div>
+  </div>
+
+  <!-- STAP 3 — Context -->
+  <div class="stap" id="stap-3">
+    <div class="section-label">Stap 3 — Wat speelt er mee?</div>
+    <div class="context-grid">
+      <div class="context-tag" onclick="toggleContext(this)">🏠 Thuis</div>
+      <div class="context-tag" onclick="toggleContext(this)">🏫 School of werk</div>
+      <div class="context-tag" onclick="toggleContext(this)">🚌 Openbaar vervoer</div>
+      <div class="context-tag" onclick="toggleContext(this)">🛒 Drukke ruimte</div>
+      <div class="context-tag" onclick="toggleContext(this)">💬 Sociaal contact gehad</div>
+      <div class="context-tag" onclick="toggleContext(this)">😴 Slecht geslapen</div>
+      <div class="context-tag" onclick="toggleContext(this)">📱 Veel schermtijd</div>
+      <div class="context-tag" onclick="toggleContext(this)">🎧 Lawaai of muziek</div>
+      <div class="context-tag" onclick="toggleContext(this)">🌡 Oncomfortabele temperatuur</div>
+      <div class="context-tag" onclick="toggleContext(this)">😰 Gespannen of gestrest</div>
+      <div class="context-tag" onclick="toggleContext(this)">🍽 Honger of te vol gegeten</div>
+      <div class="context-tag" onclick="toggleContext(this)">🌧 Wisselend weer</div>
+    </div>
+    <p class="stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</p>
+    <div class="knop-rij">
+      <button class="terug-btn" onclick="naarStap(2)">← Terug</button>
+      <button class="verder-btn" onclick="toonResultaat()">Bekijk advies →</button>
+    </div>
+  </div>
+
+  <!-- RESULTAAT -->
+  <div class="resultaat" id="resultaat">
+    <div class="divider"></div>
+    <div class="resultaat-label" id="res-label"></div>
+    <div class="resultaat-titel" id="res-titel"></div>
+    <div class="resultaat-tekst" id="res-tekst"></div>
+
+    <div class="breakdown" id="res-breakdown"></div>
+
+    <div class="tips-label">Wat kan helpen</div>
+    <div id="res-tips"></div>
+
+    <div class="reminder" id="res-reminder"></div>
+
+    <div class="knoppen-rij">
+      <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw</button>
+      <a href="https://prismasystemen.nl/prisma-week.html" class="week-link">PRISMA Week →</a>
+      <a href="https://prismasystemen.nl" class="home-link">← Website</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- iOS INSTALL BANNER -->
+<div class="ios-banner" id="ios-banner">
+  <div class="ios-banner-inner">
+    <div class="ios-banner-tekst">
+      <strong>Sla op als app</strong>
+      Safari → ⎙ → Zet op beginscherm
+    </div>
+    <button class="ios-banner-sluit" onclick="sluitIosBanner()">×</button>
+  </div>
+</div>
+
+<!-- Umami Analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js');
+    });
+  }
+</script>
+
+<script>
+  // ── DATA ──
+  const ZINTUIGEN = [
+    { id: 'gehoor', emoji: '👂', naam: 'Gehoor', omschrijving: 'geluid, lawaai, stemmen' },
+    { id: 'zicht',  emoji: '👁',  naam: 'Zicht',  omschrijving: 'licht, schermen, beweging' },
+    { id: 'aanraking', emoji: '🤚', naam: 'Aanraking', omschrijving: 'kleding, textuur, contact' },
+    { id: 'beweging',  emoji: '🌀', naam: 'Beweging/balans', omschrijving: 'ruimtelijk bewustzijn' },
+    { id: 'smaak',     emoji: '👅', naam: 'Smaak/geur', omschrijving: 'geuren, smaken, misselijkheid' },
+    { id: 'intern',    emoji: '💗', naam: 'Intern (interoceptie)', omschrijving: 'honger, dorst, hartslag, pijn' },
+  ];
+
+  const NIVEAU_LABELS = { 1: 'rustig', 2: 'licht', 3: 'vol', 4: 'zwaar', 5: 'overvol' };
+
+  let geselecteerdNiveau = null;
+  let zintuigNiveaus = {};
+  let huidigStap = 1;
+
+  // Bouw zintuigen grid
+  (function buildZintuigen() {
+    const grid = document.getElementById('zintuigen-grid');
+    ZINTUIGEN.forEach(z => {
+      const el = document.createElement('div');
+      el.className = 'zintuig-item';
+      el.id = 'zintuig-' + z.id;
+      el.innerHTML = `
+        <div class="zintuig-header">
+          <span class="zintuig-emoji">${z.emoji}</span>
+          <span class="zintuig-naam">${z.naam}</span>
+          <span style="font-size:11px;color:var(--grijs-mid);">${z.omschrijving}</span>
+        </div>
+        <div class="zintuig-schaal" id="schaal-${z.id}">
+          ${[1,2,3,4,5].map(n => `<div class="zintuig-niveau" data-zintuig="${z.id}" data-n="${n}" onclick="selecteerZintuigNiveau('${z.id}', ${n}, this)">${n}</div>`).join('')}
+        </div>
+        <div class="zintuig-niveau-label">
+          <span>Weinig</span>
+          <span>Veel</span>
+        </div>
+      `;
+      grid.appendChild(el);
+    });
+  })();
+
+  function selecteerZintuigNiveau(id, n, el) {
+    // Reset alle knoppen in deze rij
+    document.querySelectorAll(`#schaal-${id} .zintuig-niveau`).forEach(b => {
+      b.className = 'zintuig-niveau';
+    });
+    // Highlight geselecteerde
+    el.className = 'zintuig-niveau selected-' + n;
+    zintuigNiveaus[id] = n;
+  }
+
+  const NIVEAU_HINTS = {
+    1: 'Je systeem heeft ruimte. Geniet van de rust.',
+    2: 'Licht belast. Normaal haalbaar, let op wat meer prikkels toevoegt.',
+    3: 'Je bent redelijk vol. Wees bewust over wat je er nog bij doet.',
+    4: 'Overbelast. Verminder prikkels actief — dit is een signaal.',
+    5: 'Urgent. Je systeem vraagt nu om rust, geen uitstel.'
+  };
+
+  function selecteerNiveau(el) {
+    document.querySelectorAll('.prikkel-optie').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    geselecteerdNiveau = parseInt(el.dataset.niveau);
+    document.getElementById('btn-stap1').disabled = false;
+    document.getElementById('hint-1').textContent = NIVEAU_HINTS[geselecteerdNiveau];
+  }
+
+  function toggleContext(el) { el.classList.toggle('selected'); }
+
+  function naarStap(n) {
+    document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
+    document.getElementById('stap-' + n).classList.add('actief');
+    huidigStap = n;
+    updateVoortgang(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateVoortgang(actief) {
+    for (let i = 1; i <= 3; i++) {
+      const cirkel = document.getElementById('cirkel-' + i);
+      const label = document.getElementById('label-' + i);
+      cirkel.className = 'stap-cirkel';
+      label.className = 'stap-label';
+      if (i < actief) { cirkel.classList.add('klaar'); cirkel.innerHTML = '✓'; }
+      else if (i === actief) { cirkel.classList.add('actief'); cirkel.innerHTML = i; label.classList.add('actief'); }
+      else { cirkel.innerHTML = i; }
+      if (i < 3) {
+        document.getElementById('lijn-' + i).className = 'stap-lijn' + (i < actief ? ' klaar' : '');
+      }
+    }
+  }
+
+  function toonResultaat() {
+    if (!geselecteerdNiveau) return;
+
+    const context = [...document.querySelectorAll('.context-tag.selected')].map(t => t.textContent.trim());
+    const { label, klasse, titel, tekst, tips, reminder } = bouwAdvies(geselecteerdNiveau, zintuigNiveaus, context);
+
+    document.getElementById('res-label').textContent = label;
+    document.getElementById('res-label').className = 'resultaat-label ' + klasse;
+    document.getElementById('res-titel').textContent = titel;
+    document.getElementById('res-tekst').textContent = tekst;
+
+    // Breakdown per zintuig
+    const ingevuldeZintuigen = ZINTUIGEN.filter(z => zintuigNiveaus[z.id]);
+    const breakdownEl = document.getElementById('res-breakdown');
+    if (ingevuldeZintuigen.length > 0) {
+      breakdownEl.innerHTML = `<div class="breakdown-label">Belasting per zintuig</div>`;
+      ingevuldeZintuigen
+        .sort((a,b) => (zintuigNiveaus[b.id] || 0) - (zintuigNiveaus[a.id] || 0))
+        .forEach(z => {
+          const n = zintuigNiveaus[z.id] || 0;
+          const pct = (n / 5) * 100;
+          breakdownEl.innerHTML += `
+            <div class="breakdown-rij">
+              <div class="breakdown-naam">${z.emoji} ${z.naam}</div>
+              <div class="breakdown-balk-bg"><div class="breakdown-balk-fill n${n}" style="width:${pct}%"></div></div>
+              <div class="breakdown-score">${NIVEAU_LABELS[n] || ''}</div>
+            </div>
+          `;
+        });
+    } else {
+      breakdownEl.innerHTML = '';
+    }
+
+    // Tips
+    const tipsEl = document.getElementById('res-tips');
+    tipsEl.innerHTML = '';
+    tips.forEach((t, i) => {
+      tipsEl.innerHTML += `
+        <div class="tip-item ${geselecteerdNiveau >= 4 ? 'urgent' : ''}">
+          <div class="tip-streep"></div>
+          <div>${t}</div>
+        </div>`;
+    });
+
+    const reminderEl = document.getElementById('res-reminder');
+    reminderEl.textContent = reminder;
+    reminderEl.className = 'reminder' + (geselecteerdNiveau >= 5 ? ' rood' : '');
+
+    document.getElementById('voortgang').style.display = 'none';
+    document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
+    document.getElementById('resultaat').classList.add('zichtbaar');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function bouwAdvies(niveau, zintuigen, context) {
+    // Meest belaste zintuig
+    const topZintuig = Object.entries(zintuigen).sort((a,b) => b[1]-a[1])[0];
+    const topZintuigData = topZintuig ? ZINTUIGEN.find(z => z.id === topZintuig[0]) : null;
+
+    // Context factoren
+    const heeftSlaaptekort = context.some(c => c.includes('Slecht geslapen'));
+    const heeftScherm = context.some(c => c.includes('schermtijd'));
+    const heeftSociaal = context.some(c => c.includes('Sociaal contact'));
+    const heeftDruk = context.some(c => c.includes('Drukke ruimte') || c.includes('Openbaar'));
+    const heeftStress = context.some(c => c.includes('Gespannen'));
+
+    let label, klasse, titel, tekst, tips, reminder;
+
+    if (niveau === 1) {
+      label = 'Niveau 1 — Rustig systeem';
+      klasse = 'laag';
+      titel = 'Je systeem heeft ruimte. Dat is waardevol.';
+      tekst = 'Je zintuiglijke belasting is laag. Geniet van de ruimte — dit is een goed moment voor dingen die normaal meer vragen.';
+      tips = [
+        'Dit is een goed moment voor taken die concentratie of creativiteit vragen',
+        'Gebruik de rust bewust — niet per se productief, maar aanwezig',
+        heeftSlaaptekort ? 'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.' : 'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
+      ];
+      reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes — ook al voelt het soms alsof je er niks voor doet.';
+
+    } else if (niveau === 2) {
+      label = 'Niveau 2 — Licht belast';
+      klasse = 'laag';
+      titel = 'Licht belast. Nog haalbaar, maar let op wat je er nog bij doet.';
+      tekst = 'Je systeem werkt en heeft nog ruimte, maar je merkt de prikkels. Wees bewust over wat je er nog aan toevoegt.';
+      tips = [
+        'Vermijd grote extra prikkelbronnen: drukke omgevingen, lange gesprekken, veel schermtijd',
+        heeftScherm ? 'Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten' : 'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
+        topZintuigData ? `Je ${topZintuigData.naam.toLowerCase()} is het meest belast — geef dat extra aandacht` : 'Houd in de gaten welk zintuig het meest op de voorgrond is'
+      ];
+      reminder = 'Licht belast is geen probleem — het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.';
+
+    } else if (niveau === 3) {
+      label = 'Niveau 3 — Redelijk vol';
+      klasse = 'mid';
+      titel = 'Je systeem is redelijk vol. Weinig ruimte meer over.';
+      tekst = heeftStress
+        ? 'Je combineert een vol systeem met stress — dat versterkt elkaar. Prikkelreductie is nu prioriteit boven productiviteit.'
+        : 'Je systeem heeft de helft van de dag al verwerkt. Nieuwe prikkels komen er bovenop — wees bewust.';
+      tips = [
+        'Verlaag de input actief: zet geluiden zachter, verminder schermheller, zoek een rustigere plek',
+        heeftSociaal ? 'Je hebt sociaal contact gehad — dat vergt veel. Gun jezelf nu tijd alleen' : 'Beperk nieuwe sociale interacties voor de komende uren',
+        topZintuigData ? `Focus op het ontlasten van je ${topZintuigData.naam.toLowerCase()}: ${topZintuigData.omschrijving}` : 'Geef je meest belaste zintuig een bewuste pauze',
+        'Plan binnen twee uur een echte rustpauze in: minimale prikkels, liggend of zittend'
+      ];
+      reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht — niet morgen, nu.';
+
+    } else if (niveau === 4) {
+      label = 'Niveau 4 — Overbelast';
+      klasse = 'hoog';
+      titel = 'Overbelast. Dit is een actief signaal.';
+      tekst = heeftDruk
+        ? 'Je bent in een drukke omgeving geweest — dat stapelt snel op. Het is tijd om terug te trekken.'
+        : 'Je systeem verwerkt meer dan het aankan. Alles voelt intenser dan normaal — dat is fysiologisch, geen overdrijving.';
+      tips = [
+        '🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen',
+        'Zoek een rustige plek: weinig licht, weinig geluid, liefst alleen',
+        'Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek',
+        heeftSlaaptekort ? 'Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat' : 'Als je kunt: slaap of rust minstens 20-30 minuten',
+        'Stel alles wat kan wachten uit — je systeem heeft nu al je aandacht nodig'
+      ];
+      reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte — dat is hoe het werkt.';
+
+    } else {
+      label = 'Niveau 5 — Overvol';
+      klasse = 'overvol';
+      titel = 'Je systeem is overvol. Rust is nu urgent.';
+      tekst = 'Je bevindt je op of voorbij het punt waarop je systeem normaal kan functioneren. Dit is een shutdown-signaal. Andere prioriteiten kunnen wachten.';
+      tips = [
+        '🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte',
+        'Trek je terug van sociale situaties, schermen en alle externe prikkels',
+        'Leg je eventueel op de grond of op bed — zwaarte helpt je systeem kalmeren (proprioceptie)',
+        'Geen beslissingen nemen, geen to-do lijstjes, geen plannen',
+        'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg',
+        'Verwacht niet dat je snel herstelt — plan de rest van de dag licht'
+      ];
+      reminder = 'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan.';
+    }
+
+    return { label, klasse, titel, tekst, tips, reminder };
+  }
+
+  function opnieuw() {
+    document.querySelectorAll('.prikkel-optie').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.context-tag').forEach(t => t.classList.remove('selected'));
+    document.querySelectorAll('.zintuig-niveau').forEach(b => b.className = 'zintuig-niveau');
+    document.getElementById('hint-1').textContent = '';
+    geselecteerdNiveau = null;
+    zintuigNiveaus = {};
+    document.getElementById('btn-stap1').disabled = true;
+    document.getElementById('resultaat').classList.remove('zichtbaar');
+    document.getElementById('voortgang').style.display = 'flex';
+    naarStap(1);
+  }
+
+  // iOS banner
+  (function() {
+    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone = window.navigator.standalone === true;
+    const gezien = localStorage.getItem('prisma-ios-signaal-gezien');
+    if (isIos && !isStandalone && !gezien) {
+      document.getElementById('ios-banner').style.display = 'block';
+    }
+  })();
+
+  function sluitIosBanner() {
+    document.getElementById('ios-banner').style.display = 'none';
+    localStorage.setItem('prisma-ios-signaal-gezien', '1');
+  }
+</script>
+</body>
+</html>
