@@ -226,7 +226,7 @@
   }
   .page-subtitle {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.7;
     margin-bottom: 36px;
   }
@@ -286,7 +286,7 @@
 
   .energie-info { flex: 1; }
   .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .energie-omschrijving { font-size: 11px; color: var(--blauw); line-height: 1.5; }
+  .energie-omschrijving { font-size: 11px; color: var(--grijs); line-height: 1.5; }
   .energie-dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--grijs-mid); transition: all 0.2s; flex-shrink: 0; }
   .energie-optie.selected .energie-dot { background: var(--groen); border-color: var(--groen); }
 
@@ -331,7 +331,7 @@
   }
   .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
   .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .werkstijl-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+  .werkstijl-omschrijving { font-size: 12px; color: var(--grijs); line-height: 1.5; }
 
   .tekst-input {
     width: 100%;
@@ -423,7 +423,7 @@
 
   .dag-advies {
     font-size: 12px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.7;
     font-family: 'Noto Serif', serif;
     font-style: italic;
@@ -445,7 +445,7 @@
     font-weight: 400;
     margin-bottom: 10px;
   }
-  .analyse-tekst { font-size: 13px; color: var(--blauw); line-height: 1.8; }
+  .analyse-tekst { font-size: 13px; color: var(--grijs); line-height: 1.8; }
   .analyse-lijst { list-style: none; margin-top: 10px; }
   .analyse-lijst li {
     display: flex; gap: 12px; align-items: flex-start;
@@ -529,7 +529,7 @@
   }
   .notif-kaart-tekst {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.7;
     margin-bottom: 18px;
   }
@@ -601,7 +601,7 @@
   }
   .week-afsluiten-tekst {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.6;
     flex: 1;
   }
@@ -841,7 +841,7 @@
   }
   .intro-blok-tekst {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.8;
     margin-bottom: 24px;
   }
@@ -1074,6 +1074,18 @@
         <span>Tik op ⎙ onderaan → "Zet op beginscherm"</span>
       </div>
       <button class="ios-banner-sluit" onclick="sluitIosBanner()">×</button>
+    </div>
+  </div>
+
+  <!-- ANDROID INSTALL BANNER -->
+  <div class="ios-banner" id="android-banner" style="display:none;">
+    <div class="ios-banner-inner">
+      <div class="ios-banner-icoon">📲</div>
+      <div class="ios-banner-tekst">
+        <strong>Voeg PRISMA toe aan je beginscherm</strong>
+        <span>Tik hier om te installeren</span>
+      </div>
+      <button class="ios-banner-sluit" onclick="sluitAndroidBanner()">×</button>
     </div>
   </div>
 
@@ -1440,9 +1452,15 @@
       } else if (h.rust && h.structuur) {
         tekst = 'Energie laag en hoofd vraagt rust én houvast. Een kleine vaste routine als anker — niet voor productiviteit, maar voor stabiliteit.';
         taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan op vaste tijden', 'Schrijf maximaal één ding op dat echt moet', 'Alles wat niet op die lijst staat mag wachten'];
+      } else if (h.bewegen && h.contact) {
+        tekst = 'Energie laag maar je wil bewegen én iemand zien. Een korte wandeling samen combineert beide zonder te veel te vragen.';
+        taken = ['Vraag iemand mee voor een korte wandeling van 10-15 minuten', 'Geen intensief gesprek — gewoon samen buiten zijn is genoeg', 'Daarna rust voor jezelf'];
       } else if (h.bewegen && h.rust) {
         tekst = 'Energie laag, hoofd wil rust maar lijf wil bewegen. Rustig buiten bewegen zonder doel is precies de combinatie die hier helpt.';
         taken = ['Rustige wandeling van 10-15 minuten, zonder podcast of telefoon', 'Daarna bewust niks doen — liggen, zitten, ademen', 'Beweging mag rust zijn als je het rustig houdt'];
+      } else if (h.creativiteit && h.rust) {
+        tekst = 'Energie laag maar je wil toch iets maken. Kleine, afgebakende creatieve taken zijn haalbaar — hou het simpel en tijdgebonden.';
+        taken = ['Kies één klein creatief ding: schrijven, tekenen, iets met je handen', 'Maximaal 20-30 minuten — stop als de energie op is', 'Geen perfectie, alleen aanwezig zijn bij het maken'];
       } else if (h.rust) {
         tekst = 'Energie laag én behoefte aan rust. Duidelijk signaal — zo min mogelijk doen is het juiste antwoord.';
         taken = ['Prikkels uitzetten: notificaties, scherm, geluid', 'Liggen, zitten, of rustig wandelen zonder doel', 'Geen besluiten nemen, geen plannen maken'];
@@ -1452,9 +1470,18 @@
       } else if (h.contact) {
         tekst = 'Energie laag, maar behoefte aan verbinding. Kies voor licht contact, geen lang gesprek.';
         taken = ['Een kort berichtje sturen, zonder verwachting', 'Geen sociale verplichtingen aangaan', 'Verbinding hoeft niet uitputtend te zijn'];
+      } else if (h.creativiteit) {
+        tekst = 'Energie laag maar je wil iets maken. Dat is oké — hou het klein en zonder druk.';
+        taken = ['Iets creatiefs zonder doel: krabbelen, iets uitproberen, niks af hoeven maken', 'Tijdslimiet van 20 minuten — dan beoordelen of je doorgaat', 'Geen nieuwe projecten starten, alleen iets dat al bestaat'];
+      } else if (h.afleiding) {
+        tekst = 'Energie laag en hoofd zoekt afleiding. Dat is niet raar — je systeem wil ontsnappen. Geef het iets licht en passief.';
+        taken = ['Iets kijken of luisteren dat weinig vraagt — geen nieuws, geen intense series', 'Afleiding als rust, niet als uitstelgedrag', 'Maximaal één uur, dan even bewegen of buiten zijn'];
       } else if (h.structuur && h.tijdsgrenzen) {
         tekst = 'Energie laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet.';
         taken = ['Schrijf drie tijdsblokken: ochtend / middag / avond — wat mag er in elk blok?', 'Houd je aan de grenzen, ook als het "mee zou kunnen"', 'Stop op tijd, niet als je klaar bent maar als de tijd om is'];
+      } else if (h.tijdsgrenzen) {
+        tekst = 'Energie laag maar je wil weten wanneer iets stopt. Geef jezelf duidelijke eindpunten — dat geeft rust zonder te plannen.';
+        taken = ['Stel een timer voor elke taak — als die afgaat, stop je', 'Geen open einden vandaag: alles heeft een stoptijd', 'Eindig de dag op een vast tijdstip, ook als het vroeg is'];
       } else if (h.structuur) {
         tekst = 'Energie laag en je zoekt houvast. Een kleine vaste routine als anker — niet voor productiviteit, maar voor stabiliteit.';
         taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
@@ -1469,9 +1496,30 @@
       } else if (h.bewegen && h.creativiteit) {
         tekst = 'Stabiele energie, lichaam wil bewegen én hoofd wil iets maken. Beweging als opstap naar creatief werk werkt goed bij dit niveau.';
         taken = ['Begin met 15-20 minuten bewegen buiten', 'Ga daarna direct aan het creatieve project zitten', 'Houd het bij één creatief ding — niet alles tegelijk'];
+      } else if (h.creativiteit && h.contact) {
+        tekst = 'Stabiele energie, zin om iets te maken én behoefte aan verbinding. Betrek iemand bij je creatieve werk of deel het.';
+        taken = ['Werk aan je project en laat iemand meekijken of reageren', 'Vraag om feedback op iets kleins, niet een grote beoordeling', 'Verbinding via creatie is energie geven, niet nemen'];
+      } else if (h.creativiteit && h.structuur) {
+        tekst = 'Stabiele energie, zin in iets maken én behoefte aan structuur. Plan je creatieve werk in blokken zodat het niet overvloeit.';
+        taken = ['Zet een timer van 45-60 minuten voor je creatieve blok', 'Definieer van tevoren wat je in dat blok wil maken of bereiken', 'Stop als de timer afgaat — ook als het goed gaat'];
+      } else if (h.bewegen && h.contact) {
+        tekst = 'Stabiele energie, wil bewegen én verbinding. Combineer beide — samen sporten of wandelen geeft dubbel rendement.';
+        taken = ['Plan een wandeling of sportmoment met iemand', 'Geen intensief sociaal programma erna — de beweging is de verbinding', 'Houd het kort en licht'];
       } else if (h.structuur && h.tijdsgrenzen) {
         tekst = 'Stabiele energie én behoefte aan structuur en grenzen. Gestructureerde dag met heldere tijdsblokken past hier perfect bij.';
         taken = ['Schrijf de dag op in blokken: werk, pauze, werk, vrij — met tijden erbij', 'Houd je aan de geplande stoptijd', 'Dag afsluiten: wat deed je, niet wat deed je niet'];
+      } else if (h.afleiding && h.creativiteit) {
+        tekst = 'Stabiele energie, brein wil afleiding én iets maken. Maak de afleiding je creatieve project — dat geeft richting aan de onrust.';
+        taken = ['Gebruik de behoefte aan prikkels voor een creatieve taak: muziek maken, tekenen, schrijven', 'Afleiding als brandstof, niet als vlucht', 'Eén project, niet drie tegelijk starten'];
+      } else if (h.afleiding) {
+        tekst = 'Stabiele energie en je brein wil iets op de achtergrond. Gebruik dat bewust als regulator in plaats van het te bestrijden.';
+        taken = ['Zet een podcast, muziek of ambient geluid aan als achtergrond bij je werk', 'Kies bewust wat je op de achtergrond zet — niet willekeurig scrollen', 'Check na een uur of de afleiding helpt of afleidt'];
+      } else if (h.tijdsgrenzen && h.bewegen) {
+        tekst = 'Stabiele energie, je wil bewegen én hebt duidelijke tijdsgrenzen nodig. Een tijdgebonden sportmoment geeft beide.';
+        taken = ['Plan een beweegmoment met vaste start- en eindtijd', 'Geen open einde: weet van tevoren hoe lang je gaat', 'Na het bewegen een duidelijk herstelmoment inplannen'];
+      } else if (h.tijdsgrenzen) {
+        tekst = 'Stabiele energie maar je wil weten wanneer het stopt. Werk met timers en vaste eindtijden — dat maakt beginnen makkelijker.';
+        taken = ['Werk in blokken van 30-45 minuten met een timer', 'Elke taak heeft een eindtijd voordat je begint', 'Afsluiten op tijd geeft vrijheid voor de rest van de dag'];
       } else if (h.rust) {
         tekst = 'Stabiele energie, maar behoefte aan rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
         taken = ['Één taak die echt belangrijk is, als eerste', 'Daarna een geplande pauze — niet als beloning, als onderdeel', "Vermijd overvolle agenda's"];
@@ -1498,9 +1546,24 @@
       } else if (h.contact && h.creativiteit) {
         tekst = 'Goede energie, zin in verbinding én in iets maken. Goed om samen te werken of iemand te betrekken.';
         taken = ['Werk aan het creatieve project — eventueel met iemand als sparringspartner', 'Plan een gesprek met iemand die input kan geven', 'Sla op wat je maakt en bespreekt'];
+      } else if (h.structuur && h.tijdsgrenzen) {
+        tekst = 'Goede energie én behoefte aan duidelijke structuur en grenzen. Maak een concreet dagplan met stoptijden — dan kun je met volle inzet werken zonder door te schieten.';
+        taken = ['Schrijf een dagindeling met vaste start- en stoptijden per blok', 'Houd je aan de stoptijd, ook als je nog door zou kunnen', 'Sluit de werkdag af met een bewust ritueel: afsluiten, niet doorlopen'];
+      } else if (h.bewegen && h.structuur) {
+        tekst = 'Goede energie, wil bewegen én structuur. Begin met sport of beweging, werk daarna in gestructureerde blokken.';
+        taken = ['Start de dag met 20-30 minuten bewegen', 'Daarna: werk in blokken van 45-60 minuten met pauzes', 'Sluit af op een vaste tijd — geen open einde'];
+      } else if (h.contact && h.structuur) {
+        tekst = 'Goede energie, wil verbinding én structuur. Plan je sociale momenten bewust in plaats van ze te laten gebeuren.';
+        taken = ['Zet één of twee sociale momenten vast in de dag, op vaste tijden', 'Buiten die momenten: focustijd zonder onderbreking', 'Sociaal én productief hoeft niet te botsen als je het plant'];
       } else if (h.rust && h.structuur) {
         tekst = 'Goede energie, maar ook behoefte aan rust én houvast. Doe iets dat telt, maar overdrijf niet.';
         taken = ['Kies twee taken die echt belangrijk zijn — niet meer', 'Werk ze af in gestructureerde blokken met echte pauzes', 'Stop als de taken af zijn, ook als de dag nog lang is'];
+      } else if (h.tijdsgrenzen) {
+        tekst = 'Goede energie maar je wil weten wanneer het stopt. Gebruik dat — werk met volle inzet en stop op tijd.';
+        taken = ['Bepaal van tevoren wanneer de dag klaar is', 'Werk geconcentreerd tot die tijd — dan echt stoppen', 'Na het stoppen geen werkgerelateerde input meer'];
+      } else if (h.afleiding && h.creativiteit) {
+        tekst = 'Goede energie, brein wil afleiding maar ook iets maken. Koppel de twee: gebruik de creatieve taak als je geoorloofde afleiding.';
+        taken = ['Kies één creatief project dat ook lekker voelt om aan te werken', 'Zet andere afleidingsbronnen uit terwijl je maakt', 'Je hoeft niet productief te zijn — je mag gewoon maken'];
       } else if (h.creativiteit) {
         tekst = 'Goede energie én zin in iets maken. Dit is het moment om iets te bouwen.';
         taken = ['Werk aan iets creatiefs wat je al wil oppakken', 'Blokkeer tijd zonder onderbrekingen', 'Sla op wat je maakt, ook als het niet af is'];
@@ -1524,17 +1587,21 @@
 
     // ── WERKSTIJL — beïnvloedt de adviestekst concreet ──
     if (werkstijl === 'multi') {
-      tekst += ' Jij werkt het beste met iets op de achtergrond — gebruik dat bewust als steun.';
-      taken.push('Zet iets op de achtergrond: muziek, podcast, of rustig ambient geluid');
+      tekst += ' Jij werkt het beste met iets op de achtergrond — gebruik dat bewust als steun, niet als afleiding.';
+      taken = taken.map((t, i) => i === 0 ? 'Zet iets op de achtergrond voordat je begint: muziek, podcast of ambient geluid' : t);
+      taken.push('Check halverwege of de achtergrondprikkel helpt of juist afleidt — schakel indien nodig om');
     } else if (werkstijl === 'focus') {
-      tekst += ' Jij werkt het beste door één ding af te maken voor je verder gaat.';
-      taken.unshift('Start met één taak — sluit alles wat daarmee niets te maken heeft');
+      tekst += ' Jij werkt het beste door één ding volledig af te ronden. Sluit alles wat daarmee niets te maken heeft.';
+      taken.unshift('Start met één taak — zet alle andere tabs, apps en afleidingen dicht');
+      taken = taken.slice(0, 4); // max 4 taken bij focus
     } else if (werkstijl === 'blokken') {
-      tekst += ' Bouw de dag op in blokken: werk, stop bewust, laad op, werk weer.';
-      taken.push('Werk in blokken van 25-30 minuten — stop dan bewust, ook als het goed gaat');
+      tekst += ' Bouw de dag op in blokken: werk, stop bewust, laad op, werk weer. Niet doorwerken als het goed gaat.';
+      taken = taken.map((t, i) => i === taken.length - 1 ? 'Werk in blokken van 25-30 minuten — stop dan bewust, ook als het goed gaat' : t);
+      taken.push('Gebruik je pauze echt als pauze: geen scherm, geen berichten');
     } else if (werkstijl === 'stroom') {
-      tekst += ' Je hoeft het niet van tevoren te plannen — kijk van moment tot moment wat je energie vraagt.';
-      taken.push('Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?');
+      tekst += ' Je volgt je energie van moment tot moment — vertrouw dat en geef jezelf de ruimte om bij te sturen.';
+      taken = taken.map((t, i) => i === taken.length - 1 ? 'Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?' : t);
+      taken.push('Geen vaste volgorde verplicht — begin met wat het meeste trekt');
     }
 
     return { tekst, taken };
@@ -1901,6 +1968,28 @@
 
   function sluitIosBanner() {
     document.getElementById('ios-banner').style.display = 'none';
+    localStorage.setItem('prisma-ios-banner-gezien', '1');
+  }
+
+  // Android banner
+  let androidInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    androidInstallPrompt = e;
+    const gezien = localStorage.getItem('prisma-android-week-gezien');
+    if (!gezien) {
+      document.getElementById('android-banner').style.display = 'block';
+    }
+  });
+
+  function sluitAndroidBanner() {
+    document.getElementById('android-banner').style.display = 'none';
+    localStorage.setItem('prisma-android-week-gezien', '1');
+    if (androidInstallPrompt) {
+      androidInstallPrompt.prompt();
+      androidInstallPrompt.userChoice.then(() => { androidInstallPrompt = null; });
+    }
+  }
     localStorage.setItem('prisma-ios-banner-gezien', '1');
   }
 

@@ -55,7 +55,7 @@
   }
   .subtitle {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.7;
   }
 
@@ -176,7 +176,7 @@
 
   .energie-info { flex: 1; }
   .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .energie-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+  .energie-omschrijving { font-size: 12px; color: var(--grijs); line-height: 1.5; }
   .energie-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
@@ -294,7 +294,7 @@
   }
   .resultaat-tekst {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.8;
     margin-bottom: 32px;
   }
@@ -404,7 +404,7 @@
   }
   .weektracker-brug-tekst .brug-omschrijving {
     font-size: 12px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.6;
   }
   .weektracker-brug-btn {
@@ -463,7 +463,7 @@
   }
   .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
   .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .werkstijl-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+  .werkstijl-omschrijving { font-size: 12px; color: var(--grijs); line-height: 1.5; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -553,6 +553,18 @@
         <span>Tik op ⎙ onderaan → "Zet op beginscherm"</span>
       </div>
       <button class="ios-banner-sluit" onclick="sluitIosBanner()">×</button>
+    </div>
+  </div>
+
+  <!-- ANDROID INSTALL BANNER -->
+  <div class="ios-banner" id="android-banner" style="display:none;">
+    <div class="ios-banner-inner">
+      <div class="ios-banner-icoon">📲</div>
+      <div class="ios-banner-tekst">
+        <strong>Voeg PRISMA toe aan je beginscherm</strong>
+        <span>Tik hier om te installeren</span>
+      </div>
+      <button class="ios-banner-sluit" onclick="sluitAndroidBanner()">×</button>
     </div>
   </div>
 
@@ -1043,6 +1055,26 @@
   function sluitIosBanner() {
     document.getElementById('ios-banner').style.display = 'none';
     localStorage.setItem('prisma-ios-banner-gezien', '1');
+  }
+
+  // Android banner
+  let androidInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    androidInstallPrompt = e;
+    const gezien = localStorage.getItem('prisma-android-dag-gezien');
+    if (!gezien) {
+      document.getElementById('android-banner').style.display = 'block';
+    }
+  });
+
+  function sluitAndroidBanner() {
+    document.getElementById('android-banner').style.display = 'none';
+    localStorage.setItem('prisma-android-dag-gezien', '1');
+    if (androidInstallPrompt) {
+      androidInstallPrompt.prompt();
+      androidInstallPrompt.userChoice.then(() => { androidInstallPrompt = null; });
+    }
   }
 
 </script>

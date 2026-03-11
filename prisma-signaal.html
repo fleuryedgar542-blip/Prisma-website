@@ -62,7 +62,7 @@
 
   .subtitle {
     font-size: 13px;
-    color: var(--blauw);
+    color: var(--grijs);
     line-height: 1.7;
   }
 
@@ -172,7 +172,7 @@
 
   .prikkel-info { flex: 1; }
   .prikkel-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .prikkel-omschrijving { font-size: 12px; color: var(--blauw); line-height: 1.5; }
+  .prikkel-omschrijving { font-size: 12px; color: var(--grijs); line-height: 1.5; }
 
   .prikkel-dot {
     width: 8px; height: 8px;
@@ -334,7 +334,7 @@
   }
 
   .resultaat-tekst {
-    font-size: 13px; color: var(--blauw); line-height: 1.8; margin-bottom: 28px;
+    font-size: 13px; color: var(--grijs); line-height: 1.8; margin-bottom: 28px;
   }
 
   /* PRIKKEL BREAKDOWN */
@@ -640,6 +640,17 @@
   </div>
 </div>
 
+<!-- ANDROID INSTALL BANNER -->
+<div class="ios-banner" id="android-banner" style="display:none;">
+  <div class="ios-banner-inner">
+    <div class="ios-banner-tekst">
+      <strong>Sla op als app</strong>
+      Voeg PRISMA toe aan je beginscherm
+    </div>
+    <button class="ios-banner-sluit" onclick="sluitAndroidBanner()">×</button>
+  </div>
+</div>
+
 <!-- Umami Analytics -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
 <script>
@@ -808,6 +819,24 @@
     const heeftSociaal = context.some(c => c.includes('Sociaal contact'));
     const heeftDruk = context.some(c => c.includes('Drukke ruimte') || c.includes('Openbaar'));
     const heeftStress = context.some(c => c.includes('Gespannen'));
+    const opWerk = context.some(c => c.includes('School of werk'));
+    const onderweg = context.some(c => c.includes('Openbaar vervoer') || c.includes('Openbaar'));
+    const heeftLawaai = context.some(c => c.includes('Lawaai'));
+    const heeftTemperatuur = context.some(c => c.includes('temperatuur'));
+    const heeftHonger = context.some(c => c.includes('Honger'));
+    const heeftWeer = context.some(c => c.includes('Wisselend'));
+
+    // Helper: geeft locatiebewust alternatief voor 'ga naar rustige plek thuis'
+    function rustTip() {
+      if (opWerk) return 'Zoek even een rustige plek op het werk: een lege vergaderruimte, de wc, of buiten. Vijf minuten zonder input helpt al.';
+      if (onderweg) return 'Zet oordopjes in of kijk naar buiten. Minimaliseer nieuwe input zoveel als mogelijk tot je thuis bent.';
+      return 'Zoek een rustige plek: weinig licht, weinig geluid, liefst alleen';
+    }
+    function pauzetip() {
+      if (opWerk) return 'Plan een korte pauze buiten het werkgebouw als dat kan — frisse lucht en even weg van de prikkels';
+      if (onderweg) return 'Sluit je ogen, adem langzaam. Je hoeft niks te doen tot je aankomt.';
+      return 'Plan binnen twee uur een echte rustpauze in: minimale prikkels, liggend of zittend';
+    }
 
     let label, klasse, titel, tekst, tips, reminder;
 
@@ -819,7 +848,9 @@
       tips = [
         'Dit is een goed moment voor taken die concentratie of creativiteit vragen',
         'Gebruik de rust bewust — niet per se productief, maar aanwezig',
-        heeftSlaaptekort ? 'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.' : 'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
+        heeftSlaaptekort ? 'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.' :
+        heeftHonger ? 'Zorg eerst voor eten of drinken — een gevoed lichaam houdt dit niveau langer vast.' :
+        'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
       ];
       reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes — ook al voelt het soms alsof je er niks voor doet.';
 
@@ -830,7 +861,11 @@
       tekst = 'Je systeem werkt en heeft nog ruimte, maar je merkt de prikkels. Wees bewust over wat je er nog aan toevoegt.';
       tips = [
         'Vermijd grote extra prikkelbronnen: drukke omgevingen, lange gesprekken, veel schermtijd',
-        heeftScherm ? 'Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten' : 'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
+        heeftScherm ? 'Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten' :
+        heeftLawaai ? 'Je bent al blootgesteld aan lawaai — oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen' :
+        heeftTemperatuur ? 'Oncomfortabele temperatuur kost ongemerkt energie — pas je omgeving aan of kleed je aan/uit' :
+        heeftHonger ? 'Eet of drink iets voor je verdergaat — een lege maag of te volle buik versterkt prikkels' :
+        'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
         topZintuigData ? `Je ${topZintuigData.naam.toLowerCase()} is het meest belast — geef dat extra aandacht` : 'Houd in de gaten welk zintuig het meest op de voorgrond is'
       ];
       reminder = 'Licht belast is geen probleem — het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.';
@@ -843,10 +878,15 @@
         ? 'Je combineert een vol systeem met stress — dat versterkt elkaar. Prikkelreductie is nu prioriteit boven productiviteit.'
         : 'Je systeem heeft de helft van de dag al verwerkt. Nieuwe prikkels komen er bovenop — wees bewust.';
       tips = [
+        opWerk ? 'Zet indien mogelijk muziek of geluiddemping op — verminder wat je kunt in je omgeving' :
+        heeftLawaai ? 'Lawaai heeft je systeem al belast — zoek actief stilte, ook al is het maar 10 minuten' :
         'Verlaag de input actief: zet geluiden zachter, verminder schermhelderheid, zoek een rustigere plek',
+        heeftHonger ? 'Eet iets kleins voor je verdergaat — een gevoed systeem herstelt sneller' :
+        heeftTemperatuur ? 'Pas je temperatuur aan: een te warme of koude omgeving maakt overbelasting zwaarder' :
         heeftSociaal ? 'Je hebt sociaal contact gehad — dat vergt veel. Gun jezelf nu tijd alleen' : 'Beperk nieuwe sociale interacties voor de komende uren',
         topZintuigData ? `Focus op het ontlasten van je ${topZintuigData.naam.toLowerCase()}: ${topZintuigData.omschrijving}` : 'Geef je meest belaste zintuig een bewuste pauze',
-        'Plan binnen twee uur een echte rustpauze in: minimale prikkels, liggend of zittend'
+        heeftWeer ? 'Wisselend weer beïnvloedt je lichaam onbewust — extra moe of hoofdpijn is niet raar, het is fysiologisch' :
+        pauzetip()
       ];
       reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht — niet morgen, nu.';
 
@@ -858,10 +898,14 @@
         ? 'Je bent in een drukke omgeving geweest — dat stapelt snel op. Het is tijd om terug te trekken.'
         : 'Je systeem verwerkt meer dan het aankan. Alles voelt intenser dan normaal — dat is fysiologisch, geen overdrijving.';
       tips = [
-        '🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen',
-        'Zoek een rustige plek: weinig licht, weinig geluid, liefst alleen',
-        'Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek',
-        heeftSlaaptekort ? 'Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat' : 'Als je kunt: slaap of rust minstens 20-30 minuten',
+        opWerk ? '🔴 Stop met nieuwe input zoveel als mogelijk — geen nieuwe gesprekken aangaan, scherm op laagste helderheid' : '🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen',
+        rustTip(),
+        heeftLawaai ? '🔴 Geluid is je grootste belaster nu — oordopjes, noise-cancelling of een stille ruimte is urgent' :
+        opWerk ? 'Zeg zo nodig kort: "Ik heb even een moment nodig." Dat is genoeg uitleg.' : 'Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek',
+        heeftHonger ? 'Eet of drink iets kleins — een lege maag bij overbelasting maakt alles zwaarder' :
+        heeftTemperatuur ? 'Pas je omgevingstemperatuur aan — comfort is nu geen luxe maar een herstelvoorwaarde' :
+        heeftSlaaptekort ? 'Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat' : (opWerk ? 'Zodra je thuis bent: direct ontprikkelen, geen nieuwe afspraken of schermen' : 'Als je kunt: slaap of rust minstens 20-30 minuten'),
+        heeftWeer ? 'Wisselend weer heeft je lichaam extra belast — dit is geen excuus maar een verklaring. Neem het serieus.' :
         'Stel alles wat kan wachten uit — je systeem heeft nu al je aandacht nodig'
       ];
       reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte — dat is hoe het werkt.';
@@ -872,9 +916,13 @@
       titel = 'Je systeem is overvol. Rust is nu urgent.';
       tekst = 'Je bevindt je op of voorbij het punt waarop je systeem normaal kan functioneren. Dit is een shutdown-signaal. Andere prioriteiten kunnen wachten.';
       tips = [
-        '🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte',
-        'Trek je terug van sociale situaties, schermen en alle externe prikkels',
+        opWerk ? '🔴 Verlaat de situatie zo snel als je kunt — ook even naar buiten of naar de wc is beter dan blijven' : '🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte',
+        heeftLawaai ? '🔴 Geluid is nu ondraaglijk voor je systeem — oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak' :
+        opWerk ? 'Stuur een kort berichtje als je iets moet zeggen — praten kost nu te veel' : 'Trek je terug van sociale situaties, schermen en alle externe prikkels',
+        heeftHonger ? 'Eet iets kleins als je kunt — je lichaam heeft brandstof nodig om te herstellen' :
+        heeftTemperatuur ? 'Zoek een comfortabele temperatuur — warmte of kou maakt shutdown zwaarder' :
         'Leg je eventueel op de grond of op bed — zwaarte helpt je systeem kalmeren (proprioceptie)',
+        heeftWeer ? 'Wisselend weer en een overvol systeem combineren slecht — je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.' :
         'Geen beslissingen nemen, geen to-do lijstjes, geen plannen',
         'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg',
         'Verwacht niet dat je snel herstelt — plan de rest van de dag licht'
@@ -911,6 +959,26 @@
   function sluitIosBanner() {
     document.getElementById('ios-banner').style.display = 'none';
     localStorage.setItem('prisma-ios-signaal-gezien', '1');
+  }
+
+  // Android banner
+  let androidInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    androidInstallPrompt = e;
+    const gezien = localStorage.getItem('prisma-android-signaal-gezien');
+    if (!gezien) {
+      document.getElementById('android-banner').style.display = 'block';
+    }
+  });
+
+  function sluitAndroidBanner() {
+    document.getElementById('android-banner').style.display = 'none';
+    localStorage.setItem('prisma-android-signaal-gezien', '1');
+    if (androidInstallPrompt) {
+      androidInstallPrompt.prompt();
+      androidInstallPrompt.userChoice.then(() => { androidInstallPrompt = null; });
+    }
   }
 </script>
 </body>
