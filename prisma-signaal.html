@@ -311,6 +311,15 @@
 
   /* RESULTAAT */
   .resultaat { display: none; animation: fadeUp 0.5s ease forwards; }
+  .bronvermelding {
+    font-size: 0.75rem;
+    color: var(--grijs-mid);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--grijs-licht);
+    font-style: italic;
+    line-height: 1.6;
+  }
   .resultaat.zichtbaar { display: block; }
 
   .divider { height: 1px; background: var(--grijs-licht); margin: 36px 0; }
@@ -498,6 +507,7 @@
     <div class="logo">PRISMA Systemen</div>
     <h1>Hoe vol is je systeem nu?</h1>
     <p class="subtitle">Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.</p>
+    <p class="subtitle" style="font-size: 0.82rem; margin-top: 0.4rem; opacity: 0.75;">Met <em>systeem</em> bedoelen we je zenuwstelsel — de manier waarop jouw brein en lichaam prikkels verwerken.</p>
   </header>
 
   <!-- VOORTGANG -->
@@ -619,6 +629,8 @@
     <div id="res-tips"></div>
 
     <div class="reminder" id="res-reminder"></div>
+
+    <p class="bronvermelding">De adviezen zijn gebaseerd op inzichten uit sensorische integratietheorie en onderzoek naar overprikkeling bij ADHD en autisme.</p>
 
     <div class="knoppen-rij">
       <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw</button>
