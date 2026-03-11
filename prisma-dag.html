@@ -222,6 +222,27 @@
   .intentie-input:focus { border-color: var(--groen); }
   .intentie-input::placeholder { color: var(--grijs-mid); }
 
+  /* MOET-KNOPPEN */
+  .moet-knoppen { display: flex; gap: 10px; flex-wrap: wrap; }
+  .moet-keuze {
+    flex: 1;
+    min-width: 140px;
+    background: white;
+    border: 1.5px solid var(--grijs-licht);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--grijs);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .moet-keuze:hover { border-color: var(--groen); }
+  .moet-keuze.selected-nee { border-color: var(--groen); background: #F8FAF7; }
+  .moet-keuze.selected-ja { border-color: var(--blauw); background: #F4F6F8; }
+
   /* KNOPPEN */
   .knop-rij { display: flex; gap: 12px; margin-top: 32px; }
 
@@ -595,12 +616,12 @@
     <div class="stap-lijn" id="lijn-3"></div>
     <div class="stap-item">
       <div class="stap-cirkel" id="cirkel-4">4</div>
-      <span class="stap-label" id="label-4">Wie</span>
+      <span class="stap-label" id="label-4">Moet</span>
     </div>
     <div class="stap-lijn" id="lijn-4"></div>
     <div class="stap-item">
       <div class="stap-cirkel" id="cirkel-5">5</div>
-      <span class="stap-label" id="label-5">Intentie</span>
+      <span class="stap-label" id="label-5">Wie</span>
     </div>
   </div>
 
@@ -719,20 +740,26 @@
 
   <!-- STAP 4 -->
   <div class="stap" id="stap-4">
-    <div class="section-label">Stap 4 — Wie wil je vandaag zijn?</div>
-    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
-    <p class="stap-hint">Eén woord of een zin. Wat ook voelt goed.</p>
+    <div class="section-label">Stap 4 — Is er iets wat je vandaag écht moet doen?</div>
+    <p class="stap-hint" style="margin-bottom: 16px;">Ongeacht hoe je je voelt — iets wat niet kan wachten.</p>
+    <div class="moet-knoppen" id="moet-knoppen">
+      <button class="moet-keuze" id="moet-nee" onclick="selecteerMoet(false)">Nee, niets wat moet</button>
+      <button class="moet-keuze" id="moet-ja" onclick="selecteerMoet(true)">Ja, er is iets wat moet</button>
+    </div>
+    <div id="moet-veld" style="display:none; margin-top: 14px;">
+      <textarea class="intentie-input" id="moet-taak" placeholder="Wat moet er vandaag écht gebeuren? Schrijf het op." style="margin-bottom: 0;"></textarea>
+    </div>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(3)">← Terug</button>
-      <button class="verder-btn" onclick="naarStap(5)">Verder →</button>
+      <button class="verder-btn" id="moet-verder-btn" onclick="naarStap(5)" disabled>Verder →</button>
     </div>
   </div>
 
   <!-- STAP 5 -->
   <div class="stap" id="stap-5">
-    <div class="section-label">Stap 5 — Eén ding dat vandaag mag lukken</div>
-    <textarea class="intentie-input" id="intentie" placeholder="Niet wat je moet. Wat realistisch is."></textarea>
-    <p class="stap-hint">Mag ook leeg blijven als je het nog niet weet.</p>
+    <div class="section-label">Stap 5 — Wie wil je vandaag zijn?</div>
+    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
+    <p class="stap-hint">Eén woord of een zin. Mag ook leeg blijven.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(4)">← Terug</button>
       <button class="verder-btn" onclick="toonResultaat()">Bekijk mijn dag →</button>
@@ -768,7 +795,17 @@
 <script>
   let geselecteerdNiveau = null;
   let geselecteerdeWerkstijl = null;
+  let moetAanwezig = null;
   let huidigStap = 1;
+
+  function selecteerMoet(jaOfNee) {
+    moetAanwezig = jaOfNee;
+    document.getElementById('moet-nee').className = 'moet-keuze' + (!jaOfNee ? ' selected-nee' : '');
+    document.getElementById('moet-ja').className = 'moet-keuze' + (jaOfNee ? ' selected-ja' : '');
+    const veld = document.getElementById('moet-veld');
+    veld.style.display = jaOfNee ? 'block' : 'none';
+    document.getElementById('moet-verder-btn').disabled = false;
+  }
 
   const niveauHints = {
     1: 'Vandaag is een rustdag. Dat is genoeg.',
@@ -833,7 +870,7 @@
   };
 
   // Volledig gepersonaliseerd advies op basis van alle inputs
-  function bouwAdvies(niveau, behoeften, werkstijl, wie, intentie) {
+  function bouwAdvies(niveau, behoeften, werkstijl, wie, moetTaak) {
     const h = {
       rust: behoeften.some(b => b.includes('niks hoeven') || b.includes('minder prikkels')),
       bewegen: behoeften.some(b => b.includes('bewegen of buiten')),
@@ -977,10 +1014,19 @@
       }
     }
 
-    // ── INTENTIE — als prioriteit, kleurt het hele advies ──
-    if (intentie) {
-      tekst = `Je wil vandaag "${intentie}" — bij dit energieniveau is dat realistisch: ` + tekst;
-      taken.unshift(`Prioriteit vandaag: ${intentie}`);
+    // ── MOET-TAAK — overschrijft en kleurt het hele advies ──
+    if (moetTaak) {
+      if (niveau <= 2) {
+        tekst = `Je energie is laag, maar "${moetTaak}" moet vandaag toch gebeuren. Dat is zwaar — hier is hoe je dat zo licht mogelijk aanpakt. ` + tekst;
+        taken.unshift(`Begin met "${moetTaak}" — doe het als eerste, als je energie er nog het meeste is`);
+        taken.unshift('Schrap alles wat vandaag niet strikt noodzakelijk is — bescherm je energie voor wat moet');
+      } else if (niveau === 3) {
+        tekst = `Je hebt "${moetTaak}" te doen vandaag. Bij dit energieniveau is dat haalbaar — plan het bewust in. ` + tekst;
+        taken.unshift(`Plan "${moetTaak}" in een concreet tijdsblok — liefst in de ochtend of wanneer je energie het hoogst is`);
+      } else {
+        tekst = `Je hebt "${moetTaak}" te doen én de energie ervoor. Doe het als eerste, dan heb je de rest van de dag vrij hoofd. ` + tekst;
+        taken.unshift(`Start met "${moetTaak}" — de energie is er nu, gebruik het`);
+      }
     }
 
     return { tekst, taken };
@@ -990,9 +1036,9 @@
     if (!geselecteerdNiveau) return;
     const base = niveauBase[geselecteerdNiveau];
     const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.textContent);
-    const intentie = document.getElementById('intentie').value.trim();
+    const moetTaak = (moetAanwezig && document.getElementById('moet-taak').value.trim()) ? document.getElementById('moet-taak').value.trim() : null;
     const wie = document.getElementById('wie').value.trim();
-    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften, geselecteerdeWerkstijl, wie, intentie);
+    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften, geselecteerdeWerkstijl, wie, moetTaak);
 
     document.getElementById('res-niveau').textContent = base.naam;
     document.getElementById('res-titel').textContent = base.titel;
@@ -1030,11 +1076,16 @@
     document.querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
     document.querySelectorAll('.behoefte-tag').forEach(t => t.classList.remove('selected'));
     document.querySelectorAll('.werkstijl-optie').forEach(o => o.classList.remove('selected'));
-    document.getElementById('intentie').value = '';
+    document.getElementById('moet-taak').value = '';
+    document.getElementById('moet-veld').style.display = 'none';
+    document.getElementById('moet-nee').className = 'moet-keuze';
+    document.getElementById('moet-ja').className = 'moet-keuze';
+    document.getElementById('moet-verder-btn').disabled = true;
     document.getElementById('wie').value = '';
     document.getElementById('hint-1').textContent = '';
     geselecteerdNiveau = null;
     geselecteerdeWerkstijl = null;
+    moetAanwezig = null;
     document.getElementById('btn-stap1').disabled = true;
 
     document.getElementById('resultaat').classList.remove('zichtbaar');
