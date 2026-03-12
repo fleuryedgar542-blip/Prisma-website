@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — PRISMA Systemen</title>
+  <meta name="description" content="Artikelen over neurodiversiteit, dagstructuur en zelfkennis voor neurodivergente jongvolwassenen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="stijl.css" />
+  <style>
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .blog-kaart {
+      background: var(--wit);
+      border: 1px solid var(--beige-dark);
+      padding: clamp(1.5rem, 4vw, 2rem);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s;
+    }
+
+    .blog-kaart:hover {
+      border-color: var(--grijs-mid);
+      color: inherit;
+    }
+
+    .blog-kaart-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--groen-dark);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .blog-kaart h2 {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .blog-kaart p {
+      font-size: 0.88rem;
+      color: var(--grijs-mid);
+      line-height: 1.75;
+      max-width: 58ch;
+    }
+
+    .blog-kaart-footer {
+      margin-top: 1.25rem;
+      font-size: 0.78rem;
+      color: var(--grijs-licht);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    @media (min-width: 600px) {
+      .blog-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✦ NAVIGATIE -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="over.html">Over PRISMA</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobiel-menu" id="mobiel-menu">
+    <a href="index.html">Home</a>
+    <a href="over.html">Over PRISMA</a>
+    <a href="tools.html">Tools</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ✦ PAGINA HERO -->
+  <div class="pagina-hero sectie-beige">
+    <div class="container">
+      <span class="sectie-label">Blog</span>
+      <h1>Artikelen over neurodiversiteit en zelfkennis</h1>
+    </div>
+  </div>
+
+  <!-- ✦ BLOG OVERZICHT -->
+  <section class="sectie sectie-wit">
+    <div class="container">
+      <div class="blog-grid">
+
+        <a href="blog/dagplanner-adhd.html" class="blog-kaart fade-in">
+          <span class="blog-kaart-label">Dagstructuur</span>
+          <h2>Waarom standaard planners niet werken voor een neurodivergent brein</h2>
+          <p>Je hebt weer een nieuwe planner geprobeerd. Na drie dagen ligt hij ongebruikt. Niet omdat je lui bent — maar omdat standaard planners zijn gebouwd voor een ander brein.</p>
+          <div class="blog-kaart-footer">Maart 2026 · 5 min lezen</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
+        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="over.html">Over PRISMA</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="voorwaarden.html">Voorwaarden</a></li>
+        </ul>
+        <div class="footer-bottom">
+          <span>© 2026 PRISMA Systemen</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
