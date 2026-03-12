@@ -3,7 +3,7 @@
    ═══════════════════════════════════════════════ */
 
 /* Forceer altijd lichte modus — huisstijl is beige/licht */
-:root { color-scheme: light only; }
+:root { color-scheme: only light; }
 
 /* ─── VARIABELEN ─────────────────────────────── */
 :root {
