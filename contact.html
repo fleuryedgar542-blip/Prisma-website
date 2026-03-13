@@ -81,7 +81,7 @@
     <div class="instagram-kaart" style="margin-top:1rem;">
       <div class="instagram-kaart-header"><div class="instagram-icoon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="3" ry="3"/><polyline points="2,4 12,13 22,4" stroke-width="1.5"/></svg></div>
       <div><div class="instagram-naam" id="email-label">E-mail</div><div class="instagram-handle">fleur@prismasystemen.nl</div></div></div>
-      <p id="email-text">Liever mailen? Stuur een bericht naar fleur@prismasystemen.nl. Ik reageer als ik de ruimte heb.</p>
+      <p id="email-text">Liever mailen? Stuur een bericht naar <a href="mailto:fleur@prismasystemen.nl">fleur@prismasystemen.nl</a>. Ik reageer als ik de ruimte heb.</p>
       <a href="mailto:fleur@prismasystemen.nl" class="knop knop-groen" id="email-button">Stuur een e-mail</a>
     </div>
     <div class="instagram-kaart">
@@ -133,17 +133,4 @@
       if (currentLang === 'en') url.searchParams.set('lang', 'en');
       else url.searchParams.delete('lang');
       const sameOrigin = url.origin === window.location.origin;
-      link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
-    });
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('prisma-language', lang);
-    applyTranslations();
-  }
-
-    document.addEventListener('DOMContentLoaded', () => { currentLang = getInitialLanguage(); applyTranslations(); });
-  </script>
-  <script src="nav.js"></script>
-</body></html>
+      link.setAttribute(
