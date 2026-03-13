@@ -10,211 +10,140 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="stijl.css" />
   <style>
-    /* ── CONTACT-SPECIFIEK ── */
+    .contact-blok { display: flex; flex-direction: column; gap: 1.25rem; max-width: 52ch; }
+    .contact-blok p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .instagram-kaart { border: 1px solid var(--beige-dark); background: var(--wit); padding: clamp(1.5rem, 4vw, 2rem); display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; max-width: 420px; }
+    .instagram-kaart-header { display: flex; align-items: center; gap: 0.75rem; }
+    .instagram-icoon { width: 36px; height: 36px; border: 1px solid var(--beige-dark); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .instagram-icoon svg { width: 18px; height: 18px; stroke: var(--grijs-mid); fill: none; stroke-width: 1.5; }
+    .instagram-naam { font-size: 0.85rem; font-weight: 500; color: var(--grijs); }
+    .instagram-handle { font-size: 0.78rem; color: var(--grijs-licht); }
+    .instagram-kaart p { font-size: 0.87rem; color: var(--grijs-mid); }
+    .eerlijk-blok { background: var(--beige-mid); padding: clamp(2.5rem, 6vw, 4rem) 0; margin-top: 0; }
+    .eerlijk-inner { display: flex; flex-direction: column; gap: 1rem; max-width: 52ch; }
+    .eerlijk-inner h2 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+    .eerlijk-inner p { color: var(--grijs-mid); font-size: 0.92rem; }
 
-    .contact-blok {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      max-width: 52ch;
-    }
+  .language-switch {
+    display: inline-flex;
+    gap: 6px;
+    padding: 4px;
+    margin: 1rem 0 0;
+    background: var(--wit, #fff);
+    border: 1px solid var(--beige-dark, #E8E4DC);
+    border-radius: 999px;
+  }
+  .language-switch button {
+    border: none;
+    background: transparent;
+    color: var(--grijs-mid, #9A9A9A);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .language-switch button.active {
+    background: var(--beige, #F3EFE8);
+    color: var(--grijs, #2E2E2E);
+  }
 
-    .contact-blok p {
-      color: var(--grijs-mid);
-      font-size: 0.95rem;
-    }
-
-    .instagram-kaart {
-      border: 1px solid var(--beige-dark);
-      background: var(--wit);
-      padding: clamp(1.5rem, 4vw, 2rem);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2.5rem;
-      max-width: 420px;
-    }
-
-    .instagram-kaart-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .instagram-icoon {
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--beige-dark);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .instagram-icoon svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--grijs-mid);
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .instagram-naam {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--grijs);
-    }
-
-    .instagram-handle {
-      font-size: 0.78rem;
-      color: var(--grijs-licht);
-    }
-
-    .instagram-kaart p {
-      font-size: 0.87rem;
-      color: var(--grijs-mid);
-    }
-
-    .eerlijk-blok {
-      background: var(--beige-mid);
-      padding: clamp(2.5rem, 6vw, 4rem) 0;
-      margin-top: 0;
-    }
-
-    .eerlijk-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 52ch;
-    }
-
-    .eerlijk-inner h2 {
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
-    }
-
-    .eerlijk-inner p {
-      color: var(--grijs-mid);
-      font-size: 0.92rem;
-    }
   </style>
 </head>
 <body>
-
-  <!-- ✦ NAVIGATIE -->
   <nav id="nav">
     <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="over.html">Over PRISMA</a></li>
-      <li><a href="tools.html">Tools</a></li>
-      <li><a href="contact.html" class="actief">Contact</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="over.html" id="nav-about">Over PRISMA</a></li>
+      <li><a href="tools.html" id="nav-tools">Tools</a></li>
+      <li><a href="contact.html" class="actief" id="nav-contact">Contact</a></li>
+      <li><a href="blog.html" id="nav-blog">Blog</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu openen">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </nav>
-
   <div class="mobiel-menu" id="mobiel-menu">
-    <a href="index.html">Home</a>
-    <a href="over.html">Over PRISMA</a>
-    <a href="tools.html">Tools</a>
-    <a href="contact.html" class="actief">Contact</a>
-    <a href="blog.html">Blog</a>
+    <a href="index.html" id="m-home">Home</a>
+    <a href="over.html" id="m-about">Over PRISMA</a>
+    <a href="tools.html" id="m-tools">Tools</a>
+    <a href="contact.html" class="actief" id="m-contact">Contact</a>
+    <a href="blog.html" id="m-blog">Blog</a>
   </div>
-
-  <!-- ✦ PAGINA HERO -->
-  <div class="pagina-hero sectie-beige">
-    <div class="container">
-      <span class="sectie-label">Contact</span>
-      <h1>Een vraag of wil je meer weten?</h1>
+  <div class="pagina-hero sectie-beige"><div class="container">
+    <div class="language-switch" aria-label="Language switch"><button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button><button type="button" id="lang-en" onclick="setLanguage('en')">EN</button></div>
+    <span class="sectie-label" id="hero-label">Contact</span><h1 id="hero-title">Een vraag of wil je meer weten?</h1></div></div>
+  <section class="sectie sectie-wit"><div class="container"><div class="contact-blok fade-in">
+    <p id="intro-text">Je kunt me bereiken via Instagram. Ik lees elk bericht en reageer als ik de ruimte heb. Geen sales-funnel, geen automatisch antwoord.</p>
+    <div class="instagram-kaart" style="margin-top:1rem;">
+      <div class="instagram-kaart-header"><div class="instagram-icoon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="3" ry="3"/><polyline points="2,4 12,13 22,4" stroke-width="1.5"/></svg></div>
+      <div><div class="instagram-naam" id="email-label">E-mail</div><div class="instagram-handle"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0a0009191e2c1c1e051f010d1f151f1809010902420200">[email&#160;protected]</a></div></div></div>
+      <p id="email-text">Liever mailen? Stuur een bericht naar <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0563696070774575776c766864767c76716068606b2b6b69">[email&#160;protected]</a>. Ik reageer als ik de ruimte heb.</p>
+      <a href="/cdn-cgi/l/email-protection#4d2b2128383f0d3d3f243e202c3e343e3928202823632321" class="knop knop-groen" id="email-button">Stuur een e-mail</a>
     </div>
-  </div>
-
-  <!-- ✦ CONTACT -->
-  <section class="sectie sectie-wit">
-    <div class="container">
-      <div class="contact-blok fade-in">
-        <p>
-          Je kunt me bereiken via Instagram. Ik lees elk bericht en reageer als ik de ruimte heb.
-          Geen sales-funnel, geen automatisch antwoord.
-        </p>
-
-        <div class="instagram-kaart" style="margin-top:1rem;">
-          <div class="instagram-kaart-header">
-            <div class="instagram-icoon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="4" width="20" height="16" rx="3" ry="3"/>
-                <polyline points="2,4 12,13 22,4" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div>
-              <div class="instagram-naam">E-mail</div>
-              <div class="instagram-handle"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0a0009191e2c1c1e051f010d1f151f1809010902420200">[email&#160;protected]</a></div>
-            </div>
-          </div>
-          <p>Liever mailen? Stuur een bericht naar <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0563696070774575776c766864767c76716068606b2b6b69">[email&#160;protected]</a>. Ik reageer als ik de ruimte heb.</p>
-          <a href="/cdn-cgi/l/email-protection#4d2b2128383f0d3d3f243e202c3e343e3928202823632321" class="knop knop-groen">Stuur een e-mail</a>
-        </div>
-
-        <div class="instagram-kaart">
-          <div class="instagram-kaart-header">
-            <div class="instagram-icoon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </div>
-            <div>
-              <div class="instagram-naam">PRISMA Systemen</div>
-              <div class="instagram-handle">@prismasystemen</div>
-            </div>
-          </div>
-          <p>Stuur een DM via Instagram voor vragen over de tools, coaching of samenwerking.</p>
-          <a href="https://www.instagram.com/prismasystemen" class="knop knop-groen" target="_blank" rel="noopener">Open Instagram</a>
-        </div>
-      </div>
+    <div class="instagram-kaart">
+      <div class="instagram-kaart-header"><div class="instagram-icoon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></div>
+      <div><div class="instagram-naam">PRISMA Systemen</div><div class="instagram-handle">@prismasystemen</div></div></div>
+      <p id="ig-text">Stuur een DM via Instagram voor vragen over de tools, coaching of samenwerking.</p>
+      <a href="https://www.instagram.com/prismasystemen" class="knop knop-groen" target="_blank" rel="noopener" id="ig-button">Open Instagram</a>
     </div>
-  </section>
+  </div></div></section>
+  <div class="eerlijk-blok"><div class="container"><div class="eerlijk-inner fade-in"><span class="sectie-label" id="expect-label">Wat je kunt verwachten</span><h2 id="expect-title">Geen beloftes die ik niet kan waarmaken.</h2><p id="expect-text">Ik ben één persoon, en ik bouw PRISMA naast mijn eigen leven. Ik reageer niet altijd snel. Ik ben niet altijd beschikbaar. Wat er wel is: eerlijkheid over wat er is en wat niet.</p></div></div></div>
+  <footer><div class="container"><div class="footer-inner"><div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div><p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein.</p><ul class="footer-nav"><li><a href="index.html" id="f-home">Home</a></li><li><a href="over.html" id="f-about">Over PRISMA</a></li><li><a href="tools.html" id="f-tools">Tools</a></li><li><a href="contact.html" class="actief" id="f-contact">Contact</a></li><li><a href="blog.html" id="f-blog">Blog</a></li><li><a href="voorwaarden.html" id="f-terms">Voorwaarden</a></li></ul><div class="footer-bottom"><span>© 2026 PRISMA Systemen</span></div></div></div></footer>
+  <script>
+    const I18N = {
+      nl: {htmlLang:'nl', title:'Contact — PRISMA Systemen', description:'Neem contact op met PRISMA Systemen via e-mail of Instagram.', navAbout:'Over PRISMA', navTools:'Tools', navContact:'Contact', heroLabel:'Contact', heroTitle:'Een vraag of wil je meer weten?', intro:'Je kunt me bereiken via Instagram. Ik lees elk bericht en reageer als ik de ruimte heb. Geen sales-funnel, geen automatisch antwoord.', emailLabel:'E-mail', emailText:'Liever mailen? Stuur een bericht naar ', emailText2:'. Ik reageer als ik de ruimte heb.', emailButton:'Stuur een e-mail', igText:'Stuur een DM via Instagram voor vragen over de tools, coaching of samenwerking.', igButton:'Open Instagram', expectLabel:'Wat je kunt verwachten', expectTitle:'Geen beloftes die ik niet kan waarmaken.', expectText:'Ik ben één persoon, en ik bouw PRISMA naast mijn eigen leven. Ik reageer niet altijd snel. Ik ben niet altijd beschikbaar. Wat er wel is: eerlijkheid over wat er is en wat niet.', footerText:'Rust en richting voor een neurodivergent brein.', footerTerms:'Voorwaarden'},
+      en: {htmlLang:'en', title:'Contact — PRISMA Systems', description:'Get in touch with PRISMA Systems by email or Instagram.', navAbout:'About PRISMA', navTools:'Tools', navContact:'Contact', heroLabel:'Contact', heroTitle:'A question, or want to know more?', intro:'You can reach me through Instagram. I read every message and reply when I have the space. No sales funnel, no automated reply.', emailLabel:'Email', emailText:'Prefer email? Send a message to ', emailText2:'. I will reply when I have the space.', emailButton:'Send an email', igText:'Send a DM on Instagram if you have questions about the tools, coaching, or working together.', igButton:'Open Instagram', expectLabel:'What you can expect', expectTitle:'No promises I cannot keep.', expectText:'I am one person, and I am building PRISMA alongside my own life. I do not always reply quickly. I am not always available. What I can offer is honesty about what is and is not there.', footerText:'Calm and direction for a neurodivergent brain.', footerTerms:'Terms'}
+    };
+    function applyTranslations() {
+      const t = I18N[currentLang];
+      document.documentElement.lang = t.htmlLang; document.title = t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description);
+      document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl'); document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+      ['nav-home','m-home','f-home'].forEach(id => document.getElementById(id).textContent='Home'); ['nav-blog','m-blog','f-blog'].forEach(id => document.getElementById(id).textContent='Blog');
+      ['nav-about','m-about','f-about'].forEach(id => document.getElementById(id).textContent=t.navAbout); ['nav-tools','m-tools','f-tools'].forEach(id => document.getElementById(id).textContent=t.navTools); ['nav-contact','m-contact','f-contact'].forEach(id => document.getElementById(id).textContent=t.navContact);
+      document.getElementById('hero-label').textContent=t.heroLabel; document.getElementById('hero-title').textContent=t.heroTitle; document.getElementById('intro-text').textContent=t.intro; document.getElementById('email-label').textContent=t.emailLabel;
+      const emailP = document.getElementById('email-text'); const emailLink = emailP.querySelector('a').outerHTML; emailP.innerHTML = t.emailText + emailLink + t.emailText2;
+      document.getElementById('email-button').textContent=t.emailButton; document.getElementById('ig-text').textContent=t.igText; document.getElementById('ig-button').textContent=t.igButton; document.getElementById('expect-label').textContent=t.expectLabel; document.getElementById('expect-title').textContent=t.expectTitle; document.getElementById('expect-text').textContent=t.expectText; document.getElementById('footer-text').textContent=t.footerText; document.getElementById('f-terms').textContent=t.footerTerms;
+      updateLanguageLinks();
+    }
+    
+  let currentLang = 'nl';
 
-  <!-- ✦ EERLIJKHEID -->
-  <div class="eerlijk-blok">
-    <div class="container">
-      <div class="eerlijk-inner fade-in">
-        <span class="sectie-label">Wat je kunt verwachten</span>
-        <h2>Geen beloftes die ik niet kan waarmaken.</h2>
-        <p>
-          Ik ben één persoon, en ik bouw PRISMA naast mijn eigen leven.
-          Ik reageer niet altijd snel. Ik ben niet altijd beschikbaar.
-          Wat er wel is: eerlijkheid over wat er is en wat niet.
-        </p>
-      </div>
-    </div>
-  </div>
+  function getInitialLanguage() {
+    const urlLang = new URLSearchParams(window.location.search).get('lang');
+    if (urlLang === 'nl' || urlLang === 'en') return urlLang;
+    const saved = localStorage.getItem('prisma-language');
+    if (saved === 'nl' || saved === 'en') return saved;
+    return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+  }
 
-  <!-- ✦ FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
-        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
-        <ul class="footer-nav">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="over.html">Over PRISMA</a></li>
-          <li><a href="tools.html">Tools</a></li>
-          <li><ahref="contact.html" class="actief">Contact</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="voorwaarden.html">Voorwaarden</a></li>
-        </ul>
-        <div class="footer-bottom">
-          <span>© 2026 PRISMA Systemen</span>
-        </div>
-      </div>
-    </div>
-  </footer>
+  function updateLanguageLinks() {
+    document.querySelectorAll('a[href]').forEach((link) => {
+      const raw = link.getAttribute('href');
+      if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return;
+      let url;
+      try { url = new URL(raw, window.location.href); } catch (e) { return; }
+      const isPrisma = url.origin === window.location.origin || url.hostname.includes('prismasystemen.nl');
+      if (!isPrisma) return;
+      const isHtml = url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/');
+      if (!isHtml) return;
+      if (currentLang === 'en') url.searchParams.set('lang', 'en');
+      else url.searchParams.delete('lang');
+      const sameOrigin = url.origin === window.location.origin;
+      link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
+    });
+  }
 
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('prisma-language', lang);
+    applyTranslations();
+  }
+
+    document.addEventListener('DOMContentLoaded', () => { currentLang = getInitialLanguage(); applyTranslations(); });
+  </script>
   <script src="nav.js"></script>
-</body>
-</html>
+</body></html>

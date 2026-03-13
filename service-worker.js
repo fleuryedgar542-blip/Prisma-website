@@ -1,44 +1,22 @@
-const CACHE = 'prisma-v1';
+const CACHE = 'prisma-v2-bilingual';
 const BESTANDEN = [
-  '/',
-  '/index.html',
-  '/prisma-dag.html',
-  '/prisma-week.html',
-  '/tools.html',
-  '/stijl.css',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/manifest.json'
+  '/', '/index.html', '/tools.html', '/over.html', '/contact.html', '/blog.html', '/voorwaarden.html',
+  '/prisma-dag.html', '/prisma-week.html', '/prisma-week-kopen.html', '/prisma-signaal.html',
+  '/stijl.css', '/nav.js'
 ];
-
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(BESTANDEN))
-  );
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(BESTANDEN)));
   self.skipWaiting();
 });
-
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    )
-  );
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))));
   self.clients.claim();
 });
-
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(response => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
-        }
-        const kopie = response.clone();
-        caches.open(CACHE).then(cache => cache.put(e.request, kopie));
-        return response;
-      }).catch(() => caches.match('/'));
-    })
-  );
+self.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
+    if (!response || response.status !== 200 || response.type !== 'basic') return response;
+    const copy = response.clone();
+    caches.open(CACHE).then(cache => cache.put(event.request, copy));
+    return response;
+  }).catch(() => caches.match('/'))));
 });

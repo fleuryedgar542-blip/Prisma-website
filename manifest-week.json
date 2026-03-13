@@ -1,26 +1,15 @@
 {
   "name": "PRISMA Week",
   "short_name": "PRISMA Week",
-  "description": "Weektracker voor neurodivergente jongvolwassenen.",
+  "description": "Weektracker / weekly tracker for neurodivergent young adults.",
   "start_url": "/prisma-week.html",
   "display": "standalone",
   "background_color": "#F3EFE8",
   "theme_color": "#F3EFE8",
   "orientation": "portrait-primary",
-  "lang": "nl",
   "icons": [
-    {
-      "src": "icon-week-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-week-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src": "icon-week-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-week-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
   ],
   "id": "/prisma-week.html",
   "scope": "/"

@@ -40,6 +40,33 @@
 
   .container { max-width: 520px; margin: 0 auto; }
 
+  .language-switch {
+    display: inline-flex;
+    gap: 6px;
+    padding: 4px;
+    margin-bottom: 24px;
+    background: white;
+    border: 1px solid var(--grijs-licht);
+    border-radius: 999px;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .language-switch button {
+    border: none;
+    background: transparent;
+    color: var(--grijs-mid);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .language-switch button.active { background: var(--beige); color: var(--grijs); }
+
+
   /* HEADER */
   header { margin-bottom: 40px; animation: fadeUp 0.5s ease forwards; }
 
@@ -504,6 +531,10 @@
 <div class="container">
 
   <header>
+    <div class="language-switch" aria-label="Language switch">
+      <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
+      <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
+    </div>
     <div class="logo">PRISMA Systemen</div>
     <h1>Hoe vol is je systeem nu?</h1>
     <p class="subtitle">Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.</p>
@@ -634,8 +665,8 @@
 
     <div class="knoppen-rij">
       <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw</button>
-      <a href="https://prismasystemen.nl/prisma-dag.html" class="week-link">PRISMA Dag →</a>
-      <a href="https://prismasystemen.nl" class="home-link">← Website</a>
+      <a href="prisma-dag.html" class="week-link">PRISMA Dag →</a>
+      <a href="index.html" class="home-link">← Website</a>
     </div>
   </div>
 
@@ -769,13 +800,13 @@
   function toonResultaat() {
     if (!geselecteerdNiveau) return;
 
-    const context = [...document.querySelectorAll('.context-tag.selected')].map(t => t.textContent.trim());
+    const context = [...document.querySelectorAll('.context-tag.selected')].map(t => t.dataset.ctx);
     const { label, klasse, titel, tekst, tips, reminder } = bouwAdvies(geselecteerdNiveau, zintuigNiveaus, context);
 
-    document.getElementById('res-label').textContent = label;
+    document.getElementById('res-label').textContent = translateSignaalText(label);
     document.getElementById('res-label').className = 'resultaat-label ' + klasse;
-    document.getElementById('res-titel').textContent = titel;
-    document.getElementById('res-tekst').textContent = tekst;
+    document.getElementById('res-titel').textContent = translateSignaalText(titel);
+    document.getElementById('res-tekst').textContent = translateSignaalText(tekst);
 
     // Breakdown per zintuig
     const ingevuldeZintuigen = ZINTUIGEN.filter(z => zintuigNiveaus[z.id]);
@@ -789,7 +820,7 @@
           const pct = (n / 5) * 100;
           breakdownEl.innerHTML += `
             <div class="breakdown-rij">
-              <div class="breakdown-naam">${z.emoji} ${z.naam}</div>
+              <div class="breakdown-naam">${z.emoji} ${getSenseName(z.id)}</div>
               <div class="breakdown-balk-bg"><div class="breakdown-balk-fill n${n}" style="width:${pct}%"></div></div>
               <div class="breakdown-score">${NIVEAU_LABELS[n] || ''}</div>
             </div>
@@ -806,12 +837,12 @@
       tipsEl.innerHTML += `
         <div class="tip-item ${geselecteerdNiveau >= 4 ? 'urgent' : ''}">
           <div class="tip-streep"></div>
-          <div>${t}</div>
+          <div>${translateSignaalText(t)}</div>
         </div>`;
     });
 
     const reminderEl = document.getElementById('res-reminder');
-    reminderEl.textContent = reminder;
+    reminderEl.textContent = translateSignaalText(reminder);
     reminderEl.className = 'reminder' + (geselecteerdNiveau >= 5 ? ' rood' : '');
 
     document.getElementById('voortgang').style.display = 'none';
@@ -826,17 +857,17 @@
     const topZintuigData = topZintuig ? ZINTUIGEN.find(z => z.id === topZintuig[0]) : null;
 
     // Context factoren
-    const heeftSlaaptekort = context.some(c => c.includes('Slecht geslapen'));
-    const heeftScherm = context.some(c => c.includes('schermtijd'));
-    const heeftSociaal = context.some(c => c.includes('Sociaal contact'));
-    const heeftDruk = context.some(c => c.includes('Drukke ruimte') || c.includes('Openbaar'));
-    const heeftStress = context.some(c => c.includes('Gespannen'));
-    const opWerk = context.some(c => c.includes('School of werk'));
-    const onderweg = context.some(c => c.includes('Openbaar vervoer') || c.includes('Openbaar'));
-    const heeftLawaai = context.some(c => c.includes('Lawaai'));
-    const heeftTemperatuur = context.some(c => c.includes('temperatuur'));
-    const heeftHonger = context.some(c => c.includes('Honger'));
-    const heeftWeer = context.some(c => c.includes('Wisselend'));
+    const heeftSlaaptekort = context.includes('poor_sleep');
+    const heeftScherm = context.includes('screen_time');
+    const heeftSociaal = context.includes('social');
+    const heeftDruk = context.includes('busy_space') || context.includes('public_transport');
+    const heeftStress = context.includes('stressed');
+    const opWerk = context.includes('school_work');
+    const onderweg = context.includes('public_transport');
+    const heeftLawaai = context.includes('noise');
+    const heeftTemperatuur = context.includes('temperature');
+    const heeftHonger = context.includes('food');
+    const heeftWeer = context.includes('weather');
 
     // Helper: geeft locatiebewust alternatief voor 'ga naar rustige plek thuis'
     function rustTip() {
@@ -993,5 +1024,229 @@
     }
   }
 </script>
+
+<script>
+  let currentLang = 'nl';
+  const CONTEXT_KEYS = ['home','school_work','public_transport','busy_space','social','poor_sleep','screen_time','noise','temperature','stressed','food','weather'];
+  const I18N = {
+    nl: {
+      htmlLang:'nl', title:'PRISMA — Signaal',
+      headerLogo:'PRISMA Systemen',
+      h1:'Hoe vol is je systeem nu?',
+      subtitle1:'Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.',
+      subtitle2:'Met systeem bedoelen we je zenuwstelsel — de manier waarop jouw brein en lichaam prikkels verwerken.',
+      progress:['Algeheel','Per zintuig','Context'],
+      sections:['Stap 1 — Hoe vol voelt je systeem nu?','Stap 2 — Welk zintuig is het meest belast?','Stap 3 — Wat speelt er mee?'],
+      prikkelNames:['Rustig','Licht belast','Redelijk vol','Overbelast','Overvol — shutdown nabij'],
+      prikkelDesc:['Je systeem is kalm. Weinig prikkels, veel ruimte.','Je merkt prikkels, maar het is nog behapbaar.','Je systeem werkt, maar heeft weinig ruimte meer over.','Veel te verwerken. Alles voelt intenser dan normaal.','Je systeem kan bijna niet meer. Rust is nu urgent.'],
+      hint2:'Schat in per zintuig. Mag ook overgeslagen worden.',
+      hint3:'Meerdere opties zijn mogelijk. Mag ook leeg blijven.',
+      senses:[['Gehoor','geluid, lawaai, stemmen'],['Zicht','licht, schermen, beweging'],['Aanraking','kleding, textuur, contact'],['Beweging/balans','ruimtelijk bewustzijn'],['Smaak/geur','geuren, smaken, misselijkheid'],['Intern (interoceptie)','honger, dorst, hartslag, pijn']],
+      scaleLabels:['Weinig','Veel'],
+      context:['🏠 Thuis','🏫 School of werk','🚌 Openbaar vervoer','🛒 Drukke ruimte','💬 Sociaal contact gehad','😴 Slecht geslapen','📱 Veel schermtijd','🎧 Lawaai of muziek','🌡 Oncomfortabele temperatuur','😰 Gespannen of gestrest','🍽 Honger of te vol gegeten','🌧 Wisselend weer'],
+      next:'Verder →', back:'← Terug', result:'Bekijk advies →',
+      breakdown:'Belasting per zintuig', help:'Wat kan helpen',
+      source:'De adviezen zijn gebaseerd op inzichten uit sensorische integratietheorie en onderzoek naar overprikkeling bij ADHD en autisme.',
+      reset:'↺ Opnieuw', day:'PRISMA Dag →', home:'← Website',
+      iosStrong:'Sla op als app', iosText:'Safari → ⎙ → Zet op beginscherm', androidText:'Voeg PRISMA toe aan je beginscherm'
+    },
+    en: {
+      htmlLang:'en', title:'PRISMA — Signal',
+      headerLogo:'PRISMA Systems',
+      h1:'How full is your system right now?',
+      subtitle1:'A quick check-in for your sensory system. Not a diagnosis — but insight.',
+      subtitle2:'By system, we mean your nervous system — the way your brain and body process stimuli.',
+      progress:['Overall','Per sense','Context'],
+      sections:['Step 1 — How full does your system feel right now?','Step 2 — Which sense feels most overloaded?','Step 3 — What is affecting it?'],
+      prikkelNames:['Calm','Lightly loaded','Quite full','Overloaded','Overfull — near shutdown'],
+      prikkelDesc:['Your system is calm. Few stimuli, plenty of room.','You notice stimuli, but it is still manageable.','Your system is working, but there is little room left.','A lot to process. Everything feels more intense than usual.','Your system can barely handle more. Rest is urgent now.'],
+      hint2:'Estimate each sense. You can also skip this step.',
+      hint3:'You can choose multiple options. It can also stay empty.',
+      senses:[['Hearing','sound, noise, voices'],['Sight','light, screens, movement'],['Touch','clothing, texture, contact'],['Movement/balance','spatial awareness'],['Taste/smell','smells, tastes, nausea'],['Internal (interoception)','hunger, thirst, heartbeat, pain']],
+      scaleLabels:['Low','High'],
+      context:['🏠 Home','🏫 School or work','🚌 Public transport','🛒 Busy space','💬 Had social contact','😴 Slept badly','📱 A lot of screen time','🎧 Noise or music','🌡 Uncomfortable temperature','😰 Tense or stressed','🍽 Hungry or too full','🌧 Changing weather'],
+      next:'Next →', back:'← Back', result:'View advice →',
+      breakdown:'Load per sense', help:'What may help',
+      source:'The guidance is based on insights from sensory integration theory and research into overstimulation in ADHD and autism.',
+      reset:'↺ Again', day:'PRISMA Day →', home:'← Website',
+      iosStrong:'Save as an app', iosText:'Safari → ⎙ → Add to Home Screen', androidText:'Add PRISMA to your home screen'
+    }
+  };
+
+  const LANG_RESIDUAL = createResidualMaps(I18N);
+
+  function createResidualMaps(source){
+    const pair = { nlToEn: new Map(), enToNl: new Map() };
+    function walk(nlNode, enNode){
+      if (typeof nlNode === 'string' && typeof enNode === 'string') {
+        const nl = nlNode.trim();
+        const en = enNode.trim();
+        if (nl && en && nl !== en) {
+          pair.nlToEn.set(nl, en);
+          pair.enToNl.set(en, nl);
+        }
+        return;
+      }
+      if (Array.isArray(nlNode) && Array.isArray(enNode)) {
+        nlNode.forEach((item, index) => walk(item, enNode[index]));
+        return;
+      }
+      if (nlNode && enNode && typeof nlNode === 'object' && typeof enNode === 'object') {
+        Object.keys(nlNode).forEach((key) => {
+          if (Object.prototype.hasOwnProperty.call(enNode, key)) walk(nlNode[key], enNode[key]);
+        });
+      }
+    }
+    walk(source.nl, source.en);
+    return pair;
+  }
+
+  function replaceExactText(value, map) {
+    if (!value || !value.trim()) return value;
+    const trimmed = value.trim();
+    const translated = map.get(trimmed);
+    if (!translated) return value;
+    const leading = value.match(/^\s*/)[0];
+    const trailing = value.match(/\s*$/)[0];
+    return leading + translated + trailing;
+  }
+
+  function applyResidualTranslations(root = document.body) {
+    if (!root) return;
+    const map = currentLang === 'en' ? LANG_RESIDUAL.nlToEn : LANG_RESIDUAL.enToNl;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        const tag = parent.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    textNodes.forEach((node) => {
+      const next = replaceExactText(node.nodeValue, map);
+      if (next !== node.nodeValue) node.nodeValue = next;
+    });
+    if (root.querySelectorAll) {
+      root.querySelectorAll('[placeholder],[title],[aria-label]').forEach((el) => {
+        ['placeholder','title','aria-label'].forEach((attr) => {
+          const value = el.getAttribute(attr);
+          if (!value) return;
+          const next = replaceExactText(value, map);
+          if (next !== value) el.setAttribute(attr, next);
+        });
+      });
+    }
+  }
+
+  let languageObserver;
+  let languagePassQueued = false;
+  function scheduleLanguagePass() {
+    if (languagePassQueued) return;
+    languagePassQueued = true;
+    requestAnimationFrame(() => {
+      languagePassQueued = false;
+      applyResidualTranslations();
+      updateLanguageLinks();
+    });
+  }
+
+  function initLanguageObserver() {
+    if (languageObserver || !document.body) return;
+    languageObserver = new MutationObserver(() => scheduleLanguagePass());
+    languageObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+
+  const SIGNAAL_TEXT_MAP = {
+    'Niveau 1 — Rustig systeem':'Level 1 — Calm system',
+    'Niveau 2 — Licht belast':'Level 2 — Light load',
+    'Niveau 3 — Redelijk vol':'Level 3 — Quite full',
+    'Niveau 4 — Overbelast':'Level 4 — Overloaded',
+    'Niveau 5 — Overvol':'Level 5 — Overfull',
+    'Je systeem heeft ruimte. Dat is waardevol.':'Your system has room. That is valuable.',
+    'Licht belast. Nog haalbaar, maar let op wat je er nog bij doet.':'Lightly loaded. Still manageable, but be mindful of what you add to it.',
+    'Je systeem is redelijk vol. Weinig ruimte meer over.':'Your system is fairly full. There is not much room left.',
+    'Overbelast. Dit is een actief signaal.':'Overloaded. This is an active signal.',
+    'Je systeem is overvol. Rust is nu urgent.':'Your system is overfull. Rest is urgent now.',
+    'Je zintuiglijke belasting is laag. Geniet van de ruimte — dit is een goed moment voor dingen die normaal meer vragen.':'Your sensory load is low. Enjoy the space — this is a good moment for things that usually ask more of you.',
+    'Je systeem werkt en heeft nog ruimte, maar je merkt de prikkels. Wees bewust over wat je er nog aan toevoegt.':'Your system is working and still has some room, but you can feel the stimuli. Be mindful of what you add to it.',
+    'Je bevindt je op of voorbij het punt waarop je systeem normaal kan functioneren. Dit is een shutdown-signaal. Andere prioriteiten kunnen wachten.':'You are at or beyond the point where your system can usually function normally. This is a shutdown signal. Other priorities can wait.',
+    'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.':'Even if you feel calm right now, sleep debt adds up. Keep your bedtime routine steady.',
+    'Zorg eerst voor eten of drinken — een gevoed lichaam houdt dit niveau langer vast.':'Make sure you eat or drink first — a nourished body can hold on to this level for longer.',
+    'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven':'Notice what helped you stay this calm today.',
+    'Vermijd grote extra prikkelbronnen: drukke omgevingen, lange gesprekken, veel schermtijd':'Avoid major extra sources of stimulation: busy environments, long conversations, a lot of screen time.',
+    'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt':'Build in small moments of rest in between, even if you still feel okay.',
+    'Houd in de gaten welk zintuig het meest op de voorgrond is':'Notice which sense is most in the foreground.',
+    'Verlaag de input actief: zet geluiden zachter, verminder schermhelderheid, zoek een rustigere plek':'Actively lower the input: turn sounds down, lower screen brightness, and look for a calmer place.',
+    'Eet iets kleins voor je verdergaat — een gevoed systeem herstelt sneller':'Eat something small before you continue — a nourished system recovers more quickly.',
+    'Pas je temperatuur aan: een te warme of koude omgeving maakt overbelasting zwaarder':'Adjust your temperature: an environment that is too warm or too cold makes overload harder to carry.',
+    'Beperk nieuwe sociale interacties voor de komende uren':'Limit new social interactions for the next few hours.',
+    'Geef je meest belaste zintuig een bewuste pauze':'Give your most overloaded sense a deliberate pause.',
+    'Stel alles wat kan wachten uit — je systeem heeft nu al je aandacht nodig':'Postpone everything that can wait — your system needs your attention right now.',
+    'Geen beslissingen nemen, geen to-do lijstjes, geen plannen':'Do not make decisions, to-do lists, or plans.',
+    'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg':'Only communicate if it is truly necessary: a short message is enough.',
+    'Verwacht niet dat je snel herstelt — plan de rest van de dag licht':'Do not expect to recover quickly — keep the rest of the day light.',
+    'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes — ook al voelt het soms alsof je er niks voor doet.':'A calm system is not an accident. It is the result of conscious choices — even if it sometimes feels like you did nothing for it.',
+    'Licht belast is geen probleem — het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.':'A light load is not a problem — it is a signal. Your system gives you information before you consciously notice it.',
+    'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht — niet morgen, nu.':'Quite full is the signal that comes before it becomes too much. Your system is asking for attention — not tomorrow, now.',
+    'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte — dat is hoe het werkt.':'Overload is not failure. Your system has worked hard and now it needs rest. That is not weakness — that is how it works.',
+    'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan.':'A shutdown is your body pulling the emergency brake. Listen to it. It is not an overreaction. It is your system protecting what it can.'
+  };
+  function translateSignaalText(text){ if(currentLang!=='en') return text; return Object.keys(SIGNAAL_TEXT_MAP).sort((a,b)=>b.length-a.length).reduce((acc,key)=>acc.split(key).join(SIGNAAL_TEXT_MAP[key]), text)
+    .replace('Dit is een goed moment voor taken die concentratie of creativiteit vragen','This is a good moment for tasks that ask for concentration or creativity')
+    .replace('Gebruik de rust bewust — niet per se productief, maar aanwezig','Use the calm intentionally — not necessarily productively, but with presence')
+    .replace('Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten','You have already had a lot of screen time — consider a 15–20 minute screen-free break')
+    .replace('Je bent al blootgesteld aan lawaai — oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen','You have already been exposed to noise — earplugs or a quieter place will help prevent more buildup now')
+    .replace('Oncomfortabele temperatuur kost ongemerkt energie — pas je omgeving aan of kleed je aan/uit','An uncomfortable temperature quietly costs energy — adjust your surroundings or change layers')
+    .replace('Eet of drink iets voor je verdergaat — een lege maag of te volle buik versterkt prikkels','Eat or drink something before you continue — an empty stomach or feeling too full amplifies stimuli')
+    .replace('Zet indien mogelijk muziek of geluiddemping op — verminder wat je kunt in je omgeving','If possible, use music or sound damping — reduce whatever input you can in your environment')
+    .replace('Lawaai heeft je systeem al belast — zoek actief stilte, ook al is het maar 10 minuten','Noise has already loaded your system — actively look for silence, even if it is only for 10 minutes')
+    .replace('Je hebt sociaal contact gehad — dat vergt veel. Gun jezelf nu tijd alleen','You have had social contact — that asks a lot of your system. Give yourself time alone now')
+    .replace('Wisselend weer beïnvloedt je lichaam onbewust — extra moe of hoofdpijn is niet raar, het is fysiologisch','Changing weather affects your body subconsciously — extra fatigue or a headache is not strange, it is physiological')
+    .replace('🔴 Stop met nieuwe input zoveel als mogelijk — geen nieuwe gesprekken aangaan, scherm op laagste helderheid','🔴 Stop as much new input as possible — do not start new conversations and set your screen to the lowest brightness')
+    .replace('🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen','🔴 Stop new input — no new conversations, no screens, no decisions')
+    .replace('🔴 Geluid is je grootste belaster nu — oordopjes, noise-cancelling of een stille ruimte is urgent','🔴 Sound is your biggest stressor right now — earplugs, noise-cancelling, or a quiet room are urgent')
+    .replace('Zeg zo nodig kort: "Ik heb even een moment nodig." Dat is genoeg uitleg.','If needed, briefly say: "I need a moment." That is enough explanation.')
+    .replace('Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek','Do nothing — literally. Lie down, stare, or breathe slowly. No podcast, no music')
+    .replace('Eet of drink iets kleins — een lege maag bij overbelasting maakt alles zwaarder','Eat or drink something small — an empty stomach makes overload heavier')
+    .replace('Pas je omgevingstemperatuur aan — comfort is nu geen luxe maar een herstelvoorwaarde','Adjust your temperature — comfort is not a luxury right now but a recovery condition')
+    .replace('Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat','Sleep deprivation strongly worsens overload — make sure you go to bed early tonight')
+    .replace('Zodra je thuis bent: direct ontprikkelen, geen nieuwe afspraken of schermen','As soon as you are home: start reducing stimuli immediately, no new plans or screens')
+    .replace('Als je kunt: slaap of rust minstens 20-30 minuten','If you can: sleep or rest for at least 20–30 minutes')
+    .replace('Wisselend weer heeft je lichaam extra belast — dit is geen excuus maar een verklaring. Neem het serieus.','Changing weather has put extra strain on your body — this is not an excuse, but an explanation. Take it seriously.')
+    .replace('🔴 Verlaat de situatie zo snel als je kunt — ook even naar buiten of naar de wc is beter dan blijven','🔴 Leave the situation as quickly as you can — even stepping outside or going to the bathroom is better than staying')
+    .replace('🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte','🔴 Stop everything — go directly to a calm, dark, quiet space')
+    .replace('🔴 Geluid is nu ondraaglijk voor je systeem — oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak','🔴 Sound is unbearable for your system right now — earplugs or earmuffs are not an exaggeration, they are necessary')
+    .replace('Stuur een kort berichtje als je iets moet zeggen — praten kost nu te veel','Send a short message if you need to say something — talking costs too much right now')
+    .replace('Trek je terug van sociale situaties, schermen en alle externe prikkels','Withdraw from social situations, screens, and all external stimuli')
+    .replace('Zoek een comfortabele temperatuur — warmte of kou maakt shutdown zwaarder','Find a comfortable temperature — heat or cold make shutdown heavier')
+    .replace('Leg je eventueel op de grond of op bed — zwaarte helpt je systeem kalmeren (proprioceptie)','Lie down on the floor or on a bed if needed — heaviness can help calm your system (proprioception)')
+    .replace('Wisselend weer en een overvol systeem combineren slecht — je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.','Changing weather and an overfull system are a hard combination — your body is processing double right now. Give it double the time.'); }
+  function getSenseName(id){ const index=ZINTUIGEN.findIndex(z=>z.id===id); return index>-1 ? I18N[currentLang].senses[index][0] : id; }
+  function initContext(){ document.querySelectorAll('.context-tag').forEach((el,i)=>{el.dataset.ctx=CONTEXT_KEYS[i];}); }
+  function updateLanguageLinks(){ document.querySelectorAll('a[href]').forEach((link)=>{ const raw=link.getAttribute('href'); if(!raw||raw.startsWith('#')||raw.startsWith('mailto:')||raw.startsWith('tel:')||raw.includes('lemonsqueezy.com')||raw.includes('paypal')) return; let url; try { url = new URL(raw, window.location.href); } catch(e) { return; } if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return; if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return; if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang'); const sameOrigin=url.origin===window.location.origin; link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString()); }); }
+  function applyTranslations(){ const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title;
+    document.getElementById('lang-nl').classList.toggle('active', currentLang==='nl'); document.getElementById('lang-en').classList.toggle('active', currentLang==='en');
+    document.querySelector('.logo').textContent=t.headerLogo; document.querySelector('h1').textContent=t.h1; document.querySelectorAll('.subtitle')[0].textContent=t.subtitle1; document.querySelectorAll('.subtitle')[1].innerHTML=''+t.subtitle2.replace('system','<em>system</em>');
+    t.progress.forEach((txt,i)=>{ const el=document.getElementById('label-'+(i+1)); if(el) el.textContent=txt; });
+    document.querySelector('#stap-1 .section-label').textContent=t.sections[0]; document.querySelector('#stap-2 .section-label').textContent=t.sections[1]; document.querySelector('#stap-3 .section-label').textContent=t.sections[2];
+    document.querySelectorAll('.prikkel-optie').forEach((el,i)=>{ el.querySelector('.prikkel-naam').textContent=t.prikkelNames[i]; el.querySelector('.prikkel-omschrijving').textContent=t.prikkelDesc[i]; });
+    document.querySelector('#stap-2 .stap-hint').textContent=t.hint2; document.querySelector('#stap-3 .stap-hint').textContent=t.hint3;
+    document.querySelectorAll('.zintuig-item').forEach((el,i)=>{ el.querySelector('.zintuig-naam').textContent=t.senses[i][0]; el.querySelector('.zintuig-header span[style]').textContent=t.senses[i][1]; el.querySelectorAll('.zintuig-niveau-label span')[0].textContent=t.scaleLabels[0]; el.querySelectorAll('.zintuig-niveau-label span')[1].textContent=t.scaleLabels[1]; });
+    document.querySelectorAll('.context-tag').forEach((el,i)=>{ el.textContent=t.context[i]; });
+    document.getElementById('btn-stap1').textContent=t.next; document.querySelector('#stap-2 .verder-btn').textContent=t.next; document.querySelector('#stap-2 .terug-btn').textContent=t.back; document.querySelector('#stap-3 .terug-btn').textContent=t.back; document.querySelector('#stap-3 .verder-btn').textContent=t.result;
+    document.querySelector('.tips-label').textContent=t.help; document.querySelector('.bronvermelding').textContent=t.source; document.querySelector('.opnieuw-btn').textContent=t.reset; document.querySelector('.week-link').textContent=t.day; document.querySelector('.home-link').textContent=t.home; document.querySelector('#ios-banner strong').textContent=t.iosStrong; document.querySelector('#ios-banner .ios-banner-tekst').childNodes[2].textContent=' '+t.iosText; document.querySelector('#android-banner strong').textContent=t.iosStrong; document.querySelector('#android-banner .ios-banner-tekst').childNodes[2].textContent=' '+t.androidText;
+    if(geselecteerdNiveau){ document.getElementById('hint-1').textContent = translateSignaalText(NIVEAU_HINTS[geselecteerdNiveau]); }
+    updateLanguageLinks();
+    if(document.getElementById('resultaat').classList.contains('zichtbaar')) toonResultaat();
+  }
+  function getInitialLanguage(){ const urlLang=new URLSearchParams(window.location.search).get('lang'); if(urlLang==='nl'||urlLang==='en') return urlLang; const saved=localStorage.getItem('prisma-language'); if(saved==='nl'||saved==='en') return saved; return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en'; }
+  function setLanguage(lang){ currentLang=lang; localStorage.setItem('prisma-language',lang); applyTranslations(); }
+  document.addEventListener('DOMContentLoaded',()=>{ initContext(); currentLang=getInitialLanguage(); applyTranslations(); initLanguageObserver(); });
+</script>
+
 </body>
 </html>
