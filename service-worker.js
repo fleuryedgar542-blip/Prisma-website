@@ -1,8 +1,8 @@
-const CACHE = 'prisma-v2-bilingual';
+const CACHE = 'prisma-v3-bilingual';
 const BESTANDEN = [
   '/', '/index.html', '/tools.html', '/over.html', '/contact.html', '/blog.html', '/voorwaarden.html',
   '/prisma-dag.html', '/prisma-week.html', '/prisma-week-kopen.html', '/prisma-signaal.html',
-  '/stijl.css', '/nav.js'
+  '/stijl.css', '/nav.js', '/i18n-core.js'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(BESTANDEN)));
