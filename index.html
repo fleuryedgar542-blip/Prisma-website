@@ -55,6 +55,12 @@
       margin-top: 0.5rem;
       animation: opkomen 0.6s ease 0.75s both;
     }
+    .hero-subnote {
+      color: var(--grijs-mid);
+      font-size: 0.85rem;
+      max-width: 44ch;
+      animation: opkomen 0.6s ease 0.9s both;
+    }
     @keyframes opkomen {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -163,11 +169,17 @@
     }
 
     /* ── TOOLS ── */
+    .tools-intro {
+      max-width: 46ch;
+      color: var(--grijs-mid);
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+    }
     .tools-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
     .tool-kaart {
       border: 1px solid var(--beige-dark);
@@ -228,6 +240,24 @@
       color: var(--grijs);
       border-color: var(--beige);
     }
+
+    .tools-intro {
+      color: var(--grijs-mid);
+      max-width: 58ch;
+      margin: 0.75rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .tool-kaart.signaal {
+      grid-column: 1 / -1;
+      background: var(--beige);
+      border-color: var(--beige-dark);
+    }
+    .tool-kaart.signaal .tool-label { color: var(--blauw); }
+    .tool-kaart.signaal h3 { color: var(--grijs); }
+    .tool-kaart.signaal > p,
+    .tool-kaart.signaal .tool-lijst li { color: var(--grijs-mid); }
+    .tool-kaart.signaal .tool-lijst li::before { color: var(--groen-dark); }
 
     /* ── AFSLUITING ── */
     .afsluiting-inner {
@@ -318,7 +348,9 @@
         <p class="hero-tagline" id="hero-tagline">Plan met je energie, niet ertegen.</p>
         <div class="hero-acties">
           <a href="prisma-dag.html" class="knop knop-groen" id="hero-btn-1">Probeer de gratis dagplanner</a>
+          <a href="#tools" class="knop" id="hero-btn-2">Ontdek het PRISMA systeem</a>
         </div>
+        <p class="hero-subnote" id="hero-subnote">Voor ADHD, autisme en wisselende energie.</p>
       </div>
     </div>
     <a class="scroll-indicator" href="#probleem" aria-label="Scroll naar beneden">
@@ -378,27 +410,40 @@
   <section class="sectie sectie-wit" id="tools">
     <div class="container">
       <span class="sectie-label" id="tools-label">De tools</span>
-      <h2 id="tools-title">Begin met de gratis planner</h2>
+      <h2 id="tools-title">Het PRISMA systeem</h2>
+      <p class="tools-intro" id="tools-intro">Begin gratis met PRISMA Dag. Als je meer overzicht wilt, helpt PRISMA Week je patronen herkennen en rustiger vooruit te plannen.</p>
       <div class="tools-grid fade-in">
 
         <div class="tool-kaart">
-          <span class="tool-label">Gratis</span>
-          <h3>PRISMA Day</h3>
+          <span class="tool-label" id="day-label-tag">Gratis instap</span>
+          <h3>PRISMA Dag</h3>
           <p id="day-intro">Een eenvoudige begeleide planner die je helpt:</p>
           <ul class="tool-lijst">
             <li id="day-item-1">inchecken bij je energie</li>
             <li id="day-item-2">bepalen wat vandaag echt telt</li>
             <li id="day-item-3">een realistisch plan maken</li>
           </ul>
-          <a href="prisma-dag.html" class="knop knop-groen" id="day-btn">Open de gratis planner</a>
+          <a href="prisma-dag.html" class="knop knop-groen" id="day-btn">Begin gratis met PRISMA Dag</a>
         </div>
 
         <div class="tool-kaart featured">
-          <span class="tool-label" id="week-label-tag">Meer structuur</span>
+          <span class="tool-label" id="week-label-tag">Verdieping</span>
           <h3>PRISMA Week</h3>
-          <p id="week-intro">Een weektracker ontworpen voor wisselende energie en veranderende capaciteit.</p>
-          <p id="week-sub" style="font-size:0.85rem;">Ontdek patronen in je energie en bouw duurzame structuur.</p>
-          <a href="prisma-week-kopen.html" class="knop" id="week-btn">Meer informatie</a>
+          <p id="week-intro">Een weekplanner die je helpt patronen in je energie te herkennen.</p>
+          <p id="week-sub" style="font-size:0.85rem;">Bouw realistische weken en creëer structuur zonder overweldiging.</p>
+          <a href="prisma-week-kopen.html" class="knop" id="week-btn">Bekijk PRISMA Week</a>
+        </div>
+
+        <div class="tool-kaart signaal">
+          <span class="tool-label" id="signaal-label-tag">Ondersteunend</span>
+          <h3>PRISMA Signaal</h3>
+          <p id="signaal-intro">Een rustige tool die je helpt eerder te herkennen wanneer je lichaam en brein aangeven dat je moet vertragen.</p>
+          <ul class="tool-lijst">
+            <li id="signaal-item-1">signalen van overprikkeling opmerken</li>
+            <li id="signaal-item-2">eerder bijsturen voordat het te veel wordt</li>
+            <li id="signaal-item-3">meer bewustwording opbouwen zonder extra druk</li>
+          </ul>
+          <a href="prisma-signaal.html" class="knop" id="signaal-btn">Ontdek PRISMA Signaal</a>
         </div>
 
       </div>
@@ -414,6 +459,9 @@
         <h2 id="slot-title">Je hebt geen extra discipline nodig.</h2>
         <p id="slot-text">Je hebt systemen nodig die werken met jouw brein.</p>
         <p class="afsluiting-slot" id="slot-tagline">PRISMA is daarvoor gebouwd.</p>
+        <div class="hero-acties">
+          <a href="prisma-dag.html" class="knop knop-groen" id="slot-btn">Begin met de gratis dagplanner</a>
+        </div>
       </div>
     </div>
   </section>
@@ -444,10 +492,12 @@
         description: 'De meeste planners werken niet voor een neurodivergent brein. PRISMA helpt je plannen op basis van je echte energie en capaciteit.',
         navAbout: 'Over PRISMA', navTools: 'Tools', navContact: 'Contact',
         heroLabel: 'PRISMA Systemen',
-        heroTitle: 'Planning voor neurodivergente breinen',
-        heroText: 'De meeste planners gaan ervan uit dat je elke dag dezelfde energie hebt. PRISMA helpt je plannen op basis van je echte capaciteit.',
+        heroTitle: 'De meeste planners gaan ervan uit dat je elke dag dezelfde energie hebt.',
+        heroText: 'Maar neurodivergente energie werkt niet zo. PRISMA helpt je plannen op basis van je echte capaciteit.',
         heroTagline: 'Plan met je energie, niet ertegen.',
         heroBtn1: 'Probeer de gratis dagplanner',
+        heroBtn2: 'Ontdek het PRISMA systeem',
+        heroSubnote: 'Voor ADHD, autisme en wisselende energie.',
         probLabel: 'Het probleem',
         probTitle: 'De meeste planningssystemen zijn niet gebouwd voor jouw brein.',
         probIntro: 'Ze gaan ervan uit:',
@@ -462,17 +512,24 @@
         oplItems: ['jouw energie', 'jouw behoeften', 'jouw echte capaciteit van die dag'],
         oplSlot: 'Minder druk. Meer helderheid.',
         toolsLabel: 'De tools',
-        toolsTitle: 'Begin met de gratis planner',
+        toolsIntro: 'Begin gratis met PRISMA Dag. Als je meer overzicht wilt, helpt PRISMA Week je patronen herkennen en rustiger vooruit te plannen.',
+        dayLabelTag: 'Gratis instap',
+        toolsTitle: 'Het PRISMA systeem',
         dayIntro: 'Een eenvoudige begeleide planner die je helpt:',
         dayItems: ['inchecken bij je energie', 'bepalen wat vandaag echt telt', 'een realistisch plan maken'],
-        dayBtn: 'Open de gratis planner',
-        weekLabelTag: 'Meer structuur',
-        weekIntro: 'Een weektracker ontworpen voor wisselende energie en veranderende capaciteit.',
-        weekSub: 'Ontdek patronen in je energie en bouw duurzame structuur.',
-        weekBtn: 'Meer informatie',
+        dayBtn: 'Begin gratis met PRISMA Dag',
+        weekLabelTag: 'Verdieping',
+        weekIntro: 'Een weekplanner die je helpt patronen in je energie te herkennen.',
+        weekSub: 'Bouw realistische weken en creëer structuur zonder overweldiging.',
+        weekBtn: 'Bekijk PRISMA Week',
+        signaalLabelTag: 'Ondersteunend',
+        signaalIntro: 'Een rustige tool die je helpt eerder te herkennen wanneer je lichaam en brein aangeven dat je moet vertragen.',
+        signaalItems: ['signalen van overprikkeling opmerken', 'eerder bijsturen voordat het te veel wordt', 'meer bewustwording opbouwen zonder extra druk'],
+        signaalBtn: 'Ontdek PRISMA Signaal',
         slotTitle: 'Je hebt geen extra discipline nodig.',
         slotText: 'Je hebt systemen nodig die werken met jouw brein.',
         slotTagline: 'PRISMA is daarvoor gebouwd.',
+        slotBtn: 'Begin met de gratis dagplanner',
         footerText: 'Rust en richting voor een neurodivergent brein.',
         footerTerms: 'Voorwaarden'
       },
@@ -482,10 +539,12 @@
         description: 'Most planners do not work for a neurodivergent brain. PRISMA helps you plan around your real energy and capacity.',
         navAbout: 'About PRISMA', navTools: 'Tools', navContact: 'Contact',
         heroLabel: 'PRISMA Systems',
-        heroTitle: 'Planning for neurodivergent brains',
-        heroText: 'Most planners assume you have the same energy every day. PRISMA helps you plan around your real capacity instead.',
+        heroTitle: 'Most planners assume you have the same energy every day.',
+        heroText: "But neurodivergent energy doesn't work like that. PRISMA helps you plan around your real capacity instead.",
         heroTagline: 'Plan with your energy, not against it.',
-        heroBtn1: 'Try the free day planner',
+        heroBtn1: 'Try the free daily planner',
+        heroBtn2: 'Explore the PRISMA system',
+        heroSubnote: 'For ADHD, autism and fluctuating energy.',
         probLabel: 'The problem',
         probTitle: 'Most planning systems were not built for your brain.',
         probIntro: 'They assume:',
@@ -500,17 +559,20 @@
         oplItems: ['your energy', 'your needs', 'your real capacity that day'],
         oplSlot: 'Less pressure. More clarity.',
         toolsLabel: 'The tools',
-        toolsTitle: 'Start with the free planner',
+        toolsIntro: 'Start free with PRISMA Day. If you want more overview, PRISMA Week helps you recognise patterns and plan ahead more gently.',
+        dayLabelTag: 'Free starting point',
+        toolsTitle: 'The PRISMA system',
         dayIntro: 'A simple guided planner that helps you:',
         dayItems: ['check in with your energy', 'identify what actually matters today', 'create a realistic plan'],
-        dayBtn: 'Open the free planner',
-        weekLabelTag: 'More structure',
-        weekIntro: 'A week tracker designed for fluctuating energy and changing capacity.',
-        weekSub: 'See patterns in your energy and build sustainable structure.',
-        weekBtn: 'Learn more',
+        dayBtn: 'Start free with PRISMA Day',
+        weekLabelTag: 'Next step',
+        weekIntro: 'A weekly planner that helps you recognise patterns in your energy.',
+        weekSub: 'Plan more realistic weeks and build structure without overwhelm.',
+        weekBtn: 'Explore PRISMA Week',
         slotTitle: 'You do not need more discipline.',
         slotText: 'You need systems that work with your brain.',
         slotTagline: 'PRISMA was built for that.',
+        slotBtn: 'Start with the free daily planner',
         footerText: 'Calm and direction for a neurodivergent brain.',
         footerTerms: 'Terms'
       }
@@ -563,6 +625,8 @@
       document.getElementById('hero-text').textContent = t.heroText;
       document.getElementById('hero-tagline').textContent = t.heroTagline;
       document.getElementById('hero-btn-1').textContent = t.heroBtn1;
+      document.getElementById('hero-btn-2').textContent = t.heroBtn2;
+      document.getElementById('hero-subnote').textContent = t.heroSubnote;
 
       document.getElementById('prob-label').textContent = t.probLabel;
       document.getElementById('prob-title').textContent = t.probTitle;
@@ -585,6 +649,8 @@
 
       document.getElementById('tools-label').textContent = t.toolsLabel;
       document.getElementById('tools-title').textContent = t.toolsTitle;
+      document.getElementById('tools-intro').textContent = t.toolsIntro;
+      document.getElementById('day-label-tag').textContent = t.dayLabelTag;
       document.getElementById('day-intro').textContent = t.dayIntro;
       document.getElementById('day-item-1').textContent = t.dayItems[0];
       document.getElementById('day-item-2').textContent = t.dayItems[1];
@@ -598,6 +664,7 @@
       document.getElementById('slot-title').textContent = t.slotTitle;
       document.getElementById('slot-text').textContent = t.slotText;
       document.getElementById('slot-tagline').textContent = t.slotTagline;
+      document.getElementById('slot-btn').textContent = t.slotBtn;
       document.getElementById('footer-text').textContent = t.footerText;
       document.getElementById('f-terms').textContent = t.footerTerms;
 
