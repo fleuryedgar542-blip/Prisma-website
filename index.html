@@ -1,62 +1,620 @@
-<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>PRISMA Systemen — Rust en richting voor een neurodivergent brein</title><meta name="description" content="PRISMA Systemen helpt neurodivergente jongvolwassenen autonomie bouwen via simpele, werkbare systemen. Geen hustle. Wel rust en richting." /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" /><link rel="stylesheet" href="stijl.css" /><style>.hero{min-height:calc(85vh - var(--nav-hoogte));display:flex;align-items:center;padding:clamp(2.5rem,6vw,4rem) 0 clamp(4rem,8vw,6rem);position:relative;} .hero-inner{display:flex;flex-direction:column;gap:1.5rem;} .hero-label{font-size:0.7rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--groen-dark);animation:opkomen 0.6s ease 0.1s both;} .hero-titel{animation:opkomen 0.7s ease 0.25s both;max-width:14ch;} .hero-titel em{font-style:italic;color:var(--blauw);} .hero-tekst{color:var(--grijs-mid);max-width:46ch;animation:opkomen 0.6s ease 0.45s both;} .hero-acties{display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:0.5rem;animation:opkomen 0.6s ease 0.6s both;} @keyframes opkomen{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}} .scroll-indicator{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;animation:opkomen 0.6s ease 1s both,bobben 2s ease-in-out 1.5s infinite;cursor:pointer;text-decoration:none;color:var(--groen-dark);opacity:0.7;transition:opacity 0.2s;} .scroll-indicator:hover{opacity:1;} .scroll-pijl{width:32px;height:32px;} @keyframes bobben{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}} .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--beige-dark);border:1px solid var(--beige-dark);margin-top:3rem;} .intro-blok{background:var(--wit);padding:clamp(1.5rem,4vw,2rem);display:flex;flex-direction:column;gap:0.6rem;} .intro-blok h3{font-size:1rem;} .intro-blok p{font-size:0.88rem;color:var(--grijs-mid);line-height:1.65;} .intro-nummer{font-family:var(--serif);font-style:italic;font-size:0.75rem;color:var(--groen-dark);} .tussenblok{background:var(--grijs);color:var(--beige);padding:clamp(3rem,7vw,5rem) 0;} .tussenblok-inner{display:flex;flex-direction:column;gap:1.5rem;} .tussenblok h2{color:var(--beige);max-width:18ch;} .tussenblok p{color:rgba(243,239,232,0.65);max-width:46ch;font-size:0.95rem;} .tussenblok .knop{border-color:rgba(243,239,232,0.4);color:var(--beige);align-self:flex-start;} .tussenblok .knop:hover{background:var(--beige);color:var(--grijs);border-color:var(--beige);} 
-  .language-switch {
-    display: inline-flex;
-    gap: 6px;
-    padding: 4px;
-    margin: 1rem 0 0;
-    background: var(--wit, #fff);
-    border: 1px solid var(--beige-dark, #E8E4DC);
-    border-radius: 999px;
-  }
-  .language-switch button {
-    border: none;
-    background: transparent;
-    color: var(--grijs-mid, #9A9A9A);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.6rem 0.9rem;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .language-switch button.active {
-    background: var(--beige, #F3EFE8);
-    color: var(--grijs, #2E2E2E);
-  }
- @media (max-width: 500px){.intro-grid{grid-template-columns:1fr;}}</style></head><body><nav id="nav"><a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a><ul class="nav-links"><li><a href="index.html" class="actief" id="nav-home">Home</a></li><li><a href="over.html" id="nav-about">Over PRISMA</a></li><li><a href="tools.html" id="nav-tools">Tools</a></li><li><a href="contact.html" id="nav-contact">Contact</a></li><li><a href="blog.html" id="nav-blog">Blog</a></li></ul><button class="hamburger" id="hamburger" aria-label="Menu openen"><span></span><span></span><span></span></button></nav><div class="mobiel-menu" id="mobiel-menu"><a href="index.html" class="actief" id="m-home">Home</a><a href="over.html" id="m-about">Over PRISMA</a><a href="tools.html" id="m-tools">Tools</a><a href="contact.html" id="m-contact">Contact</a><a href="blog.html" id="m-blog">Blog</a></div><section class="hero"><div class="container"><div class="language-switch" aria-label="Language switch"><button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button><button type="button" id="lang-en" onclick="setLanguage('en')">EN</button></div><div class="hero-inner"><span class="hero-label" id="hero-label">PRISMA Systemen</span><h1 class="hero-titel" id="hero-title">Rust en richting voor een <em>neurodivergent</em> brein.</h1><p class="hero-tekst" id="hero-text">Je mist geen discipline. Je mist systemen die bij jouw brein passen. PRISMA helpt neurodivergente jongvolwassenen autonomie bouwen via simpele, werkbare structuren.</p><div class="hero-acties"><a href="tools.html" class="knop knop-groen" id="hero-btn-1">Bekijk de tools</a><a href="over.html" class="knop" id="hero-btn-2">Over PRISMA</a></div></div></div><a class="scroll-indicator" href="#pijlers" aria-label="Scroll naar beneden" id="scroll-label"><svg class="scroll-pijl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="4" x2="12" y2="18" stroke="currentColor" stroke-width="1"/><polyline points="6,13 12,20 18,13" fill="none" stroke="currentColor" stroke-width="1"/></svg></a></section><hr class="lijn" /><section class="sectie sectie-wit" id="pijlers"><div class="container"><span class="sectie-label" id="approach-label">De aanpak</span><h2 id="approach-title">Alles draait om autonomie.</h2><div class="intro-grid fade-in"><div class="intro-blok"><span class="intro-nummer">01</span><h3 id="pillar1-title">Energiebeheer</h3><p id="pillar1-text">Overprikkeling voorkomen door je energieniveau serieus te nemen.</p></div><div class="intro-blok"><span class="intro-nummer">02</span><h3 id="pillar2-title">Weekstructuur</h3><p id="pillar2-text">Executieve functies ondersteunen met een structuur die je brein helpt.</p></div><div class="intro-blok"><span class="intro-nummer">03</span><h3 id="pillar3-title">Ambitie reguleren</h3><p id="pillar3-text">Niet over je grenzen gaan — ook als je hoofd vol zit met plannen.</p></div><div class="intro-blok"><span class="intro-nummer">04</span><h3 id="pillar4-title">Financiële basis</h3><p id="pillar4-text">Buffer, overzicht en lange termijn — ook als geld overweldigend aanvoelt.</p></div></div></div></section><div class="tussenblok"><div class="container"><div class="tussenblok-inner fade-in"><h2 id="mid-title">Ik bouw dit terwijl ik er zelf middenin zit.</h2><p id="mid-text">Geen afgerond verhaal vanuit een plek waar alles al opgelost is. Wel eerlijkheid, herkenning en systemen die ik zelf had willen hebben.</p><a href="over.html" class="knop" id="mid-btn">Lees meer over mij</a></div></div></div><footer><div class="container"><div class="footer-inner"><div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div><p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein. Gebouwd vanuit eigen ervaring, voor mensen die systemen nodig hebben die bij hun brein passen.</p><ul class="footer-nav"><li><a href="index.html" id="f-home">Home</a></li><li><a href="over.html" id="f-about">Over PRISMA</a></li><li><a href="tools.html" id="f-tools">Tools</a></li><li><a href="contact.html" id="f-contact">Contact</a></li><li><a href="blog.html" id="f-blog">Blog</a></li><li><a href="voorwaarden.html" id="f-terms">Voorwaarden</a></li></ul><div class="footer-bottom"><span>© 2026 PRISMA Systemen</span></div></div></div></footer><script>const I18N={nl:{htmlLang:'nl',title:'PRISMA Systemen — Rust en richting voor een neurodivergent brein',description:'PRISMA Systemen helpt neurodivergente jongvolwassenen autonomie bouwen via simpele, werkbare systemen. Geen hustle. Wel rust en richting.',navAbout:'Over PRISMA',navTools:'Tools',navContact:'Contact',heroLabel:'PRISMA Systemen',heroTitle:'Rust en richting voor een <em>neurodivergent</em> brein.',heroText:'Je mist geen discipline. Je mist systemen die bij jouw brein passen. PRISMA helpt neurodivergente jongvolwassenen autonomie bouwen via simpele, werkbare structuren.',heroBtn1:'Bekijk de tools',heroBtn2:'Over PRISMA',approachLabel:'De aanpak',approachTitle:'Alles draait om autonomie.',pillars:[['Energiebeheer','Overprikkeling voorkomen door je energieniveau serieus te nemen.'],['Weekstructuur','Executieve functies ondersteunen met een structuur die je brein helpt.'],['Ambitie reguleren','Niet over je grenzen gaan — ook als je hoofd vol zit met plannen.'],['Financiële basis','Buffer, overzicht en lange termijn — ook als geld overweldigend aanvoelt.']],midTitle:'Ik bouw dit terwijl ik er zelf middenin zit.',midText:'Geen afgerond verhaal vanuit een plek waar alles al opgelost is. Wel eerlijkheid, herkenning en systemen die ik zelf had willen hebben.',midBtn:'Lees meer over mij',footerText:'Rust en richting voor een neurodivergent brein. Gebouwd vanuit eigen ervaring, voor mensen die systemen nodig hebben die bij hun brein passen.',footerTerms:'Voorwaarden'},en:{htmlLang:'en',title:'PRISMA Systems — Calm and direction for a neurodivergent brain',description:'PRISMA Systems helps neurodivergent young adults build autonomy through simple, workable systems. No hustle. Just calm and direction.',navAbout:'About PRISMA',navTools:'Tools',navContact:'Contact',heroLabel:'PRISMA Systems',heroTitle:'Calm and direction for a <em>neurodivergent</em> brain.',heroText:'You are not missing discipline. You are missing systems that fit your brain. PRISMA helps neurodivergent young adults build autonomy through simple, workable structures.',heroBtn1:'Explore the tools',heroBtn2:'About PRISMA',approachLabel:'The approach',approachTitle:'Everything revolves around autonomy.',pillars:[['Energy management','Prevent overwhelm by taking your energy level seriously.'],['Weekly structure','Support executive functioning with a structure that actually helps your brain.'],['Regulating ambition','Do not push past your limits, even when your head is full of plans.'],['Financial foundation','Buffer, overview, and long-term thinking, even when money feels overwhelming.']],midTitle:'I am building this while I am still in the middle of it myself.',midText:'This is not a finished story told from a place where everything is already solved. It is honesty, recognition, and systems I wish I had myself.',midBtn:'Read more about me',footerText:'Calm and direction for a neurodivergent brain. Built from lived experience, for people who need systems that actually fit their brain.',footerTerms:'Terms'}}; function applyTranslations(){const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content',t.description); document.getElementById('lang-nl').classList.toggle('active', currentLang==='nl'); document.getElementById('lang-en').classList.toggle('active', currentLang==='en'); ['nav-home','m-home','f-home'].forEach(id=>document.getElementById(id).textContent='Home'); ['nav-blog','m-blog','f-blog'].forEach(id=>document.getElementById(id).textContent='Blog'); ['nav-about','m-about','f-about'].forEach(id=>document.getElementById(id).textContent=t.navAbout); ['nav-tools','m-tools','f-tools'].forEach(id=>document.getElementById(id).textContent=t.navTools); ['nav-contact','m-contact','f-contact'].forEach(id=>document.getElementById(id).textContent=t.navContact); document.getElementById('hero-label').textContent=t.heroLabel; document.getElementById('hero-title').innerHTML=t.heroTitle; document.getElementById('hero-text').textContent=t.heroText; document.getElementById('hero-btn-1').textContent=t.heroBtn1; document.getElementById('hero-btn-2').textContent=t.heroBtn2; document.getElementById('scroll-label').setAttribute('aria-label', currentLang==='en' ? 'Scroll down' : 'Scroll naar beneden'); document.getElementById('approach-label').textContent=t.approachLabel; document.getElementById('approach-title').textContent=t.approachTitle; for(let i=1;i<=4;i++){document.getElementById('pillar'+i+'-title').textContent=t.pillars[i-1][0]; document.getElementById('pillar'+i+'-text').textContent=t.pillars[i-1][1];} document.getElementById('mid-title').textContent=t.midTitle; document.getElementById('mid-text').textContent=t.midText; document.getElementById('mid-btn').textContent=t.midBtn; document.getElementById('footer-text').textContent=t.footerText; document.getElementById('f-terms').textContent=t.footerTerms; updateLanguageLinks(); } 
-  let currentLang = 'nl';
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRISMA Systemen — Planning voor neurodivergente breinen</title>
+  <meta name="description" content="De meeste planners werken niet voor een neurodivergent brein. PRISMA helpt je plannen op basis van je echte energie en capaciteit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="stijl.css" />
+  <script async src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(88vh - var(--nav-hoogte));
+      display: flex;
+      align-items: center;
+      padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 9vw, 7rem);
+      position: relative;
+    }
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .hero-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--groen-dark);
+      animation: opkomen 0.6s ease 0.1s both;
+    }
+    .hero-titel {
+      animation: opkomen 0.7s ease 0.25s both;
+      max-width: 16ch;
+    }
+    .hero-tekst {
+      color: var(--grijs-mid);
+      max-width: 48ch;
+      animation: opkomen 0.6s ease 0.45s both;
+    }
+    .hero-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--blauw);
+      animation: opkomen 0.6s ease 0.6s both;
+    }
+    .hero-acties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      animation: opkomen 0.6s ease 0.75s both;
+    }
+    @keyframes opkomen {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: opkomen 0.6s ease 1s both, bobben 2s ease-in-out 1.5s infinite;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--groen-dark);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .scroll-indicator:hover { opacity: 1; }
+    .scroll-pijl { width: 32px; height: 32px; }
+    @keyframes bobben {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
 
-  function getInitialLanguage() {
-    const urlLang = new URLSearchParams(window.location.search).get('lang');
-    if (urlLang === 'nl' || urlLang === 'en') return urlLang;
-    const saved = localStorage.getItem('prisma-language');
-    if (saved === 'nl' || saved === 'en') return saved;
-    return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
-  }
+    /* ── PROBLEEM ── */
+    .probleem-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 52ch;
+    }
+    .probleem-inner h2 { max-width: 22ch; }
+    .probleem-inner p { color: var(--grijs-mid); font-size: 0.95rem; line-height: 1.75; }
+    .veronderstelling-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .veronderstelling-lijst li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--grijs-mid);
+    }
+    .veronderstelling-lijst li::before {
+      content: '—';
+      color: var(--blauw);
+      flex-shrink: 0;
+      font-family: var(--serif);
+    }
+    .probleem-ritme {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .probleem-ritme p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--grijs-mid);
+      margin: 0;
+    }
 
-  function updateLanguageLinks() {
-    document.querySelectorAll('a[href]').forEach((link) => {
-      const raw = link.getAttribute('href');
-      if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return;
-      let url;
-      try { url = new URL(raw, window.location.href); } catch (e) { return; }
-      const isPrisma = url.origin === window.location.origin || url.hostname.includes('prismasystemen.nl');
-      if (!isPrisma) return;
-      const isHtml = url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/');
-      if (!isHtml) return;
-      if (currentLang === 'en') url.searchParams.set('lang', 'en');
-      else url.searchParams.delete('lang');
-      const sameOrigin = url.origin === window.location.origin;
-      link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
+    /* ── OPLOSSING ── */
+    .oplossing-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 52ch;
+    }
+    .oplossing-inner h2 { max-width: 18ch; }
+    .oplossing-inner > p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .oplossing-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .oplossing-lijst li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--grijs-mid);
+    }
+    .oplossing-lijst li::before {
+      content: '✦';
+      color: var(--groen);
+      flex-shrink: 0;
+      font-size: 0.6rem;
+      line-height: 1.8;
+    }
+    .oplossing-slot {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--grijs);
+    }
+
+    /* ── TOOLS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .tool-kaart {
+      border: 1px solid var(--beige-dark);
+      background: var(--wit);
+      padding: clamp(1.5rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .tool-kaart.featured {
+      background: var(--grijs);
+      border-color: var(--grijs);
+    }
+    .tool-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .tool-kaart:not(.featured) .tool-label { color: var(--groen-dark); }
+    .tool-kaart.featured .tool-label { color: rgba(168,181,162,0.8); }
+    .tool-kaart h3 { font-size: 1.1rem; }
+    .tool-kaart:not(.featured) h3 { color: var(--grijs); }
+    .tool-kaart.featured h3 { color: var(--beige); }
+    .tool-kaart > p { font-size: 0.88rem; }
+    .tool-kaart:not(.featured) > p { color: var(--grijs-mid); }
+    .tool-kaart.featured > p { color: rgba(243,239,232,0.65); }
+    .tool-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .tool-lijst li {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .tool-kaart:not(.featured) .tool-lijst li { color: var(--grijs-mid); }
+    .tool-kaart.featured .tool-lijst li { color: rgba(243,239,232,0.65); }
+    .tool-lijst li::before {
+      content: '→';
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .tool-kaart:not(.featured) .tool-lijst li::before { color: var(--blauw); }
+    .tool-kaart.featured .tool-lijst li::before { color: var(--groen); }
+    .tool-kaart .knop { margin-top: auto; align-self: flex-start; }
+    .tool-kaart.featured .knop {
+      border-color: rgba(243,239,232,0.35);
+      color: var(--beige);
+    }
+    .tool-kaart.featured .knop:hover {
+      background: var(--beige);
+      color: var(--grijs);
+      border-color: var(--beige);
+    }
+
+    /* ── AFSLUITING ── */
+    .afsluiting-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 42ch;
+    }
+    .afsluiting-inner h2 { font-size: clamp(1.3rem, 3vw, 1.65rem); }
+    .afsluiting-inner p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .afsluiting-inner .afsluiting-slot {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--grijs);
+      margin-top: 0.25rem;
+    }
+
+    /* ── TAALSWITCH ── */
+    .language-switch {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      margin: 0 0 1.5rem;
+      background: var(--wit, #fff);
+      border: 1px solid var(--beige-dark, #E8E4DC);
+      border-radius: 999px;
+    }
+    .language-switch button {
+      border: none;
+      background: transparent;
+      color: var(--grijs-mid, #9A9A9A);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .language-switch button.active {
+      background: var(--beige, #F3EFE8);
+      color: var(--grijs, #2E2E2E);
+    }
+
+    @media (max-width: 560px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="actief" id="nav-home">Home</a></li>
+      <li><a href="over.html" id="nav-about">Over PRISMA</a></li>
+      <li><a href="tools.html" id="nav-tools">Tools</a></li>
+      <li><a href="contact.html" id="nav-contact">Contact</a></li>
+      <li><a href="blog.html" id="nav-blog">Blog</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobiel-menu" id="mobiel-menu">
+    <a href="index.html" class="actief" id="m-home">Home</a>
+    <a href="over.html" id="m-about">Over PRISMA</a>
+    <a href="tools.html" id="m-tools">Tools</a>
+    <a href="contact.html" id="m-contact">Contact</a>
+    <a href="blog.html" id="m-blog">Blog</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero sectie-beige">
+    <div class="container">
+      <div class="language-switch" aria-label="Language switch">
+        <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
+        <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
+      </div>
+      <div class="hero-inner">
+        <span class="hero-label" id="hero-label">PRISMA Systemen</span>
+        <h1 class="hero-titel" id="hero-title">Planning voor neurodivergente breinen</h1>
+        <p class="hero-tekst" id="hero-text">De meeste planners gaan ervan uit dat je elke dag dezelfde energie hebt. PRISMA helpt je plannen op basis van je echte capaciteit.</p>
+        <p class="hero-tagline" id="hero-tagline">Plan met je energie, niet ertegen.</p>
+        <div class="hero-acties">
+          <a href="prisma-dagplanner.html" class="knop knop-groen" id="hero-btn-1">Probeer de gratis dagplanner</a>
+        </div>
+      </div>
+    </div>
+    <a class="scroll-indicator" href="#probleem" aria-label="Scroll naar beneden">
+      <svg class="scroll-pijl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="4" x2="12" y2="18" stroke="currentColor" stroke-width="1"/>
+        <polyline points="6,13 12,20 18,13" fill="none" stroke="currentColor" stroke-width="1"/>
+      </svg>
+    </a>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- PROBLEEM -->
+  <section class="sectie sectie-wit" id="probleem">
+    <div class="container">
+      <div class="probleem-inner fade-in">
+        <span class="sectie-label" id="prob-label">Het probleem</span>
+        <h2 id="prob-title">De meeste planningssystemen zijn niet gebouwd voor jouw brein.</h2>
+        <p id="prob-intro">Ze gaan ervan uit:</p>
+        <ul class="veronderstelling-lijst" id="prob-list">
+          <li id="prob-item-1">dezelfde energie elke dag</li>
+          <li id="prob-item-2">constante focus</li>
+          <li id="prob-item-3">perfecte productiviteit</li>
+        </ul>
+        <div class="probleem-ritme">
+          <p id="prob-r1">Energie schommelt.</p>
+          <p id="prob-r2">Focus komt en gaat.</p>
+          <p id="prob-r3">Sommige dagen zijn zwaarder dan andere.</p>
+        </div>
+        <p id="prob-eind">Als planners dat negeren, creëren ze druk in plaats van steun.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- OPLOSSING -->
+  <section class="sectie sectie-beige" id="oplossing">
+    <div class="container">
+      <div class="oplossing-inner fade-in">
+        <span class="sectie-label" id="opl-label">De aanpak</span>
+        <h2 id="opl-title">PRISMA werkt anders.</h2>
+        <p id="opl-intro">In plaats van je te dwingen in rigide productiviteitssystemen, helpt PRISMA je plannen op basis van:</p>
+        <ul class="oplossing-lijst" id="opl-list">
+          <li id="opl-item-1">jouw energie</li>
+          <li id="opl-item-2">jouw behoeften</li>
+          <li id="opl-item-3">jouw echte capaciteit van die dag</li>
+        </ul>
+        <p class="oplossing-slot" id="opl-slot">Minder druk. Meer helderheid.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- TOOLS -->
+  <section class="sectie sectie-wit" id="tools">
+    <div class="container">
+      <span class="sectie-label" id="tools-label">De tools</span>
+      <h2 id="tools-title">Begin met de gratis planner</h2>
+      <div class="tools-grid fade-in">
+
+        <div class="tool-kaart">
+          <span class="tool-label">Gratis</span>
+          <h3>PRISMA Day</h3>
+          <p id="day-intro">Een eenvoudige begeleide planner die je helpt:</p>
+          <ul class="tool-lijst">
+            <li id="day-item-1">inchecken bij je energie</li>
+            <li id="day-item-2">bepalen wat vandaag echt telt</li>
+            <li id="day-item-3">een realistisch plan maken</li>
+          </ul>
+          <a href="prisma-dagplanner.html" class="knop knop-groen" id="day-btn">Open de gratis planner</a>
+        </div>
+
+        <div class="tool-kaart featured">
+          <span class="tool-label" id="week-label-tag">Meer structuur</span>
+          <h3>PRISMA Week</h3>
+          <p id="week-intro">Een weektracker ontworpen voor wisselende energie en veranderende capaciteit.</p>
+          <p id="week-sub" style="font-size:0.85rem;">Ontdek patronen in je energie en bouw duurzame structuur.</p>
+          <a href="prisma-week-kopen.html" class="knop" id="week-btn">Meer informatie</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <!-- AFSLUITING -->
+  <section class="sectie sectie-beige">
+    <div class="container">
+      <div class="afsluiting-inner fade-in">
+        <h2 id="slot-title">Je hebt geen extra discipline nodig.</h2>
+        <p id="slot-text">Je hebt systemen nodig die werken met jouw brein.</p>
+        <p class="afsluiting-slot" id="slot-tagline">PRISMA is daarvoor gebouwd.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
+        <p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein.</p>
+        <ul class="footer-nav">
+          <li><a href="index.html" class="actief" id="f-home">Home</a></li>
+          <li><a href="over.html" id="f-about">Over PRISMA</a></li>
+          <li><a href="tools.html" id="f-tools">Tools</a></li>
+          <li><a href="contact.html" id="f-contact">Contact</a></li>
+          <li><a href="blog.html" id="f-blog">Blog</a></li>
+          <li><a href="voorwaarden.html" id="f-terms">Voorwaarden</a></li>
+        </ul>
+        <div class="footer-bottom"><span>© 2026 PRISMA Systemen</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const I18N = {
+      nl: {
+        htmlLang: 'nl',
+        title: 'PRISMA Systemen — Planning voor neurodivergente breinen',
+        description: 'De meeste planners werken niet voor een neurodivergent brein. PRISMA helpt je plannen op basis van je echte energie en capaciteit.',
+        navAbout: 'Over PRISMA', navTools: 'Tools', navContact: 'Contact',
+        heroLabel: 'PRISMA Systemen',
+        heroTitle: 'Planning voor neurodivergente breinen',
+        heroText: 'De meeste planners gaan ervan uit dat je elke dag dezelfde energie hebt. PRISMA helpt je plannen op basis van je echte capaciteit.',
+        heroTagline: 'Plan met je energie, niet ertegen.',
+        heroBtn1: 'Probeer de gratis dagplanner',
+        probLabel: 'Het probleem',
+        probTitle: 'De meeste planningssystemen zijn niet gebouwd voor jouw brein.',
+        probIntro: 'Ze gaan ervan uit:',
+        probItems: ['dezelfde energie elke dag', 'constante focus', 'perfecte productiviteit'],
+        probR1: 'Energie schommelt.',
+        probR2: 'Focus komt en gaat.',
+        probR3: 'Sommige dagen zijn zwaarder dan andere.',
+        probEind: 'Als planners dat negeren, creëren ze druk in plaats van steun.',
+        oplLabel: 'De aanpak',
+        oplTitle: 'PRISMA werkt anders.',
+        oplIntro: 'In plaats van je te dwingen in rigide productiviteitssystemen, helpt PRISMA je plannen op basis van:',
+        oplItems: ['jouw energie', 'jouw behoeften', 'jouw echte capaciteit van die dag'],
+        oplSlot: 'Minder druk. Meer helderheid.',
+        toolsLabel: 'De tools',
+        toolsTitle: 'Begin met de gratis planner',
+        dayIntro: 'Een eenvoudige begeleide planner die je helpt:',
+        dayItems: ['inchecken bij je energie', 'bepalen wat vandaag echt telt', 'een realistisch plan maken'],
+        dayBtn: 'Open de gratis planner',
+        weekLabelTag: 'Meer structuur',
+        weekIntro: 'Een weektracker ontworpen voor wisselende energie en veranderende capaciteit.',
+        weekSub: 'Ontdek patronen in je energie en bouw duurzame structuur.',
+        weekBtn: 'Meer informatie',
+        slotTitle: 'Je hebt geen extra discipline nodig.',
+        slotText: 'Je hebt systemen nodig die werken met jouw brein.',
+        slotTagline: 'PRISMA is daarvoor gebouwd.',
+        footerText: 'Rust en richting voor een neurodivergent brein.',
+        footerTerms: 'Voorwaarden'
+      },
+      en: {
+        htmlLang: 'en',
+        title: 'PRISMA Systems — Planning for neurodivergent brains',
+        description: 'Most planners do not work for a neurodivergent brain. PRISMA helps you plan around your real energy and capacity.',
+        navAbout: 'About PRISMA', navTools: 'Tools', navContact: 'Contact',
+        heroLabel: 'PRISMA Systems',
+        heroTitle: 'Planning for neurodivergent brains',
+        heroText: 'Most planners assume you have the same energy every day. PRISMA helps you plan around your real capacity instead.',
+        heroTagline: 'Plan with your energy, not against it.',
+        heroBtn1: 'Try the free day planner',
+        probLabel: 'The problem',
+        probTitle: 'Most planning systems were not built for your brain.',
+        probIntro: 'They assume:',
+        probItems: ['the same energy every day', 'constant focus', 'perfect productivity'],
+        probR1: 'Energy fluctuates.',
+        probR2: 'Focus comes and goes.',
+        probR3: 'Some days are heavier than others.',
+        probEind: 'And when planners ignore that, they create pressure instead of support.',
+        oplLabel: 'The approach',
+        oplTitle: 'PRISMA works differently.',
+        oplIntro: 'Instead of forcing you into rigid productivity systems, PRISMA helps you plan based on:',
+        oplItems: ['your energy', 'your needs', 'your real capacity that day'],
+        oplSlot: 'Less pressure. More clarity.',
+        toolsLabel: 'The tools',
+        toolsTitle: 'Start with the free planner',
+        dayIntro: 'A simple guided planner that helps you:',
+        dayItems: ['check in with your energy', 'identify what actually matters today', 'create a realistic plan'],
+        dayBtn: 'Open the free planner',
+        weekLabelTag: 'More structure',
+        weekIntro: 'A week tracker designed for fluctuating energy and changing capacity.',
+        weekSub: 'See patterns in your energy and build sustainable structure.',
+        weekBtn: 'Learn more',
+        slotTitle: 'You do not need more discipline.',
+        slotText: 'You need systems that work with your brain.',
+        slotTagline: 'PRISMA was built for that.',
+        footerText: 'Calm and direction for a neurodivergent brain.',
+        footerTerms: 'Terms'
+      }
+    };
+
+    let currentLang = 'nl';
+
+    function getInitialLanguage() {
+      var urlLang = new URLSearchParams(window.location.search).get('lang');
+      if (urlLang === 'nl' || urlLang === 'en') return urlLang;
+      var saved = localStorage.getItem('prisma-language');
+      if (saved === 'nl' || saved === 'en') return saved;
+      return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+    }
+
+    function updateLanguageLinks() {
+      document.querySelectorAll('a[href]').forEach(function(link) {
+        var raw = link.getAttribute('href');
+        if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return;
+        var url;
+        try { url = new URL(raw, window.location.href); } catch(e) { return; }
+        var isPrisma = url.origin === window.location.origin || url.hostname.includes('prismasystemen.nl');
+        if (!isPrisma) return;
+        var isHtml = url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/');
+        if (!isHtml) return;
+        if (currentLang === 'en') url.searchParams.set('lang', 'en');
+        else url.searchParams.delete('lang');
+        var sameOrigin = url.origin === window.location.origin;
+        link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
+      });
+    }
+
+    function applyTranslations() {
+      var t = I18N[currentLang];
+      document.documentElement.lang = t.htmlLang;
+      document.title = t.title;
+      document.querySelector('meta[name="description"]').setAttribute('content', t.description);
+
+      document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
+      document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+
+      ['nav-home','m-home','f-home'].forEach(function(id) { document.getElementById(id).textContent = 'Home'; });
+      ['nav-blog','m-blog','f-blog'].forEach(function(id) { document.getElementById(id).textContent = 'Blog'; });
+      ['nav-about','m-about','f-about'].forEach(function(id) { document.getElementById(id).textContent = t.navAbout; });
+      ['nav-tools','m-tools','f-tools'].forEach(function(id) { document.getElementById(id).textContent = t.navTools; });
+      ['nav-contact','m-contact','f-contact'].forEach(function(id) { document.getElementById(id).textContent = t.navContact; });
+
+      document.getElementById('hero-label').textContent = t.heroLabel;
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-text').textContent = t.heroText;
+      document.getElementById('hero-tagline').textContent = t.heroTagline;
+      document.getElementById('hero-btn-1').textContent = t.heroBtn1;
+
+      document.getElementById('prob-label').textContent = t.probLabel;
+      document.getElementById('prob-title').textContent = t.probTitle;
+      document.getElementById('prob-intro').textContent = t.probIntro;
+      document.getElementById('prob-item-1').textContent = t.probItems[0];
+      document.getElementById('prob-item-2').textContent = t.probItems[1];
+      document.getElementById('prob-item-3').textContent = t.probItems[2];
+      document.getElementById('prob-r1').textContent = t.probR1;
+      document.getElementById('prob-r2').textContent = t.probR2;
+      document.getElementById('prob-r3').textContent = t.probR3;
+      document.getElementById('prob-eind').textContent = t.probEind;
+
+      document.getElementById('opl-label').textContent = t.oplLabel;
+      document.getElementById('opl-title').textContent = t.oplTitle;
+      document.getElementById('opl-intro').textContent = t.oplIntro;
+      document.getElementById('opl-item-1').textContent = t.oplItems[0];
+      document.getElementById('opl-item-2').textContent = t.oplItems[1];
+      document.getElementById('opl-item-3').textContent = t.oplItems[2];
+      document.getElementById('opl-slot').textContent = t.oplSlot;
+
+      document.getElementById('tools-label').textContent = t.toolsLabel;
+      document.getElementById('tools-title').textContent = t.toolsTitle;
+      document.getElementById('day-intro').textContent = t.dayIntro;
+      document.getElementById('day-item-1').textContent = t.dayItems[0];
+      document.getElementById('day-item-2').textContent = t.dayItems[1];
+      document.getElementById('day-item-3').textContent = t.dayItems[2];
+      document.getElementById('day-btn').textContent = t.dayBtn;
+      document.getElementById('week-label-tag').textContent = t.weekLabelTag;
+      document.getElementById('week-intro').textContent = t.weekIntro;
+      document.getElementById('week-sub').textContent = t.weekSub;
+      document.getElementById('week-btn').textContent = t.weekBtn;
+
+      document.getElementById('slot-title').textContent = t.slotTitle;
+      document.getElementById('slot-text').textContent = t.slotText;
+      document.getElementById('slot-tagline').textContent = t.slotTagline;
+      document.getElementById('footer-text').textContent = t.footerText;
+      document.getElementById('f-terms').textContent = t.footerTerms;
+
+      updateLanguageLinks();
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('prisma-language', lang);
+      applyTranslations();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      currentLang = getInitialLanguage();
+      applyTranslations();
     });
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('prisma-language', lang);
-    applyTranslations();
-  }
- document.addEventListener('DOMContentLoaded',()=>{currentLang=getInitialLanguage(); applyTranslations();});</script><script src="nav.js"></script></body></html>
+  </script>
+  <script src="nav.js"></script>
+</body>
+</html>
