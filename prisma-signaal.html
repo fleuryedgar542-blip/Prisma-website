@@ -685,7 +685,7 @@
       <div class="context-tag" onclick="toggleContext(this)">🍽 Honger of te vol gegeten</div>
       <div class="context-tag" onclick="toggleContext(this)">🌧 Wisselend weer</div>
     </div>
-    <p class="stap-hint">Meerdere opties zijn mogelijk. Mag ook leeg blijven.</p>
+    <p class="stap-hint">Je mag er meer kiezen. Leeg laten mag ook.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(2)">← Terug</button>
       <button class="verder-btn" onclick="toonResultaat()">Bekijk advies →</button>
@@ -706,12 +706,12 @@
 
     <div class="reminder" id="res-reminder"></div>
 
-    <p class="bronvermelding">De adviezen zijn gebaseerd op inzichten uit sensorische integratietheorie en onderzoek naar overprikkeling bij ADHD en autisme.</p>
+    <p class="bronvermelding">De adviezen sluiten aan op inzichten uit sensorische integratie en onderzoek naar overprikkeling bij ADHD en autisme.</p>
 
     <div class="knoppen-rij">
-      <button class="opnieuw-btn" onclick="opnieuw()">↺ Opnieuw</button>
+      <button class="opnieuw-btn" onclick="opnieuw()">↺ Nieuwe check</button>
       <a href="prisma-dag.html" class="week-link">PRISMA Dag →</a>
-      <a href="index.html" class="home-link">← Terug naar de website</a>
+      <a href="index.html" class="home-link">← Terug naar PRISMA</a>
     </div>
   </div>
 
@@ -1072,14 +1072,14 @@
       htmlLang:'nl', title:'Prikkeltracker bij overprikkeling | PRISMA Signaal', description:'Gratis prikkeltracker waarmee je in 30 seconden checkt hoeveel zintuiglijke belasting je systeem verwerkt en wat je nu nodig hebt.', appTitle:'PRISMA Signaal',
       headerLogo:'PRISMA Systemen',
       h1:'Hoe vol is je systeem nu?',
-      subtitle1:'Een snelle check-in voor je zintuiglijk systeem. Geen diagnose, wel inzicht.',
-      subtitle2Html:'Met <em>systeem</em> bedoelen we je zenuwstelsel, de manier waarop jouw brein en lichaam prikkels verwerken.',
+      subtitle1:'Een korte check-in als je merkt dat er veel binnenkomt. Geen diagnose, wel richting.',
+      subtitle2Html:'Met <em>systeem</em> bedoelen we je zenuwstelsel: de manier waarop je brein en lichaam prikkels verwerken.',
       progress:['Algeheel','Per zintuig','Context'],
       sections:['Stap 1, Hoe vol voelt je systeem nu?','Stap 2, Welk zintuig is het meest belast?','Stap 3, Wat speelt er mee?'],
       prikkelNames:['Rustig','Licht belast','Redelijk vol','Overbelast','Overvol, shutdown nabij'],
       prikkelDesc:['Je systeem is kalm. Weinig prikkels, veel ruimte.','Je merkt prikkels, maar het is nog behapbaar.','Je systeem werkt, maar heeft weinig ruimte meer over.','Veel te verwerken. Alles voelt intenser dan normaal.','Je systeem kan bijna niet meer. Rust is nu urgent.'],
       levelLabels:{1:'rustig',2:'licht',3:'vol',4:'zwaar',5:'overvol'},
-      levelHints:{1:'Je systeem heeft ruimte. Geniet van de rust.',2:'Licht belast. Normaal haalbaar, let op wat meer prikkels toevoegt.',3:'Je bent redelijk vol. Wees bewust over wat je er nog bij doet.',4:'Overbelast. Verminder prikkels actief, dit is een signaal.',5:'Urgent. Je systeem vraagt nu om rust, geen uitstel.'},
+      levelHints:{1:'Er is ruimte. Merk op wat helpt om dat zo te houden.',2:'Het is nog haalbaar, maar extra input telt nu sneller op.',3:'Je systeem zit al aardig vol. Kies bewust wat je er nog bij laat.',4:'Dit is een duidelijk signaal. Minder prikkels is nu geen luxe.',5:'Je systeem heeft nu rust nodig. Wachten maakt het meestal zwaarder.'},
       hint2:'Schat in per zintuig. Mag ook overgeslagen worden.',
       hint3:'Meerdere opties zijn mogelijk. Mag ook leeg blijven.',
       senses:[['Gehoor','geluid, lawaai, stemmen'],['Zicht','licht, schermen, beweging'],['Aanraking','kleding, textuur, contact'],['Beweging/balans','ruimtelijk bewustzijn'],['Smaak/geur','geuren, smaken, misselijkheid'],['Intern (interoceptie)','honger, dorst, hartslag, pijn']],
@@ -1087,22 +1087,22 @@
       context:['🏠 Thuis','🏫 School of werk','🚌 Openbaar vervoer','🛒 Drukke ruimte','💬 Sociaal contact gehad','😴 Slecht geslapen','📱 Veel schermtijd','🎧 Lawaai of muziek','🌡 Oncomfortabele temperatuur','😰 Gespannen of gestrest','🍽 Honger of te vol gegeten','🌧 Wisselend weer'],
       next:'Verder →', back:'← Terug', result:'Bekijk advies →',
       breakdown:'Belasting per zintuig', help:'Wat kan helpen',
-      source:'De adviezen zijn gebaseerd op inzichten uit sensorische integratietheorie en onderzoek naar overprikkeling bij ADHD en autisme.',
-      reset:'↺ Opnieuw', day:'PRISMA Dag →', home:'← Terug naar de website',
+      source:'De adviezen sluiten aan op inzichten uit sensorische integratie en onderzoek naar overprikkeling bij ADHD en autisme.',
+      reset:'↺ Nieuwe check', day:'PRISMA Dag →', home:'← Terug naar PRISMA',
       iosStrong:'Sla op als app', iosText:'Safari → ⎙ → Zet op beginscherm', androidText:'Voeg PRISMA toe aan je beginscherm'
     },
     en: {
       htmlLang:'en', title:'Sensory overload tracker | PRISMA Signal', description:'Free sensory tracker that helps you check in within 30 seconds and see how much sensory load your system is carrying.', appTitle:'PRISMA Signal',
       headerLogo:'PRISMA Systems',
       h1:'How full is your system right now?',
-      subtitle1:'A quick check-in for your sensory system. Not a diagnosis, but insight.',
-      subtitle2Html:'By <em>system</em>, we mean your nervous system, the way your brain and body process stimuli.',
+      subtitle1:'A short check-in for moments when a lot is coming in. Not a diagnosis, but direction.',
+      subtitle2Html:'By <em>system</em>, we mean your nervous system: the way your brain and body process input.',
       progress:['Overall','Per sense','Context'],
       sections:['Step 1, How full does your system feel right now?','Step 2, Which sense feels most overloaded?','Step 3, What is affecting it?'],
       prikkelNames:['Calm','Lightly loaded','Quite full','Overloaded','Overfull, near shutdown'],
       prikkelDesc:['Your system is calm. Few stimuli, plenty of room.','You notice stimuli, but it is still manageable.','Your system is working, but there is little room left.','A lot to process. Everything feels more intense than usual.','Your system can barely handle more. Rest is urgent now.'],
       levelLabels:{1:'calm',2:'light',3:'full',4:'heavy',5:'overfull'},
-      levelHints:{1:'Your system has room. Enjoy the calm.',2:'Lightly loaded. Usually manageable, but watch what adds more input.',3:'You are fairly full. Be mindful of what you add from here.',4:'Overloaded. Actively reduce stimuli, this is a real signal.',5:'Urgent. Your system needs rest now, not later.'},
+      levelHints:{1:'There is room. Notice what helps keep it that way.',2:'Still manageable, but extra input will add up faster now.',3:'Your system is already fairly full. Be careful about what you add next.',4:'This is a clear signal. Reducing input is not a luxury right now.',5:'Your system needs rest now. Waiting usually makes it heavier.'},
       hint2:'Estimate each sense. You can also skip this step.',
       hint3:'You can choose multiple options. It can also stay empty.',
       senses:[['Hearing','sound, noise, voices'],['Sight','light, screens, movement'],['Touch','clothing, texture, contact'],['Movement/balance','spatial awareness'],['Taste/smell','smells, tastes, nausea'],['Internal (interoception)','hunger, thirst, heartbeat, pain']],
@@ -1110,8 +1110,8 @@
       context:['🏠 Home','🏫 School or work','🚌 Public transport','🛒 Busy space','💬 Had social contact','😴 Slept badly','📱 A lot of screen time','🎧 Noise or music','🌡 Uncomfortable temperature','😰 Tense or stressed','🍽 Hungry or too full','🌧 Changing weather'],
       next:'Next →', back:'← Back', result:'View advice →',
       breakdown:'Load per sense', help:'What may help',
-      source:'The guidance is based on insights from sensory integration theory and research into overstimulation in ADHD and autism.',
-      reset:'↺ Again', day:'PRISMA Day →', home:'← Back to the website',
+      source:'The guidance draws on sensory integration insights and research into overstimulation in ADHD and autism.',
+      reset:'↺ Check again', day:'PRISMA Day →', home:'← Back to PRISMA',
       iosStrong:'Save as an app', iosText:'Safari → ⎙ → Add to Home Screen', androidText:'Add PRISMA to your home screen'
     }
   };
