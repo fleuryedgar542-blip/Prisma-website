@@ -1036,12 +1036,19 @@
   }
 
   function toonPrismaNotificatie() {
-    const dag = ['Zo','Ma','Di','Wo','Do','Vr','Za'][new Date().getDay()];
-    const berichten = [
-      'Hoe is je energie vandaag? Je check-in duurt minder dan 2 minuten.',
-      'Even kort inchecken. Hoe gaat het met je energie?',
-      'Je dagelijkse PRISMA check-in staat klaar. Hoe voel je je?',
-    ];
+    const jsDay = new Date().getDay();
+    const dag = getDayShortNames()[DAGEN[jsDay === 0 ? 6 : jsDay - 1]];
+    const berichten = currentLang === 'en'
+      ? [
+          'How is your energy today? Your check-in takes less than 2 minutes.',
+          'A quick check-in. How is your energy doing?',
+          'Your daily PRISMA check-in is ready. How are you feeling?',
+        ]
+      : [
+          'Hoe is je energie vandaag? Je check-in duurt minder dan 2 minuten.',
+          'Even kort inchecken. Hoe gaat het met je energie?',
+          'Je dagelijkse PRISMA check-in staat klaar. Hoe voel je je?',
+        ];
     const body = berichten[Math.floor(Math.random() * berichten.length)];
     const opties = { body, icon: '/icon-week-192.png', badge: '/icon-week-192.png', tag: 'prisma-dag', renotify: true };
     if (window._swReg && window._swReg.showNotification) {

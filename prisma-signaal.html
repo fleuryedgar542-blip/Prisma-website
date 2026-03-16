@@ -1030,7 +1030,7 @@
   const CONTEXT_KEYS = ['home','school_work','public_transport','busy_space','social','poor_sleep','screen_time','noise','temperature','stressed','food','weather'];
   const I18N = {
     nl: {
-      htmlLang:'nl', title:'PRISMA, Signaal',
+      htmlLang:'nl', title:'PRISMA, Signaal', description:'Check in 30 seconden hoeveel prikkels je zintuiglijk systeem verwerkt. Gratis tool van PRISMA Systemen.', appTitle:'PRISMA Signaal',
       headerLogo:'PRISMA Systemen',
       h1:'Hoe vol is je systeem nu?',
       subtitle1:'Een snelle check-in voor je zintuiglijk systeem. Geen diagnose, wel inzicht.',
@@ -1051,7 +1051,7 @@
       iosStrong:'Sla op als app', iosText:'Safari → ⎙ → Zet op beginscherm', androidText:'Voeg PRISMA toe aan je beginscherm'
     },
     en: {
-      htmlLang:'en', title:'PRISMA, Signal',
+      htmlLang:'en', title:'PRISMA, Signal', description:'Check in within 30 seconds how many sensory inputs your system is processing. Free tool by PRISMA Systems.', appTitle:'PRISMA Signal',
       headerLogo:'PRISMA Systems',
       h1:'How full is your system right now?',
       subtitle1:'A quick check-in for your sensory system. Not a diagnosis, but insight.',
@@ -1229,6 +1229,8 @@
   function initContext(){ document.querySelectorAll('.context-tag').forEach((el,i)=>{el.dataset.ctx=CONTEXT_KEYS[i];}); }
   function updateLanguageLinks(){ document.querySelectorAll('a[href]').forEach((link)=>{ const raw=link.getAttribute('href'); if(!raw||raw.startsWith('#')||raw.startsWith('mailto:')||raw.startsWith('tel:')||raw.includes('lemonsqueezy.com')||raw.includes('paypal')) return; let url; try { url = new URL(raw, window.location.href); } catch(e) { return; } if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return; if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return; if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang'); const sameOrigin=url.origin===window.location.origin; link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString()); }); }
   function applyTranslations(){ const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title;
+    document.querySelector('meta[name="description"]').setAttribute('content', t.description);
+    document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
     document.getElementById('lang-nl').classList.toggle('active', currentLang==='nl'); document.getElementById('lang-en').classList.toggle('active', currentLang==='en');
     document.querySelector('.logo').textContent=t.headerLogo; document.querySelector('h1').textContent=t.h1; document.querySelectorAll('.subtitle')[0].textContent=t.subtitle1; document.querySelectorAll('.subtitle')[1].innerHTML=''+t.subtitle2.replace('system','<em>system</em>');
     t.progress.forEach((txt,i)=>{ const el=document.getElementById('label-'+(i+1)); if(el) el.textContent=txt; });

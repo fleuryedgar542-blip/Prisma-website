@@ -3,110 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waarom standaard planners niet werken voor een neurodivergent brein, PRISMA Systemen</title>
-  <meta name="description" content="Standaard dagplanners werken niet bij ADHD of autisme. Niet omdat jij het probleem bent, maar omdat ze zijn gebouwd voor een ander brein. Dit is wat een planner wél nodig heeft." />
+  <title>Waarom standaard planners niet werken voor een neurodivergent brein — PRISMA Systemen</title>
+  <meta name="description" content="Standaard dagplanners werken niet bij ADHD of autisme. Niet omdat jij het probleem bent, maar omdat ze zijn gebouwd voor een ander brein. Dit is wat een planner wel nodig heeft." />
   <link rel="canonical" href="https://prismasystemen.nl/blog/dagplanner-adhd.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="../stijl.css" />
+  <link rel="stylesheet" href="stijl.css" />
   <style>
-    .artikel-body {
-      max-width: 62ch;
+    .artikel-body { max-width: 62ch; }
+    .artikel-meta { font-size: 0.8rem; color: var(--grijs-licht); font-family: 'Montserrat', sans-serif; font-weight: 300; margin-top: 0.5rem; }
+    .artikel-body h2 { font-size: clamp(1.15rem, 2.5vw, 1.35rem); font-weight: 400; margin: 2.5rem 0 0.75rem; line-height: 1.3; }
+    .artikel-body p { font-size: 0.95rem; line-height: 1.85; color: var(--grijs); margin-bottom: 1.25rem; max-width: 62ch; }
+    .artikel-body ul { padding-left: 1.25rem; margin-bottom: 1.25rem; }
+    .artikel-body li { font-size: 0.95rem; line-height: 1.85; color: var(--grijs); margin-bottom: 0.4rem; }
+    .artikel-body strong { font-weight: 500; }
+    .artikel-body em { font-style: italic; color: var(--grijs-mid); }
+    .artikel-cta { background: var(--beige); border: 1px solid var(--beige-dark); padding: clamp(1.5rem, 4vw, 2rem); margin-top: 3rem; }
+    .artikel-cta h3 { font-size: 1.1rem; font-weight: 400; margin-bottom: 0.75rem; }
+    .artikel-cta p { font-size: 0.88rem; color: var(--grijs-mid); margin-bottom: 1.25rem; }
+    .artikel-terug { display: inline-block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grijs-mid); text-decoration: none; margin-bottom: 2.5rem; }
+    .artikel-terug:hover { color: var(--grijs); }
+    .language-switch {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      margin: 1rem 0 0;
+      background: var(--wit, #fff);
+      border: 1px solid var(--beige-dark, #E8E4DC);
+      border-radius: 999px;
     }
-
-    .artikel-meta {
-      font-size: 0.8rem;
-      color: var(--grijs-licht);
+    .language-switch button {
+      border: none;
+      background: transparent;
+      color: var(--grijs-mid, #9A9A9A);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .language-switch button.active {
+      background: var(--beige, #F3EFE8);
+      color: var(--grijs, #2E2E2E);
+    }
+    .language-notice {
+      display: none;
+      max-width: 62ch;
+      border: 1px solid var(--beige-dark);
+      background: var(--beige);
+      padding: 1.5rem;
+      color: var(--grijs);
       margin-top: 0.5rem;
     }
-
-    .artikel-body h2 {
-      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
-      font-weight: 400;
-      margin: 2.5rem 0 0.75rem;
-      line-height: 1.3;
-    }
-
-    .artikel-body p {
-      font-size: 0.95rem;
-      line-height: 1.85;
-      color: var(--grijs);
-      margin-bottom: 1.25rem;
-      max-width: 62ch;
-    }
-
-    .artikel-body ul {
-      padding-left: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .artikel-body li {
-      font-size: 0.95rem;
-      line-height: 1.85;
-      color: var(--grijs);
-      margin-bottom: 0.4rem;
-    }
-
-    .artikel-body strong {
-      font-weight: 500;
-    }
-
-    .artikel-body em {
-      font-style: italic;
-      color: var(--grijs-mid);
-    }
-
-    .artikel-cta {
-      background: var(--beige);
-      border: 1px solid var(--beige-dark);
-      padding: clamp(1.5rem, 4vw, 2rem);
-      margin-top: 3rem;
-    }
-
-    .artikel-cta h3 {
+    .language-notice h2 {
       font-size: 1.1rem;
+      margin: 0 0 0.6rem;
       font-weight: 400;
-      margin-bottom: 0.75rem;
     }
-
-    .artikel-cta p {
-      font-size: 0.88rem;
+    .language-notice p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.7;
       color: var(--grijs-mid);
-      margin-bottom: 1.25rem;
     }
-
-    .artikel-terug {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--grijs-mid);
-      text-decoration: none;
-      margin-bottom: 2.5rem;
-    }
-
-    .artikel-terug:hover {
-      color: var(--grijs);
-    }
-
   </style>
-  <!-- Umami Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
 </head>
 <body>
-
-  <!-- ✦ NAVIGATIE -->
   <nav id="nav">
-    <a href="../index.html" class="nav-logo"><img src="../logo.png" alt="PRISMA Systemen" /></a>
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
     <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../over.html">Over PRISMA</a></li>
-      <li><a href="../tools.html">Tools</a></li>
-      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="over.html" id="nav-about">Over PRISMA</a></li>
+      <li><a href="tools.html" id="nav-tools">Tools</a></li>
+      <li><a href="contact.html" id="nav-contact">Contact</a></li>
+      <li><a href="blog.html" id="nav-blog">Blog</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu openen">
       <span></span><span></span><span></span>
@@ -114,28 +90,35 @@
   </nav>
 
   <div class="mobiel-menu" id="mobiel-menu">
-    <a href="../index.html">Home</a>
-    <a href="../over.html">Over PRISMA</a>
-    <a href="../tools.html">Tools</a>
-    <a href="../contact.html">Contact</a>
+    <a href="index.html" id="m-home">Home</a>
+    <a href="over.html" id="m-about">Over PRISMA</a>
+    <a href="tools.html" id="m-tools">Tools</a>
+    <a href="contact.html" id="m-contact">Contact</a>
+    <a href="blog.html" id="m-blog">Blog</a>
   </div>
 
-  <!-- ✦ ARTIKEL HERO -->
   <div class="pagina-hero sectie-beige">
     <div class="container">
-      <span class="sectie-label">Dagstructuur</span>
-      <h1>Waarom standaard planners niet werken voor een neurodivergent brein</h1>
-      <p class="artikel-meta">Geschreven door Fleur Yedgar · Maart 2026 · 5 min lezen</p>
+      <div class="language-switch" aria-label="Language switch">
+        <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
+        <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
+      </div>
+      <span class="sectie-label" id="hero-label">Dagstructuur</span>
+      <h1 id="hero-title">Waarom standaard planners niet werken voor een neurodivergent brein</h1>
+      <p class="artikel-meta" id="article-meta">Geschreven door Fleur Yedgar · Maart 2026 · 5 min lezen</p>
     </div>
   </div>
 
-  <!-- ✦ ARTIKEL INHOUD -->
   <section class="sectie sectie-wit">
     <div class="container">
-      <a href="../blog.html" class="artikel-terug">← Terug naar blog</a>
+      <a href="blog.html" class="artikel-terug" id="back-link">← Terug naar blog</a>
 
-      <div class="artikel-body fade-in">
+      <div class="language-notice" id="language-notice">
+        <h2 id="notice-title">This article is currently available in Dutch only.</h2>
+        <p id="notice-text">The blog interface has switched to English, but the full article text has not been translated yet. You can switch back to Dutch to read it, or continue to PRISMA Day in English.</p>
+      </div>
 
+      <div class="artikel-body fade-in" id="article-body">
         <p>
           Je hebt weer een nieuwe planner geprobeerd. Of een app gedownload. Of een systeem uitgeprobeerd
           dat een vriendin aanraadde, of dat je tegenkwam op TikTok. En na drie dagen, soms twee, soms één
@@ -146,7 +129,6 @@
           Niet omdat je lui bent. Niet omdat je het niet wil. Maar omdat standaard planners zijn gebouwd
           voor een neurotypisch brein. En jij hebt een ander brein.
         </p>
-
 
         <h2>Wat standaard planners fout doen</h2>
 
@@ -190,12 +172,11 @@
           direct invloed op wat je kunt. Geen enkele standaard planner vraagt daarnaar.
         </p>
 
-
-        <h2>Wat een dagplanner voor ADHD wél nodig heeft</h2>
+        <h2>Wat een dagplanner voor ADHD wel nodig heeft</h2>
 
         <ul>
           <li>Beginnen bij energie, niet bij taken</li>
-          <li>Ruimte voor hoe het vandaag écht is, niet hoe het zou moeten zijn</li>
+          <li>Ruimte voor hoe het vandaag echt is, niet hoe het zou moeten zijn</li>
           <li>Geen oordeel, geen punten, geen streaks</li>
           <li>Kort en haalbaar, niet meer dan 5 minuten</li>
           <li>Een plek voor wat je nodig hebt, niet alleen wat je moet</li>
@@ -205,7 +186,6 @@
           Het gaat niet om perfecte productiviteit. Het gaat om beginnen met wat er is,
           en van daaruit een dag bouwen die bij jou past.
         </p>
-
 
         <h2>Hoe PRISMA Dag werkt</h2>
 
@@ -220,7 +200,7 @@
           <li>Hoeveel energie heb je nu?</li>
           <li>Wat heeft je lijf of hoofd nodig?</li>
           <li>Hoe werk jij het beste vandaag?</li>
-          <li>Is er iets wat je écht moet doen?</li>
+          <li>Is er iets wat je echt moet doen?</li>
           <li>Wie wil je vandaag zijn?</li>
         </ul>
 
@@ -233,32 +213,29 @@
           <em>Duurt ongeveer 3 minuten. Geen druk om het elke dag te doen.</em>
         </p>
 
-        <!-- ✦ CTA -->
         <div class="artikel-cta">
-          <h3>Probeer PRISMA Dag, gratis</h3>
-          <p>
+          <h3 id="cta-title">Probeer PRISMA Dag, gratis</h3>
+          <p id="cta-text">
             Geen account, geen installatie. Werkt direct in je browser op telefoon of laptop.
           </p>
-          <a href="../prisma-dag.html" class="knop knop-groen">Open PRISMA Dag</a>
+          <a href="prisma-dag.html" class="knop knop-groen" id="cta-button">Open PRISMA Dag</a>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ✦ FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo"><img src="../logo.png" alt="PRISMA Systemen" /></div>
-        <p class="footer-tekst">Rust en richting voor een neurodivergent brein.</p>
+        <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
+        <p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein.</p>
         <ul class="footer-nav">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../over.html">Over PRISMA</a></li>
-          <li><a href="../tools.html">Tools</a></li>
-          <li><a href="../contact.html">Contact</a></li>
-          <li><a href="../blog.html">Blog</a></li>
-          <li><a href="../voorwaarden.html">Voorwaarden</a></li>
+          <li><a href="index.html" id="f-home">Home</a></li>
+          <li><a href="over.html" id="f-about">Over PRISMA</a></li>
+          <li><a href="tools.html" id="f-tools">Tools</a></li>
+          <li><a href="contact.html" id="f-contact">Contact</a></li>
+          <li><a href="blog.html" id="f-blog">Blog</a></li>
+          <li><a href="voorwaarden.html" id="f-terms">Voorwaarden</a></li>
         </ul>
         <div class="footer-bottom">
           <span>© 2026 PRISMA Systemen</span>
@@ -267,6 +244,117 @@
     </div>
   </footer>
 
-  <script src="../nav.js"></script>
+  <script>
+    const I18N = {
+      nl: {
+        htmlLang: 'nl',
+        title: 'Waarom standaard planners niet werken voor een neurodivergent brein — PRISMA Systemen',
+        description: 'Standaard dagplanners werken niet bij ADHD of autisme. Niet omdat jij het probleem bent, maar omdat ze zijn gebouwd voor een ander brein. Dit is wat een planner wel nodig heeft.',
+        navAbout: 'Over PRISMA',
+        navTools: 'Tools',
+        navContact: 'Contact',
+        heroLabel: 'Dagstructuur',
+        heroTitle: 'Waarom standaard planners niet werken voor een neurodivergent brein',
+        articleMeta: 'Geschreven door Fleur Yedgar · Maart 2026 · 5 min lezen',
+        back: '← Terug naar blog',
+        ctaTitle: 'Probeer PRISMA Dag, gratis',
+        ctaText: 'Geen account, geen installatie. Werkt direct in je browser op telefoon of laptop.',
+        ctaButton: 'Open PRISMA Dag',
+        noticeTitle: 'Dit artikel is momenteel alleen in het Nederlands beschikbaar.',
+        noticeText: 'De bloginterface blijft taalconsistent, maar de volledige artikeltekst is nog niet vertaald. Schakel terug naar Nederlands om het artikel te lezen.',
+        footerText: 'Rust en richting voor een neurodivergent brein.',
+        footerTerms: 'Voorwaarden'
+      },
+      en: {
+        htmlLang: 'en',
+        title: 'Why standard planners do not work for a neurodivergent brain — PRISMA Systems',
+        description: 'Standard day planners often do not work for ADHD or autism, not because you are the problem, but because they were built for a different brain. This is what a planner should offer instead.',
+        navAbout: 'About PRISMA',
+        navTools: 'Tools',
+        navContact: 'Contact',
+        heroLabel: 'Daily structure',
+        heroTitle: 'Why standard planners do not work for a neurodivergent brain',
+        articleMeta: 'Written by Fleur Yedgar · March 2026 · 5 min read',
+        back: '← Back to blog',
+        ctaTitle: 'Try PRISMA Day, free',
+        ctaText: 'No account, no installation. Works directly in your browser on phone or laptop.',
+        ctaButton: 'Open PRISMA Day',
+        noticeTitle: 'This article is currently available in Dutch only.',
+        noticeText: 'The blog interface has switched to English, but the full article text has not been translated yet. You can switch back to Dutch to read it, or continue to PRISMA Day in English.',
+        footerText: 'Calm and direction for a neurodivergent brain.',
+        footerTerms: 'Terms'
+      }
+    };
+
+    let currentLang = 'nl';
+
+    function getInitialLanguage() {
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      if (urlLang === 'nl' || urlLang === 'en') return urlLang;
+      const saved = localStorage.getItem('prisma-language');
+      if (saved === 'nl' || saved === 'en') return saved;
+      return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+    }
+
+    function updateLanguageLinks() {
+      document.querySelectorAll('a[href]').forEach((link) => {
+        const raw = link.getAttribute('href');
+        if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return;
+        let url;
+        try { url = new URL(raw, window.location.href); } catch (e) { return; }
+        const isPrisma = url.origin === window.location.origin || url.hostname.includes('prismasystemen.nl');
+        if (!isPrisma) return;
+        const isHtml = url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/');
+        if (!isHtml) return;
+        if (currentLang === 'en') url.searchParams.set('lang', 'en');
+        else url.searchParams.delete('lang');
+        const sameOrigin = url.origin === window.location.origin;
+        link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
+      });
+    }
+
+    function applyTranslations() {
+      const t = I18N[currentLang];
+      document.documentElement.lang = t.htmlLang;
+      document.title = t.title;
+      document.querySelector('meta[name="description"]').setAttribute('content', t.description);
+      document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
+      document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+      ['nav-home','m-home','f-home'].forEach((id) => { document.getElementById(id).textContent = 'Home'; });
+      ['nav-blog','m-blog','f-blog'].forEach((id) => { document.getElementById(id).textContent = 'Blog'; });
+      ['nav-about','m-about','f-about'].forEach((id) => { document.getElementById(id).textContent = t.navAbout; });
+      ['nav-tools','m-tools','f-tools'].forEach((id) => { document.getElementById(id).textContent = t.navTools; });
+      ['nav-contact','m-contact','f-contact'].forEach((id) => { document.getElementById(id).textContent = t.navContact; });
+      document.getElementById('hero-label').textContent = t.heroLabel;
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('article-meta').textContent = t.articleMeta;
+      document.getElementById('back-link').textContent = t.back;
+      document.getElementById('cta-title').textContent = t.ctaTitle;
+      document.getElementById('cta-text').textContent = t.ctaText;
+      document.getElementById('cta-button').textContent = t.ctaButton;
+      document.getElementById('notice-title').textContent = t.noticeTitle;
+      document.getElementById('notice-text').textContent = t.noticeText;
+      document.getElementById('footer-text').textContent = t.footerText;
+      document.getElementById('f-terms').textContent = t.footerTerms;
+
+      const dutchOnly = currentLang === 'en';
+      document.getElementById('article-body').style.display = dutchOnly ? 'none' : 'block';
+      document.getElementById('language-notice').style.display = dutchOnly ? 'block' : 'none';
+
+      updateLanguageLinks();
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('prisma-language', lang);
+      applyTranslations();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      currentLang = getInitialLanguage();
+      applyTranslations();
+    });
+  </script>
+  <script src="nav.js"></script>
 </body>
 </html>
