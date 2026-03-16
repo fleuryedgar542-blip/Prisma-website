@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRISMA Week, Start je abonnement</title>
+<meta name="description" content="Ontdek PRISMA Week, een rustige weekplanner voor neurodivergente mensen met inzicht, patronen en concrete suggesties voor de week erna.">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -589,6 +590,7 @@
     nl: {
       htmlLang: 'nl',
       title: 'PRISMA Week, Start je abonnement',
+      description: 'Ontdek PRISMA Week, een rustige weekplanner voor neurodivergente mensen met inzicht, patronen en concrete suggesties voor de week erna.',
       navBack: '← Terug naar tools',
       heroLabel: 'PRISMA Week',
       heroTitle: 'Niet nog een productiviteitstool.<br><em>Een planner die begint bij hoeveel energie je vandaag écht hebt.</em>',
@@ -631,6 +633,7 @@
     en: {
       htmlLang: 'en',
       title: 'PRISMA Week, Start your subscription',
+      description: 'Discover PRISMA Week, a calm weekly planner for neurodivergent people with insight, patterns, and practical suggestions for the week ahead.',
       navBack: '← Back to tools',
       heroLabel: 'PRISMA Week',
       heroTitle: 'Not another productivity tool.<br><em>A planner that starts with how much energy you actually have today.</em>',
@@ -798,6 +801,7 @@
     const t = translations[currentLang];
     document.documentElement.lang = t.htmlLang;
     document.title = t.title;
+    document.querySelector('meta[name="description"]').setAttribute('content', t.description);
     document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
     document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
     document.querySelector('.nav-terug').textContent = t.navBack;

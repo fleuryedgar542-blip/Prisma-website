@@ -7,7 +7,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="PRISMA">
+<meta name="apple-mobile-web-app-title" content="PRISMA Dag">
+<meta name="description" content="Een rustige dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een dag kunt bouwen die past bij jouw brein.">
 <link rel="manifest" href="manifest-dag.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>PRISMA Dag</title>
@@ -1171,6 +1172,8 @@
     nl: {
       htmlLang: 'nl',
       title: 'PRISMA Dag',
+      description: 'Een rustige dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een dag kunt bouwen die past bij jouw brein.',
+      appTitle: 'PRISMA Dag',
       iosStrong: 'Voeg PRISMA toe aan je beginscherm',
       iosText: 'Tik op ⎙ onderaan → "Zet op beginscherm"',
       androidText: 'Tik hier om te installeren',
@@ -1253,6 +1256,8 @@
     en: {
       htmlLang: 'en',
       title: 'PRISMA Day',
+      description: 'A calm day planner that starts with your energy, needs, and work style, so you can build a day that fits your brain.',
+      appTitle: 'PRISMA Day',
       iosStrong: 'Add PRISMA to your home screen',
       iosText: 'Tap ⎙ at the bottom → "Add to Home Screen"',
       androidText: 'Tap here to install',
@@ -1622,6 +1627,8 @@
     const t = I18N[currentLang];
     document.documentElement.lang = t.htmlLang;
     document.title = t.title;
+    document.querySelector('meta[name="description"]').setAttribute('content', t.description);
+    document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
     document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
     document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
     document.querySelector('#ios-banner strong').textContent = t.iosStrong;
