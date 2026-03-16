@@ -27,11 +27,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="stijl.css" />
   <style>
-    .blog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
     .blog-card { background: var(--wit); border: 1px solid var(--beige-dark); padding: clamp(1.5rem, 4vw, 2rem); text-decoration: none; color: inherit; transition: border-color 0.2s ease, transform 0.2s ease; }
     .blog-card:hover { border-color: var(--grijs-mid); transform: translateY(-2px); color: inherit; }
     .blog-card p { color: var(--grijs-mid); font-size: 0.9rem; line-height: 1.75; }
     .blog-card .meta { display: block; margin-top: 1rem; font-size: 0.78rem; color: var(--grijs-licht); }
+    @media (max-width: 1040px) { .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 720px) { .blog-grid { grid-template-columns: 1fr; } }
   </style>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
@@ -99,6 +100,12 @@
           <h2>Plannen bij lage energie</h2>
           <p>Een zachtere manier van plannen voor periodes van burnout, herstel of gewoon minder belastbaarheid dan je gewend bent.</p>
           <span class="meta">Maart 2026 · 6 min lezen</span>
+        </a>
+        <a href="blog/waarom-plannen-vaak-moeilijker-wordt-wanneer-je-moe-bent.html" class="blog-card fade-in">
+          <span class="content-kicker">Vermoeidheid</span>
+          <h2>Waarom plannen vaak moeilijker wordt wanneer je moe bent</h2>
+          <p>Waarom vermoeidheid plannen niet alleen trager maakt, maar ook mentaal zwaarder en emotioneler geladen.</p>
+          <span class="meta">Maart 2026 · 8 min lezen</span>
         </a>
         <a href="blog/waarom-motivatie-geen-goed-systeem-is-voor-adhd.html" class="blog-card fade-in">
           <span class="content-kicker">ADHD</span>
