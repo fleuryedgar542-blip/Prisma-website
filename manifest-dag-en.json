@@ -1,8 +1,8 @@
 {
-  "name": "PRISMA Dag",
-  "short_name": "PRISMA Dag",
-  "description": "Rustige dagplanner voor neurodivergente jongvolwassenen.",
-  "start_url": "/prisma-dag.html",
+  "name": "PRISMA Day",
+  "short_name": "PRISMA Day",
+  "description": "A calm day planner for neurodivergent young adults.",
+  "start_url": "/prisma-dag.html?lang=en",
   "display": "standalone",
   "background_color": "#F3EFE8",
   "theme_color": "#F3EFE8",
@@ -11,6 +11,6 @@
     {"src": "icon-dag-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
     {"src": "icon-dag-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
   ],
-  "id": "/prisma-dag.html",
+  "id": "/prisma-dag.html?lang=en",
   "scope": "/"
 }

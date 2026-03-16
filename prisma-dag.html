@@ -1629,6 +1629,7 @@
     document.title = t.title;
     document.querySelector('meta[name="description"]').setAttribute('content', t.description);
     document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
+    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-dag-en.json' : 'manifest-dag.json');
     document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
     document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
     document.querySelector('#ios-banner strong').textContent = t.iosStrong;

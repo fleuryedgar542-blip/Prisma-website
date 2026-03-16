@@ -1230,6 +1230,7 @@
   function applyTranslations(){ const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title;
     document.querySelector('meta[name="description"]').setAttribute('content', t.description);
     document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
+    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-prikkel-en.json' : 'manifest-prikkel.json');
     document.getElementById('lang-nl').classList.toggle('active', currentLang==='nl'); document.getElementById('lang-en').classList.toggle('active', currentLang==='en');
     document.querySelector('.logo').textContent=t.headerLogo; document.querySelector('h1').textContent=t.h1; document.querySelectorAll('.subtitle')[0].textContent=t.subtitle1; document.querySelectorAll('.subtitle')[1].innerHTML=t.subtitle2Html;
     t.progress.forEach((txt,i)=>{ const el=document.getElementById('label-'+(i+1)); if(el) el.textContent=txt; });

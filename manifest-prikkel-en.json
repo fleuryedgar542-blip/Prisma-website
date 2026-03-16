@@ -1,8 +1,8 @@
 {
-  "name": "PRISMA Signaal",
-  "short_name": "PRISMA Signaal",
-  "description": "Prikkelcheck in 30 seconden voor neurodivergente mensen.",
-  "start_url": "/prisma-signaal.html",
+  "name": "PRISMA Signal",
+  "short_name": "PRISMA Signal",
+  "description": "A 30-second sensory check-in for neurodivergent people.",
+  "start_url": "/prisma-signaal.html?lang=en",
   "display": "standalone",
   "background_color": "#F3EFE8",
   "theme_color": "#F3EFE8",
@@ -11,6 +11,6 @@
     {"src": "icon-prikkel-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
     {"src": "icon-prikkel-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
   ],
-  "id": "/prisma-signaal.html",
+  "id": "/prisma-signaal.html?lang=en",
   "scope": "/"
 }
