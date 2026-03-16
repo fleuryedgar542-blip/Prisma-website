@@ -711,7 +711,7 @@
     <div class="knoppen-rij">
       <button class="opnieuw-btn" onclick="opnieuw()">↺ Nieuwe check</button>
       <a href="prisma-dag.html" class="week-link">PRISMA Dag →</a>
-      <a href="index.html" class="home-link">← Terug naar PRISMA</a>
+      <a href="/" class="home-link">← Terug naar PRISMA</a>
     </div>
   </div>
 
@@ -1093,7 +1093,7 @@
     },
     en: {
       htmlLang:'en', title:'Sensory overload tracker | PRISMA Signal', description:'Free sensory tracker that helps you check in within 30 seconds and see how much sensory load your system is carrying.', appTitle:'PRISMA Signal',
-      headerLogo:'PRISMA Systems',
+      headerLogo:'PRISMA Systemen',
       h1:'How full is your system right now?',
       subtitle1:'A short check-in for moments when a lot is coming in. Not a diagnosis, but direction.',
       subtitle2Html:'By <em>system</em>, we mean your nervous system: the way your brain and body process input.',
@@ -1271,7 +1271,7 @@
   function getSenseMeta(id){ const index=ZINTUIGEN.findIndex(z=>z.id===id); return index>-1 ? { name: I18N[currentLang].senses[index][0], description: I18N[currentLang].senses[index][1] } : { name: id, description: id }; }
   function getSenseName(id){ return getSenseMeta(id).name; }
   function initContext(){ document.querySelectorAll('.context-tag').forEach((el,i)=>{el.dataset.ctx=CONTEXT_KEYS[i];}); }
-  function updateLanguageLinks(){ document.querySelectorAll('a[href]').forEach((link)=>{ const raw=link.getAttribute('href'); if(!raw||raw.startsWith('#')||raw.startsWith('mailto:')||raw.startsWith('tel:')||raw.includes('lemonsqueezy.com')||raw.includes('paypal')) return; let url; try { url = new URL(raw, window.location.href); } catch(e) { return; } if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return; if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return; if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang'); const sameOrigin=url.origin===window.location.origin; link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString()); }); }
+  function updateLanguageLinks(){}
   function updateSeoTags(){ const baseNl='https://prismasystemen.nl/prisma-signaal.html'; const baseEn='https://prismasystemen.nl/en/prisma-signal.html'; const canonical=new URL(currentLang==='en' ? baseEn : baseNl); document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString()); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link)=>{ const hreflang=link.getAttribute('hreflang'); link.setAttribute('href', hreflang==='en' ? baseEn : baseNl); }); document.querySelector('meta[property="og:title"]').setAttribute('content', document.title); document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString()); document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang==='en' ? 'en_US' : 'nl_NL'); document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title); document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); }
   function applyTranslations(){ const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title;
     document.querySelector('meta[name="description"]').setAttribute('content', t.description);
@@ -1292,8 +1292,8 @@
     updateLanguageLinks();
     if(document.getElementById('resultaat').classList.contains('zichtbaar')) toonResultaat();
   }
-  function getInitialLanguage(){ const urlLang=new URLSearchParams(window.location.search).get('lang'); if(urlLang==='nl'||urlLang==='en') return urlLang; const saved=localStorage.getItem('prisma-language'); if(saved==='nl'||saved==='en') return saved; return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en'; }
-  function setLanguage(lang){ currentLang=lang; localStorage.setItem('prisma-language',lang); applyTranslations(); }
+  function getInitialLanguage(){ return 'nl'; }
+  function setLanguage(lang){ localStorage.setItem('prisma-language',lang); window.location.href = lang === 'en' ? '/en/prisma-signal.html' : '/prisma-signaal.html'; }
   document.addEventListener('DOMContentLoaded',()=>{ initContext(); currentLang=getInitialLanguage(); applyTranslations(); initLanguageObserver(); });
 </script>
 

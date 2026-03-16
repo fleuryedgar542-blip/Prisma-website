@@ -57,9 +57,9 @@
 </head>
 <body>
   <nav id="nav">
-    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
+    <a href="/" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
     <ul class="nav-links">
-      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="/" id="nav-home">Home</a></li>
       <li><a href="over.html" id="nav-about">Over PRISMA</a></li>
       <li><a href="tools.html" id="nav-tools">Tools</a></li>
       <li><a href="contact.html" id="nav-contact">Contact</a></li>
@@ -71,7 +71,7 @@
   </nav>
 
   <div class="mobiel-menu" id="mobiel-menu">
-    <a href="index.html" id="m-home">Home</a>
+    <a href="/" id="m-home">Home</a>
     <a href="over.html" id="m-about">Over PRISMA</a>
     <a href="tools.html" id="m-tools">Tools</a>
     <a href="contact.html" id="m-contact">Contact</a>
@@ -145,7 +145,7 @@
         <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
         <p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein.</p>
         <ul class="footer-nav">
-          <li><a href="index.html" id="f-home">Home</a></li>
+          <li><a href="/" id="f-home">Home</a></li>
           <li><a href="over.html" id="f-about">Over PRISMA</a></li>
           <li><a href="tools.html" id="f-tools">Tools</a></li>
           <li><a href="contact.html" id="f-contact">Contact</a></li>
@@ -218,7 +218,7 @@
       },
       en: {
         htmlLang: 'en',
-        title: 'Why standard planners do not work for a neurodivergent brain — PRISMA Systems',
+        title: 'Why standard planners do not work for a neurodivergent brain — PRISMA Systemen',
         description: 'Standard day planners often do not work for ADHD or autism, not because you are the problem, but because they were built for a different brain. This is what a planner should offer instead.',
         navAbout: 'About PRISMA',
         navTools: 'Tools',
@@ -278,11 +278,7 @@
     let currentLang = 'nl';
 
     function getInitialLanguage() {
-      const urlLang = new URLSearchParams(window.location.search).get('lang');
-      if (urlLang === 'nl' || urlLang === 'en') return urlLang;
-      const saved = localStorage.getItem('prisma-language');
-      if (saved === 'nl' || saved === 'en') return saved;
-      return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+      return 'nl';
     }
 
     function updateLanguageLinks() {
@@ -325,9 +321,8 @@
     }
 
     function setLanguage(lang) {
-      currentLang = lang;
       localStorage.setItem('prisma-language', lang);
-      applyTranslations();
+      window.location.href = lang === 'en' ? '/en/blog/adhd-day-planner-why-standard-planners-do-not-work.html' : '/blog/dagplanner-adhd.html';
     }
 
     document.addEventListener('DOMContentLoaded', () => {

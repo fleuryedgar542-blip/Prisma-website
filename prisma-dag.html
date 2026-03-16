@@ -867,7 +867,7 @@
       <a href="prisma-week-kopen.html" class="weektracker-brug-btn">Bekijk PRISMA Week →</a>
     </div>
 
-    <a href="index.html" class="home-link">← Terug naar PRISMA</a>
+    <a href="/" class="home-link">← Terug naar PRISMA</a>
   </div>
 
 </div>
@@ -1631,20 +1631,12 @@
   }
 
   function getInitialLanguage() {
-    const urlLang = new URLSearchParams(window.location.search).get('lang');
-    if (urlLang === 'nl' || urlLang === 'en') return urlLang;
-    const saved = localStorage.getItem('prisma-language');
-    if (saved === 'nl' || saved === 'en') return saved;
-    return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+    return 'nl';
   }
 
   function setLanguage(lang) {
-    currentLang = lang;
     localStorage.setItem('prisma-language', lang);
-    applyTranslations();
-    if (document.getElementById('resultaat').classList.contains('zichtbaar')) {
-      toonResultaat();
-    }
+    window.location.href = lang === 'en' ? '/en/prisma-day.html' : '/prisma-dag.html';
   }
 
   function initDagDatasets() {
@@ -1653,19 +1645,7 @@
     });
   }
 
-  function updateLanguageLinks() {
-    document.querySelectorAll('a[href]').forEach((link) => {
-      const raw = link.getAttribute('href');
-      if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:') || raw.includes('lemonsqueezy.com') || raw.includes('paypal')) return;
-      let url;
-      try { url = new URL(raw, window.location.href); } catch (e) { return; }
-      if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return;
-      if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return;
-      if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
-      const sameOrigin = url.origin === window.location.origin;
-      link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
-    });
-  }
+  function updateLanguageLinks() {}
 
   function updateSeoTags() {
     const baseNl = 'https://prismasystemen.nl/prisma-dag.html';

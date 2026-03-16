@@ -15,12 +15,12 @@
 <link rel="alternate" hreflang="en" href="https://prismasystemen.nl/en/prisma-day.html">
 <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-dag.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="PRISMA Systems">
+<meta property="og:site_name" content="PRISMA Systemen">
 <meta property="og:title" content="ADHD day planner based on energy | PRISMA Day">
 <meta property="og:description" content="ADHD day planner based on energy, needs and work style, so you can build a realistic day that fits the way your brain works.">
 <meta property="og:url" content="https://prismasystemen.nl/en/prisma-day.html">
 <meta property="og:image" content="https://prismasystemen.nl/logo.png">
-<meta property="og:image:alt" content="PRISMA Systems logo">
+<meta property="og:image:alt" content="PRISMA Systemen logo">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ADHD day planner based on energy | PRISMA Day">
@@ -47,7 +47,7 @@
   },
   "creator": {
     "@type": "Organization",
-    "name": "PRISMA Systems",
+    "name": "PRISMA Systemen",
     "url": "https://prismasystemen.nl/en/"
   },
   "featureList": [
@@ -867,7 +867,7 @@
       <a href="prisma-week-buy.html" class="weektracker-brug-btn">View PRISMA Week →</a>
     </div>
 
-    <a href="index.html" class="home-link">← Back to PRISMA</a>
+    <a href="/en/" class="home-link">← Back to PRISMA</a>
   </div>
 
 </div>
@@ -1631,18 +1631,12 @@
   }
 
   function getInitialLanguage() {
-    const urlLang = new URLSearchParams(window.location.search).get('lang');
-    if (urlLang === 'nl' || urlLang === 'en') return urlLang;
     return 'en';
   }
 
   function setLanguage(lang) {
-    currentLang = lang;
     localStorage.setItem('prisma-language', lang);
-    applyTranslations();
-    if (document.getElementById('resultaat').classList.contains('zichtbaar')) {
-      toonResultaat();
-    }
+    window.location.href = lang === 'nl' ? '/prisma-dag.html' : '/en/prisma-day.html';
   }
 
   function initDagDatasets() {
@@ -1651,19 +1645,7 @@
     });
   }
 
-  function updateLanguageLinks() {
-    document.querySelectorAll('a[href]').forEach((link) => {
-      const raw = link.getAttribute('href');
-      if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:') || raw.includes('lemonsqueezy.com') || raw.includes('paypal')) return;
-      let url;
-      try { url = new URL(raw, window.location.href); } catch (e) { return; }
-      if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return;
-      if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return;
-      if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
-      const sameOrigin = url.origin === window.location.origin;
-      link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString());
-    });
-  }
+  function updateLanguageLinks() {}
 
   function updateSeoTags() {
     const baseNl = 'https://prismasystemen.nl/prisma-dag.html';

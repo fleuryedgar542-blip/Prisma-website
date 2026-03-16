@@ -71,9 +71,9 @@
 </head>
 <body>
   <nav id="nav">
-    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
+    <a href="/" class="nav-logo"><img src="logo.png" alt="PRISMA Systemen" /></a>
     <ul class="nav-links">
-      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="/" id="nav-home">Home</a></li>
       <li><a href="over.html" id="nav-about">Over PRISMA</a></li>
       <li><a href="tools.html" id="nav-tools">Tools</a></li>
       <li><a href="contact.html" class="actief" id="nav-contact">Contact</a></li>
@@ -82,7 +82,7 @@
     <button class="hamburger" id="hamburger" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </nav>
   <div class="mobiel-menu" id="mobiel-menu">
-    <a href="index.html" id="m-home">Home</a>
+    <a href="/" id="m-home">Home</a>
     <a href="over.html" id="m-about">Over PRISMA</a>
     <a href="tools.html" id="m-tools">Tools</a>
     <a href="contact.html" class="actief" id="m-contact">Contact</a>
@@ -152,7 +152,7 @@
         <div class="footer-logo"><img src="logo.png" alt="PRISMA Systemen" /></div>
         <p class="footer-tekst" id="footer-text">Rust en richting voor een neurodivergent brein.</p>
         <ul class="footer-nav">
-          <li><a href="index.html" id="f-home">Home</a></li>
+          <li><a href="/" id="f-home">Home</a></li>
           <li><a href="over.html" id="f-about">Over PRISMA</a></li>
           <li><a href="tools.html" id="f-tools">Tools</a></li>
           <li><a href="contact.html" class="actief" id="f-contact">Contact</a></li>
@@ -188,8 +188,8 @@
       },
       en: {
         htmlLang: 'en',
-        title: 'Contact PRISMA Systems',
-        description: 'Get in touch with PRISMA Systems about ADHD planning, neurodivergent tools, coaching, or collaboration.',
+        title: 'Contact PRISMA Systemen',
+        description: 'Get in touch with PRISMA Systemen about ADHD planning, neurodivergent tools, coaching, or collaboration.',
         navAbout: 'About PRISMA', navTools: 'Tools', navContact: 'Contact',
         heroLabel: 'Contact',
         heroTitle: 'Have a question? You can just email me.',
@@ -211,11 +211,7 @@
     let currentLang = 'nl';
 
     function getInitialLanguage() {
-      var urlLang = new URLSearchParams(window.location.search).get('lang');
-      if (urlLang === 'nl' || urlLang === 'en') return urlLang;
-      var saved = localStorage.getItem('prisma-language');
-      if (saved === 'nl' || saved === 'en') return saved;
-      return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en';
+      return 'nl';
     }
 
     function updateLanguageLinks() {
@@ -271,9 +267,8 @@
     }
 
     function setLanguage(lang) {
-      currentLang = lang;
       localStorage.setItem('prisma-language', lang);
-      applyTranslations();
+      window.location.href = lang === 'en' ? '/en/contact.html' : '/contact.html';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
