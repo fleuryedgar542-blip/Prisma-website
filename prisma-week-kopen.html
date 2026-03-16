@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-seo-base="https://prismasystemen.nl/prisma-week-kopen.html">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRISMA Week, Start je abonnement</title>
-<meta name="description" content="Ontdek PRISMA Week, een rustige weekplanner voor neurodivergente mensen met inzicht, patronen en concrete suggesties voor de week erna.">
+<title>ADHD weekplanner abonnement | PRISMA Week</title>
+<meta name="description" content="Start PRISMA Week: een rustige ADHD weekplanner met inzicht in energie, patronen en concrete suggesties voor de week erna.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prismasystemen.nl/prisma-week-kopen.html">
+<link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-week-kopen.html">
+<link rel="alternate" hreflang="en" href="https://prismasystemen.nl/prisma-week-kopen.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-week-kopen.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PRISMA Systemen">
+<meta property="og:title" content="ADHD weekplanner abonnement | PRISMA Week">
+<meta property="og:description" content="Start PRISMA Week: een rustige ADHD weekplanner met inzicht in energie, patronen en concrete suggesties voor de week erna.">
+<meta property="og:url" content="https://prismasystemen.nl/prisma-week-kopen.html">
+<meta property="og:image" content="https://prismasystemen.nl/logo.png">
+<meta property="og:image:alt" content="PRISMA Systemen logo">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ADHD weekplanner abonnement | PRISMA Week">
+<meta name="twitter:description" content="Start PRISMA Week: een rustige ADHD weekplanner met inzicht in energie, patronen en concrete suggesties voor de week erna.">
+<meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PRISMA Week",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Web browser, iOS, Android",
+  "url": "https://prismasystemen.nl/prisma-week-kopen.html",
+  "description": "Rustige ADHD weekplanner met inzicht in energie, patronen en concrete suggesties voor de week erna.",
+  "inLanguage": ["nl", "en"],
+  "offers": {
+    "@type": "Offer",
+    "price": "5.99",
+    "priceCurrency": "EUR"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "PRISMA Systemen",
+    "url": "https://prismasystemen.nl/"
+  }
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -589,8 +628,8 @@
   const translations = {
     nl: {
       htmlLang: 'nl',
-      title: 'PRISMA Week, Start je abonnement',
-      description: 'Ontdek PRISMA Week, een rustige weekplanner voor neurodivergente mensen met inzicht, patronen en concrete suggesties voor de week erna.',
+      title: 'ADHD weekplanner abonnement | PRISMA Week',
+      description: 'Start PRISMA Week: een rustige ADHD weekplanner met inzicht in energie, patronen en concrete suggesties voor de week erna.',
       navBack: '← Terug naar tools',
       heroLabel: 'PRISMA Week',
       heroTitle: 'Niet nog een productiviteitstool.<br><em>Een planner die begint bij hoeveel energie je vandaag écht hebt.</em>',
@@ -632,8 +671,8 @@
     },
     en: {
       htmlLang: 'en',
-      title: 'PRISMA Week, Start your subscription',
-      description: 'Discover PRISMA Week, a calm weekly planner for neurodivergent people with insight, patterns, and practical suggestions for the week ahead.',
+      title: 'ADHD weekly planner subscription | PRISMA Week',
+      description: 'Start PRISMA Week: a calm ADHD weekly planner with insight into energy, patterns, and practical suggestions for the week ahead.',
       navBack: '← Back to tools',
       heroLabel: 'PRISMA Week',
       heroTitle: 'Not another productivity tool.<br><em>A planner that starts with how much energy you actually have today.</em>',
@@ -797,6 +836,24 @@
     });
   }
 
+  function updateSeoTags() {
+    const base = 'https://prismasystemen.nl/prisma-week-kopen.html';
+    const canonical = new URL(base);
+    if (currentLang === 'en') canonical.searchParams.set('lang', 'en');
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString());
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
+      const alt = new URL(base);
+      if (link.getAttribute('hreflang') === 'en') alt.searchParams.set('lang', 'en');
+      link.setAttribute('href', alt.toString());
+    });
+    document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content'));
+    document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString());
+    document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang === 'en' ? 'en_US' : 'nl_NL');
+    document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title);
+    document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content'));
+  }
+
   function applyTranslations() {
     const t = translations[currentLang];
     document.documentElement.lang = t.htmlLang;
@@ -827,6 +884,7 @@
     document.querySelectorAll('.footer-links a').forEach((el, index) => {
       if (t.footer[index] !== undefined) el.textContent = t.footer[index];
     });
+    updateSeoTags();
     updateLanguageLinks();
     scheduleLanguagePass();
   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-seo-base="https://prismasystemen.nl/prisma-week.html">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,55 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="PRISMA Week">
-<meta name="description" content="Houd zeven dagen je energie en behoeften bij, ontdek patronen en krijg rustige, concrete inzichten voor de week erna.">
+<meta name="description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prismasystemen.nl/prisma-week.html">
+<link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-week.html">
+<link rel="alternate" hreflang="en" href="https://prismasystemen.nl/prisma-week.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-week.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PRISMA Systemen">
+<meta property="og:title" content="ADHD weekplanner met energie-inzicht | PRISMA Week">
+<meta property="og:description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta property="og:url" content="https://prismasystemen.nl/prisma-week.html">
+<meta property="og:image" content="https://prismasystemen.nl/logo.png">
+<meta property="og:image:alt" content="PRISMA Systemen logo">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ADHD weekplanner met energie-inzicht | PRISMA Week">
+<meta name="twitter:description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link rel="manifest" href="manifest-week.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<title>PRISMA Week</title>
+<link rel="apple-touch-icon" href="icon-week-192.png">
+<title>ADHD weekplanner met energie-inzicht | PRISMA Week</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PRISMA Week",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Web browser, iOS, Android",
+  "url": "https://prismasystemen.nl/prisma-week.html",
+  "description": "ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.",
+  "inLanguage": ["nl", "en"],
+  "offers": {
+    "@type": "Offer",
+    "price": "5.99",
+    "priceCurrency": "EUR"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "PRISMA Systemen",
+    "url": "https://prismasystemen.nl/"
+  },
+  "featureList": [
+    "Zeven dagen energie en behoeften bijhouden",
+    "Week- en maandoverzicht met patronen",
+    "Herinneringen en rustige inzichten"
+  ]
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -1217,7 +1261,7 @@
 <div class="intro-overlay" id="intro-overlay">
   <div class="intro-blok">
     <div class="intro-logo">PRISMA Week</div>
-    <h2>Zeven dagen je energie bijhouden.</h2>
+    <h1>Zeven dagen je energie bijhouden.</h1>
     <p class="intro-blok-tekst">
       Elke dag één check-in: hoe is je energie, wat had je nodig, wat werkte?
       Aan het einde van de week zie je het patroon, en wat je de week erna anders kan doen.
@@ -1257,7 +1301,7 @@
   <!-- WEEKOVERZICHT -->
   <div id="page-week" class="page">
     <div class="page-label">Weekoverzicht</div>
-    <h1>Hoe was je week?</h1>
+    <h2>Hoe was je week?</h2>
     <p class="page-subtitle">Een overzicht van je energieniveaus en wat je ervan kan leren voor volgende week.</p>
     <div class="week-grid" id="week-grid"></div>
     <div id="week-analyse"></div>
@@ -1266,7 +1310,7 @@
   <!-- MAANDOVERZICHT -->
   <div id="page-maand" class="page">
     <div class="page-label">Maandoverzicht</div>
-    <h1>Jouw maand in energie</h1>
+    <h2>Jouw maand in energie</h2>
     <p class="page-subtitle">Alle opgeslagen weken op een rij. Zo zie je patronen over langere tijd.</p>
     <div class="maand-grid" id="maand-grid"></div>
     <button class="nieuw-week-btn" onclick="nieuweWeek()">↺ Nieuwe week starten</button>
@@ -1277,7 +1321,7 @@
   <!-- HERINNERINGEN -->
   <div id="page-notif" class="page">
     <div class="page-label">Herinneringen</div>
-    <h1>Dagelijkse herinnering</h1>
+    <h2>Dagelijkse herinnering</h2>
     <p class="page-subtitle">Kies een tijdstip. Dan geeft PRISMA Week je een seintje om in te checken.</p>
 
     <div class="notif-kaart">
@@ -1355,8 +1399,8 @@
     ' Je volgt je energie van moment tot moment, vertrouw dat en geef jezelf de ruimte om bij te sturen.':' You follow your energy from moment to moment, trust that and give yourself room to adjust.'
   };
   const WEEK_UI = {
-    nl:{title:'PRISMA Week', description:'Houd zeven dagen je energie en behoeften bij, ontdek patronen en krijg rustige, concrete inzichten voor de week erna.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie vandaag?', daySubtitle:'Geen goed of fout antwoord. Je energie is informatie, geen oordeel.', dayLabel:'Deze week, ', weekLabel:'Weekoverzicht', weekTitle:'Hoe was je week?', weekSubtitle:'Een overzicht van je energieniveaus en wat je ervan kan leren voor volgende week.', monthLabel:'Maandoverzicht', monthTitle:'Jouw maand in energie', monthSubtitle:'Alle opgeslagen weken op een rij. Zo zie je patronen over langere tijd.', monthBtn:'↺ Nieuwe week starten', home:'← Terug naar de website', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip. Dan geeft PRISMA Week je een seintje om in te checken.', next:'Verder →', back:'← Terug', save:'Dag opslaan →', introLogo:'PRISMA Week', introTitle:'Zeven dagen je energie bijhouden.', introBtn:'Beginnen →'},
-    en:{title:'PRISMA Week', description:'Track your energy and needs for seven days, spot patterns, and get calm, practical insights for the week ahead.', appTitle:'PRISMA Week', dayTitle:'How is your energy today?', daySubtitle:'There is no right or wrong answer. Your energy is information, not a judgment.', dayLabel:'This week, ', weekLabel:'Weekly overview', weekTitle:'How was your week?', weekSubtitle:'An overview of your energy levels and what you can learn from them for next week.', monthLabel:'Monthly overview', monthTitle:'Your month in energy', monthSubtitle:'All saved weeks in one place. This helps you spot patterns over a longer period.', monthBtn:'↺ Start a new week', home:'← Back to the website', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time. PRISMA Week will then give you a gentle nudge to check in.', next:'Next →', back:'← Back', save:'Save day →', introLogo:'PRISMA Week', introTitle:'Track your energy for seven days.', introBtn:'Start →'}
+    nl:{title:'ADHD weekplanner met energie-inzicht | PRISMA Week', description:'ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie vandaag?', daySubtitle:'Geen goed of fout antwoord. Je energie is informatie, geen oordeel.', dayLabel:'Deze week, ', weekLabel:'Weekoverzicht', weekTitle:'Hoe was je week?', weekSubtitle:'Een overzicht van je energieniveaus en wat je ervan kan leren voor volgende week.', monthLabel:'Maandoverzicht', monthTitle:'Jouw maand in energie', monthSubtitle:'Alle opgeslagen weken op een rij. Zo zie je patronen over langere tijd.', monthBtn:'↺ Nieuwe week starten', home:'← Terug naar de website', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip. Dan geeft PRISMA Week je een seintje om in te checken.', next:'Verder →', back:'← Terug', save:'Dag opslaan →', introLogo:'PRISMA Week', introTitle:'Zeven dagen je energie bijhouden.', introBtn:'Beginnen →'},
+    en:{title:'ADHD weekly planner with energy insights | PRISMA Week', description:'ADHD weekly planner that helps you track your energy and needs for seven days, spot patterns, and get calm insights for the week ahead.', appTitle:'PRISMA Week', dayTitle:'How is your energy today?', daySubtitle:'There is no right or wrong answer. Your energy is information, not a judgment.', dayLabel:'This week, ', weekLabel:'Weekly overview', weekTitle:'How was your week?', weekSubtitle:'An overview of your energy levels and what you can learn from them for next week.', monthLabel:'Monthly overview', monthTitle:'Your month in energy', monthSubtitle:'All saved weeks in one place. This helps you spot patterns over a longer period.', monthBtn:'↺ Start a new week', home:'← Back to the website', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time. PRISMA Week will then give you a gentle nudge to check in.', next:'Next →', back:'← Back', save:'Save day →', introLogo:'PRISMA Week', introTitle:'Track your energy for seven days.', introBtn:'Start →'}
   };
   const DAY_NAMES = { nl:{ma:'Maandag',di:'Dinsdag',wo:'Woensdag',do:'Donderdag',vr:'Vrijdag',za:'Zaterdag',zo:'Zondag'}, en:{ma:'Monday',di:'Tuesday',wo:'Wednesday',do:'Thursday',vr:'Friday',za:'Saturday',zo:'Sunday'} };
   const DAY_SHORT = { nl:{ma:'Ma',di:'Di',wo:'Wo',do:'Do',vr:'Vr',za:'Za',zo:'Zo'}, en:{ma:'Mon',di:'Tue',wo:'Wed',do:'Thu',vr:'Fri',za:'Sat',zo:'Sun'} };
@@ -1484,7 +1528,8 @@
   function initWeekDatasets(){ document.querySelectorAll('.behoefte-tag').forEach((el, i)=>{ el.dataset.need = BEHOEFTE_KEYS[i % BEHOEFTE_KEYS.length]; }); }
   function getInitialLanguage(){ const urlLang=new URLSearchParams(window.location.search).get('lang'); if(urlLang==='nl'||urlLang==='en') return urlLang; const saved=localStorage.getItem('prisma-language'); if(saved==='nl'||saved==='en') return saved; return navigator.language && navigator.language.toLowerCase().startsWith('nl') ? 'nl' : 'en'; }
   function setLanguage(lang){ currentLang=lang; localStorage.setItem('prisma-language',lang); applyWeekTranslations(); }
-  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-week-en.json' : 'manifest-week.json'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent=t.title; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h2').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h1').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h1').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h1').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateLanguageLinks(); }
+  function updateSeoTags(){ const base='https://prismasystemen.nl/prisma-week.html'; const canonical=new URL(base); if(currentLang==='en') canonical.searchParams.set('lang','en'); document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString()); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link)=>{ const alt=new URL(base); if(link.getAttribute('hreflang')==='en') alt.searchParams.set('lang','en'); link.setAttribute('href', alt.toString()); }); document.querySelector('meta[property="og:title"]').setAttribute('content', document.title); document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString()); document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang==='en' ? 'en_US' : 'nl_NL'); document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title); document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); }
+  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-week-en.json' : 'manifest-week.json'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); }
   document.addEventListener('DOMContentLoaded',()=>{ currentLang=getInitialLanguage(); initWeekDatasets(); applyWeekTranslations(); initLanguageObserver(); });
 </script>
 
@@ -1518,7 +1563,7 @@
     const levelDesc = getLevelDescriptions();
     return `
       <div class="page-label">${WEEK_UI[currentLang].dayLabel}${dayNames[dag]}</div>
-      <h1>${WEEK_UI[currentLang].dayTitle}</h1>
+      <h2>${WEEK_UI[currentLang].dayTitle}</h2>
       <p class="page-subtitle">${WEEK_UI[currentLang].daySubtitle}</p>
       <div class="dag-voortgang" id="voortgang-${dag}"><div class="dag-stap-item"><div class="dag-stap-cirkel actief" id="dcirkel-${dag}-1">1</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-1"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-2">2</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-2"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-3">3</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-3"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-4">4</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-4"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-5">5</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-5"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-6">6</div></div></div>
       <div class="dag-substap actief" id="dstap-${dag}-1"><div class="section-label">${ui.section1}</div><div class="energie-schaal" id="schaal-${dag}">${[1,2,3,4,5].map(n => `<div class="energie-optie" data-niveau="${n}" onclick="selecteerEnergie('${dag}', this)"><div class="energie-nummer">${n}</div><div class="energie-info"><div class="energie-naam">${levelNames[n]}</div><div class="energie-omschrijving">${levelDesc[n]}</div></div><div class="energie-dot"></div></div>`).join('')}</div><div class="dag-stap-hint" id="dhint-${dag}"></div><div class="dag-knop-rij"><button class="dag-verder-btn" id="dbtn-${dag}-1" onclick="dagNaarStap('${dag}', 2)" disabled>${WEEK_UI[currentLang].next}</button></div></div>

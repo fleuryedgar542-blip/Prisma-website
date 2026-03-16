@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" data-seo-base="https://prismasystemen.nl/prisma-dag.html">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,55 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="PRISMA Dag">
-<meta name="description" content="Een rustige dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een dag kunt bouwen die past bij jouw brein.">
+<meta name="description" content="ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://prismasystemen.nl/prisma-dag.html">
+<link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-dag.html">
+<link rel="alternate" hreflang="en" href="https://prismasystemen.nl/prisma-dag.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-dag.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PRISMA Systemen">
+<meta property="og:title" content="ADHD dagplanner op basis van energie | PRISMA Dag">
+<meta property="og:description" content="ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.">
+<meta property="og:url" content="https://prismasystemen.nl/prisma-dag.html">
+<meta property="og:image" content="https://prismasystemen.nl/logo.png">
+<meta property="og:image:alt" content="PRISMA Systemen logo">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ADHD dagplanner op basis van energie | PRISMA Dag">
+<meta name="twitter:description" content="ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.">
+<meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link rel="manifest" href="manifest-dag.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<title>PRISMA Dag</title>
+<link rel="apple-touch-icon" href="icon-dag-192.png">
+<title>ADHD dagplanner op basis van energie | PRISMA Dag</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PRISMA Dag",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "Web browser, iOS, Android",
+  "url": "https://prismasystemen.nl/prisma-dag.html",
+  "description": "ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.",
+  "inLanguage": ["nl", "en"],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "PRISMA Systemen",
+    "url": "https://prismasystemen.nl/"
+  },
+  "featureList": [
+    "Dagelijkse check-in op energie",
+    "Behoeften en werkstijl meenemen",
+    "Persoonlijk advies zonder account"
+  ]
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -1171,8 +1215,8 @@
   const I18N = {
     nl: {
       htmlLang: 'nl',
-      title: 'PRISMA Dag',
-      description: 'Een rustige dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een dag kunt bouwen die past bij jouw brein.',
+      title: 'ADHD dagplanner op basis van energie | PRISMA Dag',
+      description: 'ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.',
       appTitle: 'PRISMA Dag',
       iosStrong: 'Voeg PRISMA toe aan je beginscherm',
       iosText: 'Tik op ⎙ onderaan → "Zet op beginscherm"',
@@ -1255,8 +1299,8 @@
     },
     en: {
       htmlLang: 'en',
-      title: 'PRISMA Day',
-      description: 'A calm day planner that starts with your energy, needs, and work style, so you can build a day that fits your brain.',
+      title: 'ADHD day planner based on energy | PRISMA Day',
+      description: 'ADHD day planner that starts with your energy, needs, and work style, so you can build a realistic day that fits your brain.',
       appTitle: 'PRISMA Day',
       iosStrong: 'Add PRISMA to your home screen',
       iosText: 'Tap ⎙ at the bottom → "Add to Home Screen"',
@@ -1623,6 +1667,24 @@
     });
   }
 
+  function updateSeoTags() {
+    const base = 'https://prismasystemen.nl/prisma-dag.html';
+    const canonical = new URL(base);
+    if (currentLang === 'en') canonical.searchParams.set('lang', 'en');
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString());
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
+      const alt = new URL(base);
+      if (link.getAttribute('hreflang') === 'en') alt.searchParams.set('lang', 'en');
+      link.setAttribute('href', alt.toString());
+    });
+    document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content'));
+    document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString());
+    document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang === 'en' ? 'en_US' : 'nl_NL');
+    document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title);
+    document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content'));
+  }
+
   function applyTranslations() {
     const t = I18N[currentLang];
     document.documentElement.lang = t.htmlLang;
@@ -1682,6 +1744,7 @@
     if (geselecteerdNiveau) {
       document.getElementById('hint-1').textContent = getNiveauHints()[geselecteerdNiveau];
     }
+    updateSeoTags();
     updateLanguageLinks();
     scheduleLanguagePass();
   }

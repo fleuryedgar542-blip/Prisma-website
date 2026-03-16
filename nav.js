@@ -23,6 +23,50 @@ function syncHamburgerLabel() {
   hamburger.setAttribute('aria-label', getMenuLabel(hamburger.classList.contains('open')));
 }
 
+function buildLanguageUrl(baseUrl, lang) {
+  try {
+    const url = new URL(baseUrl);
+    if (lang === 'en') url.searchParams.set('lang', 'en');
+    else url.searchParams.delete('lang');
+    return url.toString();
+  } catch (error) {
+    return baseUrl;
+  }
+}
+
+function syncSeoMetadata() {
+  const baseUrl = document.documentElement.dataset.seoBase;
+  if (!baseUrl) return;
+
+  const lang = getCurrentLanguage();
+  const canonicalUrl = buildLanguageUrl(baseUrl, lang);
+  const title = document.title;
+  const description = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', canonicalUrl);
+
+  document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
+    const hreflang = link.getAttribute('hreflang');
+    if (hreflang === 'en') link.setAttribute('href', buildLanguageUrl(baseUrl, 'en'));
+    else link.setAttribute('href', buildLanguageUrl(baseUrl, 'nl'));
+  });
+
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  const ogLocale = document.querySelector('meta[property="og:locale"]');
+  const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+  const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+
+  if (ogTitle) ogTitle.setAttribute('content', title);
+  if (ogDescription) ogDescription.setAttribute('content', description);
+  if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+  if (ogLocale) ogLocale.setAttribute('content', lang === 'en' ? 'en_US' : 'nl_NL');
+  if (twitterTitle) twitterTitle.setAttribute('content', title);
+  if (twitterDescription) twitterDescription.setAttribute('content', description);
+}
+
 // Schaduw bij scrollen (alleen wanneer nav aanwezig is)
 if (nav) {
   window.addEventListener('scroll', () => {
@@ -51,10 +95,11 @@ if (hamburger && mobielMenu) {
   });
 }
 
-const htmlObserver = new MutationObserver(syncHamburgerLabel);
-htmlObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 window.addEventListener('storage', (event) => {
-  if (event.key === 'prisma-language') syncHamburgerLabel();
+  if (event.key === 'prisma-language') {
+    syncHamburgerLabel();
+    syncSeoMetadata();
+  }
 });
 
 // Fade-in bij scrollen
@@ -71,3 +116,11 @@ if (elementen.length) {
 
   elementen.forEach((el) => waarnemer.observe(el));
 }
+
+const htmlObserver = new MutationObserver(() => {
+  syncHamburgerLabel();
+  syncSeoMetadata();
+});
+htmlObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+document.addEventListener('DOMContentLoaded', syncSeoMetadata);
