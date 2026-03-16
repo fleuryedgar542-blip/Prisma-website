@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl" data-seo-base="https://prismasystemen.nl/">
+<html lang="nl" data-seo-nl="https://prismasystemen.nl/" data-seo-en="https://prismasystemen.nl/en/">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <link rel="canonical" href="https://prismasystemen.nl/" />
   <link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/" />
-  <link rel="alternate" hreflang="en" href="https://prismasystemen.nl/?lang=en" />
+  <link rel="alternate" hreflang="en" href="https://prismasystemen.nl/en/" />
   <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PRISMA Systemen" />
@@ -494,6 +494,32 @@
 
   <hr class="lijn" />
 
+  <section class="sectie sectie-beige">
+    <div class="container">
+      <span class="sectie-label" id="read-label">Verdiep je verder</span>
+      <h2 id="read-title">Landingspagina's voor de vragen waarmee mensen hier vaak binnenkomen</h2>
+      <div class="resource-grid fade-in" style="margin-top: 1.5rem;">
+        <a href="adhd-dagplanner.html" class="resource-card">
+          <span id="read-card-1-label">ADHD</span>
+          <h3 id="read-card-1-title">ADHD dagplanner</h3>
+          <p id="read-card-1-text">Waarom plannen per dag lastig kan zijn met ADHD, en hoe PRISMA Dag helpt om rustiger en realistischer te beginnen.</p>
+        </a>
+        <a href="adhd-weekplanner.html" class="resource-card">
+          <span id="read-card-2-label">Weekplanning</span>
+          <h3 id="read-card-2-title">ADHD weekplanner</h3>
+          <p id="read-card-2-text">Hoe je een week bouwt als energie niet stabiel is en standaard weekplanners te groot of te strak voelen.</p>
+        </a>
+        <a href="planner-voor-autisme.html" class="resource-card">
+          <span id="read-card-3-label">Autisme</span>
+          <h3 id="read-card-3-title">Planner voor autisme</h3>
+          <p id="read-card-3-text">Voor behoefte aan rust, voorspelbaarheid en een planner die minder prikkels toevoegt in plaats van meer.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
   <!-- AFSLUITING -->
   <section class="sectie sectie-beige">
     <div class="container">
@@ -568,6 +594,13 @@
         signaalIntro: 'Een rustige tool die je helpt eerder te herkennen wanneer je lichaam en brein aangeven dat je moet vertragen.',
         signaalItems: ['signalen van overprikkeling opmerken', 'eerder bijsturen voordat het te veel wordt', 'meer bewustwording opbouwen zonder extra druk'],
         signaalBtn: 'Ontdek PRISMA Signaal',
+        readLabel: 'Verdiep je verder',
+        readTitle: 'Landingspagina\'s voor de vragen waarmee mensen hier vaak binnenkomen',
+        readCards: [
+          ['ADHD', 'ADHD dagplanner', 'Waarom plannen per dag lastig kan zijn met ADHD, en hoe PRISMA Dag helpt om rustiger en realistischer te beginnen.'],
+          ['Weekplanning', 'ADHD weekplanner', 'Hoe je een week bouwt als energie niet stabiel is en standaard weekplanners te groot of te strak voelen.'],
+          ['Autisme', 'Planner voor autisme', 'Voor behoefte aan rust, voorspelbaarheid en een planner die minder prikkels toevoegt in plaats van meer.']
+        ],
         slotTitle: 'Je hebt geen extra discipline nodig.',
         slotText: 'Je hebt systemen nodig die werken met jouw brein.',
         slotTagline: 'PRISMA is daarvoor gebouwd.',
@@ -615,6 +648,13 @@
         signaalIntro: 'A calm tool that helps you notice earlier when your body and brain are telling you to slow down.',
         signaalItems: ['notice signs of overstimulation', 'adjust earlier before it becomes too much', 'build more awareness without extra pressure'],
         signaalBtn: 'Explore PRISMA Signal',
+        readLabel: 'Read next',
+        readTitle: 'Landing pages for the questions people most often arrive here with',
+        readCards: [
+          ['ADHD', 'ADHD day planner', 'Why daily planning can feel hard with ADHD, and how PRISMA Day helps you start more calmly and realistically.'],
+          ['Weekly planning', 'ADHD weekly planner', 'How to build a week when energy is not stable and ordinary weekly planners feel too big or too rigid.'],
+          ['Autism', 'Planner for autism', 'For the need for calm, predictability, and a planner that adds less sensory friction instead of more.']
+        ],
         slotTitle: 'You do not need more discipline.',
         slotText: 'You need systems that work with your brain.',
         slotTagline: 'PRISMA was built for that.',
@@ -712,6 +752,13 @@
       document.getElementById('signaal-item-2').textContent = t.signaalItems[1];
       document.getElementById('signaal-item-3').textContent = t.signaalItems[2];
       document.getElementById('signaal-btn').textContent = t.signaalBtn;
+      document.getElementById('read-label').textContent = t.readLabel;
+      document.getElementById('read-title').textContent = t.readTitle;
+      t.readCards.forEach(function(card, index) {
+        document.getElementById('read-card-' + (index + 1) + '-label').textContent = card[0];
+        document.getElementById('read-card-' + (index + 1) + '-title').textContent = card[1];
+        document.getElementById('read-card-' + (index + 1) + '-text').textContent = card[2];
+      });
 
       document.getElementById('slot-title').textContent = t.slotTitle;
       document.getElementById('slot-text').textContent = t.slotText;

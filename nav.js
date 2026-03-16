@@ -34,12 +34,21 @@ function buildLanguageUrl(baseUrl, lang) {
   }
 }
 
-function syncSeoMetadata() {
+function getSeoUrl(lang) {
+  const seoNl = document.documentElement.dataset.seoNl;
+  const seoEn = document.documentElement.dataset.seoEn;
+  if (lang === 'nl' && seoNl) return seoNl;
+  if (lang === 'en' && seoEn) return seoEn;
   const baseUrl = document.documentElement.dataset.seoBase;
-  if (!baseUrl) return;
+  return baseUrl ? buildLanguageUrl(baseUrl, lang) : '';
+}
 
+function syncSeoMetadata() {
   const lang = getCurrentLanguage();
-  const canonicalUrl = buildLanguageUrl(baseUrl, lang);
+  const canonicalUrl = getSeoUrl(lang);
+  const nlUrl = getSeoUrl('nl');
+  const enUrl = getSeoUrl('en');
+  if (!canonicalUrl) return;
   const title = document.title;
   const description = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
 
@@ -48,8 +57,9 @@ function syncSeoMetadata() {
 
   document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
     const hreflang = link.getAttribute('hreflang');
-    if (hreflang === 'en') link.setAttribute('href', buildLanguageUrl(baseUrl, 'en'));
-    else link.setAttribute('href', buildLanguageUrl(baseUrl, 'nl'));
+    if (hreflang === 'en' && enUrl) link.setAttribute('href', enUrl);
+    else if (hreflang === 'nl' && nlUrl) link.setAttribute('href', nlUrl);
+    else if (hreflang === 'x-default' && nlUrl) link.setAttribute('href', nlUrl);
   });
 
   const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -94,6 +104,15 @@ if (hamburger && mobielMenu) {
     });
   });
 }
+
+document.querySelectorAll('[data-language-set]').forEach((link) => {
+  link.addEventListener('click', () => {
+    const lang = link.getAttribute('data-language-set');
+    if (lang === 'nl' || lang === 'en') {
+      localStorage.setItem('prisma-language', lang);
+    }
+  });
+});
 
 window.addEventListener('storage', (event) => {
   if (event.key === 'prisma-language') {
