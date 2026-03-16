@@ -27,13 +27,60 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="../stijl.css" />
   <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
+  <style>
+    .over-tekst-blok { display: flex; flex-direction: column; gap: 1.25rem; max-width: 56ch; }
+    .over-tekst-blok p { color: var(--grijs-mid); font-size: 0.97rem; }
+    .over-tekst-blok p strong { color: var(--grijs); font-weight: 500; }
+    .over-sectie { padding: clamp(2.5rem, 6vw, 4rem) 0; border-bottom: 1px solid var(--beige-dark); }
+    .over-sectie:last-of-type { border-bottom: none; }
+    .over-sectie h2 { margin-bottom: 1.5rem; }
+    .citaat { border-left: 2px solid var(--groen); padding: 1rem 0 1rem 1.5rem; margin: 1rem 0; }
+    .citaat p { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--grijs); line-height: 1.6; }
+    .waarden-lijst { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .waarden-lijst li { display: flex; gap: 1rem; align-items: flex-start; }
+    .waarden-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--groen); margin-top: 0.6rem; flex-shrink: 0; }
+    .waarden-lijst p { font-size: 0.9rem; color: var(--grijs-mid); }
+    .waarden-lijst strong { display: block; font-size: 0.9rem; font-weight: 500; color: var(--grijs); margin-bottom: 0.1rem; }
+    .over-cta { background: var(--beige-mid); padding: clamp(2.5rem, 6vw, 4rem) 0; }
+    .over-cta-inner { display: flex; flex-direction: column; gap: 1.25rem; }
+    .over-cta h2 { max-width: 22ch; }
+    .over-cta p { color: var(--grijs-mid); max-width: 46ch; font-size: 0.95rem; }
+    .over-cta-knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+    .language-switch {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      margin: 1rem 0 0;
+      background: var(--wit, #fff);
+      border: 1px solid var(--beige-dark, #E8E4DC);
+      border-radius: 999px;
+    }
+    .language-switch button {
+      border: none;
+      background: transparent;
+      color: var(--grijs-mid, #9A9A9A);
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .language-switch button.active {
+      background: var(--beige, #F3EFE8);
+      color: var(--grijs, #2E2E2E);
+    }
+  </style>
 </head>
 <body>
   <nav id="nav">
     <a href="index.html" class="nav-logo"><img src="../logo.png" alt="PRISMA Systems" /></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="about.html" class="actief">About</a></li>
+      <li><a href="about.html" class="actief">About me</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="blog.html">Blog</a></li>
@@ -45,51 +92,104 @@
 
   <div class="mobiel-menu" id="mobiel-menu">
     <a href="index.html">Home</a>
-    <a href="about.html" class="actief">About</a>
+    <a href="about.html" class="actief">About me</a>
     <a href="tools.html">Tools</a>
     <a href="contact.html">Contact</a>
     <a href="blog.html">Blog</a>
   </div>
 
-  <section class="content-hero sectie-beige">
+  <div class="pagina-hero sectie-beige">
     <div class="container">
       <div class="language-switch" aria-label="Language switch">
-        <a href="../over.html" data-language-set="nl">NL</a>
-        <a href="about.html" class="active" data-language-set="en">EN</a>
+        <button type="button" onclick="window.location.href='../over.html'">NL</button>
+        <button type="button" class="active" aria-current="page">EN</button>
       </div>
-      <div class="content-hero-inner fade-in">
-        <span class="content-kicker">About</span>
-        <h1>PRISMA was built for calmer planning.</h1>
-        <p class="content-lede">PRISMA Systems grew out of a simple observation: a lot of neurodivergent people are not failing at planning. They are trying to use systems that were never made for the way their brains and nervous systems actually work.</p>
-      </div>
+      <span class="sectie-label">About me</span>
+      <h1>I am not building this from a distance. I am in the middle of it too.</h1>
     </div>
-  </section>
+  </div>
 
   <section class="sectie sectie-wit">
     <div class="container">
-      <div class="content-flow fade-in">
-        <h2>What PRISMA stands for</h2>
-        <p>PRISMA is not about squeezing more productivity out of people. It is about making planning gentler, clearer and more honest. The tools are deliberately calm, lightweight and local-first, so using them does not become another source of pressure.</p>
-        <h2>Who the tools are for</h2>
-        <p>They are designed for neurodivergent young adults and for anyone who knows planning through fluctuating energy, sensory overwhelm, executive dysfunction, burnout or the need for more predictable structure.</p>
-        <h2>How Fleur approaches the work</h2>
-        <p>Fleur combines lived experience, careful observation and a clear preference for clarity over hype. The goal is not to promise perfect routines. The goal is to build tools that still feel usable on difficult days.</p>
+      <div class="over-tekst-blok fade-in">
+        <p>I am Fleur, founder of PRISMA Systems. I have ADHD and autism, and I know what it is like to want a lot from life while repeatedly running into systems that simply were not made for your brain.</p>
+        <div class="citaat">
+          <p>I do not have all the answers. I am not writing from a place where everything is already solved.</p>
+        </div>
+        <p>What I do have is honesty about what this really feels like, and the tools I kept wishing existed. PRISMA comes from lived experience. Not as a polished success story, but as something that is still moving.</p>
       </div>
     </div>
   </section>
 
+  <hr class="lijn" />
+
   <section class="sectie sectie-beige">
     <div class="container">
-      <div class="cta-box fade-in">
-        <h2>Want to see the tools in action?</h2>
-        <p>You can start with PRISMA Day for free, read the planning guides or get in touch if you want to ask something first.</p>
-        <div class="inline-links">
-          <a href="prisma-day.html" class="knop knop-groen">Try PRISMA Day</a>
-          <a href="contact.html" class="eyebrow-link">Contact Fleur</a>
+      <div class="over-sectie fade-in">
+        <span class="sectie-label">Why PRISMA</span>
+        <h2>What makes PRISMA different.</h2>
+        <ul class="waarden-lijst">
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>No pep talk, just clarity</strong>
+              <p>PRISMA is not here to hype you up. I would rather make something that feels true and useful, including on days when everything is slower and harder.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>From the inside</strong>
+              <p>I am not looking at this from the outside. I live with it. That shapes how I write, what I leave out and what I decide matters.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Independence first</strong>
+              <p>The goal is not to make you dependent on me or on a system. The goal is to give you something you can genuinely use.</p>
+            </div>
+          </li>
+          <li>
+            <div class="waarden-mark"></div>
+            <div>
+              <strong>Calm over noise</strong>
+              <p>No busy visuals, no loud copy and no sense of urgency for the sake of it. Just what helps.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <section class="sectie sectie-wit">
+    <div class="container">
+      <div class="over-sectie fade-in">
+        <span class="sectie-label">What else is going on</span>
+        <h2>PRISMA alongside real life.</h2>
+        <div class="over-tekst-blok">
+          <p>In September 2026 I am starting a Social Work degree. I am building PRISMA in the space I have now, and after that I will shape it around what remains realistic alongside studying.</p>
+          <p>That means no big promises about speed or availability. Just honesty about what I can and cannot offer.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="over-cta">
+    <div class="container">
+      <div class="over-cta-inner fade-in">
+        <span class="sectie-label">What now</span>
+        <h2>Take a quiet look at what PRISMA could do for you.</h2>
+        <p>You can start with the free day planner, or get in touch if you want to ask something.</p>
+        <div class="over-cta-knoppen">
+          <a href="tools.html" class="knop knop-groen">Explore the tools</a>
+          <a href="contact.html" class="knop">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="container">
@@ -98,7 +198,7 @@
         <p class="footer-tekst">Calm and direction for a neurodivergent brain.</p>
         <ul class="footer-nav">
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html">About me</a></li>
           <li><a href="tools.html">Tools</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="blog.html">Blog</a></li>

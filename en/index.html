@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neurodivergent planner for ADHD, autism and burnout | PRISMA Systems</title>
-  <meta name="description" content="Calm planning tools for ADHD, autism, burnout, sensory overwhelm and fluctuating energy. PRISMA helps you plan with your real capacity." />
+  <title>Neurodivergent planner for ADHD &amp; autism | PRISMA Systems</title>
+  <meta name="description" content="PRISMA Systems helps neurodivergent people plan around how they actually feel. Calm tools for ADHD, autism, sensory overload, and daily structure." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <link rel="canonical" href="https://prismasystemen.nl/en/" />
   <link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/" />
@@ -12,20 +12,21 @@
   <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PRISMA Systems" />
-  <meta property="og:title" content="Neurodivergent planner for ADHD, autism and burnout | PRISMA Systems" />
-  <meta property="og:description" content="Calm planning tools for ADHD, autism, burnout, sensory overwhelm and fluctuating energy. PRISMA helps you plan with your real capacity." />
+  <meta property="og:title" content="Neurodivergent planner for ADHD &amp; autism | PRISMA Systems" />
+  <meta property="og:description" content="PRISMA Systems helps neurodivergent people plan around how they actually feel. Calm tools for ADHD, autism, sensory overload, and daily structure." />
   <meta property="og:url" content="https://prismasystemen.nl/en/" />
   <meta property="og:image" content="https://prismasystemen.nl/logo.png" />
   <meta property="og:image:alt" content="PRISMA Systems logo" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Neurodivergent planner for ADHD, autism and burnout | PRISMA Systems" />
-  <meta name="twitter:description" content="Calm planning tools for ADHD, autism, burnout, sensory overwhelm and fluctuating energy. PRISMA helps you plan with your real capacity." />
+  <meta name="twitter:title" content="Neurodivergent planner for ADHD &amp; autism | PRISMA Systems" />
+  <meta name="twitter:description" content="PRISMA Systems helps neurodivergent people plan around how they actually feel. Calm tools for ADHD, autism, sensory overload, and daily structure." />
   <meta name="twitter:image" content="https://prismasystemen.nl/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="stylesheet" href="../stijl.css" />
+  <script async src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -43,23 +44,300 @@
           "@id": "https://prismasystemen.nl/en/#website",
           "url": "https://prismasystemen.nl/en/",
           "name": "PRISMA Systems",
-          "publisher": { "@id": "https://prismasystemen.nl/#organization" },
+          "publisher": {
+            "@id": "https://prismasystemen.nl/#organization"
+          },
           "inLanguage": "en"
         }
       ]
     }
   </script>
   <style>
-    .home-hero h1 { max-width: 14ch; }
-    .home-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-    .home-actions + .content-meta { margin-top: 0.5rem; }
-    .tool-overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-    .tool-overview .content-card { display: flex; flex-direction: column; gap: 0.9rem; }
-    .tool-overview .content-card .knop { align-self: flex-start; margin-top: auto; }
-    .note-line { font-family: var(--serif); font-style: italic; color: var(--blauw); }
-    @media (max-width: 760px) { .tool-overview { grid-template-columns: 1fr; } }
+    .hero {
+      min-height: calc(88vh - var(--nav-hoogte));
+      display: flex;
+      align-items: center;
+      padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 9vw, 7rem);
+      position: relative;
+    }
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .hero-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--groen-dark);
+      animation: opkomen 0.6s ease 0.1s both;
+    }
+    .hero-titel {
+      animation: opkomen 0.7s ease 0.25s both;
+      max-width: 16ch;
+    }
+    .hero-tekst {
+      color: var(--grijs-mid);
+      max-width: 48ch;
+      animation: opkomen 0.6s ease 0.45s both;
+    }
+    .hero-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--blauw);
+      animation: opkomen 0.6s ease 0.6s both;
+    }
+    .hero-acties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      animation: opkomen 0.6s ease 0.75s both;
+    }
+    .hero-subnote {
+      color: var(--grijs-mid);
+      font-size: 0.85rem;
+      max-width: 44ch;
+      animation: opkomen 0.6s ease 0.9s both;
+    }
+    @keyframes opkomen {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: opkomen 0.6s ease 1s both, bobben 2s ease-in-out 1.5s infinite;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--groen-dark);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .scroll-indicator:hover { opacity: 1; }
+    .scroll-pijl { width: 32px; height: 32px; }
+    @keyframes bobben {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+    .probleem-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 52ch;
+    }
+    .probleem-inner h2 { max-width: 22ch; }
+    .probleem-inner p { color: var(--grijs-mid); font-size: 0.95rem; line-height: 1.75; }
+    .veronderstelling-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .veronderstelling-lijst li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--grijs-mid);
+    }
+    .veronderstelling-lijst li::before {
+      content: "";
+      color: var(--blauw);
+      flex-shrink: 0;
+      font-family: var(--serif);
+    }
+    .probleem-ritme {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .probleem-ritme p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--grijs-mid);
+      margin: 0;
+    }
+    .oplossing-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 52ch;
+    }
+    .oplossing-inner h2 { max-width: 18ch; }
+    .oplossing-inner > p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .oplossing-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .oplossing-lijst li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--grijs-mid);
+    }
+    .oplossing-lijst li::before {
+      content: "✦";
+      color: var(--groen);
+      flex-shrink: 0;
+      font-size: 0.6rem;
+      line-height: 1.8;
+    }
+    .oplossing-slot {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--grijs);
+    }
+    .tools-intro {
+      max-width: 46ch;
+      color: var(--grijs-mid);
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .tool-kaart {
+      border: 1px solid var(--beige-dark);
+      background: var(--wit);
+      padding: clamp(1.5rem, 4vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .tool-kaart.featured {
+      background: var(--grijs);
+      border-color: var(--grijs);
+    }
+    .tool-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .tool-kaart:not(.featured) .tool-label { color: var(--groen-dark); }
+    .tool-kaart.featured .tool-label { color: rgba(168,181,162,0.8); }
+    .tool-kaart h3 { font-size: 1.1rem; }
+    .tool-kaart:not(.featured) h3 { color: var(--grijs); }
+    .tool-kaart.featured h3 { color: var(--beige); }
+    .tool-kaart > p { font-size: 0.88rem; }
+    .tool-kaart:not(.featured) > p { color: var(--grijs-mid); }
+    .tool-kaart.featured > p { color: rgba(243,239,232,0.65); }
+    .tool-lijst {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .tool-lijst li {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .tool-kaart:not(.featured) .tool-lijst li { color: var(--grijs-mid); }
+    .tool-kaart.featured .tool-lijst li { color: rgba(243,239,232,0.65); }
+    .tool-lijst li::before {
+      content: "→";
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .tool-kaart:not(.featured) .tool-lijst li::before { color: var(--blauw); }
+    .tool-kaart.featured .tool-lijst li::before { color: var(--groen); }
+    .tool-kaart .knop { margin-top: auto; align-self: flex-start; }
+    .tool-kaart.featured .knop {
+      border-color: rgba(243,239,232,0.35);
+      color: var(--beige);
+    }
+    .tool-kaart.featured .knop:hover {
+      background: var(--beige);
+      color: var(--grijs);
+      border-color: var(--beige);
+    }
+    .tools-intro {
+      color: var(--grijs-mid);
+      max-width: 58ch;
+      margin: 0.75rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .tool-kaart.signaal {
+      grid-column: 1 / -1;
+      background: var(--beige);
+      border-color: var(--beige-dark);
+    }
+    .tool-kaart.signaal .tool-label { color: var(--blauw); }
+    .tool-kaart.signaal h3 { color: var(--grijs); }
+    .tool-kaart.signaal > p,
+    .tool-kaart.signaal .tool-lijst li { color: var(--grijs-mid); }
+    .tool-kaart.signaal .tool-lijst li::before { color: var(--groen-dark); }
+    .afsluiting-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 42ch;
+    }
+    .afsluiting-inner h2 { font-size: clamp(1.3rem, 3vw, 1.65rem); }
+    .afsluiting-inner p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .afsluiting-inner .afsluiting-slot {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--grijs);
+      margin-top: 0.25rem;
+    }
+    .language-switch {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      margin: 0 0 1.5rem;
+      background: var(--wit, #fff);
+      border: 1px solid var(--beige-dark, #E8E4DC);
+      border-radius: 999px;
+    }
+    .language-switch button {
+      border: none;
+      background: transparent;
+      color: var(--grijs-mid, #9A9A9A);
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .language-switch button.active {
+      background: var(--beige, #F3EFE8);
+      color: var(--grijs, #2E2E2E);
+    }
+    @media (max-width: 560px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
   </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
 </head>
 <body>
   <nav id="nav">
@@ -84,122 +362,152 @@
     <a href="blog.html">Blog</a>
   </div>
 
-  <section class="content-hero sectie-beige home-hero">
+  <section class="hero sectie-beige">
     <div class="container">
       <div class="language-switch" aria-label="Language switch">
-        <a href="../index.html" data-language-set="nl">NL</a>
-        <a href="index.html" class="active" data-language-set="en">EN</a>
+        <button type="button" onclick="window.location.href='../index.html'">NL</button>
+        <button type="button" class="active" aria-current="page">EN</button>
       </div>
-      <div class="content-hero-inner fade-in">
-        <span class="content-kicker">PRISMA Systems</span>
-        <h1>Calm planning for neurodivergent lives.</h1>
-        <p class="content-lede">Most planners assume your energy stays more or less the same every day. PRISMA starts somewhere more honest: with your actual capacity, your sensory load and the day you are really having.</p>
-        <div class="home-actions">
-          <a href="prisma-day.html" class="knop knop-groen">Try PRISMA Day</a>
-          <a href="tools.html" class="knop">Explore the tools</a>
+      <div class="hero-inner">
+        <span class="hero-label">PRISMA Systems</span>
+        <h1 class="hero-titel">Most planners assume you have the same energy every day.</h1>
+        <p class="hero-tekst">But neurodivergent energy rarely works that neatly. PRISMA helps you plan around your real capacity instead.</p>
+        <p class="hero-tagline">Start with what is actually there.</p>
+        <div class="hero-acties">
+          <a href="prisma-day.html" class="knop knop-groen">Try the free daily planner</a>
+          <a href="#tools" class="knop">Explore the PRISMA system</a>
         </div>
-        <p class="content-meta">For ADHD, autism, burnout recovery, fluctuating energy and sensory overwhelm.</p>
+        <p class="hero-subnote">For ADHD, autism and days that do not fit neatly inside a plan.</p>
+      </div>
+    </div>
+    <a class="scroll-indicator" href="#probleem" aria-label="Scroll down">
+      <svg class="scroll-pijl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="12" y1="4" x2="12" y2="18" stroke="currentColor" stroke-width="1"/>
+        <polyline points="6,13 12,20 18,13" fill="none" stroke="currentColor" stroke-width="1"/>
+      </svg>
+    </a>
+  </section>
+
+  <hr class="lijn" />
+
+  <section class="sectie sectie-wit" id="probleem">
+    <div class="container">
+      <div class="probleem-inner fade-in">
+        <span class="sectie-label">The problem</span>
+        <h2>Most planning systems were not built for your brain.</h2>
+        <p>They assume:</p>
+        <ul class="veronderstelling-lijst">
+          <li>the same energy every day</li>
+          <li>constant focus</li>
+          <li>perfect productivity</li>
+        </ul>
+        <div class="probleem-ritme">
+          <p>Energy fluctuates.</p>
+          <p>Focus comes and goes.</p>
+          <p>Some days are heavier than others.</p>
+        </div>
+        <p>And when planners ignore that, planning starts to feel like one more way to fall short.</p>
       </div>
     </div>
   </section>
 
-  <section class="sectie sectie-wit">
+  <hr class="lijn" />
+
+  <section class="sectie sectie-beige" id="oplossing">
     <div class="container">
-      <div class="content-grid">
-        <div class="content-card fade-in">
-          <h2>Why ordinary planners often fail</h2>
-          <p>Standard systems start with tasks, goals and discipline. Neurodivergent life often starts somewhere else: low energy, a busy nervous system, shifting focus or a day that already feels full before it has properly begun.</p>
+      <div class="oplossing-inner fade-in">
+        <span class="sectie-label">The approach</span>
+        <h2>PRISMA works differently.</h2>
+        <p>PRISMA does not start with the ideal version of your day. It starts with what is actually available:</p>
+        <ul class="oplossing-lijst">
+          <li>your energy</li>
+          <li>your needs</li>
+          <li>your real capacity that day</li>
+        </ul>
+        <p class="oplossing-slot">Less pressure. More steadiness.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="lijn" />
+
+  <section class="sectie sectie-wit" id="tools">
+    <div class="container">
+      <span class="sectie-label">The tools</span>
+      <h2>The PRISMA system</h2>
+      <p class="tools-intro">Start free with PRISMA Day. If you want more overview across several days, PRISMA Week helps you notice what keeps repeating and where your energy goes.</p>
+      <div class="tools-grid fade-in">
+        <div class="tool-kaart">
+          <span class="tool-label">Free starting point</span>
+          <h3>PRISMA Day</h3>
+          <p>A calm guided planner that helps you:</p>
+          <ul class="tool-lijst">
+            <li>check in with your energy</li>
+            <li>identify what actually matters today</li>
+            <li>make a plan that still fits today</li>
+          </ul>
+          <a href="prisma-day.html" class="knop knop-groen">Start free with PRISMA Day</a>
         </div>
-        <div class="content-card fade-in">
-          <h2>What PRISMA does instead</h2>
-          <p>PRISMA starts with energy, needs and context. That leads to calmer choices, smaller next steps and plans you can actually keep using. The goal is not perfect productivity. The goal is structure that still feels usable on a hard day.</p>
-          <p class="note-line">Plan with your energy, not against it.</p>
+
+        <div class="tool-kaart featured">
+          <span class="tool-label">Next step</span>
+          <h3>PRISMA Week</h3>
+          <p>A weekly planner that helps you recognise patterns in your energy and needs.</p>
+          <p style="font-size:0.85rem;">For weeks that need more overview, not more pressure.</p>
+          <a href="prisma-week-buy.html" class="knop">Explore PRISMA Week</a>
+        </div>
+
+        <div class="tool-kaart signaal">
+          <span class="tool-label">Supportive</span>
+          <h3>PRISMA Signal</h3>
+          <p>A calm tool that helps you notice earlier when your body and brain start asking for less input.</p>
+          <ul class="tool-lijst">
+            <li>notice signs of overstimulation</li>
+            <li>adjust earlier before it becomes too much</li>
+            <li>build more awareness without extra pressure</li>
+          </ul>
+          <a href="prisma-signal.html" class="knop">Explore PRISMA Signal</a>
         </div>
       </div>
     </div>
   </section>
+
+  <hr class="lijn" />
 
   <section class="sectie sectie-beige">
     <div class="container">
-      <span class="sectie-label">Tools</span>
-      <h2>Three calm tools, each with a different role</h2>
-      <p class="content-lede">Start with the free day planner, add weekly pattern tracking when you want more overview, and use the sensory check-in when things begin to feel like too much.</p>
-      <div class="tool-overview" style="margin-top: 1.75rem;">
-        <article class="content-card fade-in">
-          <h3>PRISMA Day</h3>
-          <p>A guided ADHD day planner that helps you check in with energy, needs and work style before deciding what is realistic today.</p>
-          <a href="prisma-day.html" class="knop knop-groen">Open PRISMA Day</a>
-        </article>
-        <article class="content-card fade-in">
-          <h3>PRISMA Week</h3>
-          <p>A weekly planner for fluctuating energy. Track seven days, notice patterns and build a calmer week with less pressure.</p>
-          <a href="prisma-week-buy.html" class="knop">See PRISMA Week</a>
-        </article>
-        <article class="content-card fade-in">
-          <h3>PRISMA Signal</h3>
-          <p>A quick sensory tracker that helps you notice overload earlier and work out what kind of support, pause or adjustment would actually help.</p>
-          <a href="prisma-signal.html" class="knop">Open PRISMA Signal</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="sectie sectie-wit">
-    <div class="container">
-      <span class="sectie-label">Start here</span>
-      <h2>Landing pages built around real search intent</h2>
-      <div class="resource-grid" style="margin-top: 1.5rem;">
-        <a href="adhd-day-planner.html" class="resource-card fade-in">
+      <span class="sectie-label">Read next</span>
+      <h2>Pages for the questions people most often arrive here with</h2>
+      <div class="resource-grid fade-in" style="margin-top: 1.5rem;">
+        <a href="adhd-day-planner.html" class="resource-card">
           <span>ADHD</span>
           <h3>ADHD day planner</h3>
-          <p>Why daily planning can feel so hard with ADHD, what usual systems miss and how PRISMA Day keeps structure gentle and workable.</p>
+          <p>Why daily planning can feel hard with ADHD and how PRISMA Day helps you begin more calmly.</p>
         </a>
-        <a href="adhd-weekly-planner.html" class="resource-card fade-in">
-          <span>ADHD</span>
+        <a href="adhd-weekly-planner.html" class="resource-card">
+          <span>Weekly planning</span>
           <h3>ADHD weekly planner</h3>
-          <p>How to plan a week when energy shifts, pressure builds quickly and overview needs to stay calm instead of rigid.</p>
+          <p>How to build a week when energy is not stable and ordinary weekly planners feel too big or too rigid.</p>
         </a>
-        <a href="autism-planner.html" class="resource-card fade-in">
+        <a href="autism-planner.html" class="resource-card">
           <span>Autism</span>
           <h3>Planner for autism</h3>
-          <p>How PRISMA supports predictability, lower sensory friction and clearer structure without turning planning into another demand.</p>
+          <p>For the need for calm, predictability and a planner that does not add even more sensory friction.</p>
         </a>
       </div>
     </div>
   </section>
+
+  <hr class="lijn" />
 
   <section class="sectie sectie-beige">
     <div class="container">
-      <span class="sectie-label">From the blog</span>
-      <h2>Helpful reading for planning, energy and sensory overwhelm</h2>
-      <div class="resource-grid" style="margin-top: 1.5rem;">
-        <a href="blog/adhd-day-planner-why-standard-planners-do-not-work.html" class="resource-card fade-in">
-          <span>ADHD</span>
-          <h3>Why standard planners do not work for ADHD</h3>
-          <p>The hidden assumptions inside ordinary planners and why they often turn into shame instead of support.</p>
-        </a>
-        <a href="blog/planning-with-fluctuating-energy.html" class="resource-card fade-in">
-          <span>Energy</span>
-          <h3>Planning with fluctuating energy</h3>
-          <p>How to plan when capacity changes from day to day and rigid systems keep letting you down.</p>
-        </a>
-        <a href="blog/how-to-notice-sensory-overload-early.html" class="resource-card fade-in">
-          <span>Sensory</span>
-          <h3>How to notice sensory overload early</h3>
-          <p>Small signs that tell you your system is filling up before overwhelm turns into shutdown or panic.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="sectie sectie-wit">
-    <div class="container">
-      <div class="cta-box fade-in">
+      <div class="afsluiting-inner fade-in">
         <h2>You do not need more discipline.</h2>
-        <p>You need planning tools that make sense for your brain, your body and the day you are actually in. PRISMA was built for that.</p>
-        <div class="inline-links">
-          <a href="prisma-day.html" class="knop knop-groen">Try PRISMA Day</a>
-          <a href="contact.html" class="eyebrow-link">Questions? Get in touch</a>
+        <p>You need something that respects your brain, your energy and the day you are actually in.</p>
+        <p class="afsluiting-slot">That is what PRISMA is for.</p>
+        <div class="hero-acties">
+          <a href="prisma-day.html" class="knop knop-groen">Start with the free daily planner</a>
         </div>
       </div>
     </div>
@@ -211,7 +519,7 @@
         <div class="footer-logo"><img src="../logo.png" alt="PRISMA Systems" /></div>
         <p class="footer-tekst">Calm and direction for a neurodivergent brain.</p>
         <ul class="footer-nav">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" class="actief">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="tools.html">Tools</a></li>
           <li><a href="contact.html">Contact</a></li>
