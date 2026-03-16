@@ -629,7 +629,7 @@
   <header>
     <div class="logo">PRISMA Dag</div>
     <h1>Hoe is je energie vandaag?</h1>
-    <p class="subtitle">Geen goed of fout antwoord. Je energie is informatie — geen oordeel.</p>
+    <p class="subtitle">Geen goed of fout antwoord. Je energie is informatie, geen oordeel.</p>
   </header>
 
   <!-- VOORTGANG -->
@@ -662,7 +662,7 @@
 
   <!-- STAP 1 -->
   <div class="stap actief" id="stap-1">
-    <div class="section-label">Stap 1 — Hoeveel energie heb je nu?</div>
+    <div class="section-label">Stap 1, Hoeveel energie heb je nu?</div>
     <div class="energie-schaal">
       <div class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
         <div class="energie-nummer">1</div>
@@ -713,7 +713,7 @@
 
   <!-- STAP 2 -->
   <div class="stap" id="stap-2">
-    <div class="section-label">Stap 2 — Wat heeft je lijf of hoofd nodig?</div>
+    <div class="section-label">Stap 2, Wat heeft je lijf of hoofd nodig?</div>
     <div class="behoeften-grid">
       <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Ik wil even niks hoeven</div>
       <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Ik wil minder prikkels</div>
@@ -735,7 +735,7 @@
 
   <!-- STAP 3 -->
   <div class="stap" id="stap-3">
-    <div class="section-label">Stap 3 — Hoe werk jij het beste?</div>
+    <div class="section-label">Stap 3, Hoe werk jij het beste?</div>
     <div class="werkstijl-grid">
       <div class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
         <div class="werkstijl-dot"></div>
@@ -775,8 +775,8 @@
 
   <!-- STAP 4 -->
   <div class="stap" id="stap-4">
-    <div class="section-label">Stap 4 — Is er iets wat je vandaag écht moet doen?</div>
-    <p class="stap-hint" style="margin-bottom: 16px;">Ongeacht hoe je je voelt — iets wat niet kan wachten.</p>
+    <div class="section-label">Stap 4, Is er iets wat je vandaag écht moet doen?</div>
+    <p class="stap-hint" style="margin-bottom: 16px;">Ongeacht hoe je je voelt, iets wat niet kan wachten.</p>
     <div class="moet-knoppen" id="moet-knoppen">
       <button class="moet-keuze" id="moet-nee" onclick="selecteerMoet(false)">Nee, niets wat moet</button>
       <button class="moet-keuze" id="moet-ja" onclick="selecteerMoet(true)">Ja, er is iets wat moet</button>
@@ -792,8 +792,8 @@
 
   <!-- STAP 5 -->
   <div class="stap" id="stap-5">
-    <div class="section-label">Stap 5 — Wie wil je vandaag zijn?</div>
-    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
+    <div class="section-label">Stap 5, Wie wil je vandaag zijn?</div>
+    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wil doen, maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
     <p class="stap-hint">Eén woord of een zin. Mag ook leeg blijven.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(4)">← Terug</button>
@@ -912,28 +912,28 @@
     // ── KERNADVIES: energie + behoeftecombinaties ──
     if (niveau <= 2) {
       if (h.rust && h.contact) {
-        tekst = 'Je energie is laag én je hoofd vraagt rust, maar je mist ook verbinding. Die twee hoeven elkaar niet uit te sluiten — licht contact is mogelijk zonder uitputtend te zijn.';
+        tekst = 'Je energie is laag én je hoofd vraagt rust, maar je mist ook verbinding. Die twee hoeven elkaar niet uit te sluiten, licht contact is mogelijk zonder uitputtend te zijn.';
         taken = ['Stuur één kort berichtje naar iemand die je energie geeft, zonder verwachting van een gesprek', 'Leg je telefoon daarna bewust weg en geef jezelf rust', 'Verbinding hoeft niet intensief te zijn op een lage dag'];
       } else if (h.rust && h.structuur) {
-        tekst = 'Je energie is laag en je hoofd vraagt zowel rust als houvast. Gebruik een kleine vaste routine als anker — niet om productief te zijn, maar om de dag wat vorm te geven.';
-        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan op vaste tijden', 'Schrijf maximaal één ding op dat echt moet — niet meer', 'Alles wat niet op die lijst staat mag wachten'];
+        tekst = 'Je energie is laag en je hoofd vraagt zowel rust als houvast. Gebruik een kleine vaste routine als anker, niet om productief te zijn, maar om de dag wat vorm te geven.';
+        taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan op vaste tijden', 'Schrijf maximaal één ding op dat echt moet, niet meer', 'Alles wat niet op die lijst staat mag wachten'];
       } else if (h.bewegen && h.rust) {
         tekst = 'Je energie is laag en je hoofd wil rust, maar je lijf vraagt ook om beweging. Rustig buiten bewegen zonder doel is precies de combinatie die hier helpt.';
-        taken = ['Een rustige wandeling van 10-15 minuten, zonder podcast of telefoon', 'Daarna: bewust niks doen — liggen, zitten, ademen', 'Beweging mag rust zijn als je het rustig houdt'];
+        taken = ['Een rustige wandeling van 10-15 minuten, zonder podcast of telefoon', 'Daarna: bewust niks doen, liggen, zitten, ademen', 'Beweging mag rust zijn als je het rustig houdt'];
       } else if (h.rust) {
         tekst = 'Je energie is laag én je brein vraagt om rust. Dat is een duidelijk signaal. Geef jezelf toestemming om vandaag zo min mogelijk te doen.';
-        taken = ['Zet prikkels zoveel mogelijk uit: notificaties, scherm, geluid', 'Lig, zit, of wandel rustig — zonder doel', 'Geen besluiten nemen, geen plannen maken'];
+        taken = ['Zet prikkels zoveel mogelijk uit: notificaties, scherm, geluid', 'Lig, zit, of wandel rustig, zonder doel', 'Geen besluiten nemen, geen plannen maken'];
       } else if (h.bewegen) {
-        tekst = 'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen — als je het rustig houdt. Geen sport, wel bewegen.';
+        tekst = 'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen, als je het rustig houdt. Geen sport, wel bewegen.';
         taken = ['Een korte wandeling van 10-15 minuten, liefst buiten', 'Stretch of beweeg even tussendoor zonder druk', 'Daarna rust: beweging mag energie geven, niet kosten'];
       } else if (h.contact) {
-        tekst = 'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact — een berichtje, geen lang gesprek.';
+        tekst = 'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact, een berichtje, geen lang gesprek.';
         taken = ['Stuur iemand een kort berichtje, zonder verwachting van een gesprek', 'Geen sociale verplichtingen aangaan vandaag', 'Verbinding hoeft niet uitputtend te zijn'];
       } else if (h.structuur && h.tijdsgrenzen) {
-        tekst = 'Je energie is laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet — dat geeft rust zonder te veel te vragen.';
-        taken = ['Schrijf drie tijdsblokken: ochtend / middag / avond — wat mag er in elk blok?', 'Houd je aan de grenzen, ook als het "mee zou kunnen"', 'Stop op tijd, niet als je klaar bent maar als de tijd om is'];
+        tekst = 'Je energie is laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet, dat geeft rust zonder te veel te vragen.';
+        taken = ['Schrijf drie tijdsblokken: ochtend / middag / avond, wat mag er in elk blok?', 'Houd je aan de grenzen, ook als het "mee zou kunnen"', 'Stop op tijd, niet als je klaar bent maar als de tijd om is'];
       } else if (h.structuur) {
-        tekst = 'Je energie is laag en je zoekt houvast. Gebruik een kleine vaste routine als anker — niet om productief te zijn, maar om stabiel te blijven.';
+        tekst = 'Je energie is laag en je zoekt houvast. Gebruik een kleine vaste routine als anker, niet om productief te zijn, maar om stabiel te blijven.';
         taken = ['Houd één vaste routine aan: opstaan, eten, slapengaan', 'Schrijf maximaal één taak op die echt moet', 'Laat de rest staan zonder schuldgevoel'];
       } else {
         tekst = 'Je energie is laag. Forceren kost je morgen ook energie. Kies taken die weinig beslissingen vragen.';
@@ -941,29 +941,29 @@
       }
     } else if (niveau === 3) {
       if (h.rust && h.contact) {
-        tekst = 'Je energie is stabiel maar je brein vraagt rust én verbinding. Één rustig gesprek met iemand die je vertrouwt, dan tijd voor jezelf — die twee passen naast elkaar.';
-        taken = ['Plan één gesprek met iemand die je energie geeft — niet meerdere', 'Houd het gesprek rustig en ongedwongen', 'Plan daarna bewust tijd voor jezelf in'];
+        tekst = 'Je energie is stabiel maar je brein vraagt rust én verbinding. Één rustig gesprek met iemand die je vertrouwt, dan tijd voor jezelf, die twee passen naast elkaar.';
+        taken = ['Plan één gesprek met iemand die je energie geeft, niet meerdere', 'Houd het gesprek rustig en ongedwongen', 'Plan daarna bewust tijd voor jezelf in'];
       } else if (h.bewegen && h.creativiteit) {
-        tekst = 'Stabiele energie, lichaam wil bewegen én je hoofd wil iets maken. Gebruik beweging als opstap naar creatief werk — die combinatie werkt goed bij dit energieniveau.';
-        taken = ['Begin met 15-20 minuten bewegen buiten', 'Ga daarna direct aan je creatieve project zitten, terwijl je hoofd nog fris is', 'Houd het bij één creatief ding — niet alles tegelijk'];
+        tekst = 'Stabiele energie, lichaam wil bewegen én je hoofd wil iets maken. Gebruik beweging als opstap naar creatief werk, die combinatie werkt goed bij dit energieniveau.';
+        taken = ['Begin met 15-20 minuten bewegen buiten', 'Ga daarna direct aan je creatieve project zitten, terwijl je hoofd nog fris is', 'Houd het bij één creatief ding, niet alles tegelijk'];
       } else if (h.structuur && h.tijdsgrenzen) {
         tekst = 'Stabiele energie en je wil weten waar je aan toe bent én duidelijke grenzen. Een gestructureerde dag met heldere tijdsblokken past precies bij dit.';
-        taken = ['Schrijf de dag op in blokken: werk, pauze, werk, vrij — met tijden erbij', 'Houd je aan de geplande stoptijd, ook als je nog door zou kunnen', 'Sluit de dag af: wat deed je, niet wat deed je niet'];
+        taken = ['Schrijf de dag op in blokken: werk, pauze, werk, vrij, met tijden erbij', 'Houd je aan de geplande stoptijd, ook als je nog door zou kunnen', 'Sluit de dag af: wat deed je, niet wat deed je niet'];
       } else if (h.rust) {
         tekst = 'Je energie is redelijk, maar je brein vraagt toch om rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.';
-        taken = ['Kies één taak die echt belangrijk is en doe die eerst', 'Plan daarna actief een pauze in — niet als beloning, als onderdeel van de dag', 'Vermijd overvolle agenda\'s en last-minute beslissingen'];
+        taken = ['Kies één taak die echt belangrijk is en doe die eerst', 'Plan daarna actief een pauze in, niet als beloning, als onderdeel van de dag', 'Vermijd overvolle agenda\'s en last-minute beslissingen'];
       } else if (h.creativiteit) {
         tekst = 'Je energie is stabiel en je hebt zin in iets creatiefs. Goed moment voor taken die ruimte vragen in plaats van druk.';
-        taken = ['Pak iets aan waar je creatief in kunt zijn: schrijven, ontwerpen, bedenken', 'Houd het bij één creatief project — niet alles tegelijk', 'Geef jezelf ruimte om te experimenteren zonder eindresultaat te verwachten'];
+        taken = ['Pak iets aan waar je creatief in kunt zijn: schrijven, ontwerpen, bedenken', 'Houd het bij één creatief project, niet alles tegelijk', 'Geef jezelf ruimte om te experimenteren zonder eindresultaat te verwachten'];
       } else if (h.bewegen) {
-        tekst = 'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag — het helpt je hoofd ook.';
+        tekst = 'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag, het helpt je hoofd ook.';
         taken = ['Begin met een wandeling of lichte beweging voor je aan het werk gaat', 'Wissel daarna zitten en bewegen af als dat kan', 'Plan de zwaardere taken na de beweging, niet ervoor'];
       } else if (h.contact) {
         tekst = 'Je energie is stabiel en je hebt behoefte aan verbinding. Goede dag voor een echt gesprek of samenwerken.';
         taken = ['Plan een gesprek of check-in met iemand die je energie geeft', 'Houd het bij één of twee sociale momenten', 'Daarna ook tijd voor jezelf inbouwen'];
       } else if (h.structuur) {
-        tekst = 'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag — dat voorkomt besluitmoeheid.';
-        taken = ['Schrijf de drie dingen op die je vandaag wil doen, op volgorde', 'Werk ze af voor je iets anders erbij pakt', 'Sluit de dag af door te checken wat je deed — niet wat je niet deed'];
+        tekst = 'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag, dat voorkomt besluitmoeheid.';
+        taken = ['Schrijf de drie dingen op die je vandaag wil doen, op volgorde', 'Werk ze af voor je iets anders erbij pakt', 'Sluit de dag af door te checken wat je deed, niet wat je niet deed'];
       } else {
         tekst = 'Je energie is redelijk stabiel. Niet genoeg om alles te doen, wel genoeg voor één ding dat telt.';
         taken = ['Één taak die iets vraagt maar niet overweldigend is', 'Sociale contacten zijn haalbaar, maar houd het kort', 'Vermijd impulsieve besluiten of overplanning'];
@@ -972,85 +972,85 @@
       // niveau 4-5
       if (h.creativiteit && h.bewegen) {
         tekst = 'Goede energie, je lichaam wil bewegen én je hebt zin in iets maken. Gebruik die combinatie: beweeg eerst, bouw daarna.';
-        taken = ['Begin met bewegen — hardlopen, fietsen, of wat je energie geeft', 'Zet daarna direct door naar je creatieve project', 'Dit is een dag om iets te maken waar je trots op kunt zijn'];
+        taken = ['Begin met bewegen, hardlopen, fietsen, of wat je energie geeft', 'Zet daarna direct door naar je creatieve project', 'Dit is een dag om iets te maken waar je trots op kunt zijn'];
       } else if (h.contact && h.creativiteit) {
         tekst = 'Goede energie, zin in verbinding én in iets maken. Goede dag om samen te werken of iemand te betrekken bij je project.';
-        taken = ['Werk aan je creatieve project — eventueel met iemand als sparringspartner', 'Plan een gesprek met iemand die je input kan geven', 'Sla op wat je maakt en bespreekt'];
+        taken = ['Werk aan je creatieve project, eventueel met iemand als sparringspartner', 'Plan een gesprek met iemand die je input kan geven', 'Sla op wat je maakt en bespreekt'];
       } else if (h.rust && h.structuur) {
         tekst = 'Goede energie, maar je vraagt ook om rust én houvast. Doe iets dat telt, maar overdrijf niet. Structuur met ruimte.';
-        taken = ['Kies twee taken die echt belangrijk zijn — niet meer', 'Werk ze af in gestructureerde blokken met echte pauzes', 'Stop als de taken af zijn, ook als de dag nog lang is'];
+        taken = ['Kies twee taken die echt belangrijk zijn, niet meer', 'Werk ze af in gestructureerde blokken met echte pauzes', 'Stop als de taken af zijn, ook als de dag nog lang is'];
       } else if (h.creativiteit) {
         tekst = 'Je energie is goed én je hebt zin om iets te maken. Dit is precies het moment om iets te bouwen waar je trots op kunt zijn.';
-        taken = ['Werk aan iets creatiefs dat je al een tijdje wil oppakken', 'Blokkeer tijd zonder onderbrekingen voor dit project', 'Sla op wat je maakt — ook als het nog niet af is'];
+        taken = ['Werk aan iets creatiefs dat je al een tijdje wil oppakken', 'Blokkeer tijd zonder onderbrekingen voor dit project', 'Sla op wat je maakt, ook als het nog niet af is'];
       } else if (h.bewegen) {
-        tekst = 'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof — en zorg dat je daarna ook echt iets gedaan krijgt.';
+        tekst = 'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof, en zorg dat je daarna ook echt iets gedaan krijgt.';
         taken = ['Begin met bewegen: hardlopen, fietsen, of wat je energie geeft', 'Gebruik de energie daarna gericht voor je belangrijkste taak', 'Plan aan het einde van de dag ook rust in'];
       } else if (h.contact) {
         tekst = 'Je energie is goed en je hebt zin in verbinding. Goede dag voor gesprekken, samenwerken, of mensen opzoeken die je al lang niet hebt gezien.';
-        taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Gebruik je energie ook voor iets wat je alleen doet — balans is key', 'Sla op wat je hebt afgesproken of besloten'];
+        taken = ['Plan een betekenisvol gesprek of sociaal moment', 'Gebruik je energie ook voor iets wat je alleen doet, balans is key', 'Sla op wat je hebt afgesproken of besloten'];
       } else if (h.afleiding) {
         tekst = 'Je energie is goed, maar je brein wil afleiding. Pas op: afleiding op een goede dag kan je energie wegsluizen. Geef jezelf eerst structuur.';
-        taken = ['Werk eerst de belangrijkste taak af voordat je afleiding toelaat', 'Gebruik afleiding bewust als beloning achteraf', 'Zet tijdlimieten op afleiding — wees eerlijk over hoelang je ermee bezig bent'];
+        taken = ['Werk eerst de belangrijkste taak af voordat je afleiding toelaat', 'Gebruik afleiding bewust als beloning achteraf', 'Zet tijdlimieten op afleiding, wees eerlijk over hoelang je ermee bezig bent'];
       } else if (h.rust) {
         tekst = 'Je energie is goed, maar je vraagt ook om rust. Doe iets dat telt, maar overdrijf niet. Spaar voor morgen.';
-        taken = ['Kies één of twee taken die echt belangrijk zijn', 'Plan rustmomenten actief in — niet als bijzaak', 'Goede dag is geen vrijbrief om alles in te halen'];
+        taken = ['Kies één of twee taken die echt belangrijk zijn', 'Plan rustmomenten actief in, niet als bijzaak', 'Goede dag is geen vrijbrief om alles in te halen'];
       } else {
-        tekst = 'Je energie is goed. Gebruik het bewust — niet om alles in te halen, maar om iets te doen wat telt.';
+        tekst = 'Je energie is goed. Gebruik het bewust, niet om alles in te halen, maar om iets te doen wat telt.';
         taken = ['Werk aan iets wat concentratie of creativiteit vraagt', 'Iets aanpakken wat je al een tijdje uitstelde', 'Plan ook rust in zodat morgen ook een goede dag kan zijn'];
       }
     }
 
-    // ── WERKSTIJL — beïnvloedt de taken concreet, niet meer een losse tip ──
+    // ── WERKSTIJL, beïnvloedt de taken concreet, niet meer een losse tip ──
     if (werkstijl === 'multi') {
-      tekst += ' Jij werkt het beste met iets op de achtergrond — gebruik dat vandaag bewust als steun.';
+      tekst += ' Jij werkt het beste met iets op de achtergrond, gebruik dat vandaag bewust als steun.';
       taken.push('Zet iets op de achtergrond dat past bij je taak: muziek, podcast, of rustig ambient geluid');
     } else if (werkstijl === 'focus') {
-      tekst += ' Jij werkt het beste door één ding af te maken voor je verder gaat — houd daar vandaag aan vast.';
+      tekst += ' Jij werkt het beste door één ding af te maken voor je verder gaat, houd daar vandaag aan vast.';
       taken.unshift('Kies nu één taak als startpunt en sluit alles wat daarmee niets te maken heeft');
     } else if (werkstijl === 'blokken') {
       tekst += ' Bouw je dag op in blokken: werk, stop bewust, laad op, werk weer. Pauze is onderdeel van de aanpak.';
-      taken.push('Werk in blokken van 25-30 minuten — stop dan bewust, ook als het goed gaat');
+      taken.push('Werk in blokken van 25-30 minuten, stop dan bewust, ook als het goed gaat');
     } else if (werkstijl === 'stroom') {
-      tekst += ' Je hoeft de dag niet van tevoren te plannen — kijk van moment tot moment wat je energie vraagt.';
+      tekst += ' Je hoeft de dag niet van tevoren te plannen, kijk van moment tot moment wat je energie vraagt.';
       taken.push('Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?');
     }
 
-    // ── "WIE" — beïnvloedt de adviestekst en voegt een passende taak toe ──
+    // ── "WIE", beïnvloedt de adviestekst en voegt een passende taak toe ──
     if (wie) {
       const w = wie.toLowerCase().trim();
       if (w.includes('rustig') || w.includes('kalm')) {
-        tekst += ' Je wil vandaag rustig zijn — dat betekent ook rustig blijven als iets niet gaat zoals gepland.';
-        taken.push('Als iets niet lukt: pauzeer, adem, begin opnieuw — zonder oordeel');
+        tekst += ' Je wil vandaag rustig zijn, dat betekent ook rustig blijven als iets niet gaat zoals gepland.';
+        taken.push('Als iets niet lukt: pauzeer, adem, begin opnieuw, zonder oordeel');
       } else if (w.includes('aanwezig') || w.includes('bewust')) {
-        tekst += ' Je wil vandaag aanwezig zijn — zet bewust één ding tegelijk, leg je telefoon weg als je ergens mee bezig bent.';
-        taken.push('Leg je telefoon weg tijdens je taak — ook als het maar 20 minuten is');
+        tekst += ' Je wil vandaag aanwezig zijn, zet bewust één ding tegelijk, leg je telefoon weg als je ergens mee bezig bent.';
+        taken.push('Leg je telefoon weg tijdens je taak, ook als het maar 20 minuten is');
       } else if (w.includes('zelf') || w.includes('mezelf')) {
-        tekst += ' Je wil gewoon jezelf zijn vandaag — geen rol spelen, geen verwachtingen waarmaken.';
+        tekst += ' Je wil gewoon jezelf zijn vandaag, geen rol spelen, geen verwachtingen waarmaken.';
         taken.push('Doe vandaag één ding puur voor jezelf, zonder dat het iets hoeft op te leveren');
       } else if (w.includes('geduldig') || w.includes('geduld')) {
-        tekst += ' Je wil geduldig zijn vandaag — met jezelf, met de situatie, met hoe het gaat.';
+        tekst += ' Je wil geduldig zijn vandaag, met jezelf, met de situatie, met hoe het gaat.';
         taken.push('Wanneer iets langzamer gaat dan je wil: benoem het, adem, ga door');
       } else if (w.includes('open') || w.includes('flexibel')) {
-        tekst += ' Je wil open en flexibel zijn vandaag — dat betekent ook: plans loslaten als dat nodig is.';
-        taken.push('Laat één verwachting van vandaag bewust los — kijk wat er dan overblijft');
+        tekst += ' Je wil open en flexibel zijn vandaag, dat betekent ook: plans loslaten als dat nodig is.';
+        taken.push('Laat één verwachting van vandaag bewust los, kijk wat er dan overblijft');
       } else {
-        tekst += ` Je wil vandaag ${wie} zijn — gebruik dat als leidraad voor de keuzes die je maakt.`;
+        tekst += ` Je wil vandaag ${wie} zijn, gebruik dat als leidraad voor de keuzes die je maakt.`;
         taken.push(`Keer terug naar "${wie}" als je merkt dat je afdwaalt van hoe je wil zijn`);
       }
     }
 
-    // ── MOET-TAAK — overschrijft en kleurt het hele advies ──
+    // ── MOET-TAAK, overschrijft en kleurt het hele advies ──
     if (moetTaak) {
       if (niveau <= 2) {
-        tekst = `Je energie is laag, maar "${moetTaak}" moet vandaag toch gebeuren. Dat is zwaar — hier is hoe je dat zo licht mogelijk aanpakt. ` + tekst;
-        taken.unshift(`Begin met "${moetTaak}" — doe het als eerste, als je energie er nog het meeste is`);
-        taken.unshift('Schrap alles wat vandaag niet strikt noodzakelijk is — bescherm je energie voor wat moet');
+        tekst = `Je energie is laag, maar "${moetTaak}" moet vandaag toch gebeuren. Dat is zwaar, hier is hoe je dat zo licht mogelijk aanpakt. ` + tekst;
+        taken.unshift(`Begin met "${moetTaak}", doe het als eerste, als je energie er nog het meeste is`);
+        taken.unshift('Schrap alles wat vandaag niet strikt noodzakelijk is, bescherm je energie voor wat moet');
       } else if (niveau === 3) {
-        tekst = `Je hebt "${moetTaak}" te doen vandaag. Bij dit energieniveau is dat haalbaar — plan het bewust in. ` + tekst;
-        taken.unshift(`Plan "${moetTaak}" in een concreet tijdsblok — liefst in de ochtend of wanneer je energie het hoogst is`);
+        tekst = `Je hebt "${moetTaak}" te doen vandaag. Bij dit energieniveau is dat haalbaar, plan het bewust in. ` + tekst;
+        taken.unshift(`Plan "${moetTaak}" in een concreet tijdsblok, liefst in de ochtend of wanneer je energie het hoogst is`);
       } else {
         tekst = `Je hebt "${moetTaak}" te doen én de energie ervoor. Doe het als eerste, dan heb je de rest van de dag vrij hoofd. ` + tekst;
-        taken.unshift(`Start met "${moetTaak}" — de energie is er nu, gebruik het`);
+        taken.unshift(`Start met "${moetTaak}", de energie is er nu, gebruik het`);
       }
     }
 
@@ -1076,7 +1076,7 @@
       if (w.includes('rustig') || w.includes('kalm')) {
         reminderTekst += ' Rustig zijn tegenover anderen begint bij rustig zijn tegenover jezelf.';
       } else if (w.includes('aanwezig') || w.includes('bewust')) {
-        reminderTekst += ' Aanwezig zijn hoeft niet perfect — het is al genoeg als je er bewust van bent.';
+        reminderTekst += ' Aanwezig zijn hoeft niet perfect, het is al genoeg als je er bewust van bent.';
       } else if (w.includes('zelf') || w.includes('mezelf')) {
         reminderTekst += ' Jezelf zijn vraagt soms moed. Vandaag mag dat genoeg zijn.';
       } else {
@@ -1086,7 +1086,7 @@
     if (currentLang === 'en') {
       reminderTekst = translateDagText(reminderTekst)
         .replace(' Rustig zijn tegenover anderen begint bij rustig zijn tegenover jezelf.', ' Being calm with other people starts with being calm with yourself.')
-        .replace(' Aanwezig zijn hoeft niet perfect — het is al genoeg als je er bewust van bent.', ' Being present does not have to be perfect — noticing it is already enough.')
+        .replace(' Aanwezig zijn hoeft niet perfect, het is al genoeg als je er bewust van bent.', ' Being present does not have to be perfect, noticing it is already enough.')
         .replace(' Jezelf zijn vraagt soms moed. Vandaag mag dat genoeg zijn.', ' Being yourself sometimes takes courage. Today, that can be enough.')
         .replace(/ Vandaag wil je (.+?) zijn\. Dat is al een keuze die telt\./, ' Today you want to be $1. That is already a choice that matters.');
     }
@@ -1125,7 +1125,7 @@
     naarStap(1);
   }
 
-  // iOS install banner — alleen op iPhone/iPad, alleen in Safari, alleen als nog niet gezien
+  // iOS install banner, alleen op iPhone/iPad, alleen in Safari, alleen als nog niet gezien
   (function() {
     const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
     const isStandalone = window.navigator.standalone === true;
@@ -1176,14 +1176,14 @@
       androidText: 'Tik hier om te installeren',
       logo: 'PRISMA Dag',
       h1: 'Hoe is je energie vandaag?',
-      subtitle: 'Geen goed of fout antwoord. Je energie is informatie — geen oordeel.',
+      subtitle: 'Geen goed of fout antwoord. Je energie is informatie, geen oordeel.',
       progress: ['Energie','Behoeften','Werkstijl','Moet','Wie'],
       sectionLabels: [
-        'Stap 1 — Hoeveel energie heb je nu?',
-        'Stap 2 — Wat heeft je lijf of hoofd nodig?',
-        'Stap 3 — Hoe werk jij het beste?',
-        'Stap 4 — Is er iets wat je vandaag écht moet doen?',
-        'Stap 5 — Wie wil je vandaag zijn?'
+        'Stap 1, Hoeveel energie heb je nu?',
+        'Stap 2, Wat heeft je lijf of hoofd nodig?',
+        'Stap 3, Hoe werk jij het beste?',
+        'Stap 4, Is er iets wat je vandaag écht moet doen?',
+        'Stap 5, Wie wil je vandaag zijn?'
       ],
       energyNames: ['Bijna leeg','Laag','Midden','Goed','Vol'],
       energyDescriptions: [
@@ -1226,11 +1226,11 @@
         'Geen vaste aanpak nodig. Je kijkt wat nu voelt en gaat daarmee.'
       ],
       step3Hint: 'Mag ook leeg blijven als je het nog niet weet.',
-      mustHint: 'Ongeacht hoe je je voelt — iets wat niet kan wachten.',
+      mustHint: 'Ongeacht hoe je je voelt, iets wat niet kan wachten.',
       mustNo: 'Nee, niets wat moet',
       mustYes: 'Ja, er is iets wat moet',
       mustPlaceholder: 'Wat moet er vandaag écht gebeuren? Schrijf het op.',
-      whoPlaceholder: 'Niet wat je wil doen — maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?',
+      whoPlaceholder: 'Niet wat je wil doen, maar hoe je wil zijn. Rustig? Aanwezig? Gewoon jezelf?',
       whoHint: 'Eén woord of een zin. Mag ook leeg blijven.',
       next: 'Verder →',
       back: '← Terug',
@@ -1243,11 +1243,11 @@
       bridgeBtn: 'Bekijk PRISMA Week →',
       home: '← Terug naar de website',
       niveauBase: {
-        1: { naam: 'Niveau 1 — Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
-        2: { naam: 'Niveau 2 — Laag', titel: 'Licht en haalbaar. Niet meer dan dat.', reminder: 'Op een lage dag iets doen wat haalbaar was, is al een prestatie. Niet niks.' },
-        3: { naam: 'Niveau 3 — Midden', titel: 'Redelijk stabiel. Gebruik het bewust.', reminder: 'Een gemiddelde dag is geen teleurstelling. Het is gewoon een dag. Die mag er ook zijn.' },
-        4: { naam: 'Niveau 4 — Goed', titel: 'Je hebt ruimte. Gebruik het met beleid.', reminder: 'Een goede dag is geen verplichting om alles te doen. Het is een kans om iets te doen wat telt.' },
-        5: { naam: 'Niveau 5 — Vol', titel: 'Goede dag. Benut hem, maar spaar ook.', reminder: 'Op volle energie iets bouwen is waardevol. Maar zorg ook dat je morgen nog wat over hebt.' }
+        1: { naam: 'Niveau 1, Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
+        2: { naam: 'Niveau 2, Laag', titel: 'Licht en haalbaar. Niet meer dan dat.', reminder: 'Op een lage dag iets doen wat haalbaar was, is al een prestatie. Niet niks.' },
+        3: { naam: 'Niveau 3, Midden', titel: 'Redelijk stabiel. Gebruik het bewust.', reminder: 'Een gemiddelde dag is geen teleurstelling. Het is gewoon een dag. Die mag er ook zijn.' },
+        4: { naam: 'Niveau 4, Goed', titel: 'Je hebt ruimte. Gebruik het met beleid.', reminder: 'Een goede dag is geen verplichting om alles te doen. Het is een kans om iets te doen wat telt.' },
+        5: { naam: 'Niveau 5, Vol', titel: 'Goede dag. Benut hem, maar spaar ook.', reminder: 'Op volle energie iets bouwen is waardevol. Maar zorg ook dat je morgen nog wat over hebt.' }
       }
     },
     en: {
@@ -1258,14 +1258,14 @@
       androidText: 'Tap here to install',
       logo: 'PRISMA Day',
       h1: 'How is your energy today?',
-      subtitle: 'There is no right or wrong answer. Your energy is information — not a judgment.',
+      subtitle: 'There is no right or wrong answer. Your energy is information, not a judgment.',
       progress: ['Energy','Needs','Work style','Must','Who'],
       sectionLabels: [
-        'Step 1 — How much energy do you have right now?',
-        'Step 2 — What does your body or mind need?',
-        'Step 3 — How do you work best?',
-        'Step 4 — Is there anything you truly have to do today?',
-        'Step 5 — Who do you want to be today?'
+        'Step 1, How much energy do you have right now?',
+        'Step 2, What does your body or mind need?',
+        'Step 3, How do you work best?',
+        'Step 4, Is there anything you truly have to do today?',
+        'Step 5, Who do you want to be today?'
       ],
       energyNames: ['Almost empty','Low','Middle','Good','Full'],
       energyDescriptions: [
@@ -1308,11 +1308,11 @@
         'No fixed approach needed. You notice what feels right now and follow that.'
       ],
       step3Hint: 'It can also stay empty if you do not know yet.',
-      mustHint: 'No matter how you feel — something that cannot wait.',
+      mustHint: 'No matter how you feel, something that cannot wait.',
       mustNo: 'No, nothing I have to do',
       mustYes: 'Yes, there is something I have to do',
       mustPlaceholder: 'What truly has to happen today? Write it down.',
-      whoPlaceholder: 'Not what you want to do — but how you want to be. Calm? Present? Just yourself?',
+      whoPlaceholder: 'Not what you want to do, but how you want to be. Calm? Present? Just yourself?',
       whoHint: 'One word or one sentence. It can also stay empty.',
       next: 'Next →',
       back: '← Back',
@@ -1325,11 +1325,11 @@
       bridgeBtn: 'View PRISMA Week →',
       home: '← Back to the website',
       niveauBase: {
-        1: { naam: 'Level 1 — Almost empty', titel: 'Today is a rest day. That is enough.', reminder: 'A day with little energy is not a day you wasted. It is a day on which you took care of yourself.' },
-        2: { naam: 'Level 2 — Low', titel: 'Keep it light and manageable. Nothing more than that.', reminder: 'Doing something manageable on a low-energy day is already an achievement. It is not nothing.' },
-        3: { naam: 'Level 3 — Middle', titel: 'Fairly steady. Use it intentionally.', reminder: 'An average day is not a disappointment. It is simply a day. That is allowed too.' },
-        4: { naam: 'Level 4 — Good', titel: 'You have space. Use it wisely.', reminder: 'A good day is not an obligation to do everything. It is a chance to do something that matters.' },
-        5: { naam: 'Level 5 — Full', titel: 'A good day. Use it, but save some too.', reminder: 'Building something with full energy is valuable. But make sure you still have something left tomorrow.' }
+        1: { naam: 'Level 1, Almost empty', titel: 'Today is a rest day. That is enough.', reminder: 'A day with little energy is not a day you wasted. It is a day on which you took care of yourself.' },
+        2: { naam: 'Level 2, Low', titel: 'Keep it light and manageable. Nothing more than that.', reminder: 'Doing something manageable on a low-energy day is already an achievement. It is not nothing.' },
+        3: { naam: 'Level 3, Middle', titel: 'Fairly steady. Use it intentionally.', reminder: 'An average day is not a disappointment. It is simply a day. That is allowed too.' },
+        4: { naam: 'Level 4, Good', titel: 'You have space. Use it wisely.', reminder: 'A good day is not an obligation to do everything. It is a chance to do something that matters.' },
+        5: { naam: 'Level 5, Full', titel: 'A good day. Use it, but save some too.', reminder: 'Building something with full energy is valuable. But make sure you still have something left tomorrow.' }
       }
     }
   };
@@ -1423,42 +1423,42 @@
 
 
   const DAG_TEXT_MAP = {
-    'Je energie is laag én je hoofd vraagt rust, maar je mist ook verbinding. Die twee hoeven elkaar niet uit te sluiten — licht contact is mogelijk zonder uitputtend te zijn.': 'Your energy is low and your mind needs rest, but you also miss connection. Those two things do not have to cancel each other out — light contact can still work without exhausting you.',
-    'Je energie is laag en je hoofd vraagt zowel rust als houvast. Gebruik een kleine vaste routine als anker — niet om productief te zijn, maar om de dag wat vorm te geven.': 'Your energy is low and your mind is asking for both rest and steadiness. Use a small fixed routine as an anchor — not to be productive, but to give your day some shape.',
+    'Je energie is laag én je hoofd vraagt rust, maar je mist ook verbinding. Die twee hoeven elkaar niet uit te sluiten, licht contact is mogelijk zonder uitputtend te zijn.': 'Your energy is low and your mind needs rest, but you also miss connection. Those two things do not have to cancel each other out, light contact can still work without exhausting you.',
+    'Je energie is laag en je hoofd vraagt zowel rust als houvast. Gebruik een kleine vaste routine als anker, niet om productief te zijn, maar om de dag wat vorm te geven.': 'Your energy is low and your mind is asking for both rest and steadiness. Use a small fixed routine as an anchor, not to be productive, but to give your day some shape.',
     'Je energie is laag en je hoofd wil rust, maar je lijf vraagt ook om beweging. Rustig buiten bewegen zonder doel is precies de combinatie die hier helpt.': 'Your energy is low and your mind wants rest, but your body is also asking for movement. Gentle movement outside without a goal is exactly the combination that helps here.',
     'Je energie is laag én je brein vraagt om rust. Dat is een duidelijk signaal. Geef jezelf toestemming om vandaag zo min mogelijk te doen.': 'Your energy is low and your brain is asking for rest. That is a clear signal. Give yourself permission to do as little as possible today.',
-    'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen — als je het rustig houdt. Geen sport, wel bewegen.': 'Your energy is low, but your body is asking for movement. That can help — as long as you keep it gentle. Not exercise, just movement.',
-    'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact — een berichtje, geen lang gesprek.': 'Your energy is low, but you need connection. Choose light contact — a message, not a long conversation.',
-    'Je energie is laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet — dat geeft rust zonder te veel te vragen.': 'Your energy is low, but you want clarity and clear limits. Plan the day in a minimal but concrete way — that gives calm without asking too much of you.',
-    'Je energie is laag en je zoekt houvast. Gebruik een kleine vaste routine als anker — niet om productief te zijn, maar om stabiel te blijven.': 'Your energy is low and you are looking for steadiness. Use a small fixed routine as an anchor — not to be productive, but to stay stable.',
+    'Je energie is laag, maar je lichaam vraagt om beweging. Dat kan helpen, als je het rustig houdt. Geen sport, wel bewegen.': 'Your energy is low, but your body is asking for movement. That can help, as long as you keep it gentle. Not exercise, just movement.',
+    'Je energie is laag, maar je hebt behoefte aan verbinding. Kies voor licht contact, een berichtje, geen lang gesprek.': 'Your energy is low, but you need connection. Choose light contact, a message, not a long conversation.',
+    'Je energie is laag maar je wil weten waar je aan toe bent én duidelijke grenzen. Plan de dag minimaal maar concreet, dat geeft rust zonder te veel te vragen.': 'Your energy is low, but you want clarity and clear limits. Plan the day in a minimal but concrete way, that gives calm without asking too much of you.',
+    'Je energie is laag en je zoekt houvast. Gebruik een kleine vaste routine als anker, niet om productief te zijn, maar om stabiel te blijven.': 'Your energy is low and you are looking for steadiness. Use a small fixed routine as an anchor, not to be productive, but to stay stable.',
     'Je energie is laag. Forceren kost je morgen ook energie. Kies taken die weinig beslissingen vragen.': 'Your energy is low. Forcing things today will also cost you energy tomorrow. Choose tasks that ask for very few decisions.',
-    'Je energie is stabiel maar je brein vraagt rust én verbinding. Één rustig gesprek met iemand die je vertrouwt, dan tijd voor jezelf — die twee passen naast elkaar.': 'Your energy is steady, but your brain is asking for rest and connection. One calm conversation with someone you trust, then time for yourself — those two things can exist side by side.',
-    'Stabiele energie, lichaam wil bewegen én je hoofd wil iets maken. Gebruik beweging als opstap naar creatief werk — die combinatie werkt goed bij dit energieniveau.': 'Your energy is steady, your body wants movement, and your mind wants to create something. Use movement as a way into creative work — that combination works well at this energy level.',
+    'Je energie is stabiel maar je brein vraagt rust én verbinding. Één rustig gesprek met iemand die je vertrouwt, dan tijd voor jezelf, die twee passen naast elkaar.': 'Your energy is steady, but your brain is asking for rest and connection. One calm conversation with someone you trust, then time for yourself, those two things can exist side by side.',
+    'Stabiele energie, lichaam wil bewegen én je hoofd wil iets maken. Gebruik beweging als opstap naar creatief werk, die combinatie werkt goed bij dit energieniveau.': 'Your energy is steady, your body wants movement, and your mind wants to create something. Use movement as a way into creative work, that combination works well at this energy level.',
     'Stabiele energie en je wil weten waar je aan toe bent én duidelijke grenzen. Een gestructureerde dag met heldere tijdsblokken past precies bij dit.': 'Your energy is steady and you want clarity as well as clear limits. A structured day with clear time blocks fits this perfectly.',
     'Je energie is redelijk, maar je brein vraagt toch om rust. Doe één ding dat telt en bouw daarna bewust rustmomenten in.': 'Your energy is fairly okay, but your brain is still asking for rest. Do one thing that matters and then intentionally build in moments of rest.',
     'Je energie is stabiel en je hebt zin in iets creatiefs. Goed moment voor taken die ruimte vragen in plaats van druk.': 'Your energy is steady and you feel like doing something creative. A good moment for tasks that ask for space instead of pressure.',
-    'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag — het helpt je hoofd ook.': 'Your energy is steady and your body wants movement. Use that as the start of your day — it helps your mind too.',
+    'Je energie is stabiel en je lichaam wil bewegen. Gebruik dat als begin van je dag, het helpt je hoofd ook.': 'Your energy is steady and your body wants movement. Use that as the start of your day, it helps your mind too.',
     'Je energie is stabiel en je hebt behoefte aan verbinding. Goede dag voor een echt gesprek of samenwerken.': 'Your energy is steady and you need connection. A good day for a real conversation or for working together.',
-    'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag — dat voorkomt besluitmoeheid.': 'Your energy is steady and structure helps you. Use a clear order for your day — that prevents decision fatigue.',
+    'Je energie is stabiel en structuur helpt je. Gebruik een duidelijke volgorde voor je dag, dat voorkomt besluitmoeheid.': 'Your energy is steady and structure helps you. Use a clear order for your day, that prevents decision fatigue.',
     'Je energie is redelijk stabiel. Niet genoeg om alles te doen, wel genoeg voor één ding dat telt.': 'Your energy is fairly steady. Not enough to do everything, but enough for one thing that matters.',
     'Goede energie, je lichaam wil bewegen én je hebt zin in iets maken. Gebruik die combinatie: beweeg eerst, bouw daarna.': 'Good energy, your body wants movement, and you feel like making something. Use that combination: move first, build afterwards.',
     'Goede energie, zin in verbinding én in iets maken. Goede dag om samen te werken of iemand te betrekken bij je project.': 'Good energy, a wish for connection, and a wish to make something. A good day to work together or involve someone in your project.',
     'Goede energie, maar je vraagt ook om rust én houvast. Doe iets dat telt, maar overdrijf niet. Structuur met ruimte.': 'Good energy, but you are also asking for rest and steadiness. Do something that matters, but do not overdo it. Structure with room to breathe.',
     'Je energie is goed én je hebt zin om iets te maken. Dit is precies het moment om iets te bouwen waar je trots op kunt zijn.': 'Your energy is good and you feel like making something. This is exactly the moment to build something you can feel proud of.',
-    'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof — en zorg dat je daarna ook echt iets gedaan krijgt.': 'Your energy is good and your body wants movement. Use that as fuel — and make sure you actually get something done afterwards.',
+    'Je energie is goed en je lichaam wil bewegen. Gebruik dat als brandstof, en zorg dat je daarna ook echt iets gedaan krijgt.': 'Your energy is good and your body wants movement. Use that as fuel, and make sure you actually get something done afterwards.',
     'Je energie is goed en je hebt zin in verbinding. Goede dag voor gesprekken, samenwerken, of mensen opzoeken die je al lang niet hebt gezien.': 'Your energy is good and you feel like connecting. A good day for conversations, collaboration, or seeing people you have not seen in a while.',
     'Je energie is goed, maar je brein wil afleiding. Pas op: afleiding op een goede dag kan je energie wegsluizen. Geef jezelf eerst structuur.': 'Your energy is good, but your brain wants distraction. Be careful: distraction on a good day can quietly drain your energy. Give yourself structure first.',
     'Je energie is goed, maar je vraagt ook om rust. Doe iets dat telt, maar overdrijf niet. Spaar voor morgen.': 'Your energy is good, but you are also asking for rest. Do something that matters, but do not overdo it. Save some for tomorrow.',
-    'Je energie is goed. Gebruik het bewust — niet om alles in te halen, maar om iets te doen wat telt.': 'Your energy is good. Use it intentionally — not to catch up on everything, but to do something that matters.',
-    ' Jij werkt het beste met iets op de achtergrond — gebruik dat vandaag bewust als steun.': ' You work best with something in the background — use that intentionally as support today.',
-    ' Jij werkt het beste door één ding af te maken voor je verder gaat — houd daar vandaag aan vast.': ' You work best by finishing one thing before moving on — stay with that today.',
+    'Je energie is goed. Gebruik het bewust, niet om alles in te halen, maar om iets te doen wat telt.': 'Your energy is good. Use it intentionally, not to catch up on everything, but to do something that matters.',
+    ' Jij werkt het beste met iets op de achtergrond, gebruik dat vandaag bewust als steun.': ' You work best with something in the background, use that intentionally as support today.',
+    ' Jij werkt het beste door één ding af te maken voor je verder gaat, houd daar vandaag aan vast.': ' You work best by finishing one thing before moving on, stay with that today.',
     ' Bouw je dag op in blokken: werk, stop bewust, laad op, werk weer. Pauze is onderdeel van de aanpak.': ' Build your day in blocks: work, stop on purpose, recharge, work again. Rest is part of the approach.',
-    ' Je hoeft de dag niet van tevoren te plannen — kijk van moment tot moment wat je energie vraagt.': ' You do not have to plan the whole day in advance — notice from moment to moment what your energy needs.',
-    ' Je wil vandaag rustig zijn — dat betekent ook rustig blijven als iets niet gaat zoals gepland.': ' You want to be calm today — that also means staying calm when something does not go as planned.',
-    ' Je wil vandaag aanwezig zijn — zet bewust één ding tegelijk, leg je telefoon weg als je ergens mee bezig bent.': ' You want to be present today — do one thing at a time on purpose and put your phone away while you are busy with something.',
-    ' Je wil gewoon jezelf zijn vandaag — geen rol spelen, geen verwachtingen waarmaken.': ' You want to simply be yourself today — no performing, no meeting expectations.',
-    ' Je wil geduldig zijn vandaag — met jezelf, met de situatie, met hoe het gaat.': ' You want to be patient today — with yourself, with the situation, and with how things are going.',
-    ' Je wil open en flexibel zijn vandaag — dat betekent ook: plans loslaten als dat nodig is.': ' You want to be open and flexible today — that also means letting plans go when needed.'
+    ' Je hoeft de dag niet van tevoren te plannen, kijk van moment tot moment wat je energie vraagt.': ' You do not have to plan the whole day in advance, notice from moment to moment what your energy needs.',
+    ' Je wil vandaag rustig zijn, dat betekent ook rustig blijven als iets niet gaat zoals gepland.': ' You want to be calm today, that also means staying calm when something does not go as planned.',
+    ' Je wil vandaag aanwezig zijn, zet bewust één ding tegelijk, leg je telefoon weg als je ergens mee bezig bent.': ' You want to be present today, do one thing at a time on purpose and put your phone away while you are busy with something.',
+    ' Je wil gewoon jezelf zijn vandaag, geen rol spelen, geen verwachtingen waarmaken.': ' You want to simply be yourself today, no performing, no meeting expectations.',
+    ' Je wil geduldig zijn vandaag, met jezelf, met de situatie, met hoe het gaat.': ' You want to be patient today, with yourself, with the situation, and with how things are going.',
+    ' Je wil open en flexibel zijn vandaag, dat betekent ook: plans loslaten als dat nodig is.': ' You want to be open and flexible today, that also means letting plans go when needed.'
   };
 
   const DAG_TASK_MAP = {
@@ -1466,13 +1466,13 @@
     'Leg je telefoon daarna bewust weg en geef jezelf rust': 'Put your phone away on purpose afterwards and give yourself rest.',
     'Verbinding hoeft niet intensief te zijn op een lage dag': 'Connection does not have to be intense on a low-energy day.',
     'Houd één vaste routine aan: opstaan, eten, slapengaan op vaste tijden': 'Keep one fixed routine: wake up, eat, and go to bed at set times.',
-    'Schrijf maximaal één ding op dat echt moet — niet meer': 'Write down at most one thing that truly has to happen — no more than that.',
+    'Schrijf maximaal één ding op dat echt moet, niet meer': 'Write down at most one thing that truly has to happen, no more than that.',
     'Alles wat niet op die lijst staat mag wachten': 'Everything that is not on that list can wait.',
     'Een rustige wandeling van 10-15 minuten, zonder podcast of telefoon': 'Take a calm 10–15 minute walk, without a podcast or your phone.',
-    'Daarna: bewust niks doen — liggen, zitten, ademen': 'After that: do nothing on purpose — lie down, sit, breathe.',
+    'Daarna: bewust niks doen, liggen, zitten, ademen': 'After that: do nothing on purpose, lie down, sit, breathe.',
     'Beweging mag rust zijn als je het rustig houdt': 'Movement can count as rest when you keep it gentle.',
     'Zet prikkels zoveel mogelijk uit: notificaties, scherm, geluid': 'Turn down stimuli as much as possible: notifications, screen input, sound.',
-    'Lig, zit, of wandel rustig — zonder doel': 'Lie down, sit, or walk slowly — without a goal.',
+    'Lig, zit, of wandel rustig, zonder doel': 'Lie down, sit, or walk slowly, without a goal.',
     'Geen besluiten nemen, geen plannen maken': 'Do not make decisions and do not make plans.',
     'Een korte wandeling van 10-15 minuten, liefst buiten': 'Take a short 10–15 minute walk, preferably outside.',
     'Stretch of beweeg even tussendoor zonder druk': 'Stretch or move for a moment in between, without pressure.',
@@ -1480,7 +1480,7 @@
     'Stuur iemand een kort berichtje, zonder verwachting van een gesprek': 'Send someone a short message, without expecting a conversation.',
     'Geen sociale verplichtingen aangaan vandaag': 'Do not commit to social obligations today.',
     'Verbinding hoeft niet uitputtend te zijn': 'Connection does not have to be exhausting.',
-    'Schrijf drie tijdsblokken: ochtend / middag / avond — wat mag er in elk blok?': 'Write down three time blocks: morning / afternoon / evening — what is allowed in each block?',
+    'Schrijf drie tijdsblokken: ochtend / middag / avond, wat mag er in elk blok?': 'Write down three time blocks: morning / afternoon / evening, what is allowed in each block?',
     'Houd je aan de grenzen, ook als het "mee zou kunnen"': 'Stick to the limits, even if it feels like you could maybe do more.',
     'Stop op tijd, niet als je klaar bent maar als de tijd om is': 'Stop on time, not when you are finished but when the time is up.',
     'Houd één vaste routine aan: opstaan, eten, slapengaan': 'Keep one fixed routine: wake up, eat, go to bed.',
@@ -1489,17 +1489,17 @@
     'Routinetaken die je al kent en niet hoeft na te denken': 'Choose routine tasks you already know and do not have to think about.',
     'Korte sessies van max 30 minuten met pauzes': 'Work in short sessions of up to 30 minutes with breaks.',
     'Geen nieuwe dingen starten of grote beslissingen nemen': 'Do not start new things or make big decisions.',
-    'Plan één gesprek met iemand die je energie geeft — niet meerdere': 'Plan one conversation with someone who gives you energy — not several.',
+    'Plan één gesprek met iemand die je energie geeft, niet meerdere': 'Plan one conversation with someone who gives you energy, not several.',
     'Houd het gesprek rustig en ongedwongen': 'Keep the conversation calm and unforced.',
     'Plan daarna bewust tijd voor jezelf in': 'Plan time for yourself on purpose afterwards.',
     'Begin met 15-20 minuten bewegen buiten': 'Start with 15–20 minutes of movement outside.',
     'Ga daarna direct aan je creatieve project zitten, terwijl je hoofd nog fris is': 'Sit down to your creative project right afterwards, while your mind is still fresh.',
-    'Houd het bij één creatief ding — niet alles tegelijk': 'Keep it to one creative thing — not everything at once.',
-    'Schrijf de dag op in blokken: werk, pauze, werk, vrij — met tijden erbij': 'Write the day in blocks: work, break, work, free time — with times attached.',
+    'Houd het bij één creatief ding, niet alles tegelijk': 'Keep it to one creative thing, not everything at once.',
+    'Schrijf de dag op in blokken: werk, pauze, werk, vrij, met tijden erbij': 'Write the day in blocks: work, break, work, free time, with times attached.',
     'Houd je aan de geplande stoptijd, ook als je nog door zou kunnen': 'Stick to the planned stopping time, even if you feel you could keep going.',
     'Sluit de dag af: wat deed je, niet wat deed je niet': 'Close the day by noticing what you did, not what you did not do.',
     'Kies één taak die echt belangrijk is en doe die eerst': 'Choose one task that truly matters and do it first.',
-    'Plan daarna actief een pauze in — niet als beloning, als onderdeel van de dag': 'Actively plan a break afterwards — not as a reward, but as part of the day.',
+    'Plan daarna actief een pauze in, niet als beloning, als onderdeel van de dag': 'Actively plan a break afterwards, not as a reward, but as part of the day.',
     'Vermijd overvolle agenda\'s en last-minute beslissingen': 'Avoid overloaded schedules and last-minute decisions.',
     'Pak iets aan waar je creatief in kunt zijn: schrijven, ontwerpen, bedenken': 'Pick something you can be creative with: writing, designing, thinking.',
     'Geef jezelf ruimte om te experimenteren zonder eindresultaat te verwachten': 'Give yourself room to experiment without expecting an end result.',
@@ -1511,46 +1511,46 @@
     'Daarna ook tijd voor jezelf inbouwen': 'Build in time for yourself afterwards too.',
     'Schrijf de drie dingen op die je vandaag wil doen, op volgorde': 'Write down the three things you want to do today, in order.',
     'Werk ze af voor je iets anders erbij pakt': 'Finish them before you add something else.',
-    'Sluit de dag af door te checken wat je deed — niet wat je niet deed': 'End the day by checking what you did — not what you did not do.',
+    'Sluit de dag af door te checken wat je deed, niet wat je niet deed': 'End the day by checking what you did, not what you did not do.',
     'Één taak die iets vraagt maar niet overweldigend is': 'One task that asks something of you without being overwhelming.',
     'Sociale contacten zijn haalbaar, maar houd het kort': 'Social contact is manageable, but keep it short.',
     'Vermijd impulsieve besluiten of overplanning': 'Avoid impulsive decisions or overplanning.',
-    'Begin met bewegen — hardlopen, fietsen, of wat je energie geeft': 'Start with movement — running, cycling, or whatever gives you energy.',
+    'Begin met bewegen, hardlopen, fietsen, of wat je energie geeft': 'Start with movement, running, cycling, or whatever gives you energy.',
     'Zet daarna direct door naar je creatieve project': 'Move straight on to your creative project afterwards.',
     'Dit is een dag om iets te maken waar je trots op kunt zijn': 'This is a day to make something you can feel proud of.',
-    'Werk aan je creatieve project — eventueel met iemand als sparringspartner': 'Work on your creative project — possibly with someone as a sounding board.',
+    'Werk aan je creatieve project, eventueel met iemand als sparringspartner': 'Work on your creative project, possibly with someone as a sounding board.',
     'Plan een gesprek met iemand die je input kan geven': 'Plan a conversation with someone who can give you input.',
     'Sla op wat je maakt en bespreekt': 'Save what you make and what you discuss.',
-    'Kies twee taken die echt belangrijk zijn — niet meer': 'Choose two tasks that truly matter — no more than that.',
+    'Kies twee taken die echt belangrijk zijn, niet meer': 'Choose two tasks that truly matter, no more than that.',
     'Werk ze af in gestructureerde blokken met echte pauzes': 'Finish them in structured blocks with real breaks.',
     'Stop als de taken af zijn, ook als de dag nog lang is': 'Stop when the tasks are done, even if the day is still long.',
     'Werk aan iets creatiefs dat je al een tijdje wil oppakken': 'Work on something creative you have wanted to pick up for a while.',
     'Blokkeer tijd zonder onderbrekingen voor dit project': 'Block off uninterrupted time for this project.',
-    'Sla op wat je maakt — ook als het nog niet af is': 'Save what you make — even if it is not finished yet.',
+    'Sla op wat je maakt, ook als het nog niet af is': 'Save what you make, even if it is not finished yet.',
     'Gebruik de energie daarna gericht voor je belangrijkste taak': 'Use that energy afterwards for your most important task.',
     'Plan aan het einde van de dag ook rust in': 'Plan rest at the end of the day too.',
     'Plan een betekenisvol gesprek of sociaal moment': 'Plan a meaningful conversation or social moment.',
-    'Gebruik je energie ook voor iets wat je alleen doet — balans is key': 'Use your energy for something you do alone as well — balance matters.',
+    'Gebruik je energie ook voor iets wat je alleen doet, balans is key': 'Use your energy for something you do alone as well, balance matters.',
     'Sla op wat je hebt afgesproken of besloten': 'Save what you agreed on or decided.',
     'Werk eerst de belangrijkste taak af voordat je afleiding toelaat': 'Finish the most important task first before allowing distraction.',
     'Gebruik afleiding bewust als beloning achteraf': 'Use distraction intentionally as a reward afterwards.',
-    'Zet tijdlimieten op afleiding — wees eerlijk over hoelang je ermee bezig bent': 'Put time limits on distraction — be honest about how long you spend on it.',
+    'Zet tijdlimieten op afleiding, wees eerlijk over hoelang je ermee bezig bent': 'Put time limits on distraction, be honest about how long you spend on it.',
     'Kies één of twee taken die echt belangrijk zijn': 'Choose one or two tasks that truly matter.',
-    'Plan rustmomenten actief in — niet als bijzaak': 'Actively plan moments of rest — not as an afterthought.',
+    'Plan rustmomenten actief in, niet als bijzaak': 'Actively plan moments of rest, not as an afterthought.',
     'Goede dag is geen vrijbrief om alles in te halen': 'A good day is not permission to catch up on everything.',
     'Werk aan iets wat concentratie of creativiteit vraagt': 'Work on something that asks for concentration or creativity.',
     'Iets aanpakken wat je al een tijdje uitstelde': 'Tackle something you have been postponing for a while.',
     'Plan ook rust in zodat morgen ook een goede dag kan zijn': 'Plan rest as well so that tomorrow can still be a good day.',
     'Zet iets op de achtergrond dat past bij je taak: muziek, podcast, of rustig ambient geluid': 'Put something in the background that fits your task: music, a podcast, or calm ambient sound.',
-    'Werk in blokken van 25-30 minuten — stop dan bewust, ook als het goed gaat': 'Work in blocks of 25–30 minutes — then stop on purpose, even when it is going well.',
+    'Werk in blokken van 25-30 minuten, stop dan bewust, ook als het goed gaat': 'Work in blocks of 25–30 minutes, then stop on purpose, even when it is going well.',
     'Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?': 'Ask yourself every hour: what does my energy need most right now?',
-    'Als iets niet lukt: pauzeer, adem, begin opnieuw — zonder oordeel': 'If something does not work: pause, breathe, start again — without judgment.',
-    'Leg je telefoon weg tijdens je taak — ook als het maar 20 minuten is': 'Put your phone away during your task — even if it is only for 20 minutes.',
+    'Als iets niet lukt: pauzeer, adem, begin opnieuw, zonder oordeel': 'If something does not work: pause, breathe, start again, without judgment.',
+    'Leg je telefoon weg tijdens je taak, ook als het maar 20 minuten is': 'Put your phone away during your task, even if it is only for 20 minutes.',
     'Doe vandaag één ding puur voor jezelf, zonder dat het iets hoeft op te leveren': 'Do one thing purely for yourself today, without it needing to achieve anything.',
     'Wanneer iets langzamer gaat dan je wil: benoem het, adem, ga door': 'When something goes slower than you want: name it, breathe, keep going.',
-    'Laat één verwachting van vandaag bewust los — kijk wat er dan overblijft': 'Let go of one expectation for today on purpose — then see what remains.',
+    'Laat één verwachting van vandaag bewust los, kijk wat er dan overblijft': 'Let go of one expectation for today on purpose, then see what remains.',
     'Kies nu één taak als startpunt en sluit alles wat daarmee niets te maken heeft': 'Choose one task as your starting point right now and close everything that has nothing to do with it.',
-    'Schrap alles wat vandaag niet strikt noodzakelijk is — bescherm je energie voor wat moet': 'Cut everything that is not strictly necessary today — protect your energy for what has to happen.'
+    'Schrap alles wat vandaag niet strikt noodzakelijk is, bescherm je energie voor wat moet': 'Cut everything that is not strictly necessary today, protect your energy for what has to happen.'
   };
 
   function replaceWithMap(text, map) {
@@ -1564,9 +1564,9 @@
   function translateDagText(text) {
     if (currentLang !== 'en') return text;
     let output = replaceWithMap(text, DAG_TEXT_MAP);
-    output = output.replace(/ Je wil vandaag (.+?) zijn — gebruik dat als leidraad voor de keuzes die je maakt\./g, ' You want to be $1 today — use that as a guide for the choices you make.');
-    output = output.replace(/Je energie is laag, maar "(.+?)" moet vandaag toch gebeuren\. Dat is zwaar — hier is hoe je dat zo licht mogelijk aanpakt\. /g, 'Your energy is low, but "$1" still has to happen today. That is heavy — here is how to make it as light as possible. ');
-    output = output.replace(/Je hebt "(.+?)" te doen vandaag\. Bij dit energieniveau is dat haalbaar — plan het bewust in\. /g, 'You need to do "$1" today. At this energy level, that is manageable — plan it intentionally. ');
+    output = output.replace(/ Je wil vandaag (.+?) zijn, gebruik dat als leidraad voor de keuzes die je maakt\./g, ' You want to be $1 today, use that as a guide for the choices you make.');
+    output = output.replace(/Je energie is laag, maar "(.+?)" moet vandaag toch gebeuren\. Dat is zwaar, hier is hoe je dat zo licht mogelijk aanpakt\. /g, 'Your energy is low, but "$1" still has to happen today. That is heavy, here is how to make it as light as possible. ');
+    output = output.replace(/Je hebt "(.+?)" te doen vandaag\. Bij dit energieniveau is dat haalbaar, plan het bewust in\. /g, 'You need to do "$1" today. At this energy level, that is manageable, plan it intentionally. ');
     output = output.replace(/Je hebt "(.+?)" te doen én de energie ervoor\. Doe het als eerste, dan heb je de rest van de dag vrij hoofd\. /g, 'You need to do "$1" and you have the energy for it. Do it first, then the rest of the day will feel mentally lighter. ');
     return output;
   }
@@ -1575,9 +1575,9 @@
     if (currentLang !== 'en') return task;
     let output = DAG_TASK_MAP[task] || task;
     output = output.replace(/^Keer terug naar "(.+?)" als je merkt dat je afdwaalt van hoe je wil zijn$/, 'Come back to "$1" when you notice you are drifting away from how you want to be.');
-    output = output.replace(/^Begin met "(.+?)" — doe het als eerste, als je energie er nog het meeste is$/, 'Start with "$1" — do it first, while your energy is still at its highest.');
-    output = output.replace(/^Plan "(.+?)" in een concreet tijdsblok — liefst in de ochtend of wanneer je energie het hoogst is$/, 'Plan "$1" into a concrete time block — preferably in the morning or whenever your energy is highest.');
-    output = output.replace(/^Start met "(.+?)" — de energie is er nu, gebruik het$/, 'Start with "$1" — the energy is there now, so use it.');
+    output = output.replace(/^Begin met "(.+?)", doe het als eerste, als je energie er nog het meeste is$/, 'Start with "$1", do it first, while your energy is still at its highest.');
+    output = output.replace(/^Plan "(.+?)" in een concreet tijdsblok, liefst in de ochtend of wanneer je energie het hoogst is$/, 'Plan "$1" into a concrete time block, preferably in the morning or whenever your energy is highest.');
+    output = output.replace(/^Start met "(.+?)", de energie is er nu, gebruik het$/, 'Start with "$1", the energy is there now, so use it.');
     return output;
   }
 
