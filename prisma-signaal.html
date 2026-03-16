@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRISMA — Signaal</title>
+<title>PRISMA, Signaal</title>
 <meta name="description" content="Check in 30 seconden hoeveel prikkels je zintuiglijk systeem verwerkt. Gratis tool van PRISMA Systemen.">
 <link rel="manifest" href="manifest-prikkel.json">
 <meta name="theme-color" content="#F3EFE8">
@@ -146,7 +146,7 @@
     margin-bottom: 18px;
   }
 
-  /* PRIKKEL SCHAAL — grote visuele meter */
+  /* PRIKKEL SCHAAL, grote visuele meter */
   .prikkel-meter {
     display: flex;
     flex-direction: column;
@@ -214,7 +214,7 @@
   .prikkel-optie[data-niveau="4"].selected .prikkel-dot { background: var(--oker); border-color: var(--oker); }
   .prikkel-optie[data-niveau="5"].selected .prikkel-dot { background: var(--prikkel-hoog); border-color: var(--prikkel-hoog); }
 
-  /* PRIKKEL TYPES — zintuigen */
+  /* PRIKKEL TYPES, zintuigen */
   .zintuigen-grid {
     display: flex;
     flex-direction: column;
@@ -537,8 +537,8 @@
     </div>
     <div class="logo">PRISMA Systemen</div>
     <h1>Hoe vol is je systeem nu?</h1>
-    <p class="subtitle">Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.</p>
-    <p class="subtitle" style="font-size: 0.82rem; margin-top: 0.4rem; opacity: 0.75;">Met <em>systeem</em> bedoelen we je zenuwstelsel — de manier waarop jouw brein en lichaam prikkels verwerken.</p>
+    <p class="subtitle">Een snelle check-in voor je zintuiglijk systeem. Geen diagnose, wel inzicht.</p>
+    <p class="subtitle" style="font-size: 0.82rem; margin-top: 0.4rem; opacity: 0.75;">Met <em>systeem</em> bedoelen we je zenuwstelsel, de manier waarop jouw brein en lichaam prikkels verwerken.</p>
   </header>
 
   <!-- VOORTGANG -->
@@ -559,9 +559,9 @@
     </div>
   </div>
 
-  <!-- STAP 1 — Algeheel niveau -->
+  <!-- STAP 1, Algeheel niveau -->
   <div class="stap actief" id="stap-1">
-    <div class="section-label">Stap 1 — Hoe vol voelt je systeem nu?</div>
+    <div class="section-label">Stap 1, Hoe vol voelt je systeem nu?</div>
     <div class="prikkel-meter">
       <div class="prikkel-optie" data-niveau="1" onclick="selecteerNiveau(this)">
         <div class="prikkel-emoji">🌿</div>
@@ -598,7 +598,7 @@
       <div class="prikkel-optie" data-niveau="5" onclick="selecteerNiveau(this)">
         <div class="prikkel-emoji">🔴</div>
         <div class="prikkel-info">
-          <div class="prikkel-naam">Overvol — shutdown nabij</div>
+          <div class="prikkel-naam">Overvol, shutdown nabij</div>
           <div class="prikkel-omschrijving">Je systeem kan bijna niet meer. Rust is nu urgent.</div>
         </div>
         <div class="prikkel-dot"></div>
@@ -610,9 +610,9 @@
     </div>
   </div>
 
-  <!-- STAP 2 — Per zintuig -->
+  <!-- STAP 2, Per zintuig -->
   <div class="stap" id="stap-2">
-    <div class="section-label">Stap 2 — Welk zintuig is het meest belast?</div>
+    <div class="section-label">Stap 2, Welk zintuig is het meest belast?</div>
     <div class="zintuigen-grid" id="zintuigen-grid">
       <!-- gegenereerd via JS -->
     </div>
@@ -623,9 +623,9 @@
     </div>
   </div>
 
-  <!-- STAP 3 — Context -->
+  <!-- STAP 3, Context -->
   <div class="stap" id="stap-3">
-    <div class="section-label">Stap 3 — Wat speelt er mee?</div>
+    <div class="section-label">Stap 3, Wat speelt er mee?</div>
     <div class="context-grid">
       <div class="context-tag" onclick="toggleContext(this)">🏠 Thuis</div>
       <div class="context-tag" onclick="toggleContext(this)">🏫 School of werk</div>
@@ -760,7 +760,7 @@
     1: 'Je systeem heeft ruimte. Geniet van de rust.',
     2: 'Licht belast. Normaal haalbaar, let op wat meer prikkels toevoegt.',
     3: 'Je bent redelijk vol. Wees bewust over wat je er nog bij doet.',
-    4: 'Overbelast. Verminder prikkels actief — dit is een signaal.',
+    4: 'Overbelast. Verminder prikkels actief, dit is een signaal.',
     5: 'Urgent. Je systeem vraagt nu om rust, geen uitstel.'
   };
 
@@ -876,7 +876,7 @@
       return 'Zoek een rustige plek: weinig licht, weinig geluid, liefst alleen';
     }
     function pauzetip() {
-      if (opWerk) return 'Plan een korte pauze buiten het werkgebouw als dat kan — frisse lucht en even weg van de prikkels';
+      if (opWerk) return 'Plan een korte pauze buiten het werkgebouw als dat kan, frisse lucht en even weg van de prikkels';
       if (onderweg) return 'Sluit je ogen, adem langzaam. Je hoeft niks te doen tot je aankomt.';
       return 'Plan binnen twee uur een echte rustpauze in: minimale prikkels, liggend of zittend';
     }
@@ -884,91 +884,91 @@
     let label, klasse, titel, tekst, tips, reminder;
 
     if (niveau === 1) {
-      label = 'Niveau 1 — Rustig systeem';
+      label = 'Niveau 1, Rustig systeem';
       klasse = 'laag';
       titel = 'Je systeem heeft ruimte. Dat is waardevol.';
-      tekst = 'Je zintuiglijke belasting is laag. Geniet van de ruimte — dit is een goed moment voor dingen die normaal meer vragen.';
+      tekst = 'Je zintuiglijke belasting is laag. Geniet van de ruimte, dit is een goed moment voor dingen die normaal meer vragen.';
       tips = [
         'Dit is een goed moment voor taken die concentratie of creativiteit vragen',
-        'Gebruik de rust bewust — niet per se productief, maar aanwezig',
+        'Gebruik de rust bewust, niet per se productief, maar aanwezig',
         heeftSlaaptekort ? 'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.' :
-        heeftHonger ? 'Zorg eerst voor eten of drinken — een gevoed lichaam houdt dit niveau langer vast.' :
+        heeftHonger ? 'Zorg eerst voor eten of drinken, een gevoed lichaam houdt dit niveau langer vast.' :
         'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
       ];
-      reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes — ook al voelt het soms alsof je er niks voor doet.';
+      reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes, ook al voelt het soms alsof je er niks voor doet.';
 
     } else if (niveau === 2) {
-      label = 'Niveau 2 — Licht belast';
+      label = 'Niveau 2, Licht belast';
       klasse = 'laag';
       titel = 'Licht belast. Nog haalbaar, maar let op wat je er nog bij doet.';
       tekst = 'Je systeem werkt en heeft nog ruimte, maar je merkt de prikkels. Wees bewust over wat je er nog aan toevoegt.';
       tips = [
         'Vermijd grote extra prikkelbronnen: drukke omgevingen, lange gesprekken, veel schermtijd',
-        heeftScherm ? 'Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten' :
-        heeftLawaai ? 'Je bent al blootgesteld aan lawaai — oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen' :
-        heeftTemperatuur ? 'Oncomfortabele temperatuur kost ongemerkt energie — pas je omgeving aan of kleed je aan/uit' :
-        heeftHonger ? 'Eet of drink iets voor je verdergaat — een lege maag of te volle buik versterkt prikkels' :
+        heeftScherm ? 'Je hebt al veel schermtijd, overweeg een schermvrije pauze van 15-20 minuten' :
+        heeftLawaai ? 'Je bent al blootgesteld aan lawaai, oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen' :
+        heeftTemperatuur ? 'Oncomfortabele temperatuur kost ongemerkt energie, pas je omgeving aan of kleed je aan/uit' :
+        heeftHonger ? 'Eet of drink iets voor je verdergaat, een lege maag of te volle buik versterkt prikkels' :
         'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
-        topZintuigData ? `Je ${topZintuigData.naam.toLowerCase()} is het meest belast — geef dat extra aandacht` : 'Houd in de gaten welk zintuig het meest op de voorgrond is'
+        topZintuigData ? `Je ${topZintuigData.naam.toLowerCase()} is het meest belast, geef dat extra aandacht` : 'Houd in de gaten welk zintuig het meest op de voorgrond is'
       ];
-      reminder = 'Licht belast is geen probleem — het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.';
+      reminder = 'Licht belast is geen probleem, het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.';
 
     } else if (niveau === 3) {
-      label = 'Niveau 3 — Redelijk vol';
+      label = 'Niveau 3, Redelijk vol';
       klasse = 'mid';
       titel = 'Je systeem is redelijk vol. Weinig ruimte meer over.';
       tekst = heeftStress
-        ? 'Je combineert een vol systeem met stress — dat versterkt elkaar. Prikkelreductie is nu prioriteit boven productiviteit.'
-        : 'Je systeem heeft de helft van de dag al verwerkt. Nieuwe prikkels komen er bovenop — wees bewust.';
+        ? 'Je combineert een vol systeem met stress, dat versterkt elkaar. Prikkelreductie is nu prioriteit boven productiviteit.'
+        : 'Je systeem heeft de helft van de dag al verwerkt. Nieuwe prikkels komen er bovenop, wees bewust.';
       tips = [
-        opWerk ? 'Zet indien mogelijk muziek of geluiddemping op — verminder wat je kunt in je omgeving' :
-        heeftLawaai ? 'Lawaai heeft je systeem al belast — zoek actief stilte, ook al is het maar 10 minuten' :
+        opWerk ? 'Zet indien mogelijk muziek of geluiddemping op, verminder wat je kunt in je omgeving' :
+        heeftLawaai ? 'Lawaai heeft je systeem al belast, zoek actief stilte, ook al is het maar 10 minuten' :
         'Verlaag de input actief: zet geluiden zachter, verminder schermhelderheid, zoek een rustigere plek',
-        heeftHonger ? 'Eet iets kleins voor je verdergaat — een gevoed systeem herstelt sneller' :
+        heeftHonger ? 'Eet iets kleins voor je verdergaat, een gevoed systeem herstelt sneller' :
         heeftTemperatuur ? 'Pas je temperatuur aan: een te warme of koude omgeving maakt overbelasting zwaarder' :
-        heeftSociaal ? 'Je hebt sociaal contact gehad — dat vergt veel. Gun jezelf nu tijd alleen' : 'Beperk nieuwe sociale interacties voor de komende uren',
+        heeftSociaal ? 'Je hebt sociaal contact gehad, dat vergt veel. Gun jezelf nu tijd alleen' : 'Beperk nieuwe sociale interacties voor de komende uren',
         topZintuigData ? `Focus op het ontlasten van je ${topZintuigData.naam.toLowerCase()}: ${topZintuigData.omschrijving}` : 'Geef je meest belaste zintuig een bewuste pauze',
-        heeftWeer ? 'Wisselend weer beïnvloedt je lichaam onbewust — extra moe of hoofdpijn is niet raar, het is fysiologisch' :
+        heeftWeer ? 'Wisselend weer beïnvloedt je lichaam onbewust, extra moe of hoofdpijn is niet raar, het is fysiologisch' :
         pauzetip()
       ];
-      reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht — niet morgen, nu.';
+      reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht, niet morgen, nu.';
 
     } else if (niveau === 4) {
-      label = 'Niveau 4 — Overbelast';
+      label = 'Niveau 4, Overbelast';
       klasse = 'hoog';
       titel = 'Overbelast. Dit is een actief signaal.';
       tekst = heeftDruk
-        ? 'Je bent in een drukke omgeving geweest — dat stapelt snel op. Het is tijd om terug te trekken.'
-        : 'Je systeem verwerkt meer dan het aankan. Alles voelt intenser dan normaal — dat is fysiologisch, geen overdrijving.';
+        ? 'Je bent in een drukke omgeving geweest, dat stapelt snel op. Het is tijd om terug te trekken.'
+        : 'Je systeem verwerkt meer dan het aankan. Alles voelt intenser dan normaal, dat is fysiologisch, geen overdrijving.';
       tips = [
-        opWerk ? '🔴 Stop met nieuwe input zoveel als mogelijk — geen nieuwe gesprekken aangaan, scherm op laagste helderheid' : '🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen',
+        opWerk ? '🔴 Stop met nieuwe input zoveel als mogelijk, geen nieuwe gesprekken aangaan, scherm op laagste helderheid' : '🔴 Stop met nieuwe input, geen nieuwe gesprekken, geen schermen, geen beslissingen',
         rustTip(),
-        heeftLawaai ? '🔴 Geluid is je grootste belaster nu — oordopjes, noise-cancelling of een stille ruimte is urgent' :
-        opWerk ? 'Zeg zo nodig kort: "Ik heb even een moment nodig." Dat is genoeg uitleg.' : 'Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek',
-        heeftHonger ? 'Eet of drink iets kleins — een lege maag bij overbelasting maakt alles zwaarder' :
-        heeftTemperatuur ? 'Pas je omgevingstemperatuur aan — comfort is nu geen luxe maar een herstelvoorwaarde' :
-        heeftSlaaptekort ? 'Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat' : (opWerk ? 'Zodra je thuis bent: direct ontprikkelen, geen nieuwe afspraken of schermen' : 'Als je kunt: slaap of rust minstens 20-30 minuten'),
-        heeftWeer ? 'Wisselend weer heeft je lichaam extra belast — dit is geen excuus maar een verklaring. Neem het serieus.' :
-        'Stel alles wat kan wachten uit — je systeem heeft nu al je aandacht nodig'
+        heeftLawaai ? '🔴 Geluid is je grootste belaster nu, oordopjes, noise-cancelling of een stille ruimte is urgent' :
+        opWerk ? 'Zeg zo nodig kort: "Ik heb even een moment nodig." Dat is genoeg uitleg.' : 'Doe niks, letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek',
+        heeftHonger ? 'Eet of drink iets kleins, een lege maag bij overbelasting maakt alles zwaarder' :
+        heeftTemperatuur ? 'Pas je omgevingstemperatuur aan, comfort is nu geen luxe maar een herstelvoorwaarde' :
+        heeftSlaaptekort ? 'Slaaptekort verergert overbelasting sterk, zorg dat je vanavond vroeg naar bed gaat' : (opWerk ? 'Zodra je thuis bent: direct ontprikkelen, geen nieuwe afspraken of schermen' : 'Als je kunt: slaap of rust minstens 20-30 minuten'),
+        heeftWeer ? 'Wisselend weer heeft je lichaam extra belast, dit is geen excuus maar een verklaring. Neem het serieus.' :
+        'Stel alles wat kan wachten uit, je systeem heeft nu al je aandacht nodig'
       ];
-      reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte — dat is hoe het werkt.';
+      reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte, dat is hoe het werkt.';
 
     } else {
-      label = 'Niveau 5 — Overvol';
+      label = 'Niveau 5, Overvol';
       klasse = 'overvol';
       titel = 'Je systeem is overvol. Rust is nu urgent.';
       tekst = 'Je bevindt je op of voorbij het punt waarop je systeem normaal kan functioneren. Dit is een shutdown-signaal. Andere prioriteiten kunnen wachten.';
       tips = [
-        opWerk ? '🔴 Verlaat de situatie zo snel als je kunt — ook even naar buiten of naar de wc is beter dan blijven' : '🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte',
-        heeftLawaai ? '🔴 Geluid is nu ondraaglijk voor je systeem — oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak' :
-        opWerk ? 'Stuur een kort berichtje als je iets moet zeggen — praten kost nu te veel' : 'Trek je terug van sociale situaties, schermen en alle externe prikkels',
-        heeftHonger ? 'Eet iets kleins als je kunt — je lichaam heeft brandstof nodig om te herstellen' :
-        heeftTemperatuur ? 'Zoek een comfortabele temperatuur — warmte of kou maakt shutdown zwaarder' :
-        'Leg je eventueel op de grond of op bed — zwaarte helpt je systeem kalmeren (proprioceptie)',
-        heeftWeer ? 'Wisselend weer en een overvol systeem combineren slecht — je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.' :
+        opWerk ? '🔴 Verlaat de situatie zo snel als je kunt, ook even naar buiten of naar de wc is beter dan blijven' : '🔴 Stop alles, ga direct naar een rustige, donkere, stille ruimte',
+        heeftLawaai ? '🔴 Geluid is nu ondraaglijk voor je systeem, oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak' :
+        opWerk ? 'Stuur een kort berichtje als je iets moet zeggen, praten kost nu te veel' : 'Trek je terug van sociale situaties, schermen en alle externe prikkels',
+        heeftHonger ? 'Eet iets kleins als je kunt, je lichaam heeft brandstof nodig om te herstellen' :
+        heeftTemperatuur ? 'Zoek een comfortabele temperatuur, warmte of kou maakt shutdown zwaarder' :
+        'Leg je eventueel op de grond of op bed, zwaarte helpt je systeem kalmeren (proprioceptie)',
+        heeftWeer ? 'Wisselend weer en een overvol systeem combineren slecht, je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.' :
         'Geen beslissingen nemen, geen to-do lijstjes, geen plannen',
         'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg',
-        'Verwacht niet dat je snel herstelt — plan de rest van de dag licht'
+        'Verwacht niet dat je snel herstelt, plan de rest van de dag licht'
       ];
       reminder = 'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan.';
     }
@@ -1030,14 +1030,14 @@
   const CONTEXT_KEYS = ['home','school_work','public_transport','busy_space','social','poor_sleep','screen_time','noise','temperature','stressed','food','weather'];
   const I18N = {
     nl: {
-      htmlLang:'nl', title:'PRISMA — Signaal',
+      htmlLang:'nl', title:'PRISMA, Signaal',
       headerLogo:'PRISMA Systemen',
       h1:'Hoe vol is je systeem nu?',
-      subtitle1:'Een snelle check-in voor je zintuiglijk systeem. Geen diagnose — wel inzicht.',
-      subtitle2:'Met systeem bedoelen we je zenuwstelsel — de manier waarop jouw brein en lichaam prikkels verwerken.',
+      subtitle1:'Een snelle check-in voor je zintuiglijk systeem. Geen diagnose, wel inzicht.',
+      subtitle2:'Met systeem bedoelen we je zenuwstelsel, de manier waarop jouw brein en lichaam prikkels verwerken.',
       progress:['Algeheel','Per zintuig','Context'],
-      sections:['Stap 1 — Hoe vol voelt je systeem nu?','Stap 2 — Welk zintuig is het meest belast?','Stap 3 — Wat speelt er mee?'],
-      prikkelNames:['Rustig','Licht belast','Redelijk vol','Overbelast','Overvol — shutdown nabij'],
+      sections:['Stap 1, Hoe vol voelt je systeem nu?','Stap 2, Welk zintuig is het meest belast?','Stap 3, Wat speelt er mee?'],
+      prikkelNames:['Rustig','Licht belast','Redelijk vol','Overbelast','Overvol, shutdown nabij'],
       prikkelDesc:['Je systeem is kalm. Weinig prikkels, veel ruimte.','Je merkt prikkels, maar het is nog behapbaar.','Je systeem werkt, maar heeft weinig ruimte meer over.','Veel te verwerken. Alles voelt intenser dan normaal.','Je systeem kan bijna niet meer. Rust is nu urgent.'],
       hint2:'Schat in per zintuig. Mag ook overgeslagen worden.',
       hint3:'Meerdere opties zijn mogelijk. Mag ook leeg blijven.',
@@ -1051,14 +1051,14 @@
       iosStrong:'Sla op als app', iosText:'Safari → ⎙ → Zet op beginscherm', androidText:'Voeg PRISMA toe aan je beginscherm'
     },
     en: {
-      htmlLang:'en', title:'PRISMA — Signal',
+      htmlLang:'en', title:'PRISMA, Signal',
       headerLogo:'PRISMA Systems',
       h1:'How full is your system right now?',
-      subtitle1:'A quick check-in for your sensory system. Not a diagnosis — but insight.',
-      subtitle2:'By system, we mean your nervous system — the way your brain and body process stimuli.',
+      subtitle1:'A quick check-in for your sensory system. Not a diagnosis, but insight.',
+      subtitle2:'By system, we mean your nervous system, the way your brain and body process stimuli.',
       progress:['Overall','Per sense','Context'],
-      sections:['Step 1 — How full does your system feel right now?','Step 2 — Which sense feels most overloaded?','Step 3 — What is affecting it?'],
-      prikkelNames:['Calm','Lightly loaded','Quite full','Overloaded','Overfull — near shutdown'],
+      sections:['Step 1, How full does your system feel right now?','Step 2, Which sense feels most overloaded?','Step 3, What is affecting it?'],
+      prikkelNames:['Calm','Lightly loaded','Quite full','Overloaded','Overfull, near shutdown'],
       prikkelDesc:['Your system is calm. Few stimuli, plenty of room.','You notice stimuli, but it is still manageable.','Your system is working, but there is little room left.','A lot to process. Everything feels more intense than usual.','Your system can barely handle more. Rest is urgent now.'],
       hint2:'Estimate each sense. You can also skip this step.',
       hint3:'You can choose multiple options. It can also stay empty.',
@@ -1161,70 +1161,70 @@
   }
 
   const SIGNAAL_TEXT_MAP = {
-    'Niveau 1 — Rustig systeem':'Level 1 — Calm system',
-    'Niveau 2 — Licht belast':'Level 2 — Light load',
-    'Niveau 3 — Redelijk vol':'Level 3 — Quite full',
-    'Niveau 4 — Overbelast':'Level 4 — Overloaded',
-    'Niveau 5 — Overvol':'Level 5 — Overfull',
+    'Niveau 1, Rustig systeem':'Level 1, Calm system',
+    'Niveau 2, Licht belast':'Level 2, Light load',
+    'Niveau 3, Redelijk vol':'Level 3, Quite full',
+    'Niveau 4, Overbelast':'Level 4, Overloaded',
+    'Niveau 5, Overvol':'Level 5, Overfull',
     'Je systeem heeft ruimte. Dat is waardevol.':'Your system has room. That is valuable.',
     'Licht belast. Nog haalbaar, maar let op wat je er nog bij doet.':'Lightly loaded. Still manageable, but be mindful of what you add to it.',
     'Je systeem is redelijk vol. Weinig ruimte meer over.':'Your system is fairly full. There is not much room left.',
     'Overbelast. Dit is een actief signaal.':'Overloaded. This is an active signal.',
     'Je systeem is overvol. Rust is nu urgent.':'Your system is overfull. Rest is urgent now.',
-    'Je zintuiglijke belasting is laag. Geniet van de ruimte — dit is een goed moment voor dingen die normaal meer vragen.':'Your sensory load is low. Enjoy the space — this is a good moment for things that usually ask more of you.',
+    'Je zintuiglijke belasting is laag. Geniet van de ruimte, dit is een goed moment voor dingen die normaal meer vragen.':'Your sensory load is low. Enjoy the space, this is a good moment for things that usually ask more of you.',
     'Je systeem werkt en heeft nog ruimte, maar je merkt de prikkels. Wees bewust over wat je er nog aan toevoegt.':'Your system is working and still has some room, but you can feel the stimuli. Be mindful of what you add to it.',
     'Je bevindt je op of voorbij het punt waarop je systeem normaal kan functioneren. Dit is een shutdown-signaal. Andere prioriteiten kunnen wachten.':'You are at or beyond the point where your system can usually function normally. This is a shutdown signal. Other priorities can wait.',
     'Ook al voel je je nu rustig: slaaptekort stapelt op. Houd je bedtijdroutine aan.':'Even if you feel calm right now, sleep debt adds up. Keep your bedtime routine steady.',
-    'Zorg eerst voor eten of drinken — een gevoed lichaam houdt dit niveau langer vast.':'Make sure you eat or drink first — a nourished body can hold on to this level for longer.',
+    'Zorg eerst voor eten of drinken, een gevoed lichaam houdt dit niveau langer vast.':'Make sure you eat or drink first, a nourished body can hold on to this level for longer.',
     'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven':'Notice what helped you stay this calm today.',
     'Vermijd grote extra prikkelbronnen: drukke omgevingen, lange gesprekken, veel schermtijd':'Avoid major extra sources of stimulation: busy environments, long conversations, a lot of screen time.',
     'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt':'Build in small moments of rest in between, even if you still feel okay.',
     'Houd in de gaten welk zintuig het meest op de voorgrond is':'Notice which sense is most in the foreground.',
     'Verlaag de input actief: zet geluiden zachter, verminder schermhelderheid, zoek een rustigere plek':'Actively lower the input: turn sounds down, lower screen brightness, and look for a calmer place.',
-    'Eet iets kleins voor je verdergaat — een gevoed systeem herstelt sneller':'Eat something small before you continue — a nourished system recovers more quickly.',
+    'Eet iets kleins voor je verdergaat, een gevoed systeem herstelt sneller':'Eat something small before you continue, a nourished system recovers more quickly.',
     'Pas je temperatuur aan: een te warme of koude omgeving maakt overbelasting zwaarder':'Adjust your temperature: an environment that is too warm or too cold makes overload harder to carry.',
     'Beperk nieuwe sociale interacties voor de komende uren':'Limit new social interactions for the next few hours.',
     'Geef je meest belaste zintuig een bewuste pauze':'Give your most overloaded sense a deliberate pause.',
-    'Stel alles wat kan wachten uit — je systeem heeft nu al je aandacht nodig':'Postpone everything that can wait — your system needs your attention right now.',
+    'Stel alles wat kan wachten uit, je systeem heeft nu al je aandacht nodig':'Postpone everything that can wait, your system needs your attention right now.',
     'Geen beslissingen nemen, geen to-do lijstjes, geen plannen':'Do not make decisions, to-do lists, or plans.',
     'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg':'Only communicate if it is truly necessary: a short message is enough.',
-    'Verwacht niet dat je snel herstelt — plan de rest van de dag licht':'Do not expect to recover quickly — keep the rest of the day light.',
-    'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes — ook al voelt het soms alsof je er niks voor doet.':'A calm system is not an accident. It is the result of conscious choices — even if it sometimes feels like you did nothing for it.',
-    'Licht belast is geen probleem — het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.':'A light load is not a problem — it is a signal. Your system gives you information before you consciously notice it.',
-    'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht — niet morgen, nu.':'Quite full is the signal that comes before it becomes too much. Your system is asking for attention — not tomorrow, now.',
-    'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte — dat is hoe het werkt.':'Overload is not failure. Your system has worked hard and now it needs rest. That is not weakness — that is how it works.',
+    'Verwacht niet dat je snel herstelt, plan de rest van de dag licht':'Do not expect to recover quickly, keep the rest of the day light.',
+    'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes, ook al voelt het soms alsof je er niks voor doet.':'A calm system is not an accident. It is the result of conscious choices, even if it sometimes feels like you did nothing for it.',
+    'Licht belast is geen probleem, het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.':'A light load is not a problem, it is a signal. Your system gives you information before you consciously notice it.',
+    'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht, niet morgen, nu.':'Quite full is the signal that comes before it becomes too much. Your system is asking for attention, not tomorrow, now.',
+    'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte, dat is hoe het werkt.':'Overload is not failure. Your system has worked hard and now it needs rest. That is not weakness, that is how it works.',
     'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan.':'A shutdown is your body pulling the emergency brake. Listen to it. It is not an overreaction. It is your system protecting what it can.'
   };
   function translateSignaalText(text){ if(currentLang!=='en') return text; return Object.keys(SIGNAAL_TEXT_MAP).sort((a,b)=>b.length-a.length).reduce((acc,key)=>acc.split(key).join(SIGNAAL_TEXT_MAP[key]), text)
     .replace('Dit is een goed moment voor taken die concentratie of creativiteit vragen','This is a good moment for tasks that ask for concentration or creativity')
-    .replace('Gebruik de rust bewust — niet per se productief, maar aanwezig','Use the calm intentionally — not necessarily productively, but with presence')
-    .replace('Je hebt al veel schermtijd — overweeg een schermvrije pauze van 15-20 minuten','You have already had a lot of screen time — consider a 15–20 minute screen-free break')
-    .replace('Je bent al blootgesteld aan lawaai — oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen','You have already been exposed to noise — earplugs or a quieter place will help prevent more buildup now')
-    .replace('Oncomfortabele temperatuur kost ongemerkt energie — pas je omgeving aan of kleed je aan/uit','An uncomfortable temperature quietly costs energy — adjust your surroundings or change layers')
-    .replace('Eet of drink iets voor je verdergaat — een lege maag of te volle buik versterkt prikkels','Eat or drink something before you continue — an empty stomach or feeling too full amplifies stimuli')
-    .replace('Zet indien mogelijk muziek of geluiddemping op — verminder wat je kunt in je omgeving','If possible, use music or sound damping — reduce whatever input you can in your environment')
-    .replace('Lawaai heeft je systeem al belast — zoek actief stilte, ook al is het maar 10 minuten','Noise has already loaded your system — actively look for silence, even if it is only for 10 minutes')
-    .replace('Je hebt sociaal contact gehad — dat vergt veel. Gun jezelf nu tijd alleen','You have had social contact — that asks a lot of your system. Give yourself time alone now')
-    .replace('Wisselend weer beïnvloedt je lichaam onbewust — extra moe of hoofdpijn is niet raar, het is fysiologisch','Changing weather affects your body subconsciously — extra fatigue or a headache is not strange, it is physiological')
-    .replace('🔴 Stop met nieuwe input zoveel als mogelijk — geen nieuwe gesprekken aangaan, scherm op laagste helderheid','🔴 Stop as much new input as possible — do not start new conversations and set your screen to the lowest brightness')
-    .replace('🔴 Stop met nieuwe input — geen nieuwe gesprekken, geen schermen, geen beslissingen','🔴 Stop new input — no new conversations, no screens, no decisions')
-    .replace('🔴 Geluid is je grootste belaster nu — oordopjes, noise-cancelling of een stille ruimte is urgent','🔴 Sound is your biggest stressor right now — earplugs, noise-cancelling, or a quiet room are urgent')
+    .replace('Gebruik de rust bewust, niet per se productief, maar aanwezig','Use the calm intentionally, not necessarily productively, but with presence')
+    .replace('Je hebt al veel schermtijd, overweeg een schermvrije pauze van 15-20 minuten','You have already had a lot of screen time, consider a 15–20 minute screen-free break')
+    .replace('Je bent al blootgesteld aan lawaai, oordopjes of een stillere plek helpt nu om verdere opbouw te voorkomen','You have already been exposed to noise, earplugs or a quieter place will help prevent more buildup now')
+    .replace('Oncomfortabele temperatuur kost ongemerkt energie, pas je omgeving aan of kleed je aan/uit','An uncomfortable temperature quietly costs energy, adjust your surroundings or change layers')
+    .replace('Eet of drink iets voor je verdergaat, een lege maag of te volle buik versterkt prikkels','Eat or drink something before you continue, an empty stomach or feeling too full amplifies stimuli')
+    .replace('Zet indien mogelijk muziek of geluiddemping op, verminder wat je kunt in je omgeving','If possible, use music or sound damping, reduce whatever input you can in your environment')
+    .replace('Lawaai heeft je systeem al belast, zoek actief stilte, ook al is het maar 10 minuten','Noise has already loaded your system, actively look for silence, even if it is only for 10 minutes')
+    .replace('Je hebt sociaal contact gehad, dat vergt veel. Gun jezelf nu tijd alleen','You have had social contact, that asks a lot of your system. Give yourself time alone now')
+    .replace('Wisselend weer beïnvloedt je lichaam onbewust, extra moe of hoofdpijn is niet raar, het is fysiologisch','Changing weather affects your body subconsciously, extra fatigue or a headache is not strange, it is physiological')
+    .replace('🔴 Stop met nieuwe input zoveel als mogelijk, geen nieuwe gesprekken aangaan, scherm op laagste helderheid','🔴 Stop as much new input as possible, do not start new conversations and set your screen to the lowest brightness')
+    .replace('🔴 Stop met nieuwe input, geen nieuwe gesprekken, geen schermen, geen beslissingen','🔴 Stop new input, no new conversations, no screens, no decisions')
+    .replace('🔴 Geluid is je grootste belaster nu, oordopjes, noise-cancelling of een stille ruimte is urgent','🔴 Sound is your biggest stressor right now, earplugs, noise-cancelling, or a quiet room are urgent')
     .replace('Zeg zo nodig kort: "Ik heb even een moment nodig." Dat is genoeg uitleg.','If needed, briefly say: "I need a moment." That is enough explanation.')
-    .replace('Doe niks — letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek','Do nothing — literally. Lie down, stare, or breathe slowly. No podcast, no music')
-    .replace('Eet of drink iets kleins — een lege maag bij overbelasting maakt alles zwaarder','Eat or drink something small — an empty stomach makes overload heavier')
-    .replace('Pas je omgevingstemperatuur aan — comfort is nu geen luxe maar een herstelvoorwaarde','Adjust your temperature — comfort is not a luxury right now but a recovery condition')
-    .replace('Slaaptekort verergert overbelasting sterk — zorg dat je vanavond vroeg naar bed gaat','Sleep deprivation strongly worsens overload — make sure you go to bed early tonight')
+    .replace('Doe niks, letterlijk. Liggen, staren, of langzaam ademen. Geen podcast, geen muziek','Do nothing, literally. Lie down, stare, or breathe slowly. No podcast, no music')
+    .replace('Eet of drink iets kleins, een lege maag bij overbelasting maakt alles zwaarder','Eat or drink something small, an empty stomach makes overload heavier')
+    .replace('Pas je omgevingstemperatuur aan, comfort is nu geen luxe maar een herstelvoorwaarde','Adjust your temperature, comfort is not a luxury right now but a recovery condition')
+    .replace('Slaaptekort verergert overbelasting sterk, zorg dat je vanavond vroeg naar bed gaat','Sleep deprivation strongly worsens overload, make sure you go to bed early tonight')
     .replace('Zodra je thuis bent: direct ontprikkelen, geen nieuwe afspraken of schermen','As soon as you are home: start reducing stimuli immediately, no new plans or screens')
     .replace('Als je kunt: slaap of rust minstens 20-30 minuten','If you can: sleep or rest for at least 20–30 minutes')
-    .replace('Wisselend weer heeft je lichaam extra belast — dit is geen excuus maar een verklaring. Neem het serieus.','Changing weather has put extra strain on your body — this is not an excuse, but an explanation. Take it seriously.')
-    .replace('🔴 Verlaat de situatie zo snel als je kunt — ook even naar buiten of naar de wc is beter dan blijven','🔴 Leave the situation as quickly as you can — even stepping outside or going to the bathroom is better than staying')
-    .replace('🔴 Stop alles — ga direct naar een rustige, donkere, stille ruimte','🔴 Stop everything — go directly to a calm, dark, quiet space')
-    .replace('🔴 Geluid is nu ondraaglijk voor je systeem — oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak','🔴 Sound is unbearable for your system right now — earplugs or earmuffs are not an exaggeration, they are necessary')
-    .replace('Stuur een kort berichtje als je iets moet zeggen — praten kost nu te veel','Send a short message if you need to say something — talking costs too much right now')
+    .replace('Wisselend weer heeft je lichaam extra belast, dit is geen excuus maar een verklaring. Neem het serieus.','Changing weather has put extra strain on your body, this is not an excuse, but an explanation. Take it seriously.')
+    .replace('🔴 Verlaat de situatie zo snel als je kunt, ook even naar buiten of naar de wc is beter dan blijven','🔴 Leave the situation as quickly as you can, even stepping outside or going to the bathroom is better than staying')
+    .replace('🔴 Stop alles, ga direct naar een rustige, donkere, stille ruimte','🔴 Stop everything, go directly to a calm, dark, quiet space')
+    .replace('🔴 Geluid is nu ondraaglijk voor je systeem, oordopjes of oorkappen zijn geen overdrijving, ze zijn noodzaak','🔴 Sound is unbearable for your system right now, earplugs or earmuffs are not an exaggeration, they are necessary')
+    .replace('Stuur een kort berichtje als je iets moet zeggen, praten kost nu te veel','Send a short message if you need to say something, talking costs too much right now')
     .replace('Trek je terug van sociale situaties, schermen en alle externe prikkels','Withdraw from social situations, screens, and all external stimuli')
-    .replace('Zoek een comfortabele temperatuur — warmte of kou maakt shutdown zwaarder','Find a comfortable temperature — heat or cold make shutdown heavier')
-    .replace('Leg je eventueel op de grond of op bed — zwaarte helpt je systeem kalmeren (proprioceptie)','Lie down on the floor or on a bed if needed — heaviness can help calm your system (proprioception)')
-    .replace('Wisselend weer en een overvol systeem combineren slecht — je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.','Changing weather and an overfull system are a hard combination — your body is processing double right now. Give it double the time.'); }
+    .replace('Zoek een comfortabele temperatuur, warmte of kou maakt shutdown zwaarder','Find a comfortable temperature, heat or cold make shutdown heavier')
+    .replace('Leg je eventueel op de grond of op bed, zwaarte helpt je systeem kalmeren (proprioceptie)','Lie down on the floor or on a bed if needed, heaviness can help calm your system (proprioception)')
+    .replace('Wisselend weer en een overvol systeem combineren slecht, je lichaam verwerkt nu dubbel. Geef het dubbel de tijd.','Changing weather and an overfull system are a hard combination, your body is processing double right now. Give it double the time.'); }
   function getSenseName(id){ const index=ZINTUIGEN.findIndex(z=>z.id===id); return index>-1 ? I18N[currentLang].senses[index][0] : id; }
   function initContext(){ document.querySelectorAll('.context-tag').forEach((el,i)=>{el.dataset.ctx=CONTEXT_KEYS[i];}); }
   function updateLanguageLinks(){ document.querySelectorAll('a[href]').forEach((link)=>{ const raw=link.getAttribute('href'); if(!raw||raw.startsWith('#')||raw.startsWith('mailto:')||raw.startsWith('tel:')||raw.includes('lemonsqueezy.com')||raw.includes('paypal')) return; let url; try { url = new URL(raw, window.location.href); } catch(e) { return; } if (url.origin !== window.location.origin && !url.hostname.includes('prismasystemen.nl')) return; if (!url.pathname.endsWith('.html') && url.pathname !== '/' && !url.pathname.endsWith('/')) return; if (currentLang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang'); const sameOrigin=url.origin===window.location.origin; link.setAttribute('href', sameOrigin ? (url.pathname + url.search + url.hash) : url.toString()); }); }
