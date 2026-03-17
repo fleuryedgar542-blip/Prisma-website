@@ -19,9 +19,9 @@
         clearLabel: 'Was this clear?',
         clearPlaceholder: 'Choose if you want',
         clearOptions: [
-          { value: 'yes', label: 'Yes' },
-          { value: 'a_little', label: 'A little' },
-          { value: 'no', label: 'No' }
+          { value: 'clear', label: 'Yes' },
+          { value: 'somewhat_clear', label: 'A little' },
+          { value: 'unclear', label: 'No' }
         ],
         againLabel: 'Would you use this again?',
         againPlaceholder: 'Choose if you want',
@@ -43,9 +43,9 @@
       clearLabel: 'Was dit duidelijk?',
       clearPlaceholder: 'Kies als je wilt',
       clearOptions: [
-        { value: 'yes', label: 'Ja' },
-        { value: 'a_little', label: 'Een beetje' },
-        { value: 'no', label: 'Nee' }
+        { value: 'clear', label: 'Ja' },
+        { value: 'somewhat_clear', label: 'Een beetje' },
+        { value: 'unclear', label: 'Nee' }
       ],
       againLabel: 'Zou je dit nog eens gebruiken?',
       againPlaceholder: 'Kies als je wilt',
@@ -70,15 +70,119 @@
     return rendered.join('');
   }
 
+  function normalizeText(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function containsAny(text, patterns) {
+    return patterns.some((pattern) => text.includes(pattern));
+  }
+
+  function getLanguage(config) {
+    if (config && config.lang) return config.lang;
+    return window.location.pathname.startsWith('/en/') ? 'en' : 'nl';
+  }
+
+  function getVersion(config) {
+    if (config && config.version) return config.version;
+    const pageVersion = document.documentElement.getAttribute('data-version');
+    return pageVersion || FEEDBACK_VERSION;
+  }
+
+  function inferFeedbackType(message, clarityScore, reuseScore) {
+    const text = normalizeText(message);
+
+    const bugPatterns = [
+      'werkt niet', 'werk niet', 'error', 'bug', 'kapot', 'doet het niet',
+      'vastgelopen', 'loopt vast', 'crash', 'broken', 'not working',
+      'does not work', "doesn't work", 'stuck', 'fails', 'failure'
+    ];
+    const confusingPatterns = [
+      'snap niet', 'snap het niet', 'onduidelijk', 'verwarrend', 'begrijp niet',
+      'begrijp het niet', 'niet duidelijk', 'confusing', 'unclear',
+      'i do not understand', "don't understand", 'hard to follow'
+    ];
+    const missingFeaturePatterns = [
+      'mis ', 'ik mis', 'zou handig zijn', 'zou fijn zijn', 'feature',
+      'zou graag', 'mist', 'missing', 'wish it had', 'would be helpful',
+      'would be nice', 'i would like'
+    ];
+    const emotionalPatterns = [
+      'overwhelmed', 'stress', 'te veel', 'overprikkeld', 'paniek',
+      'spannend', 'unsettling', 'anxious', 'anxiety', 'too much'
+    ];
+    const positivePatterns = [
+      'alles ging goed', 'ging goed', 'fijn', 'helpt', 'goed', 'rustig',
+      'duidelijk', 'prettig', 'werkt goed', 'thank you', 'helpful',
+      'clear', 'calm', 'good', 'works well', 'useful'
+    ];
+
+    if (containsAny(text, bugPatterns)) return 'bug';
+    if (containsAny(text, confusingPatterns) || clarityScore === 'unclear') return 'confusing';
+    if (containsAny(text, missingFeaturePatterns)) return 'missing_feature';
+    if (containsAny(text, emotionalPatterns)) return 'emotional_response';
+    if (containsAny(text, positivePatterns) || (clarityScore === 'clear' && reuseScore === 'yes')) return 'positive';
+    return 'other';
+  }
+
+  function inferSeverity(message, feedbackType, clarityScore, reuseScore) {
+    const text = normalizeText(message);
+
+    const highPatterns = [
+      'kan niet verder', 'werkt niet', 'vastgelopen', 'helemaal kapot',
+      'completely broken', 'blocked', 'cannot continue', "can't continue",
+      'totally broken', 'stuck'
+    ];
+    const mediumPatterns = [
+      'frustrerend', 'irritant', 'mis', 'onduidelijk', 'verwarrend',
+      'stress', 'te veel', 'annoying', 'frustrating', 'unclear',
+      'confusing', 'missing', 'hard to use'
+    ];
+
+    if (containsAny(text, highPatterns) || feedbackType === 'bug' && reuseScore === 'no') {
+      return 'high';
+    }
+
+    if (
+      containsAny(text, mediumPatterns) ||
+      feedbackType === 'missing_feature' ||
+      feedbackType === 'confusing' ||
+      feedbackType === 'emotional_response' ||
+      clarityScore === 'unclear' ||
+      reuseScore === 'no'
+    ) {
+      return 'medium';
+    }
+
+    return 'low';
+  }
+
+  function applyDerivedFields(form) {
+    const message = form.elements.message.value;
+    const clarityScore = form.elements.clarity_score.value || '';
+    const reuseScore = form.elements.reuse_score.value || '';
+    const feedbackType = inferFeedbackType(message, clarityScore, reuseScore);
+    const severity = inferSeverity(message, feedbackType, clarityScore, reuseScore);
+
+    form.elements.feedback_type.value = feedbackType;
+    form.elements.severity.value = severity;
+    form.elements.submitted_at.value = new Date().toISOString();
+  }
+
   function createMarkup(config) {
-    const labels = getDefaultLabels(config.lang);
+    const lang = getLanguage(config);
+    const labels = getDefaultLabels(lang);
+    const version = getVersion(config);
     return `
       <form class="prisma-feedback" action="${escapeHtml(FEEDBACK_ENDPOINT)}" method="POST" novalidate>
         <input type="hidden" name="tool" value="${escapeHtml(config.tool)}">
         <input type="hidden" name="page" value="${escapeHtml(window.location.pathname)}">
-        <input type="hidden" name="lang" value="${escapeHtml(config.lang)}">
-        <input type="hidden" name="version" value="${escapeHtml(FEEDBACK_VERSION)}">
+        <input type="hidden" name="lang" value="${escapeHtml(lang)}">
+        <input type="hidden" name="version" value="${escapeHtml(version)}">
         <input type="hidden" name="email" value="${escapeHtml(FEEDBACK_EMAIL)}">
+        <input type="hidden" name="feedback_type" value="">
+        <input type="hidden" name="severity" value="">
+        <input type="hidden" name="submitted_at" value="">
 
         <div class="prisma-feedback-title">${escapeHtml(labels.title)}</div>
 
@@ -90,14 +194,14 @@
 
           <label class="prisma-feedback-field">
             <span class="prisma-feedback-label">${escapeHtml(labels.clearLabel)}</span>
-            <select class="prisma-feedback-select" name="clear">
+            <select class="prisma-feedback-select" name="clarity_score">
               ${buildOptions(labels.clearOptions, labels.clearPlaceholder)}
             </select>
           </label>
 
           <label class="prisma-feedback-field">
             <span class="prisma-feedback-label">${escapeHtml(labels.againLabel)}</span>
-            <select class="prisma-feedback-select" name="use_again">
+            <select class="prisma-feedback-select" name="reuse_score">
               ${buildOptions(labels.againOptions, labels.againPlaceholder)}
             </select>
           </label>
@@ -123,6 +227,7 @@
     if (form.dataset.submitting === 'true') return;
     if (!form.reportValidity()) return;
 
+    applyDerivedFields(form);
     form.dataset.submitting = 'true';
     status.hidden = true;
     status.textContent = '';
