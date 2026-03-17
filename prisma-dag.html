@@ -481,6 +481,13 @@
     line-height: 1.7;
   }
   .feedback-bedankt[hidden] { display: none; }
+  .feedback-fout {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #8C5A5A;
+    line-height: 1.6;
+  }
+  .feedback-fout[hidden] { display: none; }
 
   .opnieuw-btn {
     margin-top: 28px;
@@ -937,6 +944,7 @@
           no: 'Not really',
           hardest: 'What felt hardest?',
           thanks: 'Thank you, this really helps.',
+          error: 'Sending did not work just now. Please try again.',
           options: { starting: 'starting', choosing: 'choosing', energy: 'energy', other: 'something else' }
         }
       : {
@@ -945,22 +953,33 @@
           no: 'Nog niet echt',
           hardest: 'Wat liep het meest vast?',
           thanks: 'Bedankt, dit helpt echt.',
+          error: 'Versturen lukt nu even niet. Probeer het zo nog eens.',
           options: { starting: 'beginnen', choosing: 'kiezen wat te doen', energy: 'energie', other: 'iets anders' }
         };
   }
 
-  function sendFeedback(payload) {
-    return fetch(FEEDBACK_ENDPOINT, {
+  async function sendFeedback(payload) {
+    const formData = new FormData();
+    Object.entries({
+      ...payload,
+      timestamp: new Date().toISOString()
+    }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const response = await fetch(FEEDBACK_ENDPOINT, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        ...payload,
-        timestamp: new Date().toISOString()
-      })
-    }).catch(() => null);
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Feedback submit failed with status ${response.status}`);
+    }
+
+    return response;
   }
 
   function renderFeedback(rootId, tool) {
@@ -986,11 +1005,13 @@
           <button type="button" class="feedback-optie" data-difficulty="other">${t.options.other}</button>
         </div>
       </div>
+      <div class="feedback-fout" hidden>${t.error}</div>
       <div class="feedback-bedankt" hidden>${t.thanks}</div>
     `;
 
     const helpfulStep = root.querySelector('[data-step="helpful"]');
     const difficultyStep = root.querySelector('[data-step="difficulty"]');
+    const error = root.querySelector('.feedback-fout');
     const thanks = root.querySelector('.feedback-bedankt');
     let helpfulValue = 'no';
 
@@ -1004,17 +1025,27 @@
 
     root.querySelectorAll('[data-difficulty]').forEach((button) => {
       button.addEventListener('click', async () => {
-        root.querySelectorAll('.feedback-optie').forEach((optie) => {
+        const opties = [...root.querySelectorAll('.feedback-optie')];
+        error.hidden = true;
+        opties.forEach((optie) => {
           optie.disabled = true;
         });
-        await sendFeedback({
-          tool,
-          language: currentLang,
-          helpful: helpfulValue,
-          difficulty: button.dataset.difficulty
-        });
-        difficultyStep.hidden = true;
-        thanks.hidden = false;
+        try {
+          await sendFeedback({
+            tool,
+            language: currentLang,
+            helpful: helpfulValue,
+            difficulty: button.dataset.difficulty
+          });
+          difficultyStep.hidden = true;
+          thanks.hidden = false;
+        } catch (submitError) {
+          console.error('Feedback submit failed', submitError);
+          error.hidden = false;
+          opties.forEach((optie) => {
+            optie.disabled = false;
+          });
+        }
       });
     });
   }
