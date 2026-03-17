@@ -1,6 +1,7 @@
 (function () {
   const FEEDBACK_ENDPOINT = 'https://formspree.io/f/xwvrwvqw';
   const FEEDBACK_VERSION = '2026-03-17';
+  const FEEDBACK_EMAIL = 'fleur@prismasystemen.nl';
 
   function escapeHtml(value) {
     return String(value)
@@ -77,6 +78,7 @@
         <input type="hidden" name="page" value="${escapeHtml(window.location.pathname)}">
         <input type="hidden" name="lang" value="${escapeHtml(config.lang)}">
         <input type="hidden" name="version" value="${escapeHtml(FEEDBACK_VERSION)}">
+        <input type="hidden" name="email" value="${escapeHtml(FEEDBACK_EMAIL)}">
 
         <div class="prisma-feedback-title">${escapeHtml(labels.title)}</div>
 
@@ -141,7 +143,10 @@
         try {
           const data = await response.json();
           if (data && Array.isArray(data.errors) && data.errors[0] && data.errors[0].message) {
-            message = data.errors[0].message;
+            const errorDetail = data.errors[0];
+            message = errorDetail.field
+              ? `${errorDetail.field} ${errorDetail.message}`
+              : errorDetail.message;
           } else if (data && typeof data.error === 'string' && data.error.trim()) {
             message = data.error;
           }
@@ -157,7 +162,6 @@
       status.dataset.state = 'success';
       status.textContent = labels.success;
     } catch (error) {
-      console.error('Feedback submit failed', error);
       status.hidden = false;
       status.dataset.state = 'error';
       status.textContent = error && error.message ? error.message : labels.error;
