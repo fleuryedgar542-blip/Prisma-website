@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sensory overload tracker | PRISMA Signal</title>
-<meta name="description" content="Free sensory tracker that helps you check your sensory load within 30 seconds and see what your system needs next.">
+<title>Sensory tracker for moments when everything feels too much | PRISMA Signal</title>
+<meta name="description" content="Free sensory tracker for moments when everything feels too much. Check in within 30 seconds and see what may help right now.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://prismasystemen.nl/en/prisma-signal.html">
 <link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-signaal.html">
@@ -12,15 +12,15 @@
 <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-signaal.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PRISMA Systemen">
-<meta property="og:title" content="Sensory overload tracker | PRISMA Signal">
-<meta property="og:description" content="Free sensory tracker that helps you check your sensory load within 30 seconds and see what your system needs next.">
+<meta property="og:title" content="Sensory tracker for moments when everything feels too much | PRISMA Signal">
+<meta property="og:description" content="Free sensory tracker for moments when everything feels too much. Check in within 30 seconds and see what may help right now.">
 <meta property="og:url" content="https://prismasystemen.nl/en/prisma-signal.html">
 <meta property="og:image" content="https://prismasystemen.nl/logo.png">
 <meta property="og:image:alt" content="PRISMA Systemen logo">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sensory overload tracker | PRISMA Signal">
-<meta name="twitter:description" content="Free sensory tracker that helps you check your sensory load within 30 seconds and see what your system needs next.">
+<meta name="twitter:title" content="Sensory tracker for moments when everything feels too much | PRISMA Signal">
+<meta name="twitter:description" content="Free sensory tracker for moments when everything feels too much. Check in within 30 seconds and see what may help right now.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link rel="manifest" href="../manifest-prikkel-en.json">
 <meta name="theme-color" content="#F3EFE8">
@@ -39,7 +39,7 @@
   "applicationCategory": "HealthApplication",
   "operatingSystem": "Web browser, iOS, Android",
   "url": "https://prismasystemen.nl/en/prisma-signal.html",
-  "description": "Free sensory tracker that helps you check your sensory load within 30 seconds and see what your system needs next.",
+  "description": "Free sensory tracker for moments when everything feels too much. Check in within 30 seconds and see what may help right now.",
   "inLanguage": "en",
   "offers": {
     "@type": "Offer",
@@ -584,7 +584,7 @@
     </div>
     <div class="logo">PRISMA Systemen</div>
     <h1>How full does your system feel right now?</h1>
-    <p class="subtitle">A quick check-in for your sensory system. Not a diagnosis, but insight.</p>
+    <p class="subtitle">A short check-in for moments when everything starts to feel like too much. Not a diagnosis, but direction.</p>
     <p class="subtitle" style="font-size: 0.82rem; margin-top: 0.4rem; opacity: 0.75;">By <em>system</em>, we mean your nervous system, the way your brain and body process stimuli.</p>
   </header>
 
@@ -613,8 +613,8 @@
       <div class="prikkel-optie" data-niveau="1" onclick="selecteerNiveau(this)">
         <div class="prikkel-emoji">🌿</div>
         <div class="prikkel-info">
-          <div class="prikkel-naam">Rustig</div>
-          <div class="prikkel-omschrijving">Je systeem is kalm. Weinig prikkels, veel ruimte.</div>
+          <div class="prikkel-naam">Calm</div>
+          <div class="prikkel-omschrijving">Your system is calm. Few stimuli, plenty of room.</div>
         </div>
         <div class="prikkel-dot"></div>
       </div>
@@ -941,7 +941,7 @@
         heeftHonger ? 'Zorg eerst voor eten of drinken, een gevoed lichaam houdt dit niveau langer vast.' :
         'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
       ];
-      reminder = 'A calm system is not random. It often comes from small choices that quietly helped. Later today or tomorrow your system may feel different again.';
+      reminder = 'A calm system is not random. It often comes from small choices that quietly helped. This is enough for now.';
 
     } else if (niveau === 2) {
       label = 'Niveau 2, Licht belast';
@@ -957,7 +957,7 @@
         'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
         topZintuigMeta ? (currentLang === 'en' ? `Your ${topZintuigMeta.name.toLowerCase()} is carrying the most load right now, give that extra attention` : `Je ${topZintuigMeta.name.toLowerCase()} is het meest belast, geef dat extra aandacht`) : (currentLang === 'en' ? 'Notice which sense is most in the foreground.' : 'Houd in de gaten welk zintuig het meest op de voorgrond is')
       ];
-      reminder = 'Lightly loaded is not a problem, it is an early signal. Your system is giving you information before it gets louder. If things build again later, you will notice sooner what needs care.';
+      reminder = 'Lightly loaded is not a problem, it is an early signal. Your system is giving you information before it gets louder. You have a clearer sense of what helps now.';
 
     } else if (niveau === 3) {
       label = 'Niveau 3, Redelijk vol';
@@ -977,7 +977,7 @@
         heeftWeer ? 'Wisselend weer beïnvloedt je lichaam onbewust, extra moe of hoofdpijn is niet raar, het is fysiologisch' :
         pauzetip()
       ];
-      reminder = 'Fairly full is the signal before it becomes too much. Your system is asking for attention now. It may feel different again later today.';
+      reminder = 'Fairly full is the signal before it becomes too much. Your system is asking for attention now. You have a clearer sense of what it needs right now.';
 
     } else if (niveau === 4) {
       label = 'Niveau 4, Overbelast';
@@ -997,7 +997,7 @@
         heeftWeer ? 'Wisselend weer heeft je lichaam extra belast, dit is geen excuus maar een verklaring. Neem het serieus.' :
         'Stel alles wat kan wachten uit, je systeem heeft nu al je aandacht nodig'
       ];
-      reminder = 'Overload is not failure. Your system has been working hard and needs rest now. That is not weakness, it is how a system works. More room may return later.';
+      reminder = 'Overload is not failure. Your system has been working hard and needs rest now. That is not weakness, it is how a system works. This is enough to lean on for now.';
 
     } else {
       label = 'Niveau 5, Overvol';
@@ -1016,7 +1016,7 @@
         'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg',
         'Verwacht niet dat je snel herstelt, plan de rest van de dag licht'
       ];
-      reminder = 'A shutdown is your body pulling the emergency brake. Listen to it. It is not an overreaction. It is your system protecting what it can. When there is a little more room later, that is soon enough to look again.';
+      reminder = 'A shutdown is your body pulling the emergency brake. Listen to it. It is not an overreaction. It is your system protecting what it can. For now, this is enough.';
     }
 
     return { label, klasse, titel, tekst, tips, reminder };
@@ -1100,7 +1100,7 @@
       iosStrong:'Sla op als app', iosText:'Safari → ⎙ → Zet op beginscherm', androidText:'Voeg PRISMA toe aan je beginscherm'
     },
     en: {
-      htmlLang:'en', title:'Sensory overload tracker | PRISMA Signal', description:'Free sensory tracker that helps you check in within 30 seconds and see how much sensory load your system is carrying.', appTitle:'PRISMA Signal',
+      htmlLang:'en', title:'Sensory tracker for moments when everything feels too much | PRISMA Signal', description:'Free sensory tracker for moments when everything feels too much. Check in within 30 seconds and see what may help right now.', appTitle:'PRISMA Signal',
       headerLogo:'PRISMA Systemen',
       h1:'How full is your system right now?',
       subtitle1:'A short check-in for moments when a lot is coming in. Not a diagnosis, but direction.',
@@ -1116,7 +1116,7 @@
       senses:[['Hearing','sound, noise, voices'],['Sight','light, screens, movement'],['Touch','clothing, texture, contact'],['Movement/balance','spatial awareness'],['Taste/smell','smells, tastes, nausea'],['Internal (interoception)','hunger, thirst, heartbeat, pain']],
       scaleLabels:['Low','High'],
       context:['🏠 Home','🏫 School or work','🚌 Public transport','🛒 Busy space','💬 Had social contact','😴 Slept badly','📱 A lot of screen time','🎧 Noise or music','🌡 Uncomfortable temperature','😰 Tense or stressed','🍽 Hungry or too full','🌧 Changing weather'],
-      next:'Next →', back:'← Back', result:'View advice →',
+      next:'Next →', back:'← Back', result:'See what may help now →',
       breakdown:'Load per sense', help:'What may help',
       source:'The guidance draws on sensory integration insights and research into overstimulation in ADHD and autism.',
       reset:'↺ Check again', day:'PRISMA Day →', home:'← Back to PRISMA',

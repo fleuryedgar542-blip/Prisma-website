@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="PRISMA Week">
-<meta name="description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta name="description" content="Rustige ADHD weekplanner voor weken waarin je grip wilt terugvinden, patronen wilt zien en losse dagen minder uit elkaar wilt laten vallen.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://prismasystemen.nl/prisma-week.html">
 <link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-week.html">
@@ -16,19 +16,19 @@
 <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-week.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PRISMA Systemen">
-<meta property="og:title" content="ADHD weekplanner met energie-inzicht | PRISMA Week">
-<meta property="og:description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta property="og:title" content="ADHD weekplanner voor meer grip op onrustige weken | PRISMA Week">
+<meta property="og:description" content="Rustige ADHD weekplanner voor weken waarin je grip wilt terugvinden, patronen wilt zien en losse dagen minder uit elkaar wilt laten vallen.">
 <meta property="og:url" content="https://prismasystemen.nl/prisma-week.html">
 <meta property="og:image" content="https://prismasystemen.nl/logo.png">
 <meta property="og:image:alt" content="PRISMA Systemen logo">
 <meta property="og:locale" content="nl_NL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ADHD weekplanner met energie-inzicht | PRISMA Week">
-<meta name="twitter:description" content="ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.">
+<meta name="twitter:title" content="ADHD weekplanner voor meer grip op onrustige weken | PRISMA Week">
+<meta name="twitter:description" content="Rustige ADHD weekplanner voor weken waarin je grip wilt terugvinden, patronen wilt zien en losse dagen minder uit elkaar wilt laten vallen.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link rel="manifest" href="manifest-week.json">
 <link rel="apple-touch-icon" href="icon-week-192.png">
-<title>ADHD weekplanner met energie-inzicht | PRISMA Week</title>
+<title>ADHD weekplanner voor meer grip op onrustige weken | PRISMA Week</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="feedback-form.css">
 <script defer src="feedback-form.js"></script>
@@ -40,7 +40,7 @@
   "applicationCategory": "ProductivityApplication",
   "operatingSystem": "Web browser, iOS, Android",
   "url": "https://prismasystemen.nl/prisma-week.html",
-  "description": "ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.",
+  "description": "Rustige ADHD weekplanner voor weken waarin je grip wilt terugvinden, patronen wilt zien en losse dagen minder uit elkaar wilt laten vallen.",
   "inLanguage": ["nl", "en"],
   "offers": {
     "@type": "Offer",
@@ -1263,10 +1263,9 @@
 <div class="intro-overlay" id="intro-overlay">
   <div class="intro-blok">
     <div class="intro-logo">PRISMA Week</div>
-    <h1>Zeven dagen je energie bijhouden.</h1>
+    <h1>Zeven dagen wat meer grip op je week.</h1>
     <p class="intro-blok-tekst">
-      Elke dag één check-in: hoe is je energie, wat had je nodig, wat werkte?
-      Aan het einde van de week zie je het patroon, en wat je de week erna anders kan doen.
+      Voor weken waarin gewone planning niet genoeg houvast geeft. Je checkt elke dag kort in en ziet aan het einde beter wat veel was, wat hielp en wat zich herhaalt.
     </p>
     <ul class="intro-lijst">
       <li><div class="intro-streep"></div><div>Dagelijkse check-in in zes stappen</div></li>
@@ -1274,14 +1273,14 @@
       <li><div class="intro-streep"></div><div>Maandoverzicht als heatmap, patronen over tijd</div></li>
       <li><div class="intro-streep"></div><div>Alles blijft op jouw apparaat, geen account nodig</div></li>
     </ul>
-    <button class="intro-sluiten-btn" onclick="sluitIntro()">Beginnen →</button>
+    <button class="intro-sluiten-btn" onclick="sluitIntro()">Begin rustig →</button>
   </div>
 </div>
 
 <!-- NUDGE BANNER -->
 <div class="nudge-banner" id="nudge-banner">
   <div class="nudge-tekst"></div>
-  <div class="nudge-actie" onclick="navigeer('ma'); sluitNudge();">Begin vandaag →</div>
+  <div class="nudge-actie" onclick="navigeer('ma'); sluitNudge();">Begin bij vandaag →</div>
   <div class="nudge-sluit" onclick="sluitNudge()">×</div>
 </div>
 
@@ -1401,8 +1400,8 @@
     ' Je volgt je energie van moment tot moment, vertrouw dat en geef jezelf de ruimte om bij te sturen.':' You follow your energy from moment to moment, trust that and give yourself room to adjust.'
   };
   const WEEK_UI = {
-    nl:{title:'ADHD weekplanner met energie-inzicht | PRISMA Week', description:'ADHD weekplanner waarmee je zeven dagen je energie en behoeften bijhoudt, patronen ontdekt en rustige inzichten krijgt voor de week erna.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie vandaag?', daySubtitle:'Geen goed of fout. Je energie vertelt je iets over vandaag.', dayLabel:'Deze week, ', weekLabel:'Weekoverzicht', weekTitle:'Hoe was je week?', weekSubtitle:'Een rustig overzicht van je energieniveaus en wat je daarvan meeneemt naar volgende week.', monthLabel:'Maandoverzicht', monthTitle:'Jouw maand in energie', monthSubtitle:'Alle opgeslagen weken op een rij, zodat patronen beter zichtbaar worden.', monthBtn:'↺ Nieuwe week starten', home:'← Terug naar PRISMA', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip waarop een zachte herinnering helpend is.', next:'Verder →', back:'← Terug', save:'Dag opslaan →', introLogo:'PRISMA Week', introTitle:'Zeven dagen beter zien wat je energie doet.', introBtn:'Beginnen →'},
-    en:{title:'ADHD weekly planner with energy insights | PRISMA Week', description:'ADHD weekly planner that helps you track your energy and needs for seven days, spot patterns, and get calm insights for the week ahead.', appTitle:'PRISMA Week', dayTitle:'How is your energy today?', daySubtitle:'There is no right or wrong here. Your energy is telling you something about today.', dayLabel:'This week, ', weekLabel:'Weekly overview', weekTitle:'How was your week?', weekSubtitle:'A calm overview of your energy and what it may be showing you for next week.', monthLabel:'Monthly overview', monthTitle:'Your month in energy', monthSubtitle:'All saved weeks in one place, so longer patterns are easier to notice.', monthBtn:'↺ Start a new week', home:'← Back to PRISMA', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time when a gentle reminder would actually help.', next:'Next →', back:'← Back', save:'Save day →', introLogo:'PRISMA Week', introTitle:'See your energy more clearly across seven days.', introBtn:'Start →'}
+    nl:{title:'ADHD weekplanner voor meer grip op onrustige weken | PRISMA Week', description:'Rustige ADHD weekplanner voor weken waarin je grip wilt terugvinden, patronen wilt zien en losse dagen minder uit elkaar wilt laten vallen.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie vandaag?', daySubtitle:'Geen goed of fout. Dit helpt je zien wat vandaag haalbaar was.', dayLabel:'Deze week, ', weekLabel:'Weekoverzicht', weekTitle:'Hoe was je week?', weekSubtitle:'Een rustig overzicht van wat energie kostte, wat hielp en wat je wilt meenemen naar volgende week.', monthLabel:'Maandoverzicht', monthTitle:'Jouw maand in energie', monthSubtitle:'Alle opgeslagen weken op een rij, zodat patronen beter zichtbaar worden.', monthBtn:'↺ Nieuwe week starten', home:'← Terug naar PRISMA', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip waarop een zachte herinnering helpend is.', next:'Verder →', back:'← Terug', save:'Dag opslaan →', introLogo:'PRISMA Week', introTitle:'Zeven dagen wat meer grip op je week.', introBtn:'Begin rustig →'},
+    en:{title:'ADHD weekly planner for steadier weeks | PRISMA Week', description:'A calm ADHD weekly planner for weeks when you want to regain some grip, notice patterns, and stop loose days from blurring together.', appTitle:'PRISMA Week', dayTitle:'How is your energy today?', daySubtitle:'There is no right or wrong here. This helps you see what was manageable today.', dayLabel:'This week, ', weekLabel:'Weekly overview', weekTitle:'How was your week?', weekSubtitle:'A calm overview of what drained energy, what helped, and what you may want to carry into next week.', monthLabel:'Monthly overview', monthTitle:'Your month in energy', monthSubtitle:'All saved weeks in one place, so longer patterns are easier to notice.', monthBtn:'↺ Start a new week', home:'← Back to PRISMA', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time when a gentle reminder would actually help.', next:'Next →', back:'← Back', save:'Save day →', introLogo:'PRISMA Week', introTitle:'Find a little more grip across seven days.', introBtn:'Start gently →'}
   };
   const DAY_NAMES = { nl:{ma:'Maandag',di:'Dinsdag',wo:'Woensdag',do:'Donderdag',vr:'Vrijdag',za:'Zaterdag',zo:'Zondag'}, en:{ma:'Monday',di:'Tuesday',wo:'Wednesday',do:'Thursday',vr:'Friday',za:'Saturday',zo:'Sunday'} };
   const DAY_SHORT = { nl:{ma:'Ma',di:'Di',wo:'Wo',do:'Do',vr:'Vr',za:'Za',zo:'Zo'}, en:{ma:'Mon',di:'Tue',wo:'Wed',do:'Thu',vr:'Fri',za:'Sat',zo:'Sun'} };
@@ -1418,8 +1417,8 @@
     en:{ section1:'Step 1, How much energy do you have right now?', section2:'Step 2, What did your body or mind need?', section3:'Step 3, What way of working fit best today?', section4:'Step 4, What cost energy?', section5:'Step 5, What gave energy?', section6:'Step 6, Who did you want to be today?', stepHintMulti:'You can choose more than one. Leaving it empty is fine too.', stepHintOptional:'Leaving it empty is fine too.', needs:['🛋 I wanted a moment with no demands','🔇 I wanted fewer stimuli','🚶 I wanted to move or be outside','📋 I wanted to know what I was going to do','💬 I wanted contact with someone','🎨 I wanted to make or think of something','📱 I wanted something in the background','🎧 I wanted music or sound with it','⏱ I wanted to know when something would end','🙈 I did not want to be spoken to'], workNames:['Several things at once','One thing at a time','Blocks with breaks','Going with how I felt'], workDesc:['Something in the background helped you stay with it.','Finishing one thing first worked best. Loose ends felt noisy.','Work, stop, recharge, then continue. Clear blocks gave support.','No fixed approach needed. You noticed what worked and followed that.'], costPlaceholder:'What drained your energy today?', gavePlaceholder:'What gave you energy or calm?', whoPlaceholder:'Calm? Present? Just yourself? One word or short sentence.', saved:'✓ Day saved. You will move to the next day in a moment.' }
   };
   const NAV_UI = {
-    nl:{weekSection:'Deze week', history:'Geschiedenis', week:'Weekoverzicht', month:'Maandoverzicht', reminders:'Herinneringen', weekShort:'Week', monthShort:'Maand', iosInstallTitle:'Voeg PRISMA toe aan je beginscherm', iosInstallText:'Tik op ⎙ onderaan → "Zet op beginscherm"', androidInstallText:'Tik hier om te installeren', introText:'Elke dag even inchecken: hoe was je energie, wat had je nodig, wat werkte wel of juist niet? Aan het einde van de week zie je beter wat zich herhaalt.', introList:['Een dagelijkse check-in in zes kleine stappen','Een weekoverzicht met patronen en inzichten','Een maandoverzicht waarin langere lijnen zichtbaar worden','Alles blijft op jouw apparaat, zonder account'], nudgeAction:'Begin vandaag →', notifSetupTitle:'Herinnering instellen', notifSetupText:'Kies een tijdstip waarop inchecken meestal haalbaar voelt. PRISMA vraagt daarna toestemming voor meldingen.', notifSetBtn:'Instellen →', notifHelp:'Dit werkt het fijnst als PRISMA Week op je beginscherm staat als app. Op iPhone: Safari → ⎙ → Zet op beginscherm.', notifOffTitle:'Herinnering uitzetten', notifOffText:'Wil je even geen herinneringen meer? Dan kun je ze hier uitzetten.', notifOffBtn:'Uitzetten', statusSet:'✓ Herinnering ingesteld op {time}, elke dag.', statusBlocked:'Notificaties zijn geblokkeerd in je browser. Pas dit aan via je browserinstellingen.', statusUnsupported:'Je browser ondersteunt geen notificaties.', statusDenied:'Toestemming geweigerd. Pas dit aan via je browserinstellingen.', statusOff:'Herinnering uitgezet.', nudgeLong:'Je hebt al {days} dagen niet ingecheckt. Dat is oké. Je hoeft niks in te halen, je kunt gewoon weer beginnen bij vandaag.', nudgeShort:'Je bent er weer. Zullen we gewoon met vandaag beginnen?'},
-    en:{weekSection:'This week', history:'History', week:'Weekly overview', month:'Monthly overview', reminders:'Reminders', weekShort:'Week', monthShort:'Month', iosInstallTitle:'Add PRISMA to your home screen', iosInstallText:'Tap ⎙ at the bottom → "Add to Home Screen"', androidInstallText:'Tap here to install', introText:'A short check-in each day: how was your energy, what did you need, what helped and what did not? By the end of the week, repeating patterns become easier to see.', introList:['A daily check-in in six small steps','A weekly overview with patterns and insights','A monthly view that makes longer lines easier to notice','Everything stays on your device, with no account'], nudgeAction:'Start today →', notifSetupTitle:'Set a reminder', notifSetupText:'Choose a time when checking in usually feels realistic. PRISMA will then ask permission for notifications.', notifSetBtn:'Set reminder →', notifHelp:'This works best when PRISMA Week is on your home screen as an app. On iPhone: Safari → ⎙ → Add to Home Screen.', notifOffTitle:'Turn off reminders', notifOffText:'Want a break from reminders for now? You can switch them off here.', notifOffBtn:'Turn off', statusSet:'✓ Reminder set for {time}, every day.', statusBlocked:'Notifications are blocked in your browser. Change this in your browser settings.', statusUnsupported:'Your browser does not support notifications.', statusDenied:'Permission was denied. Change this in your browser settings.', statusOff:'Reminder turned off.', nudgeLong:'You have not checked in for {days} days. That is okay. You do not need to catch up, you can just start again with today.', nudgeShort:'You are back. Want to simply start with today?'}
+    nl:{weekSection:'Deze week', history:'Geschiedenis', week:'Weekoverzicht', month:'Maandoverzicht', reminders:'Herinneringen', weekShort:'Week', monthShort:'Maand', iosInstallTitle:'Voeg PRISMA toe aan je beginscherm', iosInstallText:'Tik op ⎙ onderaan → "Zet op beginscherm"', androidInstallText:'Tik hier om te installeren', introText:'Voor weken waarin gewone planning niet genoeg houvast geeft. Je checkt elke dag kort in en ziet aan het einde beter wat veel was, wat hielp en wat zich herhaalt.', introList:['Een dagelijkse check-in in zes kleine stappen','Een weekoverzicht met patronen en inzichten','Een maandoverzicht waarin langere lijnen zichtbaar worden','Alles blijft op jouw apparaat, zonder account'], nudgeAction:'Begin bij vandaag →', notifSetupTitle:'Herinnering instellen', notifSetupText:'Kies een tijdstip waarop inchecken meestal haalbaar voelt. PRISMA vraagt daarna toestemming voor meldingen.', notifSetBtn:'Instellen →', notifHelp:'Dit werkt het fijnst als PRISMA Week op je beginscherm staat als app. Op iPhone: Safari → ⎙ → Zet op beginscherm.', notifOffTitle:'Herinnering uitzetten', notifOffText:'Wil je even geen herinneringen meer? Dan kun je ze hier uitzetten.', notifOffBtn:'Uitzetten', statusSet:'✓ Herinnering ingesteld op {time}, elke dag.', statusBlocked:'Notificaties zijn geblokkeerd in je browser. Pas dit aan via je browserinstellingen.', statusUnsupported:'Je browser ondersteunt geen notificaties.', statusDenied:'Toestemming geweigerd. Pas dit aan via je browserinstellingen.', statusOff:'Herinnering uitgezet.', nudgeLong:'Je hebt al {days} dagen niet ingecheckt. Dat is oké. Je hoeft niks in te halen, je kunt gewoon weer beginnen bij vandaag.', nudgeShort:'Je bent er weer. Zullen we gewoon met vandaag beginnen?'},
+    en:{weekSection:'This week', history:'History', week:'Weekly overview', month:'Monthly overview', reminders:'Reminders', weekShort:'Week', monthShort:'Month', iosInstallTitle:'Add PRISMA to your home screen', iosInstallText:'Tap ⎙ at the bottom → "Add to Home Screen"', androidInstallText:'Tap here to install', introText:'For weeks when ordinary planning is not giving you enough hold. You check in briefly each day and see more clearly what was heavy, what helped, and what keeps repeating.', introList:['A daily check-in in six small steps','A weekly overview with patterns and insights','A monthly view that makes longer lines easier to notice','Everything stays on your device, with no account'], nudgeAction:'Start with today →', notifSetupTitle:'Set a reminder', notifSetupText:'Choose a time when checking in usually feels realistic. PRISMA will then ask permission for notifications.', notifSetBtn:'Set reminder →', notifHelp:'This works best when PRISMA Week is on your home screen as an app. On iPhone: Safari → ⎙ → Add to Home Screen.', notifOffTitle:'Turn off reminders', notifOffText:'Want a break from reminders for now? You can switch them off here.', notifOffBtn:'Turn off', statusSet:'✓ Reminder set for {time}, every day.', statusBlocked:'Notifications are blocked in your browser. Change this in your browser settings.', statusUnsupported:'Your browser does not support notifications.', statusDenied:'Permission was denied. Change this in your browser settings.', statusOff:'Reminder turned off.', nudgeLong:'You have not checked in for {days} days. That is okay. You do not need to catch up, you can just start again with today.', nudgeShort:'You are back. Want to simply start with today?'}
   };
 
   const LANG_RESIDUAL = createResidualMaps({ nl: Object.assign({}, WEEK_UI.nl, NAV_UI.nl, DAY_PAGE_UI.nl), en: Object.assign({}, WEEK_UI.en, NAV_UI.en, DAY_PAGE_UI.en) });
@@ -2021,15 +2020,15 @@
         <div class="analyse-titel">${currentLang==='nl' ? 'Voor volgende week' : 'For next week'}</div>
         <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
       </div>
-      <div class="reminder">${currentLang==='nl' ? 'Patronen worden niet in één week opgelost. Maar elke week die je wel bijhoudt geeft je iets om op terug te kijken. Volgende week voelt waarschijnlijk weer net anders.' : 'Patterns do not get fixed in a single week. But every week you do track gives you something real to look back on. Next week will probably feel a little different again.'}</div>
+      <div class="reminder">${currentLang==='nl' ? 'Dit geeft al meer overzicht dan een losse week in je hoofd houden. Bewaar het als je hier later op wilt terugkijken.' : 'This already gives you more overview than holding the whole week in your head. Save it if you want to look back on it later.'}</div>
       <div id="week-feedback-root"></div>
 
       <div class="week-afsluiten">
         <div class="week-afsluiten-tekst">
           <strong>${currentLang==='nl' ? 'Week afsluiten' : 'Finish this week'}</strong>
-          ${currentLang==='nl' ? 'Sla deze week op in je maandoverzicht en begin daarna rustig aan een nieuwe week. Zo blijft het makkelijker om patronen terug te zien.' : 'Save this week to your monthly overview and then begin a new week gently. That makes it easier to keep noticing patterns over time.'}
+          ${currentLang==='nl' ? 'Sla deze week op als je dit overzicht wilt bewaren. Dat is genoeg voor nu.' : 'Save this week if you want to keep this overview. That is enough for now.'}
         </div>
-        <button class="week-opslaan-btn" onclick="weekOpslaan()">${currentLang==='nl' ? 'Week opslaan en nieuwe week starten →' : 'Save week and start a new one →'}</button>
+        <button class="week-opslaan-btn" onclick="weekOpslaan()">${currentLang==='nl' ? 'Week opslaan →' : 'Save week →'}</button>
       </div>
       <a href="/" class="home-link">← Terug naar PRISMA</a>
     `;

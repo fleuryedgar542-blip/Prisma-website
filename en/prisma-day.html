@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="PRISMA Day">
-<meta name="description" content="ADHD day planner based on energy, needs and work style, so you can build a realistic day that fits the way your brain works.">
+<meta name="description" content="A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://prismasystemen.nl/en/prisma-day.html">
 <link rel="alternate" hreflang="nl" href="https://prismasystemen.nl/prisma-dag.html">
@@ -16,19 +16,19 @@
 <link rel="alternate" hreflang="x-default" href="https://prismasystemen.nl/prisma-dag.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PRISMA Systemen">
-<meta property="og:title" content="ADHD day planner based on energy | PRISMA Day">
-<meta property="og:description" content="ADHD day planner based on energy, needs and work style, so you can build a realistic day that fits the way your brain works.">
+<meta property="og:title" content="ADHD day planner for days when planning feels hard | PRISMA Day">
+<meta property="og:description" content="A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.">
 <meta property="og:url" content="https://prismasystemen.nl/en/prisma-day.html">
 <meta property="og:image" content="https://prismasystemen.nl/logo.png">
 <meta property="og:image:alt" content="PRISMA Systemen logo">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ADHD day planner based on energy | PRISMA Day">
-<meta name="twitter:description" content="ADHD day planner based on energy, needs and work style, so you can build a realistic day that fits the way your brain works.">
+<meta name="twitter:title" content="ADHD day planner for days when planning feels hard | PRISMA Day">
+<meta name="twitter:description" content="A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
 <link rel="manifest" href="../manifest-dag-en.json">
 <link rel="apple-touch-icon" href="../icon-dag-192.png">
-<title>ADHD day planner based on energy | PRISMA Day</title>
+<title>ADHD day planner for days when planning feels hard | PRISMA Day</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../feedback-form.css">
 <script defer src="../feedback-form.js"></script>
@@ -40,7 +40,7 @@
   "applicationCategory": "ProductivityApplication",
   "operatingSystem": "Web browser, iOS, Android",
   "url": "https://prismasystemen.nl/en/prisma-day.html",
-  "description": "ADHD day planner based on energy, needs and work style, so you can build a realistic day that fits the way your brain works.",
+  "description": "A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.",
   "inLanguage": "en",
   "offers": {
     "@type": "Offer",
@@ -675,8 +675,8 @@
 
   <header>
     <div class="logo">PRISMA Day</div>
-    <h1>How is your energy today?</h1>
-    <p class="subtitle">There is no right or wrong answer. Your energy is information, not a judgment.</p>
+    <h1>How is your energy right now?</h1>
+    <p class="subtitle">You do not have to be switched on first. We are only looking at what feels manageable today.</p>
   </header>
 
   <!-- VOORTGANG -->
@@ -844,7 +844,7 @@
     <p class="stap-hint">One word or a short sentence is enough. You can leave it empty too.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(4)">← Back</button>
-      <button class="verder-btn" onclick="toonResultaat()">See my day →</button>
+      <button class="verder-btn" onclick="toonResultaat()">See what feels manageable now →</button>
     </div>
   </div>
 
@@ -1137,7 +1137,7 @@
         .replace(' Jezelf zijn vraagt soms moed. Vandaag mag dat genoeg zijn.', ' Being yourself sometimes takes courage. Today, that can be enough.')
         .replace(/ Vandaag wil je (.+?) zijn\. Dat is al een keuze die telt\./, ' Today you want to be $1. That is already a choice that matters.');
     }
-    reminderTekst += ' Tomorrow may feel different from today. If it does, you can quietly check what you need then.';
+    reminderTekst += ' This looks manageable for now. If your energy shifts later, you can quietly check what you need then.';
     document.getElementById('res-reminder').textContent = reminderTekst;
 
     const takenEl = document.getElementById('res-taken');
@@ -1224,7 +1224,7 @@
   const I18N = {
     nl: {
       htmlLang: 'nl',
-      title: 'ADHD dagplanner op basis van energie | PRISMA Dag',
+      title: 'ADHD dagplanner voor dagen waarop plannen niet lukt | PRISMA Dag',
       description: 'ADHD dagplanner die begint bij je energie, behoeften en werkstijl, zodat je een realistische dag kunt bouwen die past bij jouw brein.',
       appTitle: 'PRISMA Dag',
       iosStrong: 'Voeg PRISMA toe aan je beginscherm',
@@ -1290,7 +1290,7 @@
       whoHint: 'Eén woord of een zin. Mag ook leeg blijven.',
       next: 'Verder →',
       back: '← Terug',
-      resultButton: 'Bekijk mijn dag →',
+      resultButton: 'Kijk wat nu haalbaar is →',
       resultFits: 'Wat past bij vandaag',
       reset: '↺ Opnieuw invullen',
       bridgeLabel: 'PRISMA Week',
@@ -1308,15 +1308,15 @@
     },
     en: {
       htmlLang: 'en',
-      title: 'ADHD day planner based on energy | PRISMA Day',
-      description: 'ADHD day planner that starts with your energy, needs, and work style, so you can build a realistic day that fits your brain.',
+      title: 'ADHD day planner for days when planning feels hard | PRISMA Day',
+      description: 'A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.',
       appTitle: 'PRISMA Day',
       iosStrong: 'Add PRISMA to your home screen',
       iosText: 'Tap ⎙ at the bottom → "Add to Home Screen"',
       androidText: 'Tap here to install',
       logo: 'PRISMA Day',
-      h1: 'How is your energy today?',
-      subtitle: 'There is no right or wrong answer. Your energy is information, not a judgment.',
+      h1: 'How is your energy right now?',
+      subtitle: 'You do not have to be switched on first. We are only looking at what feels manageable today.',
       progress: ['Energy','Needs','Work style','Must','Who'],
       sectionLabels: [
         'Step 1, How much energy do you have right now?',
@@ -1374,12 +1374,12 @@
       whoHint: 'One word or one sentence. It can also stay empty.',
       next: 'Next →',
       back: '← Back',
-      resultButton: 'View my day →',
+      resultButton: 'See what feels manageable now →',
       resultFits: 'What may fit today',
       reset: '↺ Start again',
       bridgeLabel: 'PRISMA Week',
       bridgeTitle: 'Do you want to track this for a week?',
-      bridgeText: 'Track your energy for seven days, discover patterns, and get concrete tips for the week after that.',
+      bridgeText: 'Track for seven days and notice what gives you grip, what drains you, and what helps.',
       bridgeBtn: 'View PRISMA Week →',
       home: '← Back to PRISMA',
       niveauBase: {
