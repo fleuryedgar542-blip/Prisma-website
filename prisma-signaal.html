@@ -29,6 +29,8 @@
 <meta name="apple-mobile-web-app-title" content="PRISMA Signaal">
 <link rel="apple-touch-icon" href="icon-prikkel-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="feedback-form.css">
+<script defer src="feedback-form.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -494,62 +496,6 @@
   }
   .reminder.rood { border-left-color: var(--prikkel-hoog); }
 
-  .feedback-card {
-    display: none;
-    margin-top: 22px;
-    padding: 18px 20px;
-    background: white;
-    border: 1px solid var(--grijs-licht);
-    border-radius: 10px;
-    animation: fadeUp 0.35s ease forwards;
-  }
-  .feedback-card.zichtbaar { display: block; }
-  .feedback-vraag {
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 12px;
-  }
-  .feedback-opties {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .feedback-optie {
-    border: 1px solid var(--grijs-licht);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--grijs);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    padding: 10px 14px;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-  }
-  .feedback-optie:hover {
-    border-color: var(--blauw);
-    background: #F8FAF7;
-  }
-  .feedback-optie:disabled {
-    opacity: 0.6;
-    cursor: default;
-  }
-  .feedback-step + .feedback-step { margin-top: 14px; }
-  .feedback-step[hidden] { display: none; }
-  .feedback-bedankt {
-    font-size: 12px;
-    color: var(--grijs);
-    line-height: 1.7;
-  }
-  .feedback-bedankt[hidden] { display: none; }
-  .feedback-fout {
-    margin-top: 12px;
-    font-size: 12px;
-    color: #8C5A5A;
-    line-height: 1.6;
-  }
-  .feedback-fout[hidden] { display: none; }
-
   .knoppen-rij {
     display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;
   }
@@ -761,7 +707,7 @@
     <div id="res-tips"></div>
 
     <div class="reminder" id="res-reminder"></div>
-    <div class="feedback-card" id="signaal-feedback-root"></div>
+    <div id="signaal-feedback-root"></div>
 
     <p class="bronvermelding">De adviezen sluiten aan op inzichten uit sensorische integratie en onderzoek naar overprikkeling bij ADHD en autisme.</p>
 
@@ -819,132 +765,9 @@
 
   function getSignalLevelLabels(){ return I18N[currentLang].levelLabels; }
   function getSignalHints(){ return I18N[currentLang].levelHints; }
-  const FEEDBACK_ENDPOINT = 'https://formspree.io/f/xwvrwvqw';
-
   let geselecteerdNiveau = null;
   let zintuigNiveaus = {};
   let huidigStap = 1;
-
-  function getFeedbackCopy() {
-    return currentLang === 'en'
-      ? {
-          helpful: 'Did this help today?',
-          yes: 'Yes',
-          no: 'Not really',
-          hardest: 'What felt hardest?',
-          thanks: 'Thank you, this really helps.',
-          error: 'Sending did not work just now. Please try again.',
-          options: { starting: 'starting', choosing: 'choosing', energy: 'energy', other: 'something else' }
-        }
-      : {
-          helpful: 'Was dit vandaag behulpzaam?',
-          yes: 'Ja',
-          no: 'Nog niet echt',
-          hardest: 'Wat liep het meest vast?',
-          thanks: 'Bedankt, dit helpt echt.',
-          error: 'Versturen lukt nu even niet. Probeer het zo nog eens.',
-          options: { starting: 'beginnen', choosing: 'kiezen wat te doen', energy: 'energie', other: 'iets anders' }
-        };
-  }
-
-  async function sendFeedback(payload) {
-    const formData = new FormData();
-    Object.entries({
-      ...payload,
-      timestamp: new Date().toISOString()
-    }).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    const response = await fetch(FEEDBACK_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json'
-      },
-      body: formData
-    });
-
-    if (!response.ok) {
-      throw new Error(`Feedback submit failed with status ${response.status}`);
-    }
-
-    return response;
-  }
-
-  function renderFeedback(rootId, tool) {
-    const root = document.getElementById(rootId);
-    if (!root) return;
-
-    const t = getFeedbackCopy();
-    root.classList.add('zichtbaar');
-    root.innerHTML = `
-      <div class="feedback-step" data-step="helpful">
-        <div class="feedback-vraag">${t.helpful}</div>
-        <div class="feedback-opties">
-          <button type="button" class="feedback-optie" data-helpful="yes">${t.yes}</button>
-          <button type="button" class="feedback-optie" data-helpful="no">${t.no}</button>
-        </div>
-      </div>
-      <div class="feedback-step" data-step="difficulty" hidden>
-        <div class="feedback-vraag">${t.hardest}</div>
-        <div class="feedback-opties">
-          <button type="button" class="feedback-optie" data-difficulty="starting">${t.options.starting}</button>
-          <button type="button" class="feedback-optie" data-difficulty="choosing">${t.options.choosing}</button>
-          <button type="button" class="feedback-optie" data-difficulty="energy">${t.options.energy}</button>
-          <button type="button" class="feedback-optie" data-difficulty="other">${t.options.other}</button>
-        </div>
-      </div>
-      <div class="feedback-fout" hidden>${t.error}</div>
-      <div class="feedback-bedankt" hidden>${t.thanks}</div>
-    `;
-
-    const helpfulStep = root.querySelector('[data-step="helpful"]');
-    const difficultyStep = root.querySelector('[data-step="difficulty"]');
-    const error = root.querySelector('.feedback-fout');
-    const thanks = root.querySelector('.feedback-bedankt');
-    let helpfulValue = 'no';
-
-    root.querySelectorAll('[data-helpful]').forEach((button) => {
-      button.addEventListener('click', () => {
-        helpfulValue = button.dataset.helpful;
-        helpfulStep.hidden = true;
-        difficultyStep.hidden = false;
-      });
-    });
-
-    root.querySelectorAll('[data-difficulty]').forEach((button) => {
-      button.addEventListener('click', async () => {
-        const opties = [...root.querySelectorAll('.feedback-optie')];
-        error.hidden = true;
-        opties.forEach((optie) => {
-          optie.disabled = true;
-        });
-        try {
-          await sendFeedback({
-            tool,
-            language: currentLang,
-            helpful: helpfulValue,
-            difficulty: button.dataset.difficulty
-          });
-          difficultyStep.hidden = true;
-          thanks.hidden = false;
-        } catch (submitError) {
-          console.error('Feedback submit failed', submitError);
-          error.hidden = false;
-          opties.forEach((optie) => {
-            optie.disabled = false;
-          });
-        }
-      });
-    });
-  }
-
-  function resetFeedback(rootId) {
-    const root = document.getElementById(rootId);
-    if (!root) return;
-    root.classList.remove('zichtbaar');
-    root.innerHTML = '';
-  }
 
   // Bouw zintuigen grid
   (function buildZintuigen() {
@@ -1065,7 +888,11 @@
     document.getElementById('voortgang').style.display = 'none';
     document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
     document.getElementById('resultaat').classList.add('zichtbaar');
-    renderFeedback('signaal-feedback-root', 'signaal');
+    window.PRISMAFeedback.render({
+      rootId: 'signaal-feedback-root',
+      tool: currentLang === 'en' ? 'PRISMA Signal' : 'PRISMA Signaal',
+      lang: currentLang
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1204,7 +1031,7 @@
     zintuigNiveaus = {};
     document.getElementById('btn-stap1').disabled = true;
     document.getElementById('resultaat').classList.remove('zichtbaar');
-    resetFeedback('signaal-feedback-root');
+    window.PRISMAFeedback.clear('signaal-feedback-root');
     document.getElementById('voortgang').style.display = 'flex';
     naarStap(1);
   }
