@@ -542,6 +542,55 @@
     color: var(--grijs);
   }
 
+  .feedback-card {
+    display: none;
+    margin-top: 18px;
+    padding: 18px 20px;
+    background: white;
+    border: 1px solid var(--grijs-licht);
+    border-radius: 10px;
+    animation: fadeUp 0.35s ease forwards;
+  }
+  .feedback-card.zichtbaar { display: block; }
+  .feedback-vraag {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .feedback-opties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .feedback-optie {
+    border: 1px solid var(--grijs-licht);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .feedback-optie:hover {
+    border-color: var(--groen);
+    background: #F8FAF7;
+  }
+  .feedback-optie:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .feedback-step + .feedback-step { margin-top: 14px; }
+  .feedback-step[hidden] { display: none; }
+  .feedback-bedankt {
+    font-size: 12px;
+    color: var(--grijs);
+    line-height: 1.7;
+  }
+  .feedback-bedankt[hidden] { display: none; }
+
   /* ── NUDGE BANNER ── */
   .nudge-banner {
     display: none;
@@ -1347,6 +1396,7 @@
 
 <script>
   let currentLang = 'en';
+  const FEEDBACK_ENDPOINT = 'https://formspree.io/f/xwvrwvqw';
   const BEHOEFTE_KEYS = ['rest','less_stimuli','move_outside','know_plan','contact','create','background','music','know_end','not_approached'];
   const WEEK_TEXT_MAP = {
     'Energie laag én behoefte aan rust, maar ook aan verbinding. Licht contact is mogelijk zonder uitputtend te zijn.':'Low energy and a need for rest, but also for connection. Light contact is possible without being exhausting.',
@@ -1759,6 +1809,96 @@
     return currentLang === 'en' ? translateWeekText(tekst) : tekst;
   }
 
+  function getFeedbackCopy() {
+    return currentLang === 'en'
+      ? {
+          helpful: 'Did this help today?',
+          yes: 'Yes',
+          no: 'Not really',
+          hardest: 'What felt hardest?',
+          thanks: 'Thank you, this really helps.',
+          options: { starting: 'starting', choosing: 'choosing', energy: 'energy', other: 'something else' }
+        }
+      : {
+          helpful: 'Was dit vandaag behulpzaam?',
+          yes: 'Ja',
+          no: 'Nog niet echt',
+          hardest: 'Wat liep het meest vast?',
+          thanks: 'Bedankt, dit helpt echt.',
+          options: { starting: 'beginnen', choosing: 'kiezen wat te doen', energy: 'energie', other: 'iets anders' }
+        };
+  }
+
+  function sendFeedback(payload) {
+    return fetch(FEEDBACK_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        ...payload,
+        timestamp: new Date().toISOString()
+      })
+    }).catch(() => null);
+  }
+
+  function renderFeedback(rootId, tool) {
+    const root = document.getElementById(rootId);
+    if (!root) return;
+
+    const t = getFeedbackCopy();
+    root.classList.add('zichtbaar');
+    root.innerHTML = `
+      <div class="feedback-step" data-step="helpful">
+        <div class="feedback-vraag">${t.helpful}</div>
+        <div class="feedback-opties">
+          <button type="button" class="feedback-optie" data-helpful="yes">${t.yes}</button>
+          <button type="button" class="feedback-optie" data-helpful="no">${t.no}</button>
+        </div>
+      </div>
+      <div class="feedback-step" data-step="difficulty" hidden>
+        <div class="feedback-vraag">${t.hardest}</div>
+        <div class="feedback-opties">
+          <button type="button" class="feedback-optie" data-difficulty="starting">${t.options.starting}</button>
+          <button type="button" class="feedback-optie" data-difficulty="choosing">${t.options.choosing}</button>
+          <button type="button" class="feedback-optie" data-difficulty="energy">${t.options.energy}</button>
+          <button type="button" class="feedback-optie" data-difficulty="other">${t.options.other}</button>
+        </div>
+      </div>
+      <div class="feedback-bedankt" hidden>${t.thanks}</div>
+    `;
+
+    const helpfulStep = root.querySelector('[data-step="helpful"]');
+    const difficultyStep = root.querySelector('[data-step="difficulty"]');
+    const thanks = root.querySelector('.feedback-bedankt');
+    let helpfulValue = 'no';
+
+    root.querySelectorAll('[data-helpful]').forEach((button) => {
+      button.addEventListener('click', () => {
+        helpfulValue = button.dataset.helpful;
+        helpfulStep.hidden = true;
+        difficultyStep.hidden = false;
+      });
+    });
+
+    root.querySelectorAll('[data-difficulty]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        root.querySelectorAll('.feedback-optie').forEach((optie) => {
+          optie.disabled = true;
+        });
+        await sendFeedback({
+          tool,
+          language: currentLang,
+          helpful: helpfulValue,
+          difficulty: button.dataset.difficulty
+        });
+        difficultyStep.hidden = true;
+        thanks.hidden = false;
+      });
+    });
+  }
+
   function dagNaarStap(dag, n) {
     document.querySelectorAll(`#page-${dag} .dag-substap`).forEach(s => s.classList.remove('actief'));
     document.getElementById(`dstap-${dag}-${n}`).classList.add('actief');
@@ -2020,6 +2160,7 @@
         <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
       </div>
       <div class="reminder">${currentLang==='nl' ? 'Patronen worden niet in één week opgelost. Maar elke week die je wel bijhoudt geeft je iets om op terug te kijken.' : 'Patterns do not get fixed in a single week. But every week you do track gives you something real to look back on.'}</div>
+      <div class="feedback-card" id="week-feedback-root"></div>
 
       <div class="week-afsluiten">
         <div class="week-afsluiten-tekst">
@@ -2030,6 +2171,7 @@
       </div>
       <a href="/en/" class="home-link">← Back to PRISMA</a>
     `;
+    renderFeedback('week-feedback-root', 'week');
     updateLanguageLinks();
     scheduleLanguagePass();
   }

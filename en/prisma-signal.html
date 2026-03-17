@@ -494,6 +494,55 @@
   }
   .reminder.rood { border-left-color: var(--prikkel-hoog); }
 
+  .feedback-card {
+    display: none;
+    margin-top: 22px;
+    padding: 18px 20px;
+    background: white;
+    border: 1px solid var(--grijs-licht);
+    border-radius: 10px;
+    animation: fadeUp 0.35s ease forwards;
+  }
+  .feedback-card.zichtbaar { display: block; }
+  .feedback-vraag {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .feedback-opties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .feedback-optie {
+    border: 1px solid var(--grijs-licht);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--grijs);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .feedback-optie:hover {
+    border-color: var(--blauw);
+    background: #F8FAF7;
+  }
+  .feedback-optie:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .feedback-step + .feedback-step { margin-top: 14px; }
+  .feedback-step[hidden] { display: none; }
+  .feedback-bedankt {
+    font-size: 12px;
+    color: var(--grijs);
+    line-height: 1.7;
+  }
+  .feedback-bedankt[hidden] { display: none; }
+
   .knoppen-rij {
     display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;
   }
@@ -705,6 +754,7 @@
     <div id="res-tips"></div>
 
     <div class="reminder" id="res-reminder"></div>
+    <div class="feedback-card" id="signaal-feedback-root"></div>
 
     <p class="bronvermelding">The guidance draws on sensory integration insights and research into overstimulation in ADHD and autism.</p>
 
@@ -762,10 +812,108 @@
 
   function getSignalLevelLabels(){ return I18N[currentLang].levelLabels; }
   function getSignalHints(){ return I18N[currentLang].levelHints; }
+  const FEEDBACK_ENDPOINT = 'https://formspree.io/f/xwvrwvqw';
 
   let geselecteerdNiveau = null;
   let zintuigNiveaus = {};
   let huidigStap = 1;
+
+  function getFeedbackCopy() {
+    return currentLang === 'en'
+      ? {
+          helpful: 'Did this help today?',
+          yes: 'Yes',
+          no: 'Not really',
+          hardest: 'What felt hardest?',
+          thanks: 'Thank you, this really helps.',
+          options: { starting: 'starting', choosing: 'choosing', energy: 'energy', other: 'something else' }
+        }
+      : {
+          helpful: 'Was dit vandaag behulpzaam?',
+          yes: 'Ja',
+          no: 'Nog niet echt',
+          hardest: 'Wat liep het meest vast?',
+          thanks: 'Bedankt, dit helpt echt.',
+          options: { starting: 'beginnen', choosing: 'kiezen wat te doen', energy: 'energie', other: 'iets anders' }
+        };
+  }
+
+  function sendFeedback(payload) {
+    return fetch(FEEDBACK_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        ...payload,
+        timestamp: new Date().toISOString()
+      })
+    }).catch(() => null);
+  }
+
+  function renderFeedback(rootId, tool) {
+    const root = document.getElementById(rootId);
+    if (!root) return;
+
+    const t = getFeedbackCopy();
+    root.classList.add('zichtbaar');
+    root.innerHTML = `
+      <div class="feedback-step" data-step="helpful">
+        <div class="feedback-vraag">${t.helpful}</div>
+        <div class="feedback-opties">
+          <button type="button" class="feedback-optie" data-helpful="yes">${t.yes}</button>
+          <button type="button" class="feedback-optie" data-helpful="no">${t.no}</button>
+        </div>
+      </div>
+      <div class="feedback-step" data-step="difficulty" hidden>
+        <div class="feedback-vraag">${t.hardest}</div>
+        <div class="feedback-opties">
+          <button type="button" class="feedback-optie" data-difficulty="starting">${t.options.starting}</button>
+          <button type="button" class="feedback-optie" data-difficulty="choosing">${t.options.choosing}</button>
+          <button type="button" class="feedback-optie" data-difficulty="energy">${t.options.energy}</button>
+          <button type="button" class="feedback-optie" data-difficulty="other">${t.options.other}</button>
+        </div>
+      </div>
+      <div class="feedback-bedankt" hidden>${t.thanks}</div>
+    `;
+
+    const helpfulStep = root.querySelector('[data-step="helpful"]');
+    const difficultyStep = root.querySelector('[data-step="difficulty"]');
+    const thanks = root.querySelector('.feedback-bedankt');
+    let helpfulValue = 'no';
+
+    root.querySelectorAll('[data-helpful]').forEach((button) => {
+      button.addEventListener('click', () => {
+        helpfulValue = button.dataset.helpful;
+        helpfulStep.hidden = true;
+        difficultyStep.hidden = false;
+      });
+    });
+
+    root.querySelectorAll('[data-difficulty]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        root.querySelectorAll('.feedback-optie').forEach((optie) => {
+          optie.disabled = true;
+        });
+        await sendFeedback({
+          tool,
+          language: currentLang,
+          helpful: helpfulValue,
+          difficulty: button.dataset.difficulty
+        });
+        difficultyStep.hidden = true;
+        thanks.hidden = false;
+      });
+    });
+  }
+
+  function resetFeedback(rootId) {
+    const root = document.getElementById(rootId);
+    if (!root) return;
+    root.classList.remove('zichtbaar');
+    root.innerHTML = '';
+  }
 
   // Bouw zintuigen grid
   (function buildZintuigen() {
@@ -886,6 +1034,7 @@
     document.getElementById('voortgang').style.display = 'none';
     document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
     document.getElementById('resultaat').classList.add('zichtbaar');
+    renderFeedback('signaal-feedback-root', 'signaal');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1024,6 +1173,7 @@
     zintuigNiveaus = {};
     document.getElementById('btn-stap1').disabled = true;
     document.getElementById('resultaat').classList.remove('zichtbaar');
+    resetFeedback('signaal-feedback-root');
     document.getElementById('voortgang').style.display = 'flex';
     naarStap(1);
   }
