@@ -89,11 +89,37 @@
   color: var(--grijs);
 }
 
+.prisma-feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.prisma-feedback-action {
+  border: 1px solid var(--grijs-licht);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--grijs);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.prisma-feedback-action:hover {
+  border-color: var(--groen);
+  background: #f8faf7;
+}
+
 .prisma-feedback-status[data-state="error"] {
   color: #8c5a5a;
 }
 
 .prisma-feedback-status[hidden],
+.prisma-feedback-actions[hidden],
 .prisma-feedback-fields[hidden] {
   display: none;
 }
