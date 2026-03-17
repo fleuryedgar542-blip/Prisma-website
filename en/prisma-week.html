@@ -2021,15 +2021,15 @@
         <div class="analyse-titel">${currentLang==='nl' ? 'Voor volgende week' : 'For next week'}</div>
         <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
       </div>
-      <div class="reminder">${currentLang==='nl' ? 'Patronen worden niet in één week opgelost. Maar elke week die je wel bijhoudt geeft je iets om op terug te kijken.' : 'Patterns do not get fixed in a single week. But every week you do track gives you something real to look back on.'}</div>
+      <div class="reminder">${currentLang==='nl' ? 'Patronen worden niet in één week opgelost. Maar elke week die je wel bijhoudt geeft je iets om op terug te kijken. Volgende week voelt waarschijnlijk weer net anders, en juist daarom helpt het om opnieuw even in te checken.' : 'Patterns do not get fixed in a single week. But every week you do track gives you something real to look back on. Next week will probably feel a little different again, and that is exactly why checking in again helps.'}</div>
       <div id="week-feedback-root"></div>
 
       <div class="week-afsluiten">
         <div class="week-afsluiten-tekst">
           <strong>${currentLang==='nl' ? 'Week afsluiten' : 'Finish this week'}</strong>
-          ${currentLang==='nl' ? 'Sla deze week op in je maandoverzicht en begin daarna rustig opnieuw.' : 'Save this week to your monthly overview and then start again without having to catch up.'}
+          ${currentLang==='nl' ? 'Sla deze week op in je maandoverzicht en begin daarna rustig aan een nieuwe week. Zo blijft het makkelijker om patronen terug te zien.' : 'Save this week to your monthly overview and then begin a new week gently. That makes it easier to keep noticing patterns over time.'}
         </div>
-        <button class="week-opslaan-btn" onclick="weekOpslaan()">${currentLang==='nl' ? 'Week opslaan →' : 'Save week →'}</button>
+        <button class="week-opslaan-btn" onclick="weekOpslaan()">${currentLang==='nl' ? 'Week opslaan en nieuwe week starten →' : 'Save week and start a new one →'}</button>
       </div>
       <a href="/en/" class="home-link">← Back to PRISMA</a>
     `;

@@ -941,7 +941,7 @@
         heeftHonger ? 'Zorg eerst voor eten of drinken, een gevoed lichaam houdt dit niveau langer vast.' :
         'Houd bij wat je vandaag heeft geholpen om zo rustig te blijven'
       ];
-      reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes, ook al voelt het soms alsof je er niks voor doet.';
+      reminder = 'Een rustig systeem is geen toeval. Het is het resultaat van bewuste keuzes, ook al voelt het soms alsof je er niks voor doet. Later vandaag of morgen kan je systeem weer anders voelen. Check dan opnieuw wat het nodig heeft.';
 
     } else if (niveau === 2) {
       label = 'Niveau 2, Licht belast';
@@ -957,7 +957,7 @@
         'Bouw tussentijds kleine rustmomenten in, ook als je je goed voelt',
         topZintuigMeta ? (currentLang === 'en' ? `Your ${topZintuigMeta.name.toLowerCase()} is carrying the most load right now, give that extra attention` : `Je ${topZintuigMeta.name.toLowerCase()} is het meest belast, geef dat extra aandacht`) : (currentLang === 'en' ? 'Notice which sense is most in the foreground.' : 'Houd in de gaten welk zintuig het meest op de voorgrond is')
       ];
-      reminder = 'Licht belast is geen probleem, het is een seintje. Je systeem geeft je informatie voor je het zelf merkt.';
+      reminder = 'Licht belast is geen probleem, het is een seintje. Je systeem geeft je informatie voor je het zelf merkt. Als het later weer oploopt, kun je hier opnieuw even inchecken.';
 
     } else if (niveau === 3) {
       label = 'Niveau 3, Redelijk vol';
@@ -977,7 +977,7 @@
         heeftWeer ? 'Wisselend weer beïnvloedt je lichaam onbewust, extra moe of hoofdpijn is niet raar, het is fysiologisch' :
         pauzetip()
       ];
-      reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht, niet morgen, nu.';
+      reminder = 'Redelijk vol is het signaal vóórdat het te veel wordt. Je systeem vraagt om aandacht, niet morgen, nu. Als het straks weer anders voelt, doe dan nog een korte check.';
 
     } else if (niveau === 4) {
       label = 'Niveau 4, Overbelast';
@@ -997,7 +997,7 @@
         heeftWeer ? 'Wisselend weer heeft je lichaam extra belast, dit is geen excuus maar een verklaring. Neem het serieus.' :
         'Stel alles wat kan wachten uit, je systeem heeft nu al je aandacht nodig'
       ];
-      reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte, dat is hoe het werkt.';
+      reminder = 'Overbelasting is geen falen. Je systeem heeft hard gewerkt en heeft nu rust nodig. Dat is geen zwakte, dat is hoe het werkt. Kom later of morgen rustig terug als je wilt zien of er alweer wat ruimte is.';
 
     } else {
       label = 'Niveau 5, Overvol';
@@ -1016,7 +1016,7 @@
         'Communiceer alleen als het echt nodig is: een kort berichtje is genoeg',
         'Verwacht niet dat je snel herstelt, plan de rest van de dag licht'
       ];
-      reminder = 'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan.';
+      reminder = 'Een shutdown is je lichaam dat de noodrem trekt. Luister ernaar. Het is geen overreactie. Het is je systeem dat beschermt wat het kan. Als er later weer iets meer ruimte komt, kun je opnieuw kort checken wat er dan nodig is.';
     }
 
     return { label, klasse, titel, tekst, tips, reminder };
