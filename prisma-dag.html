@@ -701,10 +701,6 @@
       <span class="stap-label" id="label-4">Moet</span>
     </div>
     <div class="stap-lijn" id="lijn-4"></div>
-    <div class="stap-item">
-      <div class="stap-cirkel" id="cirkel-5">5</div>
-      <span class="stap-label" id="label-5">Wie</span>
-    </div>
   </div>
 
   <!-- STAP 1 -->
@@ -833,28 +829,17 @@
     </div>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(3)">← Terug</button>
-      <button class="verder-btn" id="moet-verder-btn" onclick="naarStap(5)" disabled>Verder →</button>
-    </div>
-  </div>
-
-  <!-- STAP 5 -->
-  <div class="stap" id="stap-5">
-    <div class="section-label">Stap 5, Wie wil je vandaag zijn?</div>
-    <textarea class="intentie-input" id="wie" placeholder="Niet wat je wilt doen, maar hoe je door de dag wilt gaan. Rustig? Aanwezig? Gewoon jezelf?"></textarea>
-    <p class="stap-hint">Eén woord of een korte zin is genoeg. Leeg laten mag ook.</p>
-    <div class="knop-rij">
-      <button class="terug-btn" onclick="naarStap(4)">← Terug</button>
-      <button class="verder-btn" onclick="toonResultaat()" data-umami-event="finish_prisma_dag">Kijk wat nu haalbaar is →</button>
+      <button class="verder-btn" id="moet-verder-btn" onclick="toonResultaat()" data-umami-event="finish_prisma_dag" disabled>Kijk wat nu haalbaar is →</button>
     </div>
   </div>
 
   <!-- RESULTAAT -->
   <div class="resultaat" id="resultaat">
     <div class="divider"></div>
-    <div class="resultaat-niveau" id="res-niveau"></div>
     <div class="resultaat-titel" id="res-titel"></div>
+    <div class="resultaat-niveau" id="res-niveau"></div>
     <div class="resultaat-tekst" id="res-tekst"></div>
-    <div class="taken-label">Wat vandaag kan passen</div>
+    <div class="taken-label">Wat nu haalbaar lijkt</div>
     <div id="res-taken"></div>
     <div class="reminder" id="res-reminder"></div>
     <div id="dag-feedback-root"></div>
@@ -863,11 +848,11 @@
     <div class="weektracker-brug">
       <div class="weektracker-brug-tekst">
         <div class="brug-label">PRISMA Week</div>
-        <div class="brug-titel">Wil je dit een week lang volgen?</div>
-        <div class="brug-omschrijving">Houd zeven dagen je energie bij en zie beter wat zich herhaalt.</div>
+        <div class="brug-titel">Wil je dit gevoel vasthouden over meerdere dagen?</div>
+        <div class="brug-omschrijving">Zodat je niet elke dag opnieuw hoeft te beginnen.</div>
       </div>
       <!-- ✦ AANPASSEN: vervang href door Payhip-link zodra die live staat -->
-      <a href="prisma-week-kopen.html" class="weektracker-brug-btn" data-umami-event="click_prisma_week">Bekijk PRISMA Week →</a>
+      <a href="prisma-week-kopen.html" class="weektracker-brug-btn" data-umami-event="click_prisma_week">Houd dit vast met PRISMA Week →</a>
     </div>
 
     <a href="/" class="home-link">← Terug naar PRISMA</a>
@@ -886,7 +871,12 @@
     document.getElementById('moet-ja').className = 'moet-keuze' + (jaOfNee ? ' selected-ja' : '');
     const veld = document.getElementById('moet-veld');
     veld.style.display = jaOfNee ? 'block' : 'none';
-    document.getElementById('moet-verder-btn').disabled = false;
+    document.getElementById('moet-verder-btn').disabled = jaOfNee ? !document.getElementById('moet-taak').value.trim() : false;
+  }
+
+  function updateMoetButtonState() {
+    if (!moetAanwezig) return;
+    document.getElementById('moet-verder-btn').disabled = !document.getElementById('moet-taak').value.trim();
   }
 
   function getNiveauHints() { return I18N[currentLang].levelHints; }
@@ -917,7 +907,7 @@
   }
 
   function updateVoortgang(actief) {
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 4; i++) {
       const cirkel = document.getElementById('cirkel-' + i);
       const label = document.getElementById('label-' + i);
       cirkel.className = 'stap-cirkel';
@@ -932,7 +922,7 @@
       } else {
         cirkel.innerHTML = i;
       }
-      if (i < 5) {
+      if (i < 4) {
         document.getElementById('lijn-' + i).className = 'stap-lijn' + (i < actief ? ' klaar' : '');
       }
     }
@@ -942,7 +932,7 @@
 
 
   // Volledig gepersonaliseerd advies op basis van alle inputs
-  function bouwAdvies(niveau, behoeften, werkstijl, wie, moetTaak) {
+  function bouwAdvies(niveau, behoeften, werkstijl, moetTaak) {
     const h = {
       rust: behoeften.includes('rest') || behoeften.includes('less_stimuli'),
       bewegen: behoeften.includes('move_outside'),
@@ -1062,30 +1052,6 @@
       taken.push('Vraag jezelf elk uur: wat heeft mijn energie nú het meeste nodig?');
     }
 
-    // ── "WIE", beïnvloedt de adviestekst en voegt een passende taak toe ──
-    if (wie) {
-      const w = wie.toLowerCase().trim();
-      if (w.includes('rustig') || w.includes('kalm')) {
-        tekst += ' Je wil vandaag rustig zijn, dat betekent ook rustig blijven als iets niet gaat zoals gepland.';
-        taken.push('Als iets niet lukt: pauzeer, adem, begin opnieuw, zonder oordeel');
-      } else if (w.includes('aanwezig') || w.includes('bewust')) {
-        tekst += ' Je wil vandaag aanwezig zijn, zet bewust één ding tegelijk, leg je telefoon weg als je ergens mee bezig bent.';
-        taken.push('Leg je telefoon weg tijdens je taak, ook als het maar 20 minuten is');
-      } else if (w.includes('zelf') || w.includes('mezelf')) {
-        tekst += ' Je wil gewoon jezelf zijn vandaag, geen rol spelen, geen verwachtingen waarmaken.';
-        taken.push('Doe vandaag één ding puur voor jezelf, zonder dat het iets hoeft op te leveren');
-      } else if (w.includes('geduldig') || w.includes('geduld')) {
-        tekst += ' Je wil geduldig zijn vandaag, met jezelf, met de situatie, met hoe het gaat.';
-        taken.push('Wanneer iets langzamer gaat dan je wil: benoem het, adem, ga door');
-      } else if (w.includes('open') || w.includes('flexibel')) {
-        tekst += ' Je wil open en flexibel zijn vandaag, dat betekent ook: plans loslaten als dat nodig is.';
-        taken.push('Laat één verwachting van vandaag bewust los, kijk wat er dan overblijft');
-      } else {
-        tekst += ` Je wil vandaag ${wie} zijn, gebruik dat als leidraad voor de keuzes die je maakt.`;
-        taken.push(`Keer terug naar "${wie}" als je merkt dat je afdwaalt van hoe je wil zijn`);
-      }
-    }
-
     // ── MOET-TAAK, overschrijft en kleurt het hele advies ──
     if (moetTaak) {
       if (niveau <= 2) {
@@ -1109,35 +1075,14 @@
     const base = getNiveauBase()[geselecteerdNiveau];
     const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.dataset.need);
     const moetTaak = (moetAanwezig && document.getElementById('moet-taak').value.trim()) ? document.getElementById('moet-taak').value.trim() : null;
-    const wie = document.getElementById('wie').value.trim();
-    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften, geselecteerdeWerkstijl, wie, moetTaak);
+    const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften, geselecteerdeWerkstijl, moetTaak);
 
-    document.getElementById('res-niveau').textContent = base.naam;
     document.getElementById('res-titel').textContent = base.titel;
+    document.getElementById('res-niveau').textContent = base.naam;
     document.getElementById('res-tekst').textContent = translateDagText(tekst);
 
-    // Reminder: basis aangepast op "wie"
     let reminderTekst = base.reminder;
-    if (wie) {
-      const w = wie.toLowerCase().trim();
-      if (w.includes('rustig') || w.includes('kalm')) {
-        reminderTekst += ' Rustig zijn tegenover anderen begint bij rustig zijn tegenover jezelf.';
-      } else if (w.includes('aanwezig') || w.includes('bewust')) {
-        reminderTekst += ' Aanwezig zijn hoeft niet perfect, het is al genoeg als je er bewust van bent.';
-      } else if (w.includes('zelf') || w.includes('mezelf')) {
-        reminderTekst += ' Jezelf zijn vraagt soms moed. Vandaag mag dat genoeg zijn.';
-      } else {
-        reminderTekst += ` Vandaag wil je ${wie} zijn. Dat is al een keuze die telt.`;
-      }
-    }
-    if (currentLang === 'en') {
-      reminderTekst = translateDagText(reminderTekst)
-        .replace(' Rustig zijn tegenover anderen begint bij rustig zijn tegenover jezelf.', ' Being calm with other people starts with being calm with yourself.')
-        .replace(' Aanwezig zijn hoeft niet perfect, het is al genoeg als je er bewust van bent.', ' Being present does not have to be perfect, noticing it is already enough.')
-        .replace(' Jezelf zijn vraagt soms moed. Vandaag mag dat genoeg zijn.', ' Being yourself sometimes takes courage. Today, that can be enough.')
-        .replace(/ Vandaag wil je (.+?) zijn\. Dat is al een keuze die telt\./, ' Today you want to be $1. That is already a choice that matters.');
-    }
-    reminderTekst += ' Dit lijkt haalbaar voor nu. Als je energie later verandert, kun je opnieuw rustig kijken wat je nodig hebt.';
+    reminderTekst += ' Dit lijkt haalbaar voor nu. Later kun je opnieuw rustig kijken wat nog past.';
     document.getElementById('res-reminder').textContent = reminderTekst;
 
     const takenEl = document.getElementById('res-taken');
@@ -1166,7 +1111,6 @@
     document.getElementById('moet-nee').className = 'moet-keuze';
     document.getElementById('moet-ja').className = 'moet-keuze';
     document.getElementById('moet-verder-btn').disabled = true;
-    document.getElementById('wie').value = '';
     document.getElementById('hint-1').textContent = '';
     geselecteerdNiveau = null;
     geselecteerdeWerkstijl = null;
@@ -1233,13 +1177,12 @@
       logo: 'PRISMA Dag',
       h1: 'Hoe is je energie nu?',
       subtitle: 'Je hoeft niet eerst op gang te zijn. We kijken alleen wat vandaag haalbaar voelt.',
-      progress: ['Energie','Behoeften','Werkstijl','Moet','Wie'],
+      progress: ['Energie','Behoeften','Werkstijl','Moet'],
       sectionLabels: [
         'Stap 1, Hoeveel energie heb je nu?',
         'Stap 2, Wat heeft je lijf of hoofd nodig?',
         'Stap 3, Hoe werk jij het beste?',
-        'Stap 4, Is er iets wat je vandaag écht moet doen?',
-        'Stap 5, Wie wil je vandaag zijn?'
+        'Stap 4, Is er iets wat je vandaag écht moet doen?'
       ],
       energyNames: ['Bijna leeg','Laag','Midden','Goed','Vol'],
       energyDescriptions: [
@@ -1286,17 +1229,15 @@
       mustNo: 'Nee, niets dringends',
       mustYes: 'Ja, er is iets dringends',
       mustPlaceholder: 'Wat moet vandaag echt gebeuren?',
-      whoPlaceholder: 'Niet wat je wilt doen, maar hoe je door de dag wilt gaan. Rustig? Aanwezig? Gewoon jezelf?',
-      whoHint: 'Eén woord of een korte zin is genoeg. Leeg laten mag ook.',
       next: 'Verder →',
       back: '← Terug',
       resultButton: 'Kijk wat nu haalbaar is →',
-      resultFits: 'Wat vandaag kan passen',
+      resultFits: 'Wat nu haalbaar lijkt',
       reset: '↺ Opnieuw invullen',
       bridgeLabel: 'PRISMA Week',
-      bridgeTitle: 'Wil je dit een week lang volgen?',
-      bridgeText: 'Houd zeven dagen bij wat grip gaf, wat veel was en wat hielp.',
-      bridgeBtn: 'Bekijk PRISMA Week →',
+      bridgeTitle: 'Wil je dit gevoel vasthouden over meerdere dagen?',
+      bridgeText: 'Zodat je niet elke dag opnieuw hoeft te beginnen.',
+      bridgeBtn: 'Houd dit vast met PRISMA Week →',
       home: '← Terug naar PRISMA',
       niveauBase: {
         1: { naam: 'Niveau 1, Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
@@ -1317,13 +1258,12 @@
       logo: 'PRISMA Day',
       h1: 'How is your energy right now?',
       subtitle: 'You do not have to be switched on first. We are only looking at what feels manageable today.',
-      progress: ['Energy','Needs','Work style','Must','Who'],
+      progress: ['Energy','Needs','Work style','Must'],
       sectionLabels: [
         'Step 1, How much energy do you have right now?',
         'Step 2, What does your body or mind need?',
         'Step 3, How do you work best?',
-        'Step 4, Is there anything you truly have to do today?',
-        'Step 5, Who do you want to be today?'
+        'Step 4, Is there anything you truly have to do today?'
       ],
       energyNames: ['Almost empty','Low','Middle','Good','Full'],
       energyDescriptions: [
@@ -1370,17 +1310,15 @@
       mustNo: 'No, nothing urgent',
       mustYes: 'Yes, something is urgent',
       mustPlaceholder: 'What truly has to happen today? Write it down.',
-      whoPlaceholder: 'Not what you want to do, but how you want to move through the day. Calm? Present? Just yourself?',
-      whoHint: 'One word or a short sentence is enough. Leaving it empty is fine too.',
       next: 'Next →',
       back: '← Back',
       resultButton: 'See what feels manageable now →',
-      resultFits: 'What may fit today',
+      resultFits: 'What looks manageable now',
       reset: '↺ Start again',
       bridgeLabel: 'PRISMA Week',
-      bridgeTitle: 'Do you want to follow this for a week?',
-      bridgeText: 'Track for seven days and notice what gives you grip, what drains you, and what helps.',
-      bridgeBtn: 'View PRISMA Week →',
+      bridgeTitle: 'Want to keep this feeling over multiple days?',
+      bridgeText: 'So you do not have to start over every day.',
+      bridgeBtn: 'Keep this going with PRISMA Week →',
       home: '← Back to PRISMA',
       niveauBase: {
         1: { naam: 'Level 1, Almost empty', titel: 'Today is a rest day. That is enough.', reminder: 'A day with little energy is not a day you wasted. It is a day on which you took care of yourself.' },
@@ -1697,7 +1635,6 @@
     document.querySelector('#stap-2 .section-label').textContent = t.sectionLabels[1];
     document.querySelector('#stap-3 .section-label').textContent = t.sectionLabels[2];
     document.querySelector('#stap-4 .section-label').textContent = t.sectionLabels[3];
-    document.querySelector('#stap-5 .section-label').textContent = t.sectionLabels[4];
     document.querySelectorAll('.energie-optie').forEach((el, index) => {
       el.querySelector('.energie-naam').textContent = t.energyNames[index];
       el.querySelector('.energie-omschrijving').textContent = t.energyDescriptions[index];
@@ -1713,15 +1650,12 @@
     document.getElementById('moet-nee').textContent = t.mustNo;
     document.getElementById('moet-ja').textContent = t.mustYes;
     document.getElementById('moet-taak').placeholder = t.mustPlaceholder;
-    document.getElementById('wie').placeholder = t.whoPlaceholder;
-    document.querySelector('#stap-5 .stap-hint').textContent = t.whoHint;
     document.getElementById('btn-stap1').textContent = t.next;
     document.querySelectorAll('.verder-btn').forEach((btn) => {
       if (btn.id !== 'btn-stap1' && btn.id !== 'moet-verder-btn') btn.textContent = t.next;
     });
-    document.getElementById('moet-verder-btn').textContent = t.next;
+    document.getElementById('moet-verder-btn').textContent = t.resultButton;
     document.querySelectorAll('.terug-btn').forEach((btn) => { btn.textContent = t.back; });
-    document.querySelector('#stap-5 .verder-btn').textContent = t.resultButton;
     document.querySelector('.taken-label').textContent = t.resultFits;
     document.querySelector('.opnieuw-btn').textContent = t.reset;
     document.querySelector('.brug-label').textContent = t.bridgeLabel;
@@ -1739,6 +1673,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     initDagDatasets();
+    document.getElementById('moet-taak').addEventListener('input', updateMoetButtonState);
     currentLang = getInitialLanguage();
     applyTranslations();
     initLanguageObserver();
