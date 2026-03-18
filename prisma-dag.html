@@ -433,6 +433,7 @@
     font-style: italic;
     line-height: 1.7;
     color: var(--grijs);
+    white-space: pre-line;
   }
 
   .opnieuw-btn {
@@ -1082,7 +1083,7 @@
     document.getElementById('res-tekst').textContent = translateDagText(tekst);
 
     let reminderTekst = base.reminder;
-    reminderTekst += ' Dit lijkt haalbaar voor nu. Later kun je opnieuw rustig kijken wat nog past.';
+    reminderTekst += '\nDit lijkt haalbaar voor nu.\nLater kun je weer even kijken wat haalbaar is.';
     document.getElementById('res-reminder').textContent = reminderTekst;
 
     const takenEl = document.getElementById('res-taken');
