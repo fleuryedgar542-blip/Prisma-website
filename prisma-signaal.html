@@ -29,7 +29,9 @@
 <meta name="apple-mobile-web-app-title" content="PRISMA Signaal">
 <link rel="apple-touch-icon" href="icon-prikkel-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="reading-ease.css">
 <link rel="stylesheet" href="feedback-form.css">
+<script defer src="reading-ease.js"></script>
 <script defer src="feedback-form.js"></script>
 <script type="application/ld+json">
 {
@@ -582,6 +584,7 @@
       <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
       <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
     </div>
+    <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button>
     <div class="logo">PRISMA Systemen</div>
     <h1>Hoe vol is je systeem nu?</h1>
     <p class="subtitle">Een korte check-in voor momenten waarop alles snel te veel voelt. Geen diagnose, wel richting.</p>

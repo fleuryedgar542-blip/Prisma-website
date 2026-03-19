@@ -1,0 +1,71 @@
+.reading-ease-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px 16px;
+  border: 1px solid #E8E4DC;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #2E2E2E;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.reading-ease-toggle:hover {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.reading-ease-toggle.active,
+body.reading-ease .reading-ease-toggle {
+  background: #FFFFFF;
+  border-color: #A8B5A2;
+  color: #2E2E2E;
+}
+
+body.reading-ease {
+  line-height: 1.95;
+  letter-spacing: 0.012em;
+  word-spacing: 0.05em;
+}
+
+body.reading-ease p,
+body.reading-ease li,
+body.reading-ease label,
+body.reading-ease input,
+body.reading-ease textarea,
+body.reading-ease select,
+body.reading-ease button,
+body.reading-ease .subtitle,
+body.reading-ease .section-label,
+body.reading-ease .stap-label,
+body.reading-ease .energie-omschrijving,
+body.reading-ease .hero-tekst,
+body.reading-ease .hero-tagline,
+body.reading-ease .hero-subnote,
+body.reading-ease .tool-kaart p,
+body.reading-ease .tool-lijst li,
+body.reading-ease .prisma-feedback,
+body.reading-ease .prisma-feedback * {
+  line-height: 1.95;
+  letter-spacing: 0.012em;
+  word-spacing: 0.05em;
+}
+
+body.reading-ease input,
+body.reading-ease textarea,
+body.reading-ease select,
+body.reading-ease button {
+  font-size: 1rem;
+}
+
+body.reading-ease textarea,
+body.reading-ease input,
+body.reading-ease select {
+  line-height: 1.7;
+}
