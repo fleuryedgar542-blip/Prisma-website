@@ -4,6 +4,7 @@
 
 /* Forceer altijd lichte modus — huisstijl is beige/licht */
 :root { color-scheme: only light; }
+html { color-scheme: only light; }
 
 /* ─── VARIABELEN ─────────────────────────────── */
 :root {
@@ -42,6 +43,13 @@ body {
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   padding-top: var(--nav-hoogte);
+}
+
+input,
+textarea,
+select,
+button {
+  color-scheme: only light;
 }
 
 img { max-width: 100%; display: block; }

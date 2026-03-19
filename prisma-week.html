@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F3EFE8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -75,7 +76,10 @@
     --wit: #ffffff;
     --sidebar-w: 220px;
     --nav-h: 64px;
+    color-scheme: only light;
   }
+
+  html { color-scheme: only light; }
 
   body {
     background: var(--beige);
@@ -85,6 +89,8 @@
     min-height: 100vh;
     display: flex;
   }
+
+  input, textarea, select, button { color-scheme: only light; }
 
   /* ── SIDEBAR (desktop) ── */
   .sidebar {

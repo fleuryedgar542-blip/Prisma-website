@@ -36,6 +36,7 @@
   border-radius: 10px;
   background: white;
   color: var(--grijs);
+  color-scheme: only light;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   font-weight: 300;
@@ -62,6 +63,7 @@
   border-radius: 999px;
   background: transparent;
   color: var(--grijs);
+  color-scheme: only light;
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   font-weight: 400;
@@ -101,6 +103,7 @@
   border-radius: 999px;
   background: transparent;
   color: var(--grijs);
+  color-scheme: only light;
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   font-weight: 400;
