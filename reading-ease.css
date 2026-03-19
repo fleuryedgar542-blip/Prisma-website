@@ -41,13 +41,33 @@ body.reading-ease {
 body.reading-ease p,
 body.reading-ease li,
 body.reading-ease label,
-body.reading-ease span,
-body.reading-ease div,
 body.reading-ease a,
 body.reading-ease input,
 body.reading-ease textarea,
 body.reading-ease select,
-body.reading-ease button {
+body.reading-ease button,
+body.reading-ease .subtitle,
+body.reading-ease .section-label,
+body.reading-ease .stap-label,
+body.reading-ease .energie-naam,
+body.reading-ease .energie-omschrijving,
+body.reading-ease .werkstijl-naam,
+body.reading-ease .werkstijl-omschrijving,
+body.reading-ease .behoefte-naam,
+body.reading-ease .behoefte-omschrijving,
+body.reading-ease .resultaat-tekst,
+body.reading-ease .resultaat-niveau,
+body.reading-ease .dag-advies,
+body.reading-ease .dag-stap-hint,
+body.reading-ease .analyse-lijst li,
+body.reading-ease .nudge-tekst,
+body.reading-ease .hero-tekst,
+body.reading-ease .hero-tagline,
+body.reading-ease .hero-subnote,
+body.reading-ease .tool-kaart p,
+body.reading-ease .tool-lijst li,
+body.reading-ease .prisma-feedback,
+body.reading-ease .prisma-feedback * {
   font-family: 'Lexend', 'Montserrat', sans-serif;
 }
 
@@ -58,7 +78,6 @@ body.reading-ease input,
 body.reading-ease textarea,
 body.reading-ease select,
 body.reading-ease button,
-body.reading-ease .logo,
 body.reading-ease .subtitle,
 body.reading-ease .section-label,
 body.reading-ease .stap-label,
@@ -91,11 +110,7 @@ body.reading-ease .prisma-feedback * {
   font-weight: 400;
 }
 
-body.reading-ease h1,
-body.reading-ease h2,
-body.reading-ease h3,
 body.reading-ease .resultaat-titel,
-body.reading-ease .hero-titel,
 body.reading-ease .prisma-feedback-title {
   font-family: 'Lexend', 'Montserrat', sans-serif;
   font-weight: 500;
@@ -147,11 +162,10 @@ body.reading-ease .reading-ease-toggle {
 body.reading-ease .stap-label,
 body.reading-ease .section-label,
 body.reading-ease .prisma-feedback-label,
-body.reading-ease .hero-label,
 body.reading-ease .tool-label,
 body.reading-ease .sectie-label {
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
 body.reading-ease .energie-optie,
