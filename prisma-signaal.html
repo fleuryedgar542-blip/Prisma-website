@@ -218,11 +218,16 @@
     padding: 16px 20px;
     border: 1.5px solid transparent;
     background: white;
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font: inherit;
   }
 
   .prikkel-optie::before {
@@ -246,6 +251,15 @@
   .prikkel-optie[data-niveau="4"].selected { background: #FDF8F0; border-color: var(--oker); }
   .prikkel-optie[data-niveau="5"].selected { background: #FDF5F5; border-color: var(--prikkel-hoog); }
   .prikkel-optie.selected::before { opacity: 1; }
+  .prikkel-optie:focus-visible,
+  .zintuig-niveau:focus-visible,
+  .context-tag:focus-visible,
+  .terug-btn:focus-visible,
+  .verder-btn:focus-visible,
+  .restart-btn:focus-visible {
+    outline: 2px solid var(--blauw);
+    outline-offset: 3px;
+  }
 
   .prikkel-emoji {
     font-size: 20px;
@@ -254,11 +268,12 @@
     flex-shrink: 0;
   }
 
-  .prikkel-info { flex: 1; }
-  .prikkel-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .prikkel-omschrijving { font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
+  .prikkel-info { flex: 1; display: block; }
+  .prikkel-naam { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .prikkel-omschrijving { display: block; font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
 
   .prikkel-dot {
+    display: block;
     width: 8px; height: 8px;
     border-radius: 50%;
     border: 1.5px solid var(--grijs-mid);
@@ -293,8 +308,8 @@
     margin-bottom: 10px;
   }
 
-  .zintuig-emoji { font-size: 16px; flex-shrink: 0; }
-  .zintuig-naam { font-size: 13px; font-weight: 500; flex: 1; }
+  .zintuig-emoji { display: inline-block; font-size: 16px; flex-shrink: 0; }
+  .zintuig-naam { display: inline-block; font-size: 13px; font-weight: 500; flex: 1; }
 
   .zintuig-schaal {
     display: flex;
@@ -316,6 +331,8 @@
     color: var(--grijs-mid);
     font-family: 'Noto Serif', serif;
     font-weight: 400;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
   .zintuig-niveau:hover { border-color: var(--grijs-mid); }
@@ -355,6 +372,8 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: var(--grijs);
+    appearance: none;
+    -webkit-appearance: none;
   }
   .context-tag:hover { border-color: var(--blauw); }
   .context-tag.selected { background: var(--blauw); border-color: var(--blauw); color: white; }
@@ -622,46 +641,46 @@
   <div class="stap actief" id="stap-1">
     <div class="section-label">Stap 1, Hoe vol voelt je systeem nu?</div>
     <div class="prikkel-meter">
-      <div class="prikkel-optie" data-niveau="1" onclick="selecteerNiveau(this)">
-        <div class="prikkel-emoji">🌿</div>
-        <div class="prikkel-info">
-          <div class="prikkel-naam">Rustig</div>
-          <div class="prikkel-omschrijving">Je systeem is kalm. Weinig prikkels, veel ruimte.</div>
-        </div>
-        <div class="prikkel-dot"></div>
-      </div>
-      <div class="prikkel-optie" data-niveau="2" onclick="selecteerNiveau(this)">
-        <div class="prikkel-emoji">🌤</div>
-        <div class="prikkel-info">
-          <div class="prikkel-naam">Licht belast</div>
-          <div class="prikkel-omschrijving">Je merkt prikkels, maar het is nog behapbaar.</div>
-        </div>
-        <div class="prikkel-dot"></div>
-      </div>
-      <div class="prikkel-optie" data-niveau="3" onclick="selecteerNiveau(this)">
-        <div class="prikkel-emoji">⚖️</div>
-        <div class="prikkel-info">
-          <div class="prikkel-naam">Redelijk vol</div>
-          <div class="prikkel-omschrijving">Je systeem werkt, maar heeft weinig ruimte meer over.</div>
-        </div>
-        <div class="prikkel-dot"></div>
-      </div>
-      <div class="prikkel-optie" data-niveau="4" onclick="selecteerNiveau(this)">
-        <div class="prikkel-emoji">🌩</div>
-        <div class="prikkel-info">
-          <div class="prikkel-naam">Overbelast</div>
-          <div class="prikkel-omschrijving">Veel te verwerken. Alles voelt intenser dan normaal.</div>
-        </div>
-        <div class="prikkel-dot"></div>
-      </div>
-      <div class="prikkel-optie" data-niveau="5" onclick="selecteerNiveau(this)">
-        <div class="prikkel-emoji">🔴</div>
-        <div class="prikkel-info">
-          <div class="prikkel-naam">Overvol, shutdown nabij</div>
-          <div class="prikkel-omschrijving">Je systeem kan bijna niet meer. Rust is nu urgent.</div>
-        </div>
-        <div class="prikkel-dot"></div>
-      </div>
+      <button type="button" class="prikkel-optie" data-niveau="1" onclick="selecteerNiveau(this)">
+        <span class="prikkel-emoji">🌿</span>
+        <span class="prikkel-info">
+          <span class="prikkel-naam">Rustig</span>
+          <span class="prikkel-omschrijving">Je systeem is kalm. Weinig prikkels, veel ruimte.</span>
+        </span>
+        <span class="prikkel-dot"></span>
+      </button>
+      <button type="button" class="prikkel-optie" data-niveau="2" onclick="selecteerNiveau(this)">
+        <span class="prikkel-emoji">🌤</span>
+        <span class="prikkel-info">
+          <span class="prikkel-naam">Licht belast</span>
+          <span class="prikkel-omschrijving">Je merkt prikkels, maar het is nog behapbaar.</span>
+        </span>
+        <span class="prikkel-dot"></span>
+      </button>
+      <button type="button" class="prikkel-optie" data-niveau="3" onclick="selecteerNiveau(this)">
+        <span class="prikkel-emoji">⚖️</span>
+        <span class="prikkel-info">
+          <span class="prikkel-naam">Redelijk vol</span>
+          <span class="prikkel-omschrijving">Je systeem werkt, maar heeft weinig ruimte meer over.</span>
+        </span>
+        <span class="prikkel-dot"></span>
+      </button>
+      <button type="button" class="prikkel-optie" data-niveau="4" onclick="selecteerNiveau(this)">
+        <span class="prikkel-emoji">🌩</span>
+        <span class="prikkel-info">
+          <span class="prikkel-naam">Overbelast</span>
+          <span class="prikkel-omschrijving">Veel te verwerken. Alles voelt intenser dan normaal.</span>
+        </span>
+        <span class="prikkel-dot"></span>
+      </button>
+      <button type="button" class="prikkel-optie" data-niveau="5" onclick="selecteerNiveau(this)">
+        <span class="prikkel-emoji">🔴</span>
+        <span class="prikkel-info">
+          <span class="prikkel-naam">Overvol, shutdown nabij</span>
+          <span class="prikkel-omschrijving">Je systeem kan bijna niet meer. Rust is nu urgent.</span>
+        </span>
+        <span class="prikkel-dot"></span>
+      </button>
     </div>
     <div class="stap-hint" id="hint-1"></div>
     <div class="knop-rij">
@@ -686,18 +705,18 @@
   <div class="stap" id="stap-3">
     <div class="section-label">Stap 3, Wat speelt er mee?</div>
     <div class="context-grid">
-      <div class="context-tag" onclick="toggleContext(this)">🏠 Thuis</div>
-      <div class="context-tag" onclick="toggleContext(this)">🏫 School of werk</div>
-      <div class="context-tag" onclick="toggleContext(this)">🚌 Openbaar vervoer</div>
-      <div class="context-tag" onclick="toggleContext(this)">🛒 Drukke ruimte</div>
-      <div class="context-tag" onclick="toggleContext(this)">💬 Sociaal contact gehad</div>
-      <div class="context-tag" onclick="toggleContext(this)">😴 Slecht geslapen</div>
-      <div class="context-tag" onclick="toggleContext(this)">📱 Veel schermtijd</div>
-      <div class="context-tag" onclick="toggleContext(this)">🎧 Lawaai of muziek</div>
-      <div class="context-tag" onclick="toggleContext(this)">🌡 Oncomfortabele temperatuur</div>
-      <div class="context-tag" onclick="toggleContext(this)">😰 Gespannen of gestrest</div>
-      <div class="context-tag" onclick="toggleContext(this)">🍽 Honger of te vol gegeten</div>
-      <div class="context-tag" onclick="toggleContext(this)">🌧 Wisselend weer</div>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🏠 Thuis</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🏫 School of werk</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🚌 Openbaar vervoer</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🛒 Drukke ruimte</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">💬 Sociaal contact gehad</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">😴 Slecht geslapen</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">📱 Veel schermtijd</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🎧 Lawaai of muziek</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🌡 Oncomfortabele temperatuur</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">😰 Gespannen of gestrest</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🍽 Honger of te vol gegeten</button>
+      <button type="button" class="context-tag" onclick="toggleContext(this)">🌧 Wisselend weer</button>
     </div>
     <p class="stap-hint">Je mag er meer kiezen. Leeg laten mag ook.</p>
     <div class="knop-rij">
@@ -795,7 +814,7 @@
           <span style="font-size:11px;color:var(--grijs-mid);">${z.omschrijving}</span>
         </div>
         <div class="zintuig-schaal" id="schaal-${z.id}">
-          ${[1,2,3,4,5].map(n => `<div class="zintuig-niveau" data-zintuig="${z.id}" data-n="${n}" onclick="selecteerZintuigNiveau('${z.id}', ${n}, this)">${n}</div>`).join('')}
+          ${[1,2,3,4,5].map(n => `<button type="button" class="zintuig-niveau" data-zintuig="${z.id}" data-n="${n}" onclick="selecteerZintuigNiveau('${z.id}', ${n}, this)">${n}</button>`).join('')}
         </div>
         <div class="zintuig-niveau-label">
           <span>Weinig</span>

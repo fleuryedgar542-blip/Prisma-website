@@ -224,11 +224,16 @@
     padding: 16px 20px;
     border: 1.5px solid transparent;
     background: white;
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font: inherit;
   }
   .energie-optie::before {
     content: '';
@@ -248,6 +253,17 @@
   .energie-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
   .energie-optie.selected { border-color: var(--groen); background: #F8FAF7; }
   .energie-optie.selected::before { opacity: 1; }
+  .energie-optie:focus-visible,
+  .behoefte-tag:focus-visible,
+  .werkstijl-optie:focus-visible,
+  .moet-keuze:focus-visible,
+  .terug-btn:focus-visible,
+  .verder-btn:focus-visible,
+  .brug-cta:focus-visible,
+  .restart-btn:focus-visible {
+    outline: 2px solid var(--blauw);
+    outline-offset: 3px;
+  }
 
   .energie-nummer {
     font-family: 'Noto Serif', serif;
@@ -261,9 +277,9 @@
   .energie-optie[data-niveau="4"] .energie-nummer { color: #8BAF86; }
   .energie-optie[data-niveau="5"] .energie-nummer { color: var(--groen); }
 
-  .energie-info { flex: 1; }
-  .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .energie-omschrijving { font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
+  .energie-info { flex: 1; display: block; }
+  .energie-naam { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .energie-omschrijving { display: block; font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
   .energie-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
@@ -286,6 +302,8 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: var(--grijs);
+    appearance: none;
+    -webkit-appearance: none;
   }
   .behoefte-tag:hover { border-color: var(--groen); }
   .behoefte-tag.selected { background: var(--groen); border-color: var(--groen); color: white; }
@@ -560,13 +578,19 @@
     padding: 16px 20px;
     border: 1.5px solid transparent;
     background: white;
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font: inherit;
   }
   .werkstijl-optie:hover { border-color: var(--grijs-licht); transform: translateX(2px); }
   .werkstijl-optie.selected { border-color: var(--groen); background: #F8FAF7; }
   .werkstijl-dot {
+    display: block;
     width: 8px; height: 8px;
     border-radius: 50%;
     border: 1.5px solid var(--grijs-mid);
@@ -575,8 +599,8 @@
     margin-top: 5px;
   }
   .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
-  .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-  .werkstijl-omschrijving { font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
+  .werkstijl-naam { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .werkstijl-omschrijving { display: block; font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -723,46 +747,46 @@
   <div class="stap actief" id="stap-1">
     <div class="section-label">Stap 1, Hoeveel energie heb je nu?</div>
     <div class="energie-schaal">
-      <div class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
-        <div class="energie-nummer">1</div>
-        <div class="energie-info">
-          <div class="energie-naam">Bijna leeg</div>
-          <div class="energie-omschrijving">Je lijf en hoofd vragen om rust. Alles voelt zwaar.</div>
-        </div>
-        <div class="energie-dot"></div>
-      </div>
-      <div class="energie-optie" data-niveau="2" onclick="selecteerEnergie(this)">
-        <div class="energie-nummer">2</div>
-        <div class="energie-info">
-          <div class="energie-naam">Laag</div>
-          <div class="energie-omschrijving">Er kan iets, maar niet veel. Hou het klein en licht.</div>
-        </div>
-        <div class="energie-dot"></div>
-      </div>
-      <div class="energie-optie" data-niveau="3" onclick="selecteerEnergie(this)">
-        <div class="energie-nummer">3</div>
-        <div class="energie-info">
-          <div class="energie-naam">Midden</div>
-          <div class="energie-omschrijving">Redelijk stabiel. Er is iets mogelijk, maar niet eindeloos.</div>
-        </div>
-        <div class="energie-dot"></div>
-      </div>
-      <div class="energie-optie" data-niveau="4" onclick="selecteerEnergie(this)">
-        <div class="energie-nummer">4</div>
-        <div class="energie-info">
-          <div class="energie-naam">Goed</div>
-          <div class="energie-omschrijving">Je hebt ruimte. Gebruik die rustig, niet in één keer op.</div>
-        </div>
-        <div class="energie-dot"></div>
-      </div>
-      <div class="energie-optie" data-niveau="5" onclick="selecteerEnergie(this)">
-        <div class="energie-nummer">5</div>
-        <div class="energie-info">
-          <div class="energie-naam">Vol</div>
-          <div class="energie-omschrijving">Je voelt je goed. Een prima dag voor iets wat wat meer vraagt.</div>
-        </div>
-        <div class="energie-dot"></div>
-      </div>
+      <button type="button" class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
+        <span class="energie-nummer">1</span>
+        <span class="energie-info">
+          <span class="energie-naam">Bijna leeg</span>
+          <span class="energie-omschrijving">Je lijf en hoofd vragen om rust. Alles voelt zwaar.</span>
+        </span>
+        <span class="energie-dot"></span>
+      </button>
+      <button type="button" class="energie-optie" data-niveau="2" onclick="selecteerEnergie(this)">
+        <span class="energie-nummer">2</span>
+        <span class="energie-info">
+          <span class="energie-naam">Laag</span>
+          <span class="energie-omschrijving">Er kan iets, maar niet veel. Hou het klein en licht.</span>
+        </span>
+        <span class="energie-dot"></span>
+      </button>
+      <button type="button" class="energie-optie" data-niveau="3" onclick="selecteerEnergie(this)">
+        <span class="energie-nummer">3</span>
+        <span class="energie-info">
+          <span class="energie-naam">Midden</span>
+          <span class="energie-omschrijving">Redelijk stabiel. Er is iets mogelijk, maar niet eindeloos.</span>
+        </span>
+        <span class="energie-dot"></span>
+      </button>
+      <button type="button" class="energie-optie" data-niveau="4" onclick="selecteerEnergie(this)">
+        <span class="energie-nummer">4</span>
+        <span class="energie-info">
+          <span class="energie-naam">Goed</span>
+          <span class="energie-omschrijving">Je hebt ruimte. Gebruik die rustig, niet in één keer op.</span>
+        </span>
+        <span class="energie-dot"></span>
+      </button>
+      <button type="button" class="energie-optie" data-niveau="5" onclick="selecteerEnergie(this)">
+        <span class="energie-nummer">5</span>
+        <span class="energie-info">
+          <span class="energie-naam">Vol</span>
+          <span class="energie-omschrijving">Je voelt je goed. Een prima dag voor iets wat wat meer vraagt.</span>
+        </span>
+        <span class="energie-dot"></span>
+      </button>
     </div>
     <div class="stap-hint" id="hint-1"></div>
     <div class="knop-rij">
@@ -774,16 +798,16 @@
   <div class="stap" id="stap-2">
     <div class="section-label">Stap 2, Wat heeft je lijf of hoofd nodig?</div>
     <div class="behoeften-grid">
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Ik wil even niks hoeven</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Ik wil minder prikkels</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Ik wil bewegen of buiten zijn</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Ik wil weten wat ik ga doen</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Ik wil contact met iemand</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Ik wil iets maken of bedenken</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets op de achtergrond hebben</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Ik wil muziek of geluid erbij</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Weten wanneer iets stopt</div>
-      <div class="behoefte-tag" onclick="toggleBehoefte(this)">🙈 Niet aangesproken worden</div>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 Ik wil even niks hoeven</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 Ik wil minder prikkels</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 Ik wil bewegen of buiten zijn</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">📋 Ik wil weten wat ik ga doen</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">💬 Ik wil contact met iemand</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 Ik wil iets maken of bedenken</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">📱 Iets op de achtergrond hebben</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 Ik wil muziek of geluid erbij</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ Weten wanneer iets stopt</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🙈 Niet aangesproken worden</button>
     </div>
     <p class="stap-hint">Je mag er meer kiezen. Leeg laten mag ook.</p>
     <div class="knop-rij">
@@ -796,34 +820,34 @@
   <div class="stap" id="stap-3">
     <div class="section-label">Stap 3, Hoe werk jij het beste?</div>
     <div class="werkstijl-grid">
-      <div class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
-        <div class="werkstijl-dot"></div>
-        <div>
-          <div class="werkstijl-naam">Meerdere dingen tegelijk</div>
-          <div class="werkstijl-omschrijving">Iets op de achtergrond terwijl je bezig bent. Zo blijft je brein actief en hou je het vol.</div>
-        </div>
-      </div>
-      <div class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
-        <div class="werkstijl-dot"></div>
-        <div>
-          <div class="werkstijl-naam">Één ding tegelijk</div>
-          <div class="werkstijl-omschrijving">Je wilt liefst eerst iets afronden. Open eindjes geven onrust.</div>
-        </div>
-      </div>
-      <div class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
-        <div class="werkstijl-dot"></div>
-        <div>
-          <div class="werkstijl-naam">Blokken met pauzes</div>
-          <div class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Vaste blokken geven je houvast.</div>
-        </div>
-      </div>
-      <div class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
-        <div class="werkstijl-dot"></div>
-        <div>
-          <div class="werkstijl-naam">Ik volg hoe het loopt</div>
-          <div class="werkstijl-omschrijving">Geen strakke aanpak nodig. Je kijkt wat nu werkt en gaat daarmee verder.</div>
-        </div>
-      </div>
+      <button type="button" class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
+        <span class="werkstijl-dot"></span>
+        <span>
+          <span class="werkstijl-naam">Meerdere dingen tegelijk</span>
+          <span class="werkstijl-omschrijving">Iets op de achtergrond terwijl je bezig bent. Zo blijft je brein actief en hou je het vol.</span>
+        </span>
+      </button>
+      <button type="button" class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
+        <span class="werkstijl-dot"></span>
+        <span>
+          <span class="werkstijl-naam">Één ding tegelijk</span>
+          <span class="werkstijl-omschrijving">Je wilt liefst eerst iets afronden. Open eindjes geven onrust.</span>
+        </span>
+      </button>
+      <button type="button" class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
+        <span class="werkstijl-dot"></span>
+        <span>
+          <span class="werkstijl-naam">Blokken met pauzes</span>
+          <span class="werkstijl-omschrijving">Werken, stoppen, opladen, weer werken. Vaste blokken geven je houvast.</span>
+        </span>
+      </button>
+      <button type="button" class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
+        <span class="werkstijl-dot"></span>
+        <span>
+          <span class="werkstijl-naam">Ik volg hoe het loopt</span>
+          <span class="werkstijl-omschrijving">Geen strakke aanpak nodig. Je kijkt wat nu werkt en gaat daarmee verder.</span>
+        </span>
+      </button>
     </div>
     <p class="stap-hint">Weet je het nog niet, dan mag je dit gewoon leeg laten.</p>
     <div class="knop-rij">

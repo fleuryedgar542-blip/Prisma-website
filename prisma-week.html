@@ -170,12 +170,20 @@
     cursor: pointer;
     transition: all 0.15s ease;
     border-left: 2px solid transparent;
+    width: 100%;
+    background: transparent;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
   }
   .nav-item:hover { color: var(--grijs); background: var(--beige); }
   .nav-item.active { color: var(--grijs); border-left-color: var(--groen); background: #F8FAF7; }
   .nav-item.done { color: var(--grijs); }
 
   .nav-dot {
+    display: inline-block;
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--grijs-licht);
@@ -211,6 +219,13 @@
     cursor: pointer;
     transition: all 0.15s ease;
     border-left: 2px solid transparent;
+    width: 100%;
+    background: transparent;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
   }
   .nav-item-maand:hover { color: var(--grijs); background: var(--beige); }
   .nav-item-maand.active { color: var(--grijs); border-left-color: var(--blauw); background: #F0F3F6; }
@@ -248,12 +263,18 @@
     border-top: 2px solid transparent;
     min-width: 52px;
     letter-spacing: 0.04em;
+    background: transparent;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    font-family: 'Montserrat', sans-serif;
   }
   .mob-item:hover { color: var(--grijs); }
   .mob-item.active { color: var(--grijs); border-top-color: var(--groen); }
   .mob-item.done { color: var(--groen); }
 
   .mob-dot {
+    display: inline-block;
     width: 5px; height: 5px;
     border-radius: 50%;
     background: var(--grijs-licht);
@@ -335,11 +356,16 @@
     padding: 13px 18px;
     border: 1.5px solid transparent;
     background: var(--wit);
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font: inherit;
   }
   .energie-optie::before {
     content: '';
@@ -371,10 +397,10 @@
   .energie-optie[data-niveau="4"] .energie-nummer { color: #8BAF86; }
   .energie-optie[data-niveau="5"] .energie-nummer { color: var(--groen); }
 
-  .energie-info { flex: 1; }
-  .energie-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .energie-omschrijving { font-size: 13px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
-  .energie-dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--grijs-mid); transition: all 0.2s; flex-shrink: 0; }
+  .energie-info { flex: 1; display: block; }
+  .energie-naam { display: block; font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .energie-omschrijving { display: block; font-size: 13px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
+  .energie-dot { display: block; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--grijs-mid); transition: all 0.2s; flex-shrink: 0; }
   .energie-optie.selected .energie-dot { background: var(--groen); border-color: var(--groen); }
 
   .behoeften-grid { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -389,6 +415,8 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: var(--grijs);
+    appearance: none;
+    -webkit-appearance: none;
   }
   .behoefte-tag:hover { border-color: var(--groen); }
   .behoefte-tag.selected { background: var(--groen); border-color: var(--groen); color: white; }
@@ -402,13 +430,19 @@
     padding: 14px 18px;
     border: 1.5px solid transparent;
     background: white;
+    width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    font: inherit;
   }
   .werkstijl-optie:hover { border-color: var(--grijs-licht); }
   .werkstijl-optie.selected { border-color: var(--groen); background: #F8FAF7; }
   .werkstijl-dot {
+    display: block;
     width: 7px; height: 7px;
     border-radius: 50%;
     border: 1.5px solid var(--grijs-mid);
@@ -417,8 +451,8 @@
     margin-top: 5px;
   }
   .werkstijl-optie.selected .werkstijl-dot { background: var(--groen); border-color: var(--groen); }
-  .werkstijl-naam { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
-  .werkstijl-omschrijving { font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
+  .werkstijl-naam { display: block; font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .werkstijl-omschrijving { display: block; font-size: 14px; font-weight: 500; color: var(--grijs); line-height: 1.7; }
 
   .tekst-input {
     width: 100%;
@@ -590,6 +624,9 @@
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
+    background: transparent;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
   }
   .nudge-actie:hover { color: var(--grijs); }
   .nudge-sluit {
@@ -598,8 +635,27 @@
     cursor: pointer;
     flex-shrink: 0;
     line-height: 1;
+    background: transparent;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
   }
   .nudge-sluit:hover { color: var(--grijs); }
+  .nav-item:focus-visible,
+  .nav-item-maand:focus-visible,
+  .mob-item:focus-visible,
+  .energie-optie:focus-visible,
+  .behoefte-tag:focus-visible,
+  .werkstijl-optie:focus-visible,
+  .nudge-actie:focus-visible,
+  .nudge-sluit:focus-visible,
+  .dag-verder-btn:focus-visible,
+  .dag-terug-btn:focus-visible,
+  .intro-sluiten-btn:focus-visible,
+  .nieuw-week-btn:focus-visible,
+  .notif-opslaan-btn:focus-visible {
+    outline: 2px solid var(--blauw);
+    outline-offset: 3px;
+  }
 
   /* ── NOTIFICATIE PAGINA ── */
   .notif-kaart {
@@ -1197,79 +1253,79 @@
   <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button>
   <div class="sidebar-nav">
     <div class="nav-section-label">Deze week</div>
-    <div class="nav-item active" id="nav-ma" onclick="navigeer('ma')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Maandag
-    </div>
-    <div class="nav-item" id="nav-di" onclick="navigeer('di')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Dinsdag
-    </div>
-    <div class="nav-item" id="nav-wo" onclick="navigeer('wo')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Woensdag
-    </div>
-    <div class="nav-item" id="nav-do" onclick="navigeer('do')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Donderdag
-    </div>
-    <div class="nav-item" id="nav-vr" onclick="navigeer('vr')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Vrijdag
-    </div>
-    <div class="nav-item" id="nav-za" onclick="navigeer('za')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Zaterdag
-    </div>
-    <div class="nav-item" id="nav-zo" onclick="navigeer('zo')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Zondag
-    </div>
+    <button type="button" class="nav-item active" id="nav-ma" onclick="navigeer('ma')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Maandag
+    </button>
+    <button type="button" class="nav-item" id="nav-di" onclick="navigeer('di')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Dinsdag
+    </button>
+    <button type="button" class="nav-item" id="nav-wo" onclick="navigeer('wo')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Woensdag
+    </button>
+    <button type="button" class="nav-item" id="nav-do" onclick="navigeer('do')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Donderdag
+    </button>
+    <button type="button" class="nav-item" id="nav-vr" onclick="navigeer('vr')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Vrijdag
+    </button>
+    <button type="button" class="nav-item" id="nav-za" onclick="navigeer('za')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Zaterdag
+    </button>
+    <button type="button" class="nav-item" id="nav-zo" onclick="navigeer('zo')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Zondag
+    </button>
     <div class="nav-divider"></div>
-    <div class="nav-item" id="nav-week" onclick="navigeer('week')">
-      <div class="nav-dot"></div><div class="nav-check">✓</div>Weekoverzicht
-    </div>
+    <button type="button" class="nav-item" id="nav-week" onclick="navigeer('week')">
+      <span class="nav-dot"></span><span class="nav-check">✓</span>Weekoverzicht
+    </button>
     <div class="nav-divider"></div>
     <div class="nav-section-label">Geschiedenis</div>
-    <div class="nav-item-maand" id="nav-maand" onclick="navigeer('maand')">
-      <div class="nav-dot"></div>Maandoverzicht
-    </div>
+    <button type="button" class="nav-item-maand" id="nav-maand" onclick="navigeer('maand')">
+      <span class="nav-dot"></span>Maandoverzicht
+    </button>
     <div class="nav-divider"></div>
-    <div class="nav-item-maand" id="nav-notif" onclick="navigeer('notif')">
-      <div class="nav-dot"></div>Herinneringen
-    </div>
+    <button type="button" class="nav-item-maand" id="nav-notif" onclick="navigeer('notif')">
+      <span class="nav-dot"></span>Herinneringen
+    </button>
   </div>
 </nav>
 
 <!-- MOBIELE NAV (onderaan) -->
 <nav class="mobiel-nav">
   <div class="mobiel-nav-inner">
-    <div class="mob-item active" id="mob-ma" onclick="navigeer('ma')">
-      <div class="mob-dot"></div>Ma
-    </div>
-    <div class="mob-item" id="mob-di" onclick="navigeer('di')">
-      <div class="mob-dot"></div>Di
-    </div>
-    <div class="mob-item" id="mob-wo" onclick="navigeer('wo')">
-      <div class="mob-dot"></div>Wo
-    </div>
-    <div class="mob-item" id="mob-do" onclick="navigeer('do')">
-      <div class="mob-dot"></div>Do
-    </div>
-    <div class="mob-item" id="mob-vr" onclick="navigeer('vr')">
-      <div class="mob-dot"></div>Vr
-    </div>
-    <div class="mob-item" id="mob-za" onclick="navigeer('za')">
-      <div class="mob-dot"></div>Za
-    </div>
-    <div class="mob-item" id="mob-zo" onclick="navigeer('zo')">
-      <div class="mob-dot"></div>Zo
-    </div>
+    <button type="button" class="mob-item active" id="mob-ma" onclick="navigeer('ma')">
+      <span class="mob-dot"></span>Ma
+    </button>
+    <button type="button" class="mob-item" id="mob-di" onclick="navigeer('di')">
+      <span class="mob-dot"></span>Di
+    </button>
+    <button type="button" class="mob-item" id="mob-wo" onclick="navigeer('wo')">
+      <span class="mob-dot"></span>Wo
+    </button>
+    <button type="button" class="mob-item" id="mob-do" onclick="navigeer('do')">
+      <span class="mob-dot"></span>Do
+    </button>
+    <button type="button" class="mob-item" id="mob-vr" onclick="navigeer('vr')">
+      <span class="mob-dot"></span>Vr
+    </button>
+    <button type="button" class="mob-item" id="mob-za" onclick="navigeer('za')">
+      <span class="mob-dot"></span>Za
+    </button>
+    <button type="button" class="mob-item" id="mob-zo" onclick="navigeer('zo')">
+      <span class="mob-dot"></span>Zo
+    </button>
     <div class="mob-sep"></div>
-    <div class="mob-item" id="mob-week" onclick="navigeer('week')">
-      <div class="mob-dot"></div>Week
-    </div>
+    <button type="button" class="mob-item" id="mob-week" onclick="navigeer('week')">
+      <span class="mob-dot"></span>Week
+    </button>
     <div class="mob-sep"></div>
-    <div class="mob-item" id="mob-maand" onclick="navigeer('maand')">
-      <div class="mob-dot"></div>Maand
-    </div>
+    <button type="button" class="mob-item" id="mob-maand" onclick="navigeer('maand')">
+      <span class="mob-dot"></span>Maand
+    </button>
     <div class="mob-sep"></div>
-    <div class="mob-item" id="mob-notif" onclick="navigeer('notif')">
-      <div class="mob-dot"></div>🔔
-    </div>
+    <button type="button" class="mob-item" id="mob-notif" onclick="navigeer('notif')">
+      <span class="mob-dot"></span>🔔
+    </button>
   </div>
 </nav>
 
@@ -1294,8 +1350,8 @@
 <!-- NUDGE BANNER -->
 <div class="nudge-banner" id="nudge-banner">
   <div class="nudge-tekst"></div>
-  <div class="nudge-actie" onclick="navigeer('ma'); sluitNudge();">Begin bij vandaag →</div>
-  <div class="nudge-sluit" onclick="sluitNudge()">×</div>
+  <button type="button" class="nudge-actie" onclick="navigeer('ma'); sluitNudge();">Begin bij vandaag →</button>
+  <button type="button" class="nudge-sluit" onclick="sluitNudge()" aria-label="Sluit hint">×</button>
 </div>
 
 <main class="main">
@@ -1582,9 +1638,9 @@
       <h2>${WEEK_UI[currentLang].dayTitle}</h2>
       <p class="page-subtitle">${WEEK_UI[currentLang].daySubtitle}</p>
       <div class="dag-voortgang" id="voortgang-${dag}"><div class="dag-stap-item"><div class="dag-stap-cirkel actief" id="dcirkel-${dag}-1">1</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-1"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-2">2</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-2"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-3">3</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-3"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-4">4</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-4"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-5">5</div></div><div class="dag-stap-lijn" id="dlijn-${dag}-5"></div><div class="dag-stap-item"><div class="dag-stap-cirkel" id="dcirkel-${dag}-6">6</div></div></div>
-      <div class="dag-substap actief" id="dstap-${dag}-1"><div class="section-label">${ui.section1}</div><div class="energie-schaal" id="schaal-${dag}">${[1,2,3,4,5].map(n => `<div class="energie-optie" data-niveau="${n}" onclick="selecteerEnergie('${dag}', this)"><div class="energie-nummer">${n}</div><div class="energie-info"><div class="energie-naam">${levelNames[n]}</div><div class="energie-omschrijving">${levelDesc[n]}</div></div><div class="energie-dot"></div></div>`).join('')}</div><div class="dag-stap-hint" id="dhint-${dag}"></div><div class="dag-knop-rij"><button class="dag-verder-btn" id="dbtn-${dag}-1" onclick="dagNaarStap('${dag}', 2)" disabled>${WEEK_UI[currentLang].next}</button></div></div>
-      <div class="dag-substap" id="dstap-${dag}-2"><div class="section-label">${ui.section2}</div><div class="behoeften-grid" id="behoeften-${dag}">${ui.needs.map(b => `<div class="behoefte-tag" onclick="toggleBehoefte(this)">${b}</div>`).join('')}</div><div class="dag-stap-hint">${ui.stepHintMulti}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 1)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 3)">${WEEK_UI[currentLang].next}</button></div></div>
-      <div class="dag-substap" id="dstap-${dag}-3"><div class="section-label">${ui.section3}</div><div class="werkstijl-grid" id="werkstijl-${dag}">${['multi','focus','blokken','stroom'].map((stijl,i)=>`<div class="werkstijl-optie" data-stijl="${stijl}" onclick="selecteerWerkstijl('${dag}', this)"><div class="werkstijl-dot"></div><div><div class="werkstijl-naam">${ui.workNames[i]}</div><div class="werkstijl-omschrijving">${ui.workDesc[i]}</div></div></div>`).join('')}</div><div class="dag-stap-hint">${ui.stepHintOptional}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 2)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 4)">${WEEK_UI[currentLang].next}</button></div></div>
+      <div class="dag-substap actief" id="dstap-${dag}-1"><div class="section-label">${ui.section1}</div><div class="energie-schaal" id="schaal-${dag}">${[1,2,3,4,5].map(n => `<button type="button" class="energie-optie" data-niveau="${n}" onclick="selecteerEnergie('${dag}', this)"><span class="energie-nummer">${n}</span><span class="energie-info"><span class="energie-naam">${levelNames[n]}</span><span class="energie-omschrijving">${levelDesc[n]}</span></span><span class="energie-dot"></span></button>`).join('')}</div><div class="dag-stap-hint" id="dhint-${dag}"></div><div class="dag-knop-rij"><button class="dag-verder-btn" id="dbtn-${dag}-1" onclick="dagNaarStap('${dag}', 2)" disabled>${WEEK_UI[currentLang].next}</button></div></div>
+      <div class="dag-substap" id="dstap-${dag}-2"><div class="section-label">${ui.section2}</div><div class="behoeften-grid" id="behoeften-${dag}">${ui.needs.map(b => `<button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">${b}</button>`).join('')}</div><div class="dag-stap-hint">${ui.stepHintMulti}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 1)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 3)">${WEEK_UI[currentLang].next}</button></div></div>
+      <div class="dag-substap" id="dstap-${dag}-3"><div class="section-label">${ui.section3}</div><div class="werkstijl-grid" id="werkstijl-${dag}">${['multi','focus','blokken','stroom'].map((stijl,i)=>`<button type="button" class="werkstijl-optie" data-stijl="${stijl}" onclick="selecteerWerkstijl('${dag}', this)"><span class="werkstijl-dot"></span><span><span class="werkstijl-naam">${ui.workNames[i]}</span><span class="werkstijl-omschrijving">${ui.workDesc[i]}</span></span></button>`).join('')}</div><div class="dag-stap-hint">${ui.stepHintOptional}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 2)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 4)">${WEEK_UI[currentLang].next}</button></div></div>
       <div class="dag-substap" id="dstap-${dag}-4"><div class="section-label">${ui.section4}</div><textarea class="tekst-input kort" id="kostte-${dag}" placeholder="${ui.costPlaceholder}"></textarea><div class="dag-stap-hint">${ui.stepHintOptional}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 3)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 5)">${WEEK_UI[currentLang].next}</button></div></div>
       <div class="dag-substap" id="dstap-${dag}-5"><div class="section-label">${ui.section5}</div><textarea class="tekst-input kort" id="gaf-${dag}" placeholder="${ui.gavePlaceholder}"></textarea><div class="dag-stap-hint">${ui.stepHintOptional}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 4)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" onclick="dagNaarStap('${dag}', 6)">${WEEK_UI[currentLang].next}</button></div></div>
       <div class="dag-substap" id="dstap-${dag}-6"><div class="section-label">${ui.section6}</div><textarea class="tekst-input kort" id="wie-${dag}" placeholder="${ui.whoPlaceholder}"></textarea><div class="dag-stap-hint">${ui.stepHintOptional}</div><div class="dag-knop-rij"><button class="dag-terug-btn" onclick="dagNaarStap('${dag}', 5)">${WEEK_UI[currentLang].back}</button><button class="dag-verder-btn" id="btn-${dag}" onclick="slaanOp('${dag}')">${WEEK_UI[currentLang].save}</button></div></div>
