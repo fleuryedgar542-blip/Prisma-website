@@ -21,6 +21,14 @@
   background: rgba(255, 255, 255, 0.92);
 }
 
+.reading-ease-toggle--auto {
+  margin-bottom: 1rem;
+}
+
+.language-switch + .reading-ease-toggle--auto {
+  margin-top: 1rem;
+}
+
 .reading-ease-toggle.active,
 body.reading-ease .reading-ease-toggle {
   background: #FFFFFF;
