@@ -83,6 +83,8 @@
     .hero-tekst {
       color: var(--grijs-mid);
       max-width: 48ch;
+      font-size: 1rem;
+      line-height: 1.8;
       animation: opkomen 0.6s ease 0.45s both;
     }
     .hero-tagline {
@@ -101,7 +103,8 @@
     }
     .hero-subnote {
       color: var(--grijs-mid);
-      font-size: 0.85rem;
+      font-size: 0.92rem;
+      line-height: 1.75;
       max-width: 44ch;
       animation: opkomen 0.6s ease 0.9s both;
     }
@@ -137,28 +140,23 @@
       max-width: 52ch;
     }
     .probleem-inner h2 { max-width: 22ch; }
-    .probleem-inner p { color: var(--grijs-mid); font-size: 0.95rem; line-height: 1.75; }
+    .probleem-inner p { color: var(--grijs-mid); font-size: 1rem; line-height: 1.8; }
     .veronderstelling-lijst {
-      list-style: none;
-      padding: 0;
+      list-style: disc;
+      list-style-position: outside;
+      padding-left: 1.2em;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: block;
     }
     .veronderstelling-lijst li {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      font-size: 0.92rem;
+      display: list-item;
+      font-size: 0.98rem;
+      line-height: 1.75;
       color: var(--grijs-mid);
+      margin-bottom: 0.5em;
     }
-    .veronderstelling-lijst li::before {
-      content: "";
-      color: var(--blauw);
-      flex-shrink: 0;
-      font-family: var(--serif);
-    }
+    .veronderstelling-lijst li:last-child { margin-bottom: 0; }
+    .veronderstelling-lijst li::marker { color: var(--blauw); }
     .probleem-ritme {
       display: flex;
       flex-direction: column;
@@ -178,29 +176,23 @@
       max-width: 52ch;
     }
     .oplossing-inner h2 { max-width: 18ch; }
-    .oplossing-inner > p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .oplossing-inner > p { color: var(--grijs-mid); font-size: 1rem; line-height: 1.8; }
     .oplossing-lijst {
-      list-style: none;
-      padding: 0;
+      list-style: disc;
+      list-style-position: outside;
+      padding-left: 1.2em;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: block;
     }
     .oplossing-lijst li {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      font-size: 0.92rem;
+      display: list-item;
+      font-size: 0.98rem;
+      line-height: 1.75;
       color: var(--grijs-mid);
+      margin-bottom: 0.5em;
     }
-    .oplossing-lijst li::before {
-      content: "✦";
-      color: var(--groen);
-      flex-shrink: 0;
-      font-size: 0.6rem;
-      line-height: 1.8;
-    }
+    .oplossing-lijst li:last-child { margin-bottom: 0; }
+    .oplossing-lijst li::marker { color: var(--groen); }
     .oplossing-slot {
       font-family: var(--serif);
       font-style: italic;
@@ -242,32 +234,27 @@
     .tool-kaart h3 { font-size: 1.1rem; }
     .tool-kaart:not(.featured) h3 { color: var(--grijs); }
     .tool-kaart.featured h3 { color: var(--beige); }
-    .tool-kaart > p { font-size: 0.88rem; }
+    .tool-kaart > p { font-size: 0.95rem; line-height: 1.75; }
     .tool-kaart:not(.featured) > p { color: var(--grijs-mid); }
-    .tool-kaart.featured > p { color: rgba(243,239,232,0.65); }
+    .tool-kaart.featured > p { color: rgba(243,239,232,0.9); }
     .tool-lijst {
-      list-style: none;
-      padding: 0;
+      list-style: disc;
+      list-style-position: outside;
+      padding-left: 1.2em;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+      display: block;
     }
     .tool-lijst li {
-      font-size: 0.85rem;
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
+      font-size: 0.92rem;
+      display: list-item;
+      line-height: 1.7;
+      margin-bottom: 0.5em;
     }
+    .tool-lijst li:last-child { margin-bottom: 0; }
     .tool-kaart:not(.featured) .tool-lijst li { color: var(--grijs-mid); }
-    .tool-kaart.featured .tool-lijst li { color: rgba(243,239,232,0.65); }
-    .tool-lijst li::before {
-      content: "→";
-      flex-shrink: 0;
-      font-size: 0.75rem;
-    }
-    .tool-kaart:not(.featured) .tool-lijst li::before { color: var(--blauw); }
-    .tool-kaart.featured .tool-lijst li::before { color: var(--groen); }
+    .tool-kaart.featured .tool-lijst li { color: rgba(243,239,232,0.9); }
+    .tool-kaart:not(.featured) .tool-lijst li::marker { color: var(--blauw); }
+    .tool-kaart.featured .tool-lijst li::marker { color: var(--groen); }
     .tool-kaart .knop { margin-top: auto; align-self: flex-start; }
     .tool-kaart.featured .knop {
       border-color: rgba(243,239,232,0.35);
@@ -282,8 +269,8 @@
       color: var(--grijs-mid);
       max-width: 58ch;
       margin: 0.75rem 0 0;
-      font-size: 0.95rem;
-      line-height: 1.75;
+      font-size: 1rem;
+      line-height: 1.8;
     }
     .tool-kaart.signaal {
       grid-column: 1 / -1;
@@ -294,7 +281,7 @@
     .tool-kaart.signaal h3 { color: var(--grijs); }
     .tool-kaart.signaal > p,
     .tool-kaart.signaal .tool-lijst li { color: var(--grijs-mid); }
-    .tool-kaart.signaal .tool-lijst li::before { color: var(--groen-dark); }
+    .tool-kaart.signaal .tool-lijst li::marker { color: var(--groen-dark); }
     .afsluiting-inner {
       display: flex;
       flex-direction: column;
@@ -302,7 +289,7 @@
       max-width: 42ch;
     }
     .afsluiting-inner h2 { font-size: clamp(1.3rem, 3vw, 1.65rem); }
-    .afsluiting-inner p { color: var(--grijs-mid); font-size: 0.95rem; }
+    .afsluiting-inner p { color: var(--grijs-mid); font-size: 1rem; line-height: 1.8; }
     .afsluiting-inner .afsluiting-slot {
       font-family: var(--serif);
       font-style: italic;

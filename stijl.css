@@ -12,7 +12,7 @@ html { color-scheme: only light; }
   --beige-dark:  #E5DFCF;
   --beige-mid:   #EAE4DA;
   --grijs:       #2E2E2E;
-  --grijs-mid:   #5A5A5A;
+  --grijs-mid:   #474747;
   --grijs-licht: #999999;
   --groen:       #A8B5A2;
   --groen-dark:  #8FA289;
@@ -38,8 +38,8 @@ body {
   background: var(--beige);
   color: var(--grijs);
   font-family: var(--sans);
-  font-weight: 300;
-  font-size: 1rem;
+  font-weight: 400;
+  font-size: 1.03rem;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   padding-top: var(--nav-hoogte);
@@ -213,7 +213,7 @@ nav.gescrold {
 
 .mobiel-menu a {
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--grijs-mid);
   text-decoration: none;
   padding: 0.9rem 0;

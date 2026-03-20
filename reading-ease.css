@@ -30,12 +30,22 @@ body.reading-ease .reading-ease-toggle {
 
 body.reading-ease {
   font-family: 'Lexend', 'Montserrat', sans-serif;
-  font-size: 1.04rem;
+  font-size: 1.05em;
   font-weight: 400;
-  line-height: 2.05;
-  letter-spacing: 0.016em;
-  word-spacing: 0.08em;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
   text-rendering: optimizeLegibility;
+}
+
+body.reading-ease * {
+  line-height: 1.5 !important;
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+body.reading-ease :where(p, li, label, input, textarea, select, button, a, div, span) {
+  font-family: 'Lexend', 'Montserrat', sans-serif !important;
 }
 
 body.reading-ease p,
@@ -104,10 +114,11 @@ body.reading-ease .tool-kaart p,
 body.reading-ease .tool-lijst li,
 body.reading-ease .prisma-feedback,
 body.reading-ease .prisma-feedback * {
-  line-height: 2.02;
-  letter-spacing: 0.015em;
-  word-spacing: 0.08em;
   font-weight: 400;
+}
+
+body.reading-ease p {
+  margin-bottom: 2em !important;
 }
 
 body.reading-ease .resultaat-titel,
@@ -115,7 +126,7 @@ body.reading-ease .prisma-feedback-title {
   font-family: 'Lexend', 'Montserrat', sans-serif;
   font-weight: 500;
   line-height: 1.5;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.08em;
 }
 
 body.reading-ease input,
@@ -129,17 +140,17 @@ body.reading-ease .moet-keuze,
 body.reading-ease .prisma-feedback-submit,
 body.reading-ease .prisma-feedback-action {
   font-family: 'Lexend', 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 1.04rem;
   font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: 0.03em;
-  word-spacing: 0.08em;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
 }
 
 body.reading-ease textarea,
 body.reading-ease input,
 body.reading-ease select {
-  line-height: 1.8;
+  line-height: 1.5;
   padding-top: 14px;
   padding-bottom: 14px;
 }
@@ -155,8 +166,8 @@ body.reading-ease .reading-ease-toggle {
   font-family: 'Lexend', 'Montserrat', sans-serif;
   font-size: 0.83rem;
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.02em;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
 }
 
 body.reading-ease .stap-label,
@@ -165,7 +176,7 @@ body.reading-ease .prisma-feedback-label,
 body.reading-ease .tool-label,
 body.reading-ease .sectie-label {
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 body.reading-ease .energie-optie,
@@ -174,7 +185,7 @@ body.reading-ease .behoefte-optie,
 body.reading-ease .dag-advies,
 body.reading-ease .analyse-kaart,
 body.reading-ease .prisma-feedback {
-  line-height: 1.95;
+  line-height: 1.5;
 }
 
 @media (max-width: 640px) {
