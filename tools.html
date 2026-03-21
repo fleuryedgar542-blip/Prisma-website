@@ -50,7 +50,26 @@
     .tool-card p, .tool-card li { color: var(--grijs-mid); font-size: 0.92rem; line-height: 1.8; }
     .tool-card ul { padding-left: 1.2rem; }
   </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
+  <script>
+    (function() {
+      const shouldIgnore =
+        window.location.hostname === "localhost" ||
+        localStorage.getItem("umami-ignore") === "true" ||
+        window.location.search.includes("dev=true");
+
+      if (shouldIgnore) {
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.defer = true;
+      script.setAttribute("data-website-id", "2a4b620f-29bf-411b-9685-c31239b1c7ab");
+      script.src = "https://cloud.umami.is/script.js";
+
+      document.head.appendChild(script);
+    })();
+  </script>
   <link rel="stylesheet" href="reading-ease.css" />
   <script defer src="reading-ease.js"></script>
 </head>

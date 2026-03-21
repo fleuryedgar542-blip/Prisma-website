@@ -29,7 +29,26 @@
   <link rel="stylesheet" href="../stijl.css" />
   <link rel="stylesheet" href="../reading-ease.css" />
   <script defer src="../reading-ease.js"></script>
-  <script async src="https://cloud.umami.is/script.js" data-website-id="2a4b620f-29bf-411b-9685-c31239b1c7ab"></script>
+  <script>
+    (function() {
+      const shouldIgnore =
+        window.location.hostname === "localhost" ||
+        localStorage.getItem("umami-ignore") === "true" ||
+        window.location.search.includes("dev=true");
+
+      if (shouldIgnore) {
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.defer = true;
+      script.setAttribute("data-website-id", "2a4b620f-29bf-411b-9685-c31239b1c7ab");
+      script.src = "https://cloud.umami.is/script.js";
+
+      document.head.appendChild(script);
+    })();
+  </script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
