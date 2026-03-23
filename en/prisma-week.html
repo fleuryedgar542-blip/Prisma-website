@@ -338,6 +338,88 @@
     line-height: 1.85;
     margin-bottom: 36px;
   }
+  .trial-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(243, 239, 232, 0.84);
+    backdrop-filter: blur(6px);
+  }
+  .trial-kaart {
+    width: min(100%, 460px);
+    background: var(--wit);
+    border: 1px solid var(--grijs-licht);
+    border-radius: 10px;
+    padding: 28px 24px;
+  }
+  .trial-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grijs-mid);
+    margin-bottom: 10px;
+  }
+  .trial-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--grijs);
+    margin-bottom: 10px;
+  }
+  .trial-tekst {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--grijs);
+    margin-bottom: 18px;
+  }
+  .trial-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: none;
+    background: var(--groen);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .trial-btn:hover { transform: translateY(-1px); opacity: 0.95; }
+  .trial-meta {
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--grijs-mid);
+  }
+  body.trial-locked {
+    overflow: hidden;
+  }
+  body.trial-locked .sidebar,
+  body.trial-locked .mobiel-nav,
+  body.trial-locked .main {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.35;
+  }
+  body.trial-locked .intro-overlay,
+  body.trial-locked .nudge-banner,
+  body.trial-locked .ios-banner {
+    display: none !important;
+  }
+  @media (max-width: 640px) {
+    .trial-overlay { padding: 18px; }
+    .trial-kaart { padding: 24px 20px; }
+    .trial-titel { font-size: 22px; }
+  }
   .herstart-blok {
     margin-bottom: 28px;
     padding: 18px 20px;
@@ -1268,12 +1350,29 @@
   <!-- Umami Analytics -->
   <script>
     (function() {
+      window.prismaUmamiQueue = window.prismaUmamiQueue || [];
+      window.prismaTrackEvent = function(name, data) {
+        if (!name) return;
+        if (window.umami && typeof window.umami.track === "function") {
+          window.umami.track(name, data);
+          return;
+        }
+        window.prismaUmamiQueue.push([name, data]);
+      };
+      window.flushPrismaUmamiQueue = function() {
+        if (!window.umami || typeof window.umami.track !== "function") return;
+        while (window.prismaUmamiQueue.length) {
+          const [name, data] = window.prismaUmamiQueue.shift();
+          window.umami.track(name, data);
+        }
+      };
       const shouldIgnore =
         window.location.hostname === "localhost" ||
         localStorage.getItem("umami-ignore") === "true" ||
         window.location.search.includes("dev=true");
 
       if (shouldIgnore) {
+        window.prismaTrackEvent = function() {};
         return;
       }
 
@@ -1282,6 +1381,11 @@
       script.defer = true;
       script.setAttribute("data-website-id", "2a4b620f-29bf-411b-9685-c31239b1c7ab");
       script.src = "https://cloud.umami.is/script.js";
+      script.onload = function() {
+        if (typeof window.flushPrismaUmamiQueue === "function") {
+          window.flushPrismaUmamiQueue();
+        }
+      };
 
       document.head.appendChild(script);
     })();
@@ -1424,6 +1528,16 @@
   <button type="button" class="nudge-sluit" onclick="sluitNudge()" aria-label="Close hint">×</button>
 </div>
 
+<div class="trial-overlay" id="trial-overlay" hidden>
+  <div class="trial-kaart">
+    <div class="trial-label" id="trial-label">Trial ended</div>
+    <h2 class="trial-titel" id="trial-title">Your trial has ended.</h2>
+    <p class="trial-tekst" id="trial-text">Want to keep using PRISMA Week without starting from scratch again? You can keep going here.</p>
+    <a id="trial-checkout-btn" class="trial-btn" href="https://prismasystemen.lemonsqueezy.com/checkout/buy/6d9863bd-5f2a-4b2f-a470-085cfd5f2b0d" target="_blank" rel="noopener">Continue with PRISMA Week →</a>
+    <p class="trial-meta" id="trial-meta">Payment runs through LemonSqueezy. You do not need to create an account here.</p>
+  </div>
+</div>
+
 <main class="main">
   <div class="language-switch" id="language-switch-mobile" aria-label="Language switch">
     <button type="button" id="lang-nl-mobile" onclick="setLanguage('nl')">NL</button>
@@ -1561,6 +1675,18 @@
     nl:{weekSection:'Deze week', history:'Geschiedenis', week:'Deze week', month:'Over meerdere weken', reminders:'Herinneringen', weekShort:'Week', monthShort:'Weken', iosInstallTitle:'Voeg PRISMA toe aan je beginscherm', iosInstallText:'Tik op ⎙ onderaan → "Zet op beginscherm"', androidInstallText:'Tik hier om te installeren', introText:'Voor momenten waarop PRISMA Dag helpt en je morgen niet weer vanaf nul wilt beginnen. Je checkt kort in, houdt vast wat werkte, en ziet over meerdere dagen wat je energie nodig had.', introList:['Een korte check-in per dag','Minder opnieuw beginnen','Zien wat je wilt vasthouden','Alles blijft op jouw apparaat, zonder account'], restartLabel:'Verder vanaf laatst', restartTitle:'Je hoeft niet weer alles uit te zoeken.', restartText:'Dit gaf je laatst wat houvast. Je kunt daar vandaag weer op leunen.', restartEnergy:'Laatste keer', restartNeeds:'Nodig', restartCarry:'Meenemen', restartAdvice:'Hielp toen', restartOutro:'Begin klein. De rest mag daarna komen.', nudgeAction:'Begin met vandaag →', notifSetupTitle:'Herinnering instellen', notifSetupText:'Kies een tijdstip waarop inchecken meestal haalbaar voelt. PRISMA vraagt daarna toestemming voor meldingen.', notifSetBtn:'Instellen →', notifHelp:'Dit werkt het fijnst als PRISMA Week op je beginscherm staat als app. Op iPhone: Safari → ⎙ → Zet op beginscherm.', notifOffTitle:'Herinnering uitzetten', notifOffText:'Wil je even geen herinneringen meer? Dan kun je ze hier uitzetten.', notifOffBtn:'Uitzetten', statusSet:'✓ Herinnering ingesteld op {time}, elke dag.', statusBlocked:'Notificaties zijn geblokkeerd in je browser. Pas dit aan via je browserinstellingen.', statusUnsupported:'Je browser ondersteunt geen notificaties.', statusDenied:'Toestemming geweigerd. Pas dit aan via je browserinstellingen.', statusOff:'Herinnering uitgezet.', nudgeLong:'Je hebt al {days} dagen niet ingecheckt. Dat is oké. Je hoeft niets in te halen. Begin gewoon weer bij vandaag.', nudgeShort:'Je bent er weer. Begin gewoon weer bij vandaag.'},
     en:{weekSection:'This week', history:'History', week:'This week', month:'Across several weeks', reminders:'Reminders', weekShort:'Week', monthShort:'Weeks', iosInstallTitle:'Add PRISMA to your home screen', iosInstallText:'Tap ⎙ at the bottom → "Add to Home Screen"', androidInstallText:'Tap here to install', introText:'For moments when PRISMA Day helps and you do not want tomorrow to feel like starting from scratch again. You check in briefly, keep what worked, and notice across several days what your energy needed.', introList:['A short check-in each day','Less starting over','A clearer sense of what to keep','Everything stays on your device, with no account'], restartLabel:'Pick up gently', restartTitle:'You do not have to figure it all out again.', restartText:'This helped a little last time. You can lean on it again today.', restartEnergy:'Last time', restartNeeds:'Needed', restartCarry:'Carry forward', restartAdvice:'Helped then', restartOutro:'Start small. The rest can come after that.', nudgeAction:'Start with today →', notifSetupTitle:'Set a reminder', notifSetupText:'Choose a time when checking in usually feels realistic. PRISMA will then ask permission for notifications.', notifSetBtn:'Set reminder →', notifHelp:'This works best when PRISMA Week is on your home screen as an app. On iPhone: Safari → ⎙ → Add to Home Screen.', notifOffTitle:'Turn off reminders', notifOffText:'Want a break from reminders for now? You can switch them off here.', notifOffBtn:'Turn off', statusSet:'✓ Reminder set for {time}, every day.', statusBlocked:'Notifications are blocked in your browser. Change this in your browser settings.', statusUnsupported:'Your browser does not support notifications.', statusDenied:'Permission was denied. Change this in your browser settings.', statusOff:'Reminder turned off.', nudgeLong:'You have not checked in for {days} days. That is okay. You do not need to catch up. Just start again with today.', nudgeShort:'You are back. Just start again with today.'}
   };
+  const TRIAL_UI = {
+    nl:{ label:'Proefperiode voorbij', title:'Je proefperiode is voorbij.', text:'Wil je PRISMA Week blijven gebruiken zonder opnieuw te beginnen? Dan kun je hier rustig verder.', meta:'Betaling loopt via LemonSqueezy. Je hoeft hier geen account aan te maken.', cta:'Verder met PRISMA Week →' },
+    en:{ label:'Trial ended', title:'Your trial has ended.', text:'Want to keep using PRISMA Week without starting from scratch again? You can keep going here.', meta:'Payment runs through LemonSqueezy. You do not need to create an account here.', cta:'Continue with PRISMA Week →' }
+  };
+  const WEEK_TRIAL = {
+    durationMs: 7 * 24 * 60 * 60 * 1000,
+    checkoutUrl: 'https://prismasystemen.lemonsqueezy.com/checkout/buy/6d9863bd-5f2a-4b2f-a470-085cfd5f2b0d',
+    startKey: 'prisma_week_trial_start',
+    activeDayKey: 'prisma_week_trial_active_day',
+    expiredSentKey: 'prisma_week_trial_expired_sent',
+    paywallDayKey: 'prisma_week_paywall_view_day'
+  };
 
   const LANG_RESIDUAL = createResidualMaps({ nl: Object.assign({}, WEEK_UI.nl, NAV_UI.nl, DAY_PAGE_UI.nl), en: Object.assign({}, WEEK_UI.en, NAV_UI.en, DAY_PAGE_UI.en) });
 
@@ -1663,6 +1789,97 @@
     if(target){ target.nodeValue = text; }
     else { el.appendChild(document.createTextNode(text)); }
   }
+  let trialState = null;
+  function trialStorageGet(key) {
+    try { return localStorage.getItem(key); } catch(e) { return null; }
+  }
+  function trialStorageSet(key, value) {
+    try { localStorage.setItem(key, value); } catch(e) {}
+  }
+  function trialStorageRemove(key) {
+    try { localStorage.removeItem(key); } catch(e) {}
+  }
+  function getTrialDayStamp() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${now.getFullYear()}-${month}-${day}`;
+  }
+  function updateTrialCopy() {
+    const ui = TRIAL_UI[currentLang] || TRIAL_UI.nl;
+    const label = document.getElementById('trial-label');
+    const title = document.getElementById('trial-title');
+    const text = document.getElementById('trial-text');
+    const meta = document.getElementById('trial-meta');
+    const button = document.getElementById('trial-checkout-btn');
+    if (label) label.textContent = ui.label;
+    if (title) title.textContent = ui.title;
+    if (text) text.textContent = ui.text;
+    if (meta) meta.textContent = ui.meta;
+    if (button) {
+      button.textContent = ui.cta;
+      button.href = WEEK_TRIAL.checkoutUrl;
+    }
+  }
+  function applyWeekTrialState() {
+    const overlay = document.getElementById('trial-overlay');
+    if (!overlay || !trialState) return;
+    const isExpired = !!trialState.expired;
+    document.body.classList.toggle('trial-locked', isExpired);
+    overlay.hidden = !isExpired;
+  }
+  function bindTrialCheckout() {
+    const button = document.getElementById('trial-checkout-btn');
+    if (!button || button.dataset.bound === '1') return;
+    button.dataset.bound = '1';
+    button.addEventListener('click', () => {
+      if (typeof window.prismaTrackEvent === 'function') {
+        window.prismaTrackEvent('week_checkout_click');
+      }
+    });
+  }
+  function initWeekTrial() {
+    const now = Date.now();
+    let start = Number(trialStorageGet(WEEK_TRIAL.startKey));
+    const invalidStart = !Number.isFinite(start) || start <= 0 || start > now;
+    let justStarted = false;
+    if (invalidStart) {
+      start = now;
+      justStarted = true;
+      trialStorageSet(WEEK_TRIAL.startKey, String(start));
+      trialStorageRemove(WEEK_TRIAL.expiredSentKey);
+      if (typeof window.prismaTrackEvent === 'function') {
+        window.prismaTrackEvent('week_trial_started');
+      }
+    }
+    const expired = now >= start + WEEK_TRIAL.durationMs;
+    trialState = { start, expired };
+    if (!expired && !justStarted) {
+      const today = getTrialDayStamp();
+      if (trialStorageGet(WEEK_TRIAL.activeDayKey) !== today) {
+        trialStorageSet(WEEK_TRIAL.activeDayKey, today);
+        if (typeof window.prismaTrackEvent === 'function') {
+          window.prismaTrackEvent('week_trial_active');
+        }
+      }
+    }
+    if (expired) {
+      if (trialStorageGet(WEEK_TRIAL.expiredSentKey) !== '1') {
+        trialStorageSet(WEEK_TRIAL.expiredSentKey, '1');
+        if (typeof window.prismaTrackEvent === 'function') {
+          window.prismaTrackEvent('week_trial_expired');
+        }
+      }
+      const today = getTrialDayStamp();
+      if (trialStorageGet(WEEK_TRIAL.paywallDayKey) !== today) {
+        trialStorageSet(WEEK_TRIAL.paywallDayKey, today);
+        if (typeof window.prismaTrackEvent === 'function') {
+          window.prismaTrackEvent('week_paywall_view');
+        }
+      }
+    }
+    applyWeekTrialState();
+  }
   function translateDayPagesInPlace(){ const ui=DAY_PAGE_UI[currentLang]; const dayNames=getDayNames(); DAGEN.forEach((dag)=>{ const page=document.getElementById('page-'+dag); if(!page) return; const label=page.querySelector('.page-label'); if(label) label.textContent=WEEK_UI[currentLang].dayLabel + dayNames[dag]; const h1=page.querySelector('h1'); if(h1) h1.textContent=WEEK_UI[currentLang].dayTitle; const sub=page.querySelector('.page-subtitle'); if(sub) sub.textContent=WEEK_UI[currentLang].daySubtitle; const sections=page.querySelectorAll('.section-label'); if(sections[0]) sections[0].textContent=ui.section1; if(sections[1]) sections[1].textContent=ui.section2; if(sections[2]) sections[2].textContent=ui.section3; if(sections[3]) sections[3].textContent=ui.section4; page.querySelectorAll('.behoefte-tag').forEach((el,i)=>{ if(ui.needs[i]) el.textContent=ui.needs[i]; }); page.querySelectorAll('.werkstijl-optie').forEach((el,i)=>{ const name=el.querySelector('.werkstijl-naam'); const desc=el.querySelector('.werkstijl-omschrijving'); if(name && ui.workNames[i]) name.textContent=ui.workNames[i]; if(desc && ui.workDesc[i]) desc.textContent=ui.workDesc[i]; }); page.querySelectorAll('.dag-stap-hint').forEach((el,i)=>{ if(i===0){ const state=weekData[dag]; el.textContent = state && state.niveau ? getNiveauHintsWeek()[state.niveau] : ''; } else if(i===1){ el.textContent=ui.stepHintMulti; } else if(i===3){ el.textContent=ui.stepHintCarry; } else { el.textContent=ui.stepHintOptional; } }); const carry=page.querySelector('#meenemen-'+dag); if(carry) carry.placeholder=ui.carryPlaceholder; const saved=page.querySelector('#bevestiging-'+dag); if(saved) saved.textContent=ui.saved; page.querySelectorAll('.dag-terug-btn').forEach(btn=>btn.textContent=WEEK_UI[currentLang].back); const forwards=page.querySelectorAll('.dag-verder-btn'); forwards.forEach((btn, idx)=>{ btn.textContent = idx===forwards.length-1 ? WEEK_UI[currentLang].save : WEEK_UI[currentLang].next; }); page.querySelectorAll('.energie-optie').forEach((el,idx)=>{ const n=idx+1; const name=el.querySelector('.energie-naam'); const desc=el.querySelector('.energie-omschrijving'); if(name) name.textContent=getLevelNames()[n]; if(desc) desc.textContent=getLevelDescriptions()[n]; }); }); }
 
   function translateWeekText(text){ if(currentLang!=='en') return text; return Object.keys(WEEK_TEXT_MAP).sort((a,b)=>b.length-a.length).reduce((acc,key)=>acc.split(key).join(WEEK_TEXT_MAP[key]), text).replace(/Maandag/g,'Monday').replace(/Dinsdag/g,'Tuesday').replace(/Woensdag/g,'Wednesday').replace(/Donderdag/g,'Thursday').replace(/Vrijdag/g,'Friday').replace(/Zaterdag/g,'Saturday').replace(/Zondag/g,'Sunday').replace(/Ma/g,'Mon').replace(/Di/g,'Tue').replace(/Wo/g,'Wed').replace(/Do/g,'Thu').replace(/Vr/g,'Fri').replace(/Za/g,'Sat').replace(/Zo/g,'Sun'); }
@@ -1671,8 +1888,8 @@
   function getInitialLanguage(){ return 'en'; }
   function setLanguage(lang){ localStorage.setItem('prisma-language',lang); window.location.href = lang === 'nl' ? '/prisma-week.html' : '/en/prisma-week.html'; }
   function updateSeoTags(){ const baseNl='https://prismasystemen.nl/prisma-week.html'; const baseEn='https://prismasystemen.nl/en/prisma-week.html'; const canonical=new URL(currentLang==='en' ? baseEn : baseNl); document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString()); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link)=>{ const hreflang=link.getAttribute('hreflang'); link.setAttribute('href', hreflang==='en' ? baseEn : baseNl); }); document.querySelector('meta[property="og:title"]').setAttribute('content', document.title); document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString()); document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang==='en' ? 'en_US' : 'nl_NL'); document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title); document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); }
-  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-week-en.json' : '../manifest-week.json'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); }
-  document.addEventListener('DOMContentLoaded',()=>{ currentLang=getInitialLanguage(); initWeekDatasets(); applyWeekTranslations(); initLanguageObserver(); });
+  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-week-en.json' : '../manifest-week.json'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; updateTrialCopy(); translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); if (trialState) applyWeekTrialState(); }
+  document.addEventListener('DOMContentLoaded',()=>{ currentLang=getInitialLanguage(); initWeekDatasets(); bindTrialCheckout(); applyWeekTranslations(); initWeekTrial(); initLanguageObserver(); });
 </script>
 
 <script>
