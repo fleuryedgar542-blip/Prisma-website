@@ -33,7 +33,15 @@
       const shouldIgnore =
         window.location.hostname === "localhost" ||
         localStorage.getItem("umami-ignore") === "true" ||
+        localStorage.getItem("prisma_test_user") === "true" ||
         window.location.search.includes("dev=true");
+
+      window.trackEvent = function(name, data) {
+        if (!name || shouldIgnore) return;
+        if (window.umami && typeof window.umami.track === "function") {
+          window.umami.track(name, data);
+        }
+      };
 
       if (shouldIgnore) {
         return;

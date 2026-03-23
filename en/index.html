@@ -34,7 +34,15 @@
       const shouldIgnore =
         window.location.hostname === "localhost" ||
         localStorage.getItem("umami-ignore") === "true" ||
+        localStorage.getItem("prisma_test_user") === "true" ||
         window.location.search.includes("dev=true");
+
+      window.trackEvent = function(name, data) {
+        if (!name || shouldIgnore) return;
+        if (window.umami && typeof window.umami.track === "function") {
+          window.umami.track(name, data);
+        }
+      };
 
       if (shouldIgnore) {
         return;
@@ -384,7 +392,7 @@
         <p class="hero-tekst">PRISMA helps you see what is manageable right now.</p>
         <p class="hero-tagline">No planning. No pressure.</p>
         <div class="hero-acties">
-          <a href="prisma-day.html" class="knop knop-groen" data-umami-event="click_prisma_dag" onclick="if (window.umami && typeof window.umami.track === 'function') window.umami.track('homepage_primary_cta_click');">See what’s manageable today</a>
+          <a href="prisma-day.html" class="knop knop-groen" data-umami-event="click_prisma_dag" onclick="trackEvent('homepage_primary_cta_click');">See what’s manageable today</a>
         </div>
         <p class="hero-subnote">Start free with PRISMA Day or PRISMA Signal.</p>
       </div>

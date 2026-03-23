@@ -349,6 +349,9 @@
     background: rgba(243, 239, 232, 0.84);
     backdrop-filter: blur(6px);
   }
+  .trial-overlay[hidden] {
+    display: none !important;
+  }
   .trial-kaart {
     width: min(100%, 460px);
     background: var(--wit);
@@ -1349,8 +1352,14 @@
   <script>
     (function() {
       window.prismaUmamiQueue = window.prismaUmamiQueue || [];
-      window.prismaTrackEvent = function(name, data) {
-        if (!name) return;
+      const shouldIgnore =
+        window.location.hostname === "localhost" ||
+        localStorage.getItem("umami-ignore") === "true" ||
+        localStorage.getItem("prisma_test_user") === "true" ||
+        window.location.search.includes("dev=true");
+
+      window.trackEvent = function(name, data) {
+        if (!name || shouldIgnore) return;
         if (window.umami && typeof window.umami.track === "function") {
           window.umami.track(name, data);
           return;
@@ -1364,13 +1373,7 @@
           window.umami.track(name, data);
         }
       };
-      const shouldIgnore =
-        window.location.hostname === "localhost" ||
-        localStorage.getItem("umami-ignore") === "true" ||
-        window.location.search.includes("dev=true");
-
       if (shouldIgnore) {
-        window.prismaTrackEvent = function() {};
         return;
       }
 
@@ -1831,8 +1834,8 @@
     if (!button || button.dataset.bound === '1') return;
     button.dataset.bound = '1';
     button.addEventListener('click', () => {
-      if (typeof window.prismaTrackEvent === 'function') {
-        window.prismaTrackEvent('week_checkout_click');
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('week_checkout_click');
       }
     });
   }
@@ -1846,8 +1849,8 @@
       justStarted = true;
       trialStorageSet(WEEK_TRIAL.startKey, String(start));
       trialStorageRemove(WEEK_TRIAL.expiredSentKey);
-      if (typeof window.prismaTrackEvent === 'function') {
-        window.prismaTrackEvent('week_trial_started');
+      if (typeof window.trackEvent === 'function') {
+        window.trackEvent('week_trial_started');
       }
     }
     const expired = now >= start + WEEK_TRIAL.durationMs;
@@ -1856,23 +1859,23 @@
       const today = getTrialDayStamp();
       if (trialStorageGet(WEEK_TRIAL.activeDayKey) !== today) {
         trialStorageSet(WEEK_TRIAL.activeDayKey, today);
-        if (typeof window.prismaTrackEvent === 'function') {
-          window.prismaTrackEvent('week_trial_active');
+        if (typeof window.trackEvent === 'function') {
+          window.trackEvent('week_trial_active');
         }
       }
     }
     if (expired) {
       if (trialStorageGet(WEEK_TRIAL.expiredSentKey) !== '1') {
         trialStorageSet(WEEK_TRIAL.expiredSentKey, '1');
-        if (typeof window.prismaTrackEvent === 'function') {
-          window.prismaTrackEvent('week_trial_expired');
+        if (typeof window.trackEvent === 'function') {
+          window.trackEvent('week_trial_expired');
         }
       }
       const today = getTrialDayStamp();
       if (trialStorageGet(WEEK_TRIAL.paywallDayKey) !== today) {
         trialStorageSet(WEEK_TRIAL.paywallDayKey, today);
-        if (typeof window.prismaTrackEvent === 'function') {
-          window.prismaTrackEvent('week_paywall_view');
+        if (typeof window.trackEvent === 'function') {
+          window.trackEvent('week_paywall_view');
         }
       }
     }
