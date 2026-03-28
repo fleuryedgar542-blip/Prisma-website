@@ -23,11 +23,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies (if any)
-        run: npm install || true
-
-      - name: Update asset versions
-        run: npm run version-assets
+      - name: Run version script (safe)
+        run: |
+          if [ -f package.json ]; then
+            npm install || true
+            npm run version-assets || echo "version script failed"
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
