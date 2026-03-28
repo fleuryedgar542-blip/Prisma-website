@@ -27,14 +27,14 @@
 <meta name="twitter:title" content="Rustige ADHD tool voor meerdere dagen | PRISMA Week">
 <meta name="twitter:description" content="Rustige ADHD tool voor meerdere dagen, zodat je niet steeds opnieuw hoeft te beginnen en beter ziet wat helpt als je energie wisselt.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
-<link rel="manifest" href="manifest-week.json">
-<link rel="apple-touch-icon" href="icon-week-192.png">
+<link rel="manifest" href="manifest-week.json?v=1774698616819">
+<link rel="apple-touch-icon" href="icon-week-192.png?v=1774698616819">
 <title>Rustige ADHD tool voor meerdere dagen | PRISMA Week</title>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500&family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="reading-ease.css">
-<link rel="stylesheet" href="feedback-form.css">
-<script defer src="reading-ease.js"></script>
-<script defer src="feedback-form.js"></script>
+<link rel="stylesheet" href="reading-ease.css?v=1774698616819">
+<link rel="stylesheet" href="feedback-form.css?v=1774698616819">
+<script defer src="reading-ease.js?v=1774698616819"></script>
+<script defer src="feedback-form.js?v=1774698616819"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1248,12 +1248,24 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js').then(reg => {
-        window._swReg = reg;
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        return Promise.all(registrations.map((registration) => registration.unregister()));
       });
+
+      if ('caches' in window) {
+        window.caches.keys().then((keys) => {
+          return Promise.all(
+            keys
+              .filter((key) => key.indexOf('prisma-') === 0)
+              .map((key) => window.caches.delete(key))
+          );
+        });
+      }
     });
   }
+</script>
 
+<script>
   // ── NOTIFICATIE SYSTEEM ──
   function vraagNotificatieToestemming(callback) {
     if (!('Notification' in window)) { if (callback) callback(false); return; }
@@ -1300,7 +1312,7 @@
           'Je dagelijkse PRISMA check-in staat klaar. Hoe voel je je?',
         ];
     const body = berichten[Math.floor(Math.random() * berichten.length)];
-    const opties = { body, icon: '/icon-week-192.png', badge: '/icon-week-192.png', tag: 'prisma-dag', renotify: true };
+    const opties = { body, icon: '/icon-week-192.png?v=1774698616819', badge: '/icon-week-192.png?v=1774698616819', tag: 'prisma-dag', renotify: true };
     if (window._swReg && window._swReg.showNotification) {
       window._swReg.showNotification('PRISMA Week, ' + dag, opties);
     } else if (Notification.permission === 'granted') {
@@ -1889,7 +1901,7 @@
   function getInitialLanguage(){ return 'nl'; }
   function setLanguage(lang){ localStorage.setItem('prisma-language',lang); window.location.href = lang === 'en' ? '/en/prisma-week.html' : '/prisma-week.html'; }
   function updateSeoTags(){ const baseNl='https://prismasystemen.nl/prisma-week.html'; const baseEn='https://prismasystemen.nl/en/prisma-week.html'; const canonical=new URL(currentLang==='en' ? baseEn : baseNl); document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString()); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link)=>{ const hreflang=link.getAttribute('hreflang'); link.setAttribute('href', hreflang==='en' ? baseEn : baseNl); }); document.querySelector('meta[property="og:title"]').setAttribute('content', document.title); document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString()); document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang==='en' ? 'en_US' : 'nl_NL'); document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title); document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); }
-  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-week-en.json' : 'manifest-week.json'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; updateTrialCopy(); translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); if (trialState) applyWeekTrialState(); }
+  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-week-en.json?v=1774698616819' : 'manifest-week.json?v=1774698616819'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; updateTrialCopy(); translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); if (trialState) applyWeekTrialState(); }
   document.addEventListener('DOMContentLoaded',()=>{ currentLang=getInitialLanguage(); initWeekDatasets(); bindTrialCheckout(); applyWeekTranslations(); initWeekTrial(); initLanguageObserver(); });
 </script>
 

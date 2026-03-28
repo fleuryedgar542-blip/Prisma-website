@@ -1,22 +1,15 @@
-const CACHE = 'prisma-v2-bilingual';
-const BESTANDEN = [
-  '/', '/index.html', '/tools.html', '/over.html', '/contact.html', '/blog.html', '/voorwaarden.html',
-  '/prisma-dag.html', '/prisma-week.html', '/prisma-week-kopen.html', '/prisma-signaal.html',
-  '/stijl.css', '/nav.js'
-];
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(BESTANDEN)));
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
+
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))));
-  self.clients.claim();
-});
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-    if (!response || response.status !== 200 || response.type !== 'basic') return response;
-    const copy = response.clone();
-    caches.open(CACHE).then(cache => cache.put(event.request, copy));
-    return response;
-  }).catch(() => caches.match('/'))));
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter((key) => key.indexOf('prisma-') === 0)
+        .map((key) => caches.delete(key))
+    );
+    await self.registration.unregister();
+  })());
 });

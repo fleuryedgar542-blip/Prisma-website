@@ -27,14 +27,14 @@
 <meta name="twitter:title" content="ADHD day planner for days when planning feels hard | PRISMA Day">
 <meta name="twitter:description" content="A calm ADHD day planner for moments when you feel stuck, low on energy, or need to see what is still manageable today.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
-<link rel="manifest" href="../manifest-dag-en.json">
-<link rel="apple-touch-icon" href="../icon-dag-192.png">
+<link rel="manifest" href="../manifest-dag-en.json?v=1774698616819">
+<link rel="apple-touch-icon" href="../icon-dag-192.png?v=1774698616819">
 <title>ADHD day planner for days when planning feels hard | PRISMA Day</title>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500&family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../reading-ease.css">
-<link rel="stylesheet" href="../feedback-form.css">
-<script defer src="../reading-ease.js"></script>
-<script defer src="../feedback-form.js"></script>
+<link rel="stylesheet" href="../reading-ease.css?v=1774698616819">
+<link rel="stylesheet" href="../feedback-form.css?v=1774698616819">
+<script defer src="../reading-ease.js?v=1774698616819"></script>
+<script defer src="../feedback-form.js?v=1774698616819"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -671,7 +671,19 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js');
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        return Promise.all(registrations.map((registration) => registration.unregister()));
+      });
+
+      if ('caches' in window) {
+        window.caches.keys().then((keys) => {
+          return Promise.all(
+            keys
+              .filter((key) => key.indexOf('prisma-') === 0)
+              .map((key) => window.caches.delete(key))
+          );
+        });
+      }
     });
   }
 </script>
@@ -1683,7 +1695,7 @@
     document.title = t.title;
     document.querySelector('meta[name="description"]').setAttribute('content', t.description);
     document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
-    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-dag-en.json' : '../manifest-dag.json');
+    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-dag-en.json?v=1774698616819' : '../manifest-dag.json?v=1774698616819');
     document.getElementById('lang-nl').classList.toggle('active', currentLang === 'nl');
     document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
     document.querySelector('#ios-banner strong').textContent = t.iosStrong;

@@ -1,0 +1,7 @@
+{
+  "name": "prisma-website",
+  "private": true,
+  "scripts": {
+    "version-assets": "node scripts/version-assets.js"
+  }
+}

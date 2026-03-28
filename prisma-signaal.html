@@ -23,17 +23,17 @@
 <meta name="twitter:title" content="Prikkeltracker voor momenten waarop alles te veel voelt | PRISMA Signaal">
 <meta name="twitter:description" content="Gratis prikkeltracker voor momenten waarop alles te veel voelt. Check in 30 seconden hoe vol je systeem zit en wat nu kan helpen.">
 <meta name="twitter:image" content="https://prismasystemen.nl/logo.png">
-<link rel="manifest" href="manifest-prikkel.json">
+<link rel="manifest" href="manifest-prikkel.json?v=1774698616819">
 <meta name="theme-color" content="#F3EFE8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="PRISMA Signaal">
-<link rel="apple-touch-icon" href="icon-prikkel-192.png">
+<link rel="apple-touch-icon" href="icon-prikkel-192.png?v=1774698616819">
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500&family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="reading-ease.css">
-<link rel="stylesheet" href="feedback-form.css">
-<script defer src="reading-ease.js"></script>
-<script defer src="feedback-form.js"></script>
+<link rel="stylesheet" href="reading-ease.css?v=1774698616819">
+<link rel="stylesheet" href="feedback-form.css?v=1774698616819">
+<script defer src="reading-ease.js?v=1774698616819"></script>
+<script defer src="feedback-form.js?v=1774698616819"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -805,7 +805,19 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js');
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        return Promise.all(registrations.map((registration) => registration.unregister()));
+      });
+
+      if ('caches' in window) {
+        window.caches.keys().then((keys) => {
+          return Promise.all(
+            keys
+              .filter((key) => key.indexOf('prisma-') === 0)
+              .map((key) => window.caches.delete(key))
+          );
+        });
+      }
     });
   }
 </script>
@@ -1342,7 +1354,7 @@
   function applyTranslations(){ const t=I18N[currentLang]; document.documentElement.lang=t.htmlLang; document.title=t.title;
     document.querySelector('meta[name="description"]').setAttribute('content', t.description);
     document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle);
-    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-prikkel-en.json' : 'manifest-prikkel.json');
+    document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? 'manifest-prikkel-en.json?v=1774698616819' : 'manifest-prikkel.json?v=1774698616819');
     document.getElementById('lang-nl').classList.toggle('active', currentLang==='nl'); document.getElementById('lang-en').classList.toggle('active', currentLang==='en');
     document.querySelector('.logo').textContent=t.headerLogo; document.querySelector('h1').textContent=t.h1; document.querySelectorAll('.subtitle')[0].textContent=t.subtitle1; document.querySelectorAll('.subtitle')[1].innerHTML=t.subtitle2Html;
     t.progress.forEach((txt,i)=>{ const el=document.getElementById('label-'+(i+1)); if(el) el.textContent=txt; });
