@@ -1618,21 +1618,6 @@
   let currentLang = 'nl';
   const BEHOEFTE_KEYS = ['rest','less_stimuli','move_outside','know_plan','contact','create','background','music','know_end','not_approached'];
   const WEEK_TEXT_MAP = {
-    'Vandaag was zwaar. Zet 1 leeg blok onder morgen.':'Today was heavy. Put 1 empty block under tomorrow.',
-    'Dit kon wel. Schrijf 1 ding op voor morgen.':'This was possible. Write down 1 thing for tomorrow.',
-    'Laat wat over. Laat 1 avond leeg.':'Leave some room. Leave 1 evening empty.',
-    'Vandaag was zwaar. Schrijf 1 ding op onder morgen.':'Today was heavy. Write down 1 thing under tomorrow.',
-    'Vandaag was zwaar. Schrijf "buiten" op onder morgen.':'Today was heavy. Write "outside" under tomorrow.',
-    'Vandaag was zwaar. Schrijf 1 naam op onder morgen.':'Today was heavy. Write 1 name under tomorrow.',
-    'Vandaag was zwaar. Schrijf 1 idee op.':'Today was heavy. Write down 1 idea.',
-    'Dit kon wel. Zet 1 ding bovenaan morgen.':'This was possible. Put 1 thing at the top of tomorrow.',
-    'Dit kon wel. Zet 1 blok onder morgen.':'This was possible. Put 1 block under tomorrow.',
-    'Dit kon wel. Schrijf "muziek" op onder morgen.':'This was possible. Write "music" under tomorrow.',
-    'Dit kon wel. Laat 1 vak leeg.':'This was possible. Leave 1 box empty.',
-    'Laat wat over. Zet 1 ding bovenaan morgen.':'Leave some room. Put 1 thing at the top of tomorrow.',
-    'Laat wat over. Zet 1 blok onder morgen.':'Leave some room. Put 1 block under tomorrow.',
-    'Laat wat over. Schrijf "muziek" op onder morgen.':'Leave some room. Write "music" under tomorrow.',
-    'Laat wat over. Laat 1 vak leeg.':'Leave some room. Leave 1 box empty.',
     'Energie laag én behoefte aan rust, maar ook aan verbinding. Licht contact is mogelijk zonder uitputtend te zijn.':'Low energy and a need for rest, but also for connection. Light contact is possible without being exhausting.',
     'Energie laag en hoofd vraagt rust én houvast. Een kleine vaste routine als anker, niet voor productiviteit, maar voor stabiliteit.':'Low energy and your mind is asking for rest as well as steadiness. A small fixed routine can act as an anchor, not for productivity, but for stability.',
     'Energie laag maar je wil bewegen én iemand zien. Een korte wandeling samen combineert beide zonder te veel te vragen.':'Low energy, but you want to move and see someone. A short walk together combines both without asking too much.',
@@ -2015,43 +2000,39 @@
   }
   function bouwAdvies(niveau, behoeften, werkstijl) {
     const isNl = currentLang === 'nl';
-    let kop = '';
-    let actie = isNl ? 'Open je agenda en zet 1 ding bij morgen.' : 'Open your calendar and put 1 thing under tomorrow.';
+    const zinnen = [];
 
     if (niveau <= 2) {
-      kop = isNl ? 'Vandaag was zwaar.' : 'Today was heavy.';
-      actie = isNl ? 'Open je agenda en zet 1 leeg blok bij morgen.' : 'Open your calendar and put 1 empty block under tomorrow.';
+      zinnen.push(isNl ? 'Lage energie vandaag. Hou morgen klein en zacht.' : 'Low energy today. Keep tomorrow small and gentle.');
     } else if (niveau === 3) {
-      kop = isNl ? 'Dit kon wel.' : 'This was possible.';
-      actie = isNl ? 'Open je agenda en zet 1 ding bij morgen.' : 'Open your calendar and put 1 thing under tomorrow.';
+      zinnen.push(isNl ? 'Redelijk stabiel vandaag. Eén haalbaar ding helpt meer dan te veel tegelijk.' : 'Fairly steady today. One manageable thing helps more than trying to do too much at once.');
     } else {
-      kop = isNl ? 'Laat wat over.' : 'Leave some room.';
-      actie = isNl ? 'Open je agenda en laat 1 avond leeg.' : 'Open your calendar and leave 1 evening empty.';
+      zinnen.push(isNl ? 'Er was meer ruimte vandaag. Laat morgen ook nog wat over.' : 'There was more room today. Leave some of it for tomorrow too.');
     }
 
     if (behoeften.includes('rest') || behoeften.includes('less_stimuli')) {
-      actie = isNl ? 'Open je agenda en zet 1 leeg blok bij morgen.' : 'Open your calendar and put 1 empty block under tomorrow.';
+      zinnen.push(isNl ? 'Rust of minder prikkels kwam terug. Neem dat serieus.' : 'Rest or fewer stimuli came up again. That matters.');
     } else if (behoeften.includes('know_plan') || behoeften.includes('know_end')) {
-      actie = isNl ? 'Open je agenda en zet 1 ding bij morgen.' : 'Open your calendar and put 1 thing under tomorrow.';
+      zinnen.push(isNl ? 'Een klein beetje duidelijkheid helpt hier waarschijnlijk meer dan een strak schema.' : 'A little clarity will probably help more here than a strict schedule.');
     } else if (behoeften.includes('move_outside')) {
-      actie = isNl ? 'Open je agenda en schrijf "buiten" bij morgen.' : 'Open your calendar and write "outside" under tomorrow.';
+      zinnen.push(isNl ? 'Beweging of even naar buiten kan een goede opener zijn.' : 'Movement or stepping outside could be a good way in.');
     } else if (behoeften.includes('contact')) {
-      actie = isNl ? 'Open je agenda en schrijf 1 naam bij morgen.' : 'Open your calendar and write 1 name under tomorrow.';
+      zinnen.push(isNl ? 'Licht contact kan helpen, zonder er een volle sociale dag van te maken.' : 'Light contact may help, without turning it into a full social day.');
     } else if (behoeften.includes('create')) {
-      actie = isNl ? 'Pak papier en schrijf 1 idee op.' : 'Take paper and write down 1 idea.';
+      zinnen.push(isNl ? 'Iets maken mag klein blijven. Dat is nog steeds waardevol.' : 'Making something can stay small. That still counts.');
     }
 
     if (werkstijl === 'focus') {
-      actie = isNl ? 'Open je agenda en zet 1 ding bovenaan morgen.' : 'Open your calendar and put 1 thing at the top of tomorrow.';
+      zinnen.push(isNl ? 'Één ding tegelijk lijkt het best te werken.' : 'One thing at a time seems to work best.');
     } else if (werkstijl === 'blokken') {
-      actie = isNl ? 'Open je agenda en zet 1 blok bij morgen.' : 'Open your calendar and put 1 block under tomorrow.';
+      zinnen.push(isNl ? 'Korte blokken met echte pauzes lijken helpend.' : 'Short blocks with real breaks seem helpful.');
     } else if (werkstijl === 'multi') {
-      actie = isNl ? 'Open je agenda en schrijf "muziek" bij morgen.' : 'Open your calendar and write "music" under tomorrow.';
+      zinnen.push(isNl ? 'Iets op de achtergrond kan steun geven als je het bewust kiest.' : 'Something in the background can help if you choose it on purpose.');
     } else if (werkstijl === 'stroom') {
-      actie = isNl ? 'Open je agenda en laat 1 vak leeg.' : 'Open your calendar and leave 1 box empty.';
+      zinnen.push(isNl ? 'Meebewegen met je energie lijkt hier beter te passen dan forceren.' : 'Following your energy seems to fit better here than forcing it.');
     }
 
-    return { tekst: `${kop} ${actie}`.trim(), taken: [] };
+    return { tekst: zinnen.join(' '), taken: [] };
   }
 
   function dagAdviesTekst(dag) {
@@ -2264,17 +2245,15 @@
     const hoogNiveaus = niveaus.filter(n => n >= 4).length;
 
     let advies = [];
-    if (laagNiveaus >= 3) advies.push(currentLang==='nl' ? 'Deze week was zwaar. Open je agenda en zet 1 leeg blok bij morgen.' : 'This week was heavy. Open your calendar and put 1 empty block under tomorrow.');
-    if (hoogNiveaus >= 3) advies.push(currentLang==='nl' ? 'Laat wat open. Open je agenda en laat 1 avond leeg.' : 'Leave some room. Open your calendar and leave 1 evening empty.');
-    if (topBehoefte.some(b => b === 'rest' || b === 'less_stimuli')) advies.push(currentLang==='nl' ? 'Rust kwam terug. Open je agenda en zet 1 leeg blok in je week.' : 'Rest came back. Open your calendar and put 1 empty block in your week.');
-    if (topBehoefte.some(b => b === 'know_plan' || b === 'know_end')) advies.push(currentLang==='nl' ? 'Een eindpunt helpt. Pak papier en schrijf 1 stoptijd op.' : 'An ending helps. Take paper and write down 1 stop time.');
+    if (laagNiveaus >= 3) advies.push(currentLang==='nl' ? 'Er waren meerdere lage dagen. Eerder rust nemen lijkt hier belangrijker dan later herstellen.' : 'There were several low-energy days. Taking rest earlier looks more helpful here than recovering later.');
+    if (hoogNiveaus >= 3) advies.push(currentLang==='nl' ? 'Er waren ook dagen met meer ruimte. Laat die niet meteen helemaal vollopen.' : 'There were also days with more room. Try not to fill those up completely right away.');
+    if (topBehoefte.some(b => b === 'rest' || b === 'less_stimuli')) advies.push(currentLang==='nl' ? 'Rust of minder prikkels kwam vaker terug. Dat mag dus meewegen in hoe je je dagen opbouwt.' : 'Rest or fewer stimuli came back more than once. That deserves to shape how you set up your days.');
+    if (topBehoefte.some(b => b === 'know_plan' || b === 'know_end')) advies.push(currentLang==='nl' ? 'Een beetje voorspelbaarheid lijkt te helpen. Iets kleins en vasts kan al genoeg zijn.' : 'A little predictability seems to help. Something small and repeatable may already be enough.');
     if (dominanteWerkstijl && dominanteWerkstijl[1] >= 2) {
-      const werkstijlActies = currentLang==='nl'
-        ? { multi: 'Achtergrond helpt. Zet muziek aan op laag volume.', focus: 'Één scherm helpt. Sluit 1 tabblad.', blokken: 'Een timer helpt. Zet een timer op 25 minuten.', stroom: 'Laat ruimte open. Open je agenda en laat 1 vak leeg.' }
-        : { multi: 'Background helps. Turn on music at low volume.', focus: 'One screen helps. Close 1 tab.', blokken: 'A timer helps. Set a timer for 25 minutes.', stroom: 'Leave room open. Open your calendar and leave 1 box empty.' };
-      advies.push(werkstijlActies[dominanteWerkstijl[0]] || (currentLang==='nl' ? 'Maandag is genoeg. Open je agenda en zet 1 ding bij maandag.' : 'Monday is enough. Open your calendar and put 1 thing under Monday.'));
+      const werkstijlNamen = currentLang==='nl' ? { multi: 'meerdere dingen tegelijk', focus: 'één ding tegelijk', blokken: 'blokken met pauzes', stroom: 'meebewegen met je energie' } : { multi: 'more than one thing at once', focus: 'one thing at a time', blokken: 'blocks with breaks', stroom: 'following your energy' };
+      advies.push(`${currentLang==='nl' ? 'Wat vaker werkte:' : 'What seemed to work more often:'} ${werkstijlNamen[dominanteWerkstijl[0]] || dominanteWerkstijl[0]}. ${currentLang==='nl' ? 'Dat kun je voorlopig blijven gebruiken.' : 'That is probably worth keeping for now.'}`);
     }
-    if (advies.length === 0) advies.push(currentLang==='nl' ? 'Maandag is genoeg. Open je agenda en zet 1 ding bij maandag.' : 'Monday is enough. Open your calendar and put 1 thing under Monday.');
+    if (advies.length === 0) advies.push(currentLang==='nl' ? 'Deze week oogt vrij stabiel. Blijf vooral opmerken wat dat mogelijk maakte.' : 'This week looks fairly steady. Keep noticing what made that possible.');
 
     analyse.innerHTML = `
       <div class="analyse-blok">
