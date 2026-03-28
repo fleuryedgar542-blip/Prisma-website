@@ -6,7 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -27,16 +29,13 @@ jobs:
       - name: Update asset versions
         run: npm run version-assets
 
-      - name: Commit updated files
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "auto: update asset versions" || echo "No changes"
-          git push
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: .
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: \${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
+        uses: actions/deploy-pages@v2
