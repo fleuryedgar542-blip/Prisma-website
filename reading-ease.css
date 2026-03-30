@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin: 0 0 24px;
 }
 
@@ -123,19 +123,6 @@
 .language-switch + .reading-ease-toggle--auto {
   margin-top: 0;
   margin-left: 10px;
-}
-
-@media (max-width: 560px) {
-  .top-controls {
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .language-switch + .reading-ease-toggle,
-  .language-switch + .reading-ease-toggle--auto {
-    margin-left: 0;
-  }
 }
 
 .reading-ease-toggle.active,
