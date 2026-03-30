@@ -324,33 +324,6 @@
       color: var(--grijs);
       margin-top: 0.25rem;
     }
-    .language-switch {
-      display: inline-flex;
-      gap: 6px;
-      padding: 4px;
-      margin: 0 0 1.5rem;
-      background: var(--wit, #fff);
-      border: 1px solid var(--beige-dark, #E8E4DC);
-      border-radius: 999px;
-    }
-    .language-switch button {
-      border: none;
-      background: transparent;
-      color: var(--grijs-mid, #9A9A9A);
-      font-family: "Montserrat", sans-serif;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.6rem 0.9rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .language-switch button.active {
-      background: var(--beige, #F3EFE8);
-      color: var(--grijs, #2E2E2E);
-    }
     @media (max-width: 560px) {
       .tools-grid { grid-template-columns: 1fr; }
     }
@@ -381,11 +354,11 @@
 
   <section class="hero sectie-beige">
     <div class="container">
-      <div class="language-switch" aria-label="Language switch">
+      <div class="top-controls"><div class="language-switch" aria-label="Language switch">
         <button type="button" onclick="window.location.href='/'">NL</button>
         <button type="button" class="active" aria-current="page">EN</button>
       </div>
-      <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Easier reading</button>
+      <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Easier reading</button></div>
       <div class="hero-inner">
         <span class="hero-label">PRISMA Systemen</span>
         <h1 class="hero-titel">Does everything feel like too much today?</h1>

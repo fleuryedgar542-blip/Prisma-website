@@ -97,33 +97,6 @@
 
   .container { max-width: 520px; margin: 0 auto; }
 
-  .language-switch {
-    display: inline-flex;
-    gap: 6px;
-    padding: 4px;
-    margin-bottom: 24px;
-    background: white;
-    border: 1px solid var(--grijs-licht);
-    border-radius: 999px;
-    animation: fadeUp 0.5s ease forwards;
-  }
-  .language-switch button {
-    border: none;
-    background: transparent;
-    color: var(--grijs-mid);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .language-switch button.active { background: var(--beige); color: var(--grijs); }
-
-
   /* HEADER */
   header { margin-bottom: 40px; animation: fadeUp 0.5s ease forwards; }
 
@@ -608,11 +581,11 @@
 <div class="container">
 
   <header>
-    <div class="language-switch" aria-label="Language switch">
+    <div class="top-controls"><div class="language-switch" aria-label="Language switch">
       <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
       <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
     </div>
-    <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button>
+    <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button></div>
     <div class="logo">PRISMA Systemen</div>
     <h1>Hoe vol is je systeem nu?</h1>
     <p class="subtitle">Een korte check-in voor momenten waarop alles snel te veel voelt. Geen diagnose, wel richting.</p>

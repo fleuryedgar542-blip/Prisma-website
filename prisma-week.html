@@ -121,35 +121,6 @@
 
   .sidebar-nav { flex: 1; }
 
-  .language-switch {
-    display: inline-flex;
-    gap: 6px;
-    padding: 4px;
-    margin: 0 28px 18px;
-    background: var(--beige);
-    border: 1px solid var(--grijs-licht);
-    border-radius: 999px;
-  }
-  .language-switch button {
-    border: none;
-    background: transparent;
-    color: var(--grijs-mid);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .language-switch button.active { background: white; color: var(--grijs); }
-  @media (max-width: 640px) {
-    .language-switch { margin: 0 20px 20px; }
-  }
-
-
   .nav-section-label {
     font-size: 9px;
     letter-spacing: 0.18em;
@@ -305,6 +276,15 @@
   .main > * {
     width: 100%;
     max-width: 640px;
+  }
+
+  .sidebar > .top-controls {
+    padding: 0 28px;
+    margin-bottom: 18px;
+  }
+
+  .main > .top-controls {
+    display: none;
   }
 
   /* ── PAGES ── */
@@ -1185,6 +1165,7 @@
       width: 100%;
       padding: 32px 20px calc(var(--nav-h) + 20px);
     }
+    .main > .top-controls { display: flex; }
   }
 
   @media (min-width: 641px) and (max-width: 900px) {
@@ -1445,11 +1426,11 @@
 <!-- DESKTOP SIDEBAR -->
 <nav class="sidebar">
   <div class="sidebar-logo">PRISMA Week</div>
-  <div class="language-switch" aria-label="Language switch">
+  <div class="top-controls"><div class="language-switch" aria-label="Language switch">
     <button type="button" id="lang-nl" onclick="setLanguage('nl')">NL</button>
     <button type="button" id="lang-en" onclick="setLanguage('en')">EN</button>
   </div>
-  <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button>
+  <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button></div>
   <div class="sidebar-nav">
     <div class="nav-section-label">Deze week</div>
     <button type="button" class="nav-item active" id="nav-ma" onclick="navigeer('ma')">
@@ -1564,11 +1545,11 @@
 </div>
 
 <main class="main">
-  <div class="language-switch" id="language-switch-mobile" aria-label="Language switch">
+  <div class="top-controls"><div class="language-switch" id="language-switch-mobile" aria-label="Language switch">
     <button type="button" id="lang-nl-mobile" onclick="setLanguage('nl')">NL</button>
     <button type="button" id="lang-en-mobile" onclick="setLanguage('en')">EN</button>
   </div>
-  <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button>
+  <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Makkelijker lezen</button></div>
 
   <!-- DAG PAGINAS -->
   <div id="page-ma" class="page active"></div>
