@@ -559,9 +559,80 @@
     color: var(--grijs);
   }
   .weektracker-brug-btn:hover { background: var(--oker-dark); color: white; }
+  .dag-vervolg {
+    margin-top: 26px;
+    display: grid;
+    gap: 16px;
+  }
+  .dag-progress-text {
+    font-size: 0.96rem;
+    color: var(--grijs);
+  }
+  .dag-vervolg-card {
+    border: 1.5px solid var(--grijs-licht);
+    border-radius: 10px;
+    background: white;
+    padding: 24px 26px;
+    display: grid;
+    gap: 16px;
+  }
+  .dag-vervolg-titel {
+    font-family: 'Noto Serif', serif;
+    font-size: 18px;
+    color: var(--grijs);
+  }
+  .dag-vervolg-body {
+    white-space: pre-line;
+    color: var(--grijs);
+    line-height: 1.7;
+  }
+  .dag-vervolg-subtekst {
+    color: var(--grijs);
+    line-height: 1.7;
+  }
+  .dag-vervolg-block {
+    border-top: 1px solid var(--grijs-licht);
+    padding-top: 16px;
+    display: grid;
+    gap: 14px;
+  }
+  .dag-vervolg-block[hidden],
+  .dag-progress-text[hidden] {
+    display: none !important;
+  }
+  .dag-upgrade-actions,
+  .dag-vervolg-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .dag-inline-cta,
+  .dag-close-btn,
+  .dag-again-btn,
+  .dag-tertiary-btn {
+    margin-top: 0;
+  }
+  .dag-close-btn,
+  .dag-again-btn,
+  .dag-tertiary-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   @media (max-width: 480px) {
     .weektracker-brug { flex-direction: column; align-items: flex-start; }
     .weektracker-brug-btn { width: 100%; text-align: center; }
+    .dag-upgrade-actions,
+    .dag-vervolg-actions {
+      flex-direction: column;
+    }
+    .dag-inline-cta,
+    .dag-close-btn,
+    .dag-again-btn,
+    .dag-tertiary-btn {
+      width: 100%;
+    }
   }
   .divider {
     height: 1px;
@@ -908,7 +979,7 @@
     </div>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(3)">← Terug</button>
-      <button class="verder-btn" id="moet-verder-btn" onclick="toonResultaat()" data-umami-event="finish_prisma_dag" disabled>Kijk wat nu haalbaar is →</button>
+      <button class="verder-btn" id="moet-verder-btn" onclick="toonResultaat()" disabled>Kijk wat nu haalbaar is →</button>
     </div>
   </div>
 
@@ -921,19 +992,31 @@
     <div class="taken-label">Wat nu haalbaar lijkt</div>
     <div id="res-taken"></div>
     <div class="reminder" id="res-reminder"></div>
-    <div id="dag-feedback-root"></div>
-    <button class="opnieuw-btn" onclick="opnieuw()">↺ Nieuwe dag starten</button>
+    <div class="dag-vervolg" id="dag-vervolg">
+      <div class="dag-progress-text" id="dag-progress-text" hidden></div>
+      <div class="dag-vervolg-card">
+        <div class="dag-vervolg-titel" id="dag-vervolg-titel"></div>
+        <div class="dag-vervolg-body" id="dag-vervolg-body"></div>
 
-    <div class="weektracker-brug">
-      <div class="weektracker-brug-tekst">
-        <div class="brug-label">PRISMA Week</div>
-        <div class="brug-titel">Wil je dit gevoel iets langer vasthouden?</div>
-        <div class="brug-omschrijving">Dan hoef je morgen niet weer helemaal vanaf nul te beginnen.</div>
+        <div class="dag-vervolg-block" id="dag-week-block" hidden>
+          <div class="dag-vervolg-subtekst" id="dag-week-text"></div>
+          <a href="/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">Bekijk PRISMA Week</a>
+        </div>
+
+        <div class="dag-vervolg-block" id="dag-upgrade-block" hidden>
+          <div class="dag-vervolg-subtekst" id="dag-upgrade-text"></div>
+          <div class="dag-upgrade-actions">
+            <a href="/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-upgrade-primary">Probeer gratis</a>
+            <button class="opnieuw-btn dag-tertiary-btn" id="dag-upgrade-secondary" type="button">Niet nu</button>
+          </div>
+        </div>
+
+        <div class="dag-vervolg-actions">
+          <a href="/" class="opnieuw-btn dag-close-btn" id="dag-close-btn">Sluiten</a>
+          <button class="opnieuw-btn dag-again-btn" id="dag-again-btn" type="button" onclick="opnieuw()">Nog een keer doen</button>
+        </div>
       </div>
-      <a href="/prisma-week.html" class="weektracker-brug-btn" data-umami-event="click_prisma_week">Neem dit mee in PRISMA Week →</a>
     </div>
-
-    <a href="/" class="home-link">← Terug naar PRISMA</a>
   </div>
 
 </div>
@@ -943,6 +1026,92 @@
   let geselecteerdeWerkstijl = null;
   let moetAanwezig = null;
   let huidigStap = 1;
+  let dagStartTracked = false;
+  let dagCompletionHandled = false;
+  let dagReturnTrackedThisCompletion = false;
+  let dagUpgradeDismissed = false;
+  let laatsteDagCompletion = { completed: 0, momenten: 0 };
+  const PRISMA_DAY_COMPLETED_KEY = 'prisma_day_completed';
+  const PRISMA_MOMENTEN_KEY = 'prisma_momenten';
+
+  function getStoredNumber(key) {
+    const value = parseInt(localStorage.getItem(key) || '0', 10);
+    return Number.isFinite(value) && value > 0 ? value : 0;
+  }
+
+  function incrementStoredNumber(key) {
+    const next = getStoredNumber(key) + 1;
+    localStorage.setItem(key, String(next));
+    return next;
+  }
+
+  function trackDagStartOnce() {
+    if (dagStartTracked) return;
+    trackEvent('prisma_day_start');
+    dagStartTracked = true;
+  }
+
+  function handleDagCompletion() {
+    if (dagCompletionHandled) return laatsteDagCompletion;
+    const completed = incrementStoredNumber(PRISMA_DAY_COMPLETED_KEY);
+    const momenten = incrementStoredNumber(PRISMA_MOMENTEN_KEY);
+    trackEvent('prisma_day_finish');
+    if (completed > 1 && !dagReturnTrackedThisCompletion) {
+      trackEvent('prisma_day_return');
+      dagReturnTrackedThisCompletion = true;
+    }
+    dagCompletionHandled = true;
+    laatsteDagCompletion = { completed, momenten };
+    return laatsteDagCompletion;
+  }
+
+  function getDagFollowUpState(completed) {
+    if (completed <= 2) return 1;
+    if (completed <= 5) return 2;
+    return 3;
+  }
+
+  function verbergDagUpgrade() {
+    dagUpgradeDismissed = true;
+    renderDagFollowUp(laatsteDagCompletion.completed, laatsteDagCompletion.momenten);
+  }
+
+  function renderDagFollowUp(completed, momenten) {
+    const t = I18N[currentLang].followup;
+    const state = getDagFollowUpState(completed);
+    document.getElementById('dag-vervolg-titel').textContent = t.title;
+    document.getElementById('dag-vervolg-body').textContent = t.body;
+
+    const progressEl = document.getElementById('dag-progress-text');
+    if (momenten > 1) {
+      progressEl.hidden = false;
+      progressEl.textContent = t.progress(momenten);
+    } else {
+      progressEl.hidden = true;
+      progressEl.textContent = '';
+    }
+
+    const weekBlock = document.getElementById('dag-week-block');
+    const upgradeBlock = document.getElementById('dag-upgrade-block');
+    weekBlock.hidden = state !== 2;
+    upgradeBlock.hidden = state !== 3 || dagUpgradeDismissed;
+
+    if (state === 2) {
+      document.getElementById('dag-week-text').textContent = t.weekText;
+      document.getElementById('dag-week-btn').textContent = t.weekCta;
+    }
+
+    if (state === 3) {
+      document.getElementById('dag-upgrade-text').textContent = t.upgradeText;
+      document.getElementById('dag-upgrade-primary').textContent = t.upgradePrimary;
+      document.getElementById('dag-upgrade-secondary').textContent = t.upgradeSecondary;
+      document.getElementById('dag-upgrade-secondary').onclick = () => verbergDagUpgrade();
+    }
+
+    document.getElementById('dag-close-btn').textContent = t.close;
+    document.getElementById('dag-again-btn').textContent = t.again;
+  }
+
   function selecteerMoet(jaOfNee) {
     moetAanwezig = jaOfNee;
     document.getElementById('moet-nee').className = 'moet-keuze' + (!jaOfNee ? ' selected-nee' : '');
@@ -961,6 +1130,7 @@
 
 
   function selecteerEnergie(el) {
+    trackDagStartOnce();
     document.querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     geselecteerdNiveau = parseInt(el.dataset.niveau);
@@ -1169,14 +1339,12 @@
       takenEl.innerHTML += `<div class="taak-item"><div class="taak-streep"></div><div>${translateDagTask(t)}</div></div>`;
     });
 
+    const completion = handleDagCompletion();
+    renderDagFollowUp(completion.completed, completion.momenten);
+
     document.getElementById('voortgang').style.display = 'none';
     document.querySelectorAll('.stap').forEach(s => s.classList.remove('actief'));
     document.getElementById('resultaat').classList.add('zichtbaar');
-    window.PRISMAFeedback.render({
-      rootId: 'dag-feedback-root',
-      tool: currentLang === 'en' ? 'PRISMA Day' : 'PRISMA Dag',
-      lang: currentLang
-    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1194,9 +1362,12 @@
     geselecteerdeWerkstijl = null;
     moetAanwezig = null;
     document.getElementById('btn-stap1').disabled = true;
+    dagStartTracked = false;
+    dagCompletionHandled = false;
+    dagReturnTrackedThisCompletion = false;
+    dagUpgradeDismissed = false;
 
     document.getElementById('resultaat').classList.remove('zichtbaar');
-    window.PRISMAFeedback.clear('dag-feedback-root');
     document.getElementById('voortgang').style.display = 'flex';
     naarStap(1);
   }
@@ -1311,12 +1482,18 @@
       back: '← Terug',
       resultButton: 'Kijk wat nu haalbaar is →',
       resultFits: 'Wat nu haalbaar lijkt',
-      reset: '↺ Opnieuw invullen',
-      bridgeLabel: 'PRISMA Week',
-      bridgeTitle: 'Wil je dit gevoel iets langer vasthouden?',
-      bridgeText: 'Dan hoef je morgen niet weer helemaal vanaf nul te beginnen.',
-      bridgeBtn: 'Neem dit mee in PRISMA Week →',
-      home: '← Terug naar PRISMA',
+      followup: {
+        title: 'Dit is genoeg voor nu.',
+        body: 'Je hoeft niets meer te doen vandaag.\n\nAls het later weer vastloopt,\nkun je gewoon terugkomen.',
+        weekText: 'Wil je het morgen iets makkelijker maken?',
+        weekCta: 'Bekijk PRISMA Week',
+        upgradeText: 'Je hoeft dit niet elke keer opnieuw uit te zoeken.',
+        upgradePrimary: 'Probeer gratis',
+        upgradeSecondary: 'Niet nu',
+        close: 'Sluiten',
+        again: 'Nog een keer doen',
+        progress: (count) => `Je hebt dit al ${count} keer gedaan.`
+      },
       niveauBase: {
         1: { naam: 'Niveau 1, Bijna leeg', titel: 'Vandaag is een rustdag. Dat is genoeg.', reminder: 'Een dag met weinig energie is geen dag die je verspild hebt. Het is een dag waarop je voor jezelf zorgde.' },
         2: { naam: 'Niveau 2, Laag', titel: 'Hou het licht en haalbaar. Meer hoeft niet.', reminder: 'Als je op een lage dag iets doet wat echt past, dan telt dat. Meer hoeft niet om waardevol te zijn.' },
@@ -1392,12 +1569,18 @@
       back: '← Back',
       resultButton: 'See what feels manageable now →',
       resultFits: 'What looks manageable now',
-      reset: '↺ Start again',
-      bridgeLabel: 'PRISMA Week',
-      bridgeTitle: 'Want to hold on to this feeling a little longer?',
-      bridgeText: 'Then tomorrow does not have to start completely from scratch again.',
-      bridgeBtn: 'Carry this into PRISMA Week →',
-      home: '← Back to PRISMA',
+      followup: {
+        title: 'This is enough for now.',
+        body: 'You do not need to do anything else today.\n\nIf things get stuck again later,\nyou can just come back.',
+        weekText: 'Want to make tomorrow a little easier?',
+        weekCta: 'View PRISMA Week',
+        upgradeText: 'You do not have to figure this out from scratch every time.',
+        upgradePrimary: 'Try for free',
+        upgradeSecondary: 'Not now',
+        close: 'Close',
+        again: 'Do it again',
+        progress: (count) => `You have done this ${count} times already.`
+      },
       niveauBase: {
         1: { naam: 'Level 1, Almost empty', titel: 'Today is a rest day. That is enough.', reminder: 'A day with little energy is not a day you wasted. It is a day on which you took care of yourself.' },
         2: { naam: 'Level 2, Low', titel: 'Keep it light and manageable. More is not required.', reminder: 'If you do something that truly fits on a low-energy day, that still counts. It does not have to be bigger to matter.' },
@@ -1735,12 +1918,7 @@
     document.getElementById('moet-verder-btn').textContent = t.resultButton;
     document.querySelectorAll('.terug-btn').forEach((btn) => { btn.textContent = t.back; });
     document.querySelector('.taken-label').textContent = t.resultFits;
-    document.querySelector('.opnieuw-btn').textContent = t.reset;
-    document.querySelector('.brug-label').textContent = t.bridgeLabel;
-    document.querySelector('.brug-titel').textContent = t.bridgeTitle;
-    document.querySelector('.brug-omschrijving').textContent = t.bridgeText;
-    document.querySelector('.weektracker-brug-btn').textContent = t.bridgeBtn;
-    document.querySelector('.home-link').textContent = t.home;
+    renderDagFollowUp(getStoredNumber(PRISMA_DAY_COMPLETED_KEY), getStoredNumber(PRISMA_MOMENTEN_KEY));
     if (geselecteerdNiveau) {
       document.getElementById('hint-1').textContent = getNiveauHints()[geselecteerdNiveau];
     }

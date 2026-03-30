@@ -1847,7 +1847,7 @@
     button.dataset.bound = '1';
     button.addEventListener('click', () => {
       if (typeof window.trackEvent === 'function') {
-        window.trackEvent('week_checkout_click');
+        window.trackEvent('prisma_week_checkout_click');
       }
     });
   }
@@ -1862,7 +1862,7 @@
       trialStorageSet(WEEK_TRIAL.startKey, String(start));
       trialStorageRemove(WEEK_TRIAL.expiredSentKey);
       if (typeof window.trackEvent === 'function') {
-        window.trackEvent('week_trial_started');
+        window.trackEvent('prisma_week_trial_started');
       }
     }
     const expired = now >= start + WEEK_TRIAL.durationMs;
@@ -1872,7 +1872,7 @@
       if (trialStorageGet(WEEK_TRIAL.activeDayKey) !== today) {
         trialStorageSet(WEEK_TRIAL.activeDayKey, today);
         if (typeof window.trackEvent === 'function') {
-          window.trackEvent('week_trial_active');
+          window.trackEvent('prisma_week_trial_active');
         }
       }
     }
@@ -1880,14 +1880,14 @@
       if (trialStorageGet(WEEK_TRIAL.expiredSentKey) !== '1') {
         trialStorageSet(WEEK_TRIAL.expiredSentKey, '1');
         if (typeof window.trackEvent === 'function') {
-          window.trackEvent('week_trial_expired');
+          window.trackEvent('prisma_week_trial_expired');
         }
       }
       const today = getTrialDayStamp();
       if (trialStorageGet(WEEK_TRIAL.paywallDayKey) !== today) {
         trialStorageSet(WEEK_TRIAL.paywallDayKey, today);
         if (typeof window.trackEvent === 'function') {
-          window.trackEvent('week_paywall_view');
+          window.trackEvent('prisma_week_paywall_view');
         }
       }
     }
@@ -1923,6 +1923,20 @@
   let maandData = [];
   try { maandData = JSON.parse(localStorage.getItem('prisma-maand') || '[]'); } catch(e) {}
   let huidigePagina = 'ma';
+  let weekStartTracked = false;
+  let weekFinishTracked = false;
+
+  function trackWeekStartOnce() {
+    if (weekStartTracked || typeof window.trackEvent !== 'function') return;
+    window.trackEvent('prisma_week_start');
+    weekStartTracked = true;
+  }
+
+  function trackWeekFinishOnce() {
+    if (weekFinishTracked || typeof window.trackEvent !== 'function') return;
+    window.trackEvent('prisma_week_finish');
+    weekFinishTracked = true;
+  }
 
   function heeftHuidigeWeekData() {
     return DAGEN.some(dag => weekData[dag] && weekData[dag].niveau);
@@ -2064,6 +2078,7 @@
   }
 
   function selecteerEnergie(dag, el) {
+    trackWeekStartOnce();
     el.closest('.energie-schaal').querySelectorAll('.energie-optie').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     if (!weekData[dag]) weekData[dag] = {};
@@ -2086,6 +2101,7 @@
 
   function slaanOp(dag) {
     if (!weekData[dag] || !weekData[dag].niveau) return;
+    trackWeekFinishOnce();
     const behoeften = [...document.querySelectorAll(`#behoeften-${dag} .behoefte-tag.selected`)].map(t => t.dataset.need);
     weekData[dag].behoeften = behoeften;
     weekData[dag].meenemen = document.getElementById('meenemen-' + dag).value.trim();
@@ -2296,6 +2312,8 @@
       }
 
   function nieuweWeek() {
+    weekStartTracked = false;
+    weekFinishTracked = false;
     weekData = {};
     DAGEN.forEach(dag => {
       document.getElementById('page-' + dag).innerHTML = buildDagPagina(dag);
