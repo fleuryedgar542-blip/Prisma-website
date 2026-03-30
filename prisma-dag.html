@@ -572,6 +572,9 @@
     display: grid;
     gap: 16px;
   }
+  .dag-week-card .weektracker-brug-btn {
+    width: fit-content;
+  }
   .dag-vervolg-titel {
     font-family: 'Noto Serif', serif;
     font-size: 18px;
@@ -992,23 +995,15 @@
         <div class="dag-vervolg-titel" id="dag-vervolg-titel"></div>
         <div class="dag-vervolg-body" id="dag-vervolg-body"></div>
 
-        <div class="dag-vervolg-block" id="dag-week-block" hidden>
-          <div class="dag-vervolg-subtekst" id="dag-week-text"></div>
-          <a href="/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">Bekijk PRISMA Week</a>
-        </div>
-
-        <div class="dag-vervolg-block" id="dag-upgrade-block" hidden>
-          <div class="dag-vervolg-subtekst" id="dag-upgrade-text"></div>
-          <div class="dag-upgrade-actions">
-            <a href="/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-upgrade-primary">Probeer gratis</a>
-            <button class="opnieuw-btn dag-tertiary-btn" id="dag-upgrade-secondary" type="button">Niet nu</button>
-          </div>
-        </div>
-
         <div class="dag-vervolg-actions">
           <a href="/" class="opnieuw-btn dag-close-btn" id="dag-close-btn">Sluiten</a>
           <button class="opnieuw-btn dag-again-btn" id="dag-again-btn" type="button" onclick="opnieuw()">Nog een keer doen</button>
         </div>
+      </div>
+      <div class="dag-vervolg-card dag-week-card" id="dag-week-block" hidden>
+        <div class="dag-vervolg-titel" id="dag-week-text"></div>
+        <div class="dag-vervolg-subtekst" id="dag-week-subtext"></div>
+        <a href="/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">Bekijk PRISMA Week</a>
       </div>
     </div>
   </div>
@@ -1023,7 +1018,6 @@
   let dagStartTracked = false;
   let dagCompletionHandled = false;
   let dagReturnTrackedThisCompletion = false;
-  let dagUpgradeDismissed = false;
   let laatsteDagCompletion = { completed: 0, momenten: 0 };
   const PRISMA_DAY_COMPLETED_KEY = 'prisma_day_completed';
   const PRISMA_MOMENTEN_KEY = 'prisma_momenten';
@@ -1065,11 +1059,6 @@
     return 3;
   }
 
-  function verbergDagUpgrade() {
-    dagUpgradeDismissed = true;
-    renderDagFollowUp(laatsteDagCompletion.completed, laatsteDagCompletion.momenten);
-  }
-
   function renderDagFollowUp(completed, momenten) {
     const t = I18N[currentLang].followup;
     const state = getDagFollowUpState(completed);
@@ -1077,20 +1066,12 @@
     document.getElementById('dag-vervolg-body').textContent = t.body;
 
     const weekBlock = document.getElementById('dag-week-block');
-    const upgradeBlock = document.getElementById('dag-upgrade-block');
-    weekBlock.hidden = state !== 2;
-    upgradeBlock.hidden = state !== 3 || dagUpgradeDismissed;
+    weekBlock.hidden = state === 1;
 
-    if (state === 2) {
+    if (state >= 2) {
       document.getElementById('dag-week-text').textContent = t.weekText;
+      document.getElementById('dag-week-subtext').textContent = t.weekSubtext;
       document.getElementById('dag-week-btn').textContent = t.weekCta;
-    }
-
-    if (state === 3) {
-      document.getElementById('dag-upgrade-text').textContent = t.upgradeText;
-      document.getElementById('dag-upgrade-primary').textContent = t.upgradePrimary;
-      document.getElementById('dag-upgrade-secondary').textContent = t.upgradeSecondary;
-      document.getElementById('dag-upgrade-secondary').onclick = () => verbergDagUpgrade();
     }
 
     document.getElementById('dag-close-btn').textContent = t.close;
@@ -1350,8 +1331,6 @@
     dagStartTracked = false;
     dagCompletionHandled = false;
     dagReturnTrackedThisCompletion = false;
-    dagUpgradeDismissed = false;
-
     document.getElementById('resultaat').classList.remove('zichtbaar');
     document.getElementById('voortgang').style.display = 'flex';
     naarStap(1);
@@ -1471,10 +1450,8 @@
         title: 'Dit is genoeg voor nu.',
         body: 'Je hoeft niets meer te doen vandaag.\n\nAls het later weer vastloopt,\nkun je gewoon terugkomen.',
         weekText: 'Wil je het morgen iets makkelijker maken?',
+        weekSubtext: 'Dan hoef je niet weer helemaal vanaf nul te beginnen.',
         weekCta: 'Bekijk PRISMA Week',
-        upgradeText: 'Je hoeft dit niet elke keer opnieuw uit te zoeken.',
-        upgradePrimary: 'Probeer gratis',
-        upgradeSecondary: 'Niet nu',
         close: 'Sluiten',
         again: 'Nog een keer doen',
         progress: (count) => `Je hebt dit al ${count} keer gedaan.`
@@ -1558,10 +1535,8 @@
         title: 'This is enough for now.',
         body: 'You do not need to do anything else today.\n\nIf things get stuck again later,\nyou can just come back.',
         weekText: 'Want to make tomorrow a little easier?',
+        weekSubtext: 'Then it does not have to start completely from scratch again.',
         weekCta: 'View PRISMA Week',
-        upgradeText: 'You do not have to figure this out from scratch every time.',
-        upgradePrimary: 'Try for free',
-        upgradeSecondary: 'Not now',
         close: 'Close',
         again: 'Do it again',
         progress: (count) => `You have done this ${count} times already.`

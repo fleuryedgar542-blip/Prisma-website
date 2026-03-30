@@ -892,6 +892,11 @@
     color: var(--grijs);
     margin-bottom: 4px;
   }
+  .week-afsluiten-acties {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
   .week-opslaan-btn {
     flex-shrink: 0;
     padding: 14px 24px;
@@ -909,6 +914,13 @@
     white-space: nowrap;
   }
   .week-opslaan-btn:hover { background: var(--oker-dark); color: white; }
+  .week-close-btn,
+  .week-again-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   /* ── MAANDOVERZICHT ── */
   .maand-intro {
@@ -2235,9 +2247,11 @@
           <strong>${currentLang==='nl' ? 'Bewaar wat werkte' : 'Keep what worked'}</strong>
           ${currentLang==='nl' ? 'Sla deze week op als je hier later sneller op wilt terugvallen. Dat is genoeg voor nu.' : 'Save this week if you want something easier to return to later. That is enough for now.'}
         </div>
-        <button class="week-opslaan-btn" onclick="weekOpslaan()">${currentLang==='nl' ? 'Bewaar deze week →' : 'Keep this week →'}</button>
+        <div class="week-afsluiten-acties">
+          <a href="/" class="week-opslaan-btn week-close-btn">${currentLang==='nl' ? 'Sluiten' : 'Close'}</a>
+          <button class="week-opslaan-btn week-again-btn" type="button" onclick="nieuweWeek()">${currentLang==='nl' ? 'Nog een keer doen' : 'Do it again'}</button>
+        </div>
       </div>
-      <a href="/" class="home-link">← Terug naar PRISMA</a>
     `;
     updateLanguageLinks();
     scheduleLanguagePass();
