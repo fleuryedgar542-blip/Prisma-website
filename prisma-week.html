@@ -2229,62 +2229,7 @@
       grid.appendChild(kaart);
     });
 
-    const ingevuld = DAGEN.filter(d => weekData[d] && weekData[d].niveau);
-    if (ingevuld.length < 3) {
-      analyse.innerHTML = `<div class="reminder">${currentLang==='nl' ? 'Vul nog een paar dagen in. Dan zie je sneller wat je wilt vasthouden.' : 'Add a few more days first. Then it becomes easier to see what you want to keep.'}</div>`;
-      return;
-    }
-
-    const niveaus = ingevuld.map(d => weekData[d].niveau);
-    const gem = (niveaus.reduce((a,b) => a+b, 0) / niveaus.length).toFixed(1);
-    const laagsteDag = ingevuld.reduce((a,b) => weekData[a].niveau < weekData[b].niveau ? a : b);
-    const hoogsteDag = ingevuld.reduce((a,b) => weekData[a].niveau > weekData[b].niveau ? a : b);
-    const alleMeenemen = ingevuld
-      .map(d => {
-        const waarde = weekData[d].meenemen || [weekData[d].gaf, weekData[d].kostte, weekData[d].wie].filter(Boolean).join(' · ');
-        return waarde ? { dag: getDayNames()[d], tekst: waarde } : null;
-      })
-      .filter(Boolean);
-
-    const alleBehoeften = ingevuld.flatMap(d => weekData[d].behoeften || []);
-    const behoeftenCount = {};
-    alleBehoeften.forEach(b => { behoeftenCount[b] = (behoeftenCount[b] || 0) + 1; });
-    const topBehoefte = Object.entries(behoeftenCount).sort((a,b) => b[1]-a[1]).slice(0,2).map(e => e[0]);
-
-    // Werkstijlen analyseren
-    const alleWerkstijlen = ingevuld.filter(d => weekData[d].werkstijl).map(d => weekData[d].werkstijl);
-    const werkstijlCount = {};
-    alleWerkstijlen.forEach(w => { werkstijlCount[w] = (werkstijlCount[w] || 0) + 1; });
-    const dominanteWerkstijl = Object.entries(werkstijlCount).sort((a,b) => b[1]-a[1])[0];
-
-    const laagNiveaus = niveaus.filter(n => n <= 2).length;
-    const hoogNiveaus = niveaus.filter(n => n >= 4).length;
-
-    let advies = [];
-    if (laagNiveaus >= 3) advies.push(currentLang==='nl' ? 'Er waren meerdere lage dagen. Eerder rust nemen lijkt hier belangrijker dan later herstellen.' : 'There were several low-energy days. Taking rest earlier looks more helpful here than recovering later.');
-    if (hoogNiveaus >= 3) advies.push(currentLang==='nl' ? 'Er waren ook dagen met meer ruimte. Laat die niet meteen helemaal vollopen.' : 'There were also days with more room. Try not to fill those up completely right away.');
-    if (topBehoefte.some(b => b === 'rest' || b === 'less_stimuli')) advies.push(currentLang==='nl' ? 'Rust of minder prikkels kwam vaker terug. Dat mag dus meewegen in hoe je je dagen opbouwt.' : 'Rest or fewer stimuli came back more than once. That deserves to shape how you set up your days.');
-    if (topBehoefte.some(b => b === 'know_plan' || b === 'know_end')) advies.push(currentLang==='nl' ? 'Een beetje voorspelbaarheid lijkt te helpen. Iets kleins en vasts kan al genoeg zijn.' : 'A little predictability seems to help. Something small and repeatable may already be enough.');
-    if (dominanteWerkstijl && dominanteWerkstijl[1] >= 2) {
-      const werkstijlNamen = currentLang==='nl' ? { multi: 'meerdere dingen tegelijk', focus: 'één ding tegelijk', blokken: 'blokken met pauzes', stroom: 'meebewegen met je energie' } : { multi: 'more than one thing at once', focus: 'one thing at a time', blokken: 'blocks with breaks', stroom: 'following your energy' };
-      advies.push(`${currentLang==='nl' ? 'Wat vaker werkte:' : 'What seemed to work more often:'} ${werkstijlNamen[dominanteWerkstijl[0]] || dominanteWerkstijl[0]}. ${currentLang==='nl' ? 'Dat kun je voorlopig blijven gebruiken.' : 'That is probably worth keeping for now.'}`);
-    }
-    if (advies.length === 0) advies.push(currentLang==='nl' ? 'Deze week oogt vrij stabiel. Blijf vooral opmerken wat dat mogelijk maakte.' : 'This week looks fairly steady. Keep noticing what made that possible.');
-
     analyse.innerHTML = `
-      <div class="analyse-blok">
-        <div class="analyse-titel">${currentLang==='nl' ? 'Wat vaker terugkwam' : 'What kept coming back'}</div>
-        <div class="analyse-tekst">${currentLang==='nl' ? 'Gemiddeld energieniveau' : 'Average energy level'}: <strong>${gem} / 5</strong>. ${currentLang==='nl' ? 'Laagste dag' : 'Lowest day'}: ${getDayNames()[laagsteDag]}. ${currentLang==='nl' ? 'Meeste ruimte' : 'Most room'}: ${getDayNames()[hoogsteDag]}.</div>
-        ${topBehoefte.length ? `<ul class="analyse-lijst">${topBehoefte.map(b => `<li><div class="analyse-streep"></div><div>${currentLang==='nl' ? 'Je energie vroeg vaker om' : 'Your energy asked more often for'}: <strong>${getNeedLabel(b)}</strong></div></li>`).join('')}</ul>` : ''}
-      </div>
-      ${alleMeenemen.length ? `<div class="analyse-blok"><div class="analyse-titel">${currentLang==='nl' ? 'Wat je wilt vasthouden' : 'What you want to hold on to'}</div><ul class="analyse-lijst">${alleMeenemen.map(item => `<li><div class="analyse-streep"></div><div><strong>${item.dag}:</strong> ${item.tekst}</div></li>`).join('')}</ul></div>` : ''}
-      <div class="analyse-blok">
-        <div class="analyse-titel">${currentLang==='nl' ? 'Voor de komende dagen' : 'For the next few days'}</div>
-        <ul class="analyse-lijst">${advies.map(a => `<li><div class="analyse-streep"></div><div>${a}</div></li>`).join('')}</ul>
-      </div>
-      <div class="reminder">${currentLang==='nl' ? 'Dit is al genoeg om later minder opnieuw te hoeven beginnen. Bewaar het als dat helpt.' : 'This is already enough to make later feel less like starting over. Save it if that helps.'}</div>
-      <div id="week-feedback-root"></div>
-
       <div class="week-afsluiten">
         <div class="week-afsluiten-tekst">
           <strong>${currentLang==='nl' ? 'Bewaar wat werkte' : 'Keep what worked'}</strong>
@@ -2294,11 +2239,6 @@
       </div>
       <a href="/" class="home-link">← Terug naar PRISMA</a>
     `;
-    window.PRISMAFeedback.render({
-      rootId: 'week-feedback-root',
-      tool: 'PRISMA Week',
-      lang: currentLang
-    });
     updateLanguageLinks();
     scheduleLanguagePass();
   }

@@ -564,10 +564,6 @@
     display: grid;
     gap: 16px;
   }
-  .dag-progress-text {
-    font-size: 0.96rem;
-    color: var(--grijs);
-  }
   .dag-vervolg-card {
     border: 1.5px solid var(--grijs-licht);
     border-radius: 10px;
@@ -596,8 +592,7 @@
     display: grid;
     gap: 14px;
   }
-  .dag-vervolg-block[hidden],
-  .dag-progress-text[hidden] {
+  .dag-vervolg-block[hidden] {
     display: none !important;
   }
   .dag-upgrade-actions,
@@ -993,7 +988,6 @@
     <div id="res-taken"></div>
     <div class="reminder" id="res-reminder"></div>
     <div class="dag-vervolg" id="dag-vervolg">
-      <div class="dag-progress-text" id="dag-progress-text" hidden></div>
       <div class="dag-vervolg-card">
         <div class="dag-vervolg-titel" id="dag-vervolg-titel"></div>
         <div class="dag-vervolg-body" id="dag-vervolg-body"></div>
@@ -1081,15 +1075,6 @@
     const state = getDagFollowUpState(completed);
     document.getElementById('dag-vervolg-titel').textContent = t.title;
     document.getElementById('dag-vervolg-body').textContent = t.body;
-
-    const progressEl = document.getElementById('dag-progress-text');
-    if (momenten > 1) {
-      progressEl.hidden = false;
-      progressEl.textContent = t.progress(momenten);
-    } else {
-      progressEl.hidden = true;
-      progressEl.textContent = '';
-    }
 
     const weekBlock = document.getElementById('dag-week-block');
     const upgradeBlock = document.getElementById('dag-upgrade-block');
