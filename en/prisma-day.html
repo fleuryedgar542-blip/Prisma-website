@@ -572,9 +572,6 @@
     display: grid;
     gap: 16px;
   }
-  .dag-week-card .weektracker-brug-btn {
-    width: fit-content;
-  }
   .dag-vervolg-titel {
     font-family: 'Noto Serif', serif;
     font-size: 18px;
@@ -999,11 +996,12 @@
           <a href="/en/" class="opnieuw-btn dag-close-btn" id="dag-close-btn">Close</a>
           <button class="opnieuw-btn dag-again-btn" id="dag-again-btn" type="button" onclick="opnieuw()">Do it again</button>
         </div>
-      </div>
-      <div class="dag-vervolg-card dag-week-card" id="dag-week-block" hidden>
-        <div class="dag-vervolg-titel" id="dag-week-text"></div>
-        <div class="dag-vervolg-subtekst" id="dag-week-subtext"></div>
-        <a href="/en/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">View PRISMA Week</a>
+
+        <div class="dag-vervolg-block" id="dag-week-block" hidden>
+          <div class="dag-vervolg-titel" id="dag-week-text"></div>
+          <a href="/en/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">View PRISMA Week</a>
+          <div class="dag-vervolg-subtekst" id="dag-week-subtext"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1450,7 +1448,7 @@
         title: 'Dit is genoeg voor nu.',
         body: 'Je hoeft niets meer te doen vandaag.\n\nAls het later weer vastloopt,\nkun je gewoon terugkomen.',
         weekText: 'Wil je het morgen iets makkelijker maken?',
-        weekSubtext: 'Dan hoef je niet weer helemaal vanaf nul te beginnen.',
+        weekSubtext: 'Dan is morgen iets lichter om mee te beginnen.',
         weekCta: 'Bekijk PRISMA Week',
         close: 'Sluiten',
         again: 'Nog een keer doen',
@@ -1535,7 +1533,7 @@
         title: 'This is enough for now.',
         body: 'You do not need to do anything else today.\n\nIf things get stuck again later,\nyou can just come back.',
         weekText: 'Want to make tomorrow a little easier?',
-        weekSubtext: 'Then it does not have to start completely from scratch again.',
+        weekSubtext: 'Then tomorrow can feel a little lighter to begin.',
         weekCta: 'View PRISMA Week',
         close: 'Close',
         again: 'Do it again',
