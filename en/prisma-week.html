@@ -474,6 +474,21 @@
     font-family: 'Noto Serif', serif;
     font-style: italic;
   }
+  .handoff-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .handoff-actions .notif-opslaan-btn,
+  .handoff-actions .dag-terug-btn {
+    margin-top: 0;
+  }
+  .handoff-actions .dag-terug-btn {
+    min-width: 120px;
+  }
+  .dag-voortgang {
+    display: none;
+  }
   .section-label {
     font-size: 10px;
     letter-spacing: 0.18em;
@@ -1094,6 +1109,7 @@
     font-style: italic; font-family: 'Noto Serif', serif;
     margin-top: 10px; min-height: 18px;
   }
+  .dag-stap-hint:empty { display: none; }
 
   /* ── INTRO BLOK ── */
   .intro-overlay {
@@ -1186,6 +1202,13 @@
       margin-left: 0;
       width: 100%;
       padding: 32px 20px calc(var(--nav-h) + 20px);
+    }
+    .handoff-actions {
+      flex-direction: column;
+    }
+    .handoff-actions .notif-opslaan-btn,
+    .handoff-actions .dag-terug-btn {
+      width: 100%;
     }
   }
 
@@ -1571,6 +1594,15 @@
     <button type="button" id="lang-en-mobile" onclick="setLanguage('en')">EN</button>
   </div>
   <button type="button" class="reading-ease-toggle" data-reading-ease-toggle aria-pressed="false">Easier reading</button>
+  <div class="herstart-blok" id="day-handoff" hidden>
+    <div class="herstart-label" id="day-handoff-label">PRISMA Day</div>
+    <div class="herstart-titel" id="day-handoff-title">You just completed PRISMA Day.</div>
+    <div class="herstart-tekst" id="day-handoff-text">Do you want to use this as a starting point for your week?</div>
+    <div class="handoff-actions">
+      <button type="button" class="notif-opslaan-btn" id="day-handoff-apply" onclick="applyDayHandoff()">Use this as a starting point</button>
+      <button type="button" class="dag-terug-btn" id="day-handoff-dismiss" onclick="dismissDayHandoff()">Not now</button>
+    </div>
+  </div>
 
   <!-- DAG PAGINAS -->
   <div id="page-ma" class="page active"></div>
@@ -1585,7 +1617,7 @@
   <div id="page-week" class="page">
     <div class="page-label">This week</div>
     <h2>What do you want to carry from this week?</h2>
-    <p class="page-subtitle">No analysis for the sake of analysis. Just what helped, what came back, and what you do not want to keep figuring out.</p>
+    <p class="page-subtitle">Only what you want to carry forward.</p>
     <div class="week-grid" id="week-grid"></div>
     <div id="week-analyse"></div>
   </div>
@@ -1594,7 +1626,7 @@
   <div id="page-maand" class="page">
     <div class="page-label">Across several weeks</div>
     <h2>What do you want to stop figuring out from scratch later?</h2>
-    <p class="page-subtitle">Saved weeks side by side, so it is easier to notice what helps when your energy shifts.</p>
+    <p class="page-subtitle">So it is easier to notice what helps.</p>
     <div class="maand-grid" id="maand-grid"></div>
     <button class="nieuw-week-btn" onclick="nieuweWeek()">↺ Start a new week gently</button>
     <br>
@@ -1605,7 +1637,7 @@
   <div id="page-notif" class="page">
     <div class="page-label">Reminders</div>
     <h2>Daily reminder</h2>
-    <p class="page-subtitle">Pick a time that makes checking in easier.</p>
+    <p class="page-subtitle">Choose a time.</p>
 
     <div class="notif-kaart">
       <div class="notif-kaart-titel">Set a reminder</div>
@@ -1682,8 +1714,8 @@
     ' Je volgt je energie van moment tot moment, vertrouw dat en geef jezelf de ruimte om bij te sturen.':' You follow your energy from moment to moment, trust that and give yourself room to adjust.'
   };
   const WEEK_UI = {
-    nl:{title:'Rustige ADHD tool voor meerdere dagen | PRISMA Week', description:'Rustige ADHD tool voor meerdere dagen, zodat je niet steeds opnieuw hoeft te beginnen en beter ziet wat helpt als je energie wisselt.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie nu?', daySubtitle:'Korte check-in. Dit helpt je morgen niet weer vanaf nul te beginnen.', dayLabel:'Deze week, ', weekLabel:'Deze week', weekTitle:'Wat wil je meenemen uit deze week?', weekSubtitle:'Geen analyse om de analyse. Alleen wat hielp, wat vaker terugkwam, en wat je niet opnieuw wilt uitzoeken.', monthLabel:'Over meerdere weken', monthTitle:'Wat wil je later niet opnieuw hoeven uitzoeken?', monthSubtitle:'Opgeslagen weken naast elkaar, zodat je sneller terugziet wat helpt als je energie wisselt.', monthBtn:'↺ Begin rustig met een nieuwe week', home:'← Terug naar PRISMA', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip waarop een zachte herinnering helpend is.', next:'Verder →', back:'← Terug', save:'Bewaar vandaag →', introLogo:'PRISMA Week', introTitle:'Neem vandaag rustig mee naar morgen.', introBtn:'Begin met vandaag →'},
-    en:{title:'Calm ADHD support across several days | PRISMA Week', description:'Calm ADHD support across several days, so you do not have to start from scratch every day and can better see what helps when your energy shifts.', appTitle:'PRISMA Week', dayTitle:'How is your energy right now?', daySubtitle:'A short check-in. This helps tomorrow feel less like starting from zero again.', dayLabel:'This week, ', weekLabel:'This week', weekTitle:'What do you want to carry from this week?', weekSubtitle:'No analysis for the sake of analysis. Just what helped, what came back, and what you do not want to keep figuring out.', monthLabel:'Across several weeks', monthTitle:'What do you want to stop figuring out from scratch later?', monthSubtitle:'Saved weeks side by side, so it is easier to notice what helps when your energy shifts.', monthBtn:'↺ Start a new week gently', home:'← Back to PRISMA', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time when a gentle reminder would actually help.', next:'Next →', back:'← Back', save:'Keep today →', introLogo:'PRISMA Week', introTitle:'Carry today gently into tomorrow.', introBtn:'Start with today →'}
+    nl:{title:'Rustige ADHD tool voor meerdere dagen | PRISMA Week', description:'Rustige ADHD tool voor meerdere dagen, zodat je niet steeds opnieuw hoeft te beginnen en beter ziet wat helpt als je energie wisselt.', appTitle:'PRISMA Week', dayTitle:'Hoe is je energie nu?', daySubtitle:'Korte check-in.', dayLabel:'Deze week, ', weekLabel:'Deze week', weekTitle:'Wat wil je meenemen uit deze week?', weekSubtitle:'Alleen wat je wilt meenemen.', monthLabel:'Over meerdere weken', monthTitle:'Wat wil je later niet opnieuw hoeven uitzoeken?', monthSubtitle:'Zodat je sneller terugziet wat helpt.', monthBtn:'↺ Begin rustig met een nieuwe week', home:'← Terug naar PRISMA', notifLabel:'Herinneringen', notifTitle:'Dagelijkse herinnering', notifSubtitle:'Kies een tijdstip.', next:'Verder →', back:'← Terug', save:'Bewaar vandaag →', introLogo:'PRISMA Week', introTitle:'Neem vandaag rustig mee naar morgen.', introBtn:'Begin met vandaag →'},
+    en:{title:'Calm ADHD support across several days | PRISMA Week', description:'Calm ADHD support across several days, so you do not have to start from scratch every day and can better see what helps when your energy shifts.', appTitle:'PRISMA Week', dayTitle:'How is your energy right now?', daySubtitle:'A short check-in.', dayLabel:'This week, ', weekLabel:'This week', weekTitle:'What do you want to carry from this week?', weekSubtitle:'Only what you want to carry forward.', monthLabel:'Across several weeks', monthTitle:'What do you want to stop figuring out from scratch later?', monthSubtitle:'So it is easier to notice what helps.', monthBtn:'↺ Start a new week gently', home:'← Back to PRISMA', notifLabel:'Reminders', notifTitle:'Daily reminder', notifSubtitle:'Choose a time.', next:'Next →', back:'← Back', save:'Keep today →', introLogo:'PRISMA Week', introTitle:'Carry today gently into tomorrow.', introBtn:'Start with today →'}
   };
   const DAY_NAMES = { nl:{ma:'Maandag',di:'Dinsdag',wo:'Woensdag',do:'Donderdag',vr:'Vrijdag',za:'Zaterdag',zo:'Zondag'}, en:{ma:'Monday',di:'Tuesday',wo:'Wednesday',do:'Thursday',vr:'Friday',za:'Saturday',zo:'Sunday'} };
   const DAY_SHORT = { nl:{ma:'Ma',di:'Di',wo:'Wo',do:'Do',vr:'Vr',za:'Za',zo:'Zo'}, en:{ma:'Mon',di:'Tue',wo:'Wed',do:'Thu',vr:'Fri',za:'Sat',zo:'Sun'} };
@@ -1695,8 +1727,8 @@
     en:{rest:'a moment with no demands',less_stimuli:'fewer stimuli',move_outside:'movement or being outside',know_plan:'knowing what I am going to do',contact:'contact with someone',create:'making or thinking of something',background:'something in the background',music:'music or sound with it',know_end:'knowing when something ends',not_approached:'not being spoken to'}
   };
   const DAY_PAGE_UI = {
-    nl:{ section1:'Stap 1, Hoeveel energie heb je nu?', section2:'Stap 2, Wat heeft je lijf of hoofd nodig?', section3:'Stap 3, Hoe werkte het vandaag het fijnst?', section4:'Stap 4, Wat wil je meenemen naar morgen?', stepHintMulti:'Je mag er meer kiezen. Leeg laten mag ook.', stepHintOptional:'Leeg laten mag ook.', stepHintCarry:'Een paar woorden is genoeg. Leeg laten mag ook.', needs:['🛋 Ik wil even niks hoeven','🔇 Ik wil minder prikkels','🚶 Ik wil bewegen of buiten zijn','📋 Ik wil weten wat ik ga doen','💬 Ik wil contact met iemand','🎨 Ik wil iets maken of bedenken','📱 Iets op de achtergrond hebben','🎧 Ik wil muziek of geluid erbij','⏱ Weten wanneer iets stopt','🙈 Niet aangesproken worden'], workNames:['Meerdere dingen tegelijk','Één ding tegelijk','Blokken met pauzes','Ik volg hoe het loopt'], workDesc:['Iets op de achtergrond terwijl je bezig bent. Zo blijft je brein actief en hou je het vol.','Je wilt liefst eerst iets afronden. Open eindjes geven onrust.','Werken, stoppen, opladen, weer werken. Vaste blokken geven je houvast.','Geen strakke aanpak nodig. Je kijkt wat nu werkt en gaat daarmee verder.'], carryPlaceholder:'Bijvoorbeeld: rustige start hielp / te veel afspraken was veel / één ding tegelijk werkte', carryLabel:'Meenemen', saved:'✓ Dag bewaard. Morgen hoef je niet helemaal opnieuw te beginnen.' },
-    en:{ section1:'Step 1, How much energy do you have right now?', section2:'Step 2, What does your body or mind need?', section3:'Step 3, How did working feel best today?', section4:'Step 4, What do you want to carry into tomorrow?', stepHintMulti:'You can choose more than one. Leaving it empty is fine too.', stepHintOptional:'Leaving it empty is fine too.', stepHintCarry:'A few words is enough. Leaving it empty is fine too.', needs:['🛋 I want a bit of breathing room','🔇 I want less input','🚶 I want to move or go outside','📋 I want to know what is coming','💬 I want contact with someone','🎨 I want to make or think up something','📱 I want something in the background','🎧 I want music or sound with me','⏱ I want to know when it ends','🙈 I do not want to be interrupted'], workNames:['More than one thing at once','One thing at a time','Blocks with breaks','I follow the day as it goes'], workDesc:['Something in the background helps your brain stay engaged.','You would rather finish one thing first. Loose ends feel noisy.','Work, stop, recharge, then continue. Clear blocks help.','No fixed approach needed. You notice what works now and go with that.'], carryPlaceholder:'For example: calm start helped / too many plans was a lot / one thing at a time worked', carryLabel:'Carry forward', saved:'✓ Day saved. Tomorrow does not have to start completely from scratch.' }
+    nl:{ section1:'Hoeveel energie heb je nu?', section2:'Wat heb je nu nodig?', section3:'Hoe werkte het vandaag het fijnst?', section4:'Wat wil je meenemen?', stepHintMulti:'Meer mag. Leeg mag ook.', stepHintOptional:'Leeg mag ook.', stepHintCarry:'Een paar woorden is genoeg.', needs:['🛋 Ik wil even niks hoeven','🔇 Ik wil minder prikkels','🚶 Ik wil bewegen of buiten zijn','📋 Ik wil weten wat komt','💬 Ik wil contact met iemand','🎨 Ik wil iets maken','📱 Iets op de achtergrond hebben','🎧 Ik wil geluid erbij','⏱ Weten wanneer iets stopt','🙈 Niet aangesproken worden'], workNames:['Meerdere dingen tegelijk','Één ding tegelijk','Blokken met pauzes','Ik volg hoe het loopt'], workDesc:['Met iets op de achtergrond.','Eerst één ding.','Met echte pauzes.','Volgen wat nu werkt.'], carryPlaceholder:'Bijvoorbeeld: rustige start hielp / te veel afspraken was veel / één ding tegelijk werkte', carryLabel:'Meenemen', saved:'✓ Dag bewaard. Morgen hoef je niet helemaal opnieuw te beginnen.' },
+    en:{ section1:'How much energy do you have right now?', section2:'What do you need right now?', section3:'How did it feel best today?', section4:'What do you want to carry forward?', stepHintMulti:'More is fine. Leaving it empty is fine too.', stepHintOptional:'Leaving it empty is fine.', stepHintCarry:'A few words is enough.', needs:['🛋 I want a bit of breathing room','🔇 I want less input','🚶 I want to move or go outside','📋 I want to know what is coming','💬 I want contact with someone','🎨 I want to make something','📱 I want something in the background','🎧 I want sound with it','⏱ I want to know when it ends','🙈 I do not want to be interrupted'], workNames:['More than one thing at once','One thing at a time','Blocks with breaks','I follow the day as it goes'], workDesc:['With something in the background.','Finish one thing first.','With real breaks.','Follow what works now.'], carryPlaceholder:'For example: calm start helped / too many plans was a lot / one thing at a time worked', carryLabel:'Carry forward', saved:'✓ Day saved. Tomorrow does not have to start completely from scratch.' }
   };
   const NAV_UI = {
     nl:{weekSection:'Deze week', history:'Geschiedenis', week:'Deze week', month:'Over meerdere weken', reminders:'Herinneringen', weekShort:'Week', monthShort:'Weken', iosInstallTitle:'Voeg PRISMA toe aan je beginscherm', iosInstallText:'Tik op ⎙ onderaan → "Zet op beginscherm"', androidInstallText:'Tik hier om te installeren', introText:'Voor momenten waarop PRISMA Dag helpt en je morgen niet weer vanaf nul wilt beginnen. Je checkt kort in, houdt vast wat werkte, en ziet over meerdere dagen wat je energie nodig had.', introList:['Een korte check-in per dag','Minder opnieuw beginnen','Zien wat je wilt vasthouden','Alles blijft op jouw apparaat, zonder account'], restartLabel:'Verder vanaf laatst', restartTitle:'Je hoeft niet weer alles uit te zoeken.', restartText:'Dit gaf je laatst wat houvast. Je kunt daar vandaag weer op leunen.', restartEnergy:'Laatste keer', restartNeeds:'Nodig', restartCarry:'Meenemen', restartAdvice:'Hielp toen', restartOutro:'Begin klein. De rest mag daarna komen.', nudgeAction:'Begin met vandaag →', notifSetupTitle:'Herinnering instellen', notifSetupText:'Kies een tijdstip waarop inchecken meestal haalbaar voelt. PRISMA vraagt daarna toestemming voor meldingen.', notifSetBtn:'Instellen →', notifHelp:'Dit werkt het fijnst als PRISMA Week op je beginscherm staat als app. Op iPhone: Safari → ⎙ → Zet op beginscherm.', notifOffTitle:'Herinnering uitzetten', notifOffText:'Wil je even geen herinneringen meer? Dan kun je ze hier uitzetten.', notifOffBtn:'Uitzetten', statusSet:'✓ Herinnering ingesteld op {time}, elke dag.', statusBlocked:'Notificaties zijn geblokkeerd in je browser. Pas dit aan via je browserinstellingen.', statusUnsupported:'Je browser ondersteunt geen notificaties.', statusDenied:'Toestemming geweigerd. Pas dit aan via je browserinstellingen.', statusOff:'Herinnering uitgezet.', nudgeLong:'Je hebt al {days} dagen niet ingecheckt. Dat is oké. Je hoeft niets in te halen. Begin gewoon weer bij vandaag.', nudgeShort:'Je bent er weer. Begin gewoon weer bij vandaag.'},
@@ -1826,6 +1858,26 @@
   function trialStorageRemove(key) {
     try { localStorage.removeItem(key); } catch(e) {}
   }
+  function ensureWeekTrialStarted() {
+    const now = Date.now();
+    let start = Number(trialStorageGet(WEEK_TRIAL.startKey));
+    const hasValidStart = Number.isFinite(start) && start > 0 && start <= now;
+    if (hasValidStart) {
+      trialState = { start, expired: now >= start + WEEK_TRIAL.durationMs };
+      return start;
+    }
+    start = now;
+    trialStorageSet(WEEK_TRIAL.startKey, String(start));
+    trialStorageRemove(WEEK_TRIAL.expiredSentKey);
+    trialStorageRemove(WEEK_TRIAL.paywallDayKey);
+    trialStorageRemove(WEEK_TRIAL.activeDayKey);
+    trialState = { start, expired: false };
+    if (typeof window.trackEvent === 'function') {
+      window.trackEvent('prisma_week_trial_started');
+    }
+    applyWeekTrialState();
+    return start;
+  }
   function getTrialDayStamp() {
     const now = new Date();
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -1868,20 +1920,15 @@
   function initWeekTrial() {
     const now = Date.now();
     let start = Number(trialStorageGet(WEEK_TRIAL.startKey));
-    const invalidStart = !Number.isFinite(start) || start <= 0 || start > now;
-    let justStarted = false;
-    if (invalidStart) {
-      start = now;
-      justStarted = true;
-      trialStorageSet(WEEK_TRIAL.startKey, String(start));
-      trialStorageRemove(WEEK_TRIAL.expiredSentKey);
-      if (typeof window.trackEvent === 'function') {
-        window.trackEvent('prisma_week_trial_started');
-      }
+    const hasValidStart = Number.isFinite(start) && start > 0 && start <= now;
+    if (!hasValidStart) {
+      trialState = { start: null, expired: false };
+      applyWeekTrialState();
+      return;
     }
     const expired = now >= start + WEEK_TRIAL.durationMs;
     trialState = { start, expired };
-    if (!expired && !justStarted) {
+    if (!expired) {
       const today = getTrialDayStamp();
       if (trialStorageGet(WEEK_TRIAL.activeDayKey) !== today) {
         trialStorageSet(WEEK_TRIAL.activeDayKey, today);
@@ -1915,7 +1962,7 @@
   function getInitialLanguage(){ return 'en'; }
   function setLanguage(lang){ localStorage.setItem('prisma-language',lang); window.location.href = lang === 'nl' ? '/prisma-week.html' : '/en/prisma-week.html'; }
   function updateSeoTags(){ const baseNl='https://prismasystemen.nl/prisma-week.html'; const baseEn='https://prismasystemen.nl/en/prisma-week.html'; const canonical=new URL(currentLang==='en' ? baseEn : baseNl); document.querySelector('link[rel="canonical"]').setAttribute('href', canonical.toString()); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link)=>{ const hreflang=link.getAttribute('hreflang'); link.setAttribute('href', hreflang==='en' ? baseEn : baseNl); }); document.querySelector('meta[property="og:title"]').setAttribute('content', document.title); document.querySelector('meta[property="og:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); document.querySelector('meta[property="og:url"]').setAttribute('content', canonical.toString()); document.querySelector('meta[property="og:locale"]').setAttribute('content', currentLang==='en' ? 'en_US' : 'nl_NL'); document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title); document.querySelector('meta[name="twitter:description"]').setAttribute('content', document.querySelector('meta[name="description"]').getAttribute('content')); }
-  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-week-en.json?v=1774698616819' : '../manifest-week.json?v=1774698616819'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; updateTrialCopy(); translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); if (trialState) applyWeekTrialState(); }
+  function applyWeekTranslations(){ const t=WEEK_UI[currentLang]; const nav=NAV_UI[currentLang]; document.documentElement.lang=currentLang; document.title=t.title; document.querySelector('meta[name="description"]').setAttribute('content', t.description); document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', t.appTitle); document.querySelector('link[rel="manifest"]').setAttribute('href', currentLang === 'en' ? '../manifest-week-en.json?v=1774698616819' : '../manifest-week.json?v=1774698616819'); ['lang-nl','lang-nl-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='nl');}); ['lang-en','lang-en-mobile'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.toggle('active', currentLang==='en');}); document.querySelector('.sidebar-logo').textContent='PRISMA Week'; document.querySelectorAll('.nav-section-label')[0].textContent=nav.weekSection; document.querySelectorAll('.nav-section-label')[1].textContent=nav.history; DAGEN.forEach((dag)=>{ const navEl=document.getElementById('nav-'+dag); if(navEl) setTrailingText(navEl, getDayNames()[dag]); const mobEl=document.getElementById('mob-'+dag); if(mobEl) setTrailingText(mobEl, getDayShortNames()[dag]); }); setTrailingText(document.getElementById('nav-week'), nav.week); setTrailingText(document.getElementById('nav-maand'), nav.month); setTrailingText(document.getElementById('nav-notif'), nav.reminders); setTrailingText(document.getElementById('mob-week'), nav.weekShort); setTrailingText(document.getElementById('mob-maand'), nav.monthShort); document.querySelector('.intro-logo').textContent=t.introLogo; document.querySelector('.intro-blok h1').textContent=t.introTitle; document.querySelector('.intro-blok-tekst').textContent=nav.introText; document.querySelectorAll('.intro-lijst li div:last-child').forEach((el,i)=>{ if(nav.introList[i]) el.textContent=nav.introList[i]; }); document.querySelector('.intro-sluiten-btn').textContent=t.introBtn; document.querySelector('.nudge-actie').textContent=nav.nudgeAction; document.querySelector('#ios-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#ios-banner .ios-banner-tekst span').textContent=nav.iosInstallText; document.querySelector('#android-banner .ios-banner-tekst strong').textContent=nav.iosInstallTitle; document.querySelector('#android-banner .ios-banner-tekst span').textContent=nav.androidInstallText; document.querySelector('#page-week .page-label').textContent=t.weekLabel; document.querySelector('#page-week h2').textContent=t.weekTitle; document.querySelector('#page-week .page-subtitle').textContent=t.weekSubtitle; document.querySelector('#page-maand .page-label').textContent=t.monthLabel; document.querySelector('#page-maand h2').textContent=t.monthTitle; document.querySelector('#page-maand .page-subtitle').textContent=t.monthSubtitle; document.querySelector('.nieuw-week-btn').textContent=t.monthBtn; document.querySelectorAll('.home-link').forEach(el=>el.textContent=t.home); document.querySelector('#page-notif .page-label').textContent=t.notifLabel; document.querySelector('#page-notif h2').textContent=t.notifTitle; document.querySelector('#page-notif .page-subtitle').textContent=t.notifSubtitle; document.querySelectorAll('.notif-kaart-titel')[0].textContent=nav.notifSetupTitle; document.querySelectorAll('.notif-kaart-tekst')[0].textContent=nav.notifSetupText; document.querySelectorAll('.notif-opslaan-btn')[0].textContent=nav.notifSetBtn; document.querySelector('.notif-uitleg').textContent=nav.notifHelp; document.querySelectorAll('.notif-kaart-titel')[1].textContent=nav.notifOffTitle; document.querySelectorAll('.notif-kaart-tekst')[1].textContent=nav.notifOffText; document.querySelectorAll('.notif-opslaan-btn')[1].textContent=nav.notifOffBtn; updateTrialCopy(); translateDayPagesInPlace(); if(document.getElementById('page-week').classList.contains('active')) buildWeekOverzicht(); if(document.getElementById('page-maand').classList.contains('active')) buildMaandOverzicht(); laadNotificatieStatus(); initWeekDatasets(); updateSeoTags(); updateLanguageLinks(); if (typeof renderDayHandoffPrompt === 'function') renderDayHandoffPrompt(); if (trialState) applyWeekTrialState(); }
   document.addEventListener('DOMContentLoaded',()=>{ currentLang=getInitialLanguage(); initWeekDatasets(); bindTrialCheckout(); applyWeekTranslations(); initWeekTrial(); initLanguageObserver(); });
 </script>
 
@@ -1939,8 +1986,12 @@
   let huidigePagina = 'ma';
   let weekStartTracked = false;
   let weekFinishTracked = false;
+  let dayHandoff = null;
+  const DAY_TO_WEEK_HANDOFF_KEY = 'prisma_day_to_week_handoff';
+  const DAY_TO_WEEK_HANDOFF_MAX_AGE_MS = 86400000;
 
   function trackWeekStartOnce() {
+    ensureWeekTrialStarted();
     if (weekStartTracked || typeof window.trackEvent !== 'function') return;
     window.trackEvent('prisma_week_start');
     weekStartTracked = true;
@@ -2002,6 +2053,90 @@
 
   function verbergHerstartBlokken() {
     document.querySelectorAll('.herstart-blok').forEach((blok) => blok.remove());
+  }
+
+  function getTodayWeekKey() {
+    return DAGEN[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
+  }
+
+  function readDayHandoff() {
+    const raw = trialStorageGet(DAY_TO_WEEK_HANDOFF_KEY);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Number.isFinite(parsed.timestamp) || (Date.now() - parsed.timestamp) > DAY_TO_WEEK_HANDOFF_MAX_AGE_MS) {
+        return null;
+      }
+      if (!Number.isFinite(parsed.niveau) || parsed.niveau < 1 || parsed.niveau > 5) {
+        return null;
+      }
+      return {
+        niveau: parsed.niveau,
+        behoeften: Array.isArray(parsed.behoeften) ? parsed.behoeften.filter(Boolean) : [],
+        werkstijl: parsed.werkstijl || null,
+        moetTaak: parsed.moetTaak || '',
+        resultText: parsed.resultText || ''
+      };
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function dismissDayHandoff() {
+    dayHandoff = null;
+    const block = document.getElementById('day-handoff');
+    if (block) block.hidden = true;
+  }
+
+  function renderDayHandoffPrompt() {
+    const block = document.getElementById('day-handoff');
+    if (!block) return;
+    const handoff = readDayHandoff();
+    const shouldShow = !!handoff && !heeftHuidigeWeekData();
+    block.hidden = !shouldShow;
+    dayHandoff = shouldShow ? handoff : null;
+    if (!shouldShow) return;
+    document.getElementById('day-handoff-label').textContent = 'PRISMA Day';
+    document.getElementById('day-handoff-title').textContent = currentLang === 'en' ? 'You just completed PRISMA Day.' : 'Je hebt net PRISMA Dag gedaan.';
+    document.getElementById('day-handoff-text').textContent = currentLang === 'en' ? 'Do you want to use this as a starting point for your week?' : 'Wil je dit gebruiken als startpunt voor je week?';
+    document.getElementById('day-handoff-apply').textContent = currentLang === 'en' ? 'Use this as a starting point' : 'Gebruik dit als startpunt';
+    document.getElementById('day-handoff-dismiss').textContent = currentLang === 'en' ? 'Not now' : 'Nu niet';
+  }
+
+  function applyDayHandoff() {
+    if (!dayHandoff) return;
+    const dag = getTodayWeekKey();
+    if (!weekData[dag]) weekData[dag] = {};
+    trackWeekStartOnce();
+    weekData[dag].niveau = dayHandoff.niveau;
+    weekData[dag].behoeften = dayHandoff.behoeften.slice();
+    weekData[dag].werkstijl = dayHandoff.werkstijl;
+    weekData[dag].meenemen = dayHandoff.moetTaak || '';
+    verbergHerstartBlokken();
+    navigeer(dag);
+
+    document.querySelectorAll(`#schaal-${dag} .energie-optie`).forEach((button) => {
+      button.classList.toggle('selected', parseInt(button.dataset.niveau, 10) === dayHandoff.niveau);
+    });
+    const hint = document.getElementById('dhint-' + dag);
+    if (hint) hint.textContent = getNiveauHintsWeek()[dayHandoff.niveau];
+    const nextButton = document.getElementById('dbtn-' + dag + '-1');
+    if (nextButton) nextButton.disabled = false;
+
+    document.querySelectorAll(`#behoeften-${dag} .behoefte-tag`).forEach((tag) => {
+      tag.classList.toggle('selected', dayHandoff.behoeften.includes(tag.dataset.need));
+    });
+
+    document.querySelectorAll(`#werkstijl-${dag} .werkstijl-optie`).forEach((option) => {
+      option.classList.toggle('selected', option.dataset.stijl === dayHandoff.werkstijl);
+    });
+
+    const carryField = document.getElementById('meenemen-' + dag);
+    if (carryField) carryField.value = dayHandoff.moetTaak || '';
+
+    dagNaarStap(dag, 4);
+    trialStorageRemove(DAY_TO_WEEK_HANDOFF_KEY);
+    dismissDayHandoff();
   }
 
   DAGEN.forEach(dag => {

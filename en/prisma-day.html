@@ -148,7 +148,7 @@
 
   /* VOORTGANG */
   .voortgang {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 8px;
     margin-bottom: 40px;
@@ -397,6 +397,7 @@
     transition: opacity 0.3s;
     line-height: 1.7;
   }
+  .stap-hint:empty { display: none; }
 
   /* RESULTAAT */
   .resultaat {
@@ -821,7 +822,7 @@
   <header>
     <div class="logo">PRISMA Day</div>
     <h1>How is your energy right now?</h1>
-    <p class="subtitle">You do not have to be switched on first. We are only looking at what feels manageable today.</p>
+    <p class="subtitle">Only what feels manageable now.</p>
   </header>
 
   <!-- VOORTGANG -->
@@ -850,7 +851,7 @@
 
   <!-- STAP 1 -->
   <div class="stap actief" id="stap-1">
-    <div class="section-label">Step 1, How much energy do you have right now?</div>
+    <div class="section-label">How much energy do you have right now?</div>
     <div class="energie-schaal">
       <button type="button" class="energie-optie" data-niveau="1" onclick="selecteerEnergie(this)">
         <span class="energie-nummer">1</span>
@@ -901,20 +902,20 @@
 
   <!-- STAP 2 -->
   <div class="stap" id="stap-2">
-    <div class="section-label">Step 2, What does your body or mind need?</div>
+    <div class="section-label">What do you need right now?</div>
     <div class="behoeften-grid">
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🛋 I want a bit of breathing room</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🔇 I want less input</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🚶 I want to move or go outside</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">📋 I want to know what is coming</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">💬 I want contact with someone</button>
-      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 I want to make or think up something</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎨 I want to make something</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">📱 I want something in the background</button>
-      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 I want music or sound with me</button>
+      <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🎧 I want sound with it</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">⏱ I want to know when it ends</button>
       <button type="button" class="behoefte-tag" onclick="toggleBehoefte(this)">🙈 I do not want to be interrupted</button>
     </div>
-    <p class="stap-hint">You can choose more than one. Leaving it empty is fine too.</p>
+    <p class="stap-hint">More is fine. Leaving it empty is fine too.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(1)">← Back</button>
       <button class="verder-btn" onclick="naarStap(3)">Next →</button>
@@ -923,38 +924,38 @@
 
   <!-- STAP 3 -->
   <div class="stap" id="stap-3">
-    <div class="section-label">Step 3, How do you work best?</div>
+    <div class="section-label">How do you work best?</div>
     <div class="werkstijl-grid">
       <button type="button" class="werkstijl-optie" data-stijl="multi" onclick="selecteerWerkstijl(this)">
         <span class="werkstijl-dot"></span>
         <span>
           <span class="werkstijl-naam">More than one thing at once</span>
-          <span class="werkstijl-omschrijving">Something in the background helps your brain stay engaged.</span>
+          <span class="werkstijl-omschrijving">With something in the background.</span>
         </span>
       </button>
       <button type="button" class="werkstijl-optie" data-stijl="focus" onclick="selecteerWerkstijl(this)">
         <span class="werkstijl-dot"></span>
         <span>
           <span class="werkstijl-naam">One thing at a time</span>
-          <span class="werkstijl-omschrijving">You would rather finish one thing first. Loose ends feel noisy.</span>
+          <span class="werkstijl-omschrijving">Finish one thing first.</span>
         </span>
       </button>
       <button type="button" class="werkstijl-optie" data-stijl="blokken" onclick="selecteerWerkstijl(this)">
         <span class="werkstijl-dot"></span>
         <span>
           <span class="werkstijl-naam">Blocks with breaks</span>
-          <span class="werkstijl-omschrijving">Work, stop, recharge, then continue. Clear blocks help.</span>
+          <span class="werkstijl-omschrijving">With real breaks.</span>
         </span>
       </button>
       <button type="button" class="werkstijl-optie" data-stijl="stroom" onclick="selecteerWerkstijl(this)">
         <span class="werkstijl-dot"></span>
         <span>
           <span class="werkstijl-naam">I follow the day as it goes</span>
-          <span class="werkstijl-omschrijving">No fixed approach needed. You notice what works now and go with that.</span>
+          <span class="werkstijl-omschrijving">Follow what works now.</span>
         </span>
       </button>
     </div>
-    <p class="stap-hint">If you are not sure yet, leaving it empty is fine.</p>
+    <p class="stap-hint">Leaving it empty is fine.</p>
     <div class="knop-rij">
       <button class="terug-btn" onclick="naarStap(2)">← Back</button>
       <button class="verder-btn" onclick="naarStap(4)">Next →</button>
@@ -963,8 +964,8 @@
 
   <!-- STAP 4 -->
   <div class="stap" id="stap-4">
-    <div class="section-label">Step 4, Is there something you truly have to do today?</div>
-    <p class="stap-hint" style="margin-bottom: 16px;">Something that cannot wait, even if today feels tight.</p>
+    <div class="section-label">Does something need to happen today?</div>
+    <p class="stap-hint" style="margin-bottom: 16px;"></p>
     <div class="moet-knoppen" id="moet-knoppen">
       <button class="moet-keuze" id="moet-nee" onclick="selecteerMoet(false)">No, nothing urgent</button>
       <button class="moet-keuze" id="moet-ja" onclick="selecteerMoet(true)">Yes, something is urgent</button>
@@ -999,7 +1000,7 @@
 
         <div class="dag-vervolg-block" id="dag-week-block" hidden>
           <div class="dag-vervolg-titel" id="dag-week-text"></div>
-          <a href="/en/prisma-week.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">View PRISMA Week</a>
+          <a href="/en/prisma-week-buy.html" class="weektracker-brug-btn dag-inline-cta" id="dag-week-btn" data-umami-event="prisma_week_click">View PRISMA Week</a>
           <div class="dag-vervolg-subtekst" id="dag-week-subtext"></div>
         </div>
       </div>
@@ -1019,6 +1020,7 @@
   let laatsteDagCompletion = { completed: 0, momenten: 0 };
   const PRISMA_DAY_COMPLETED_KEY = 'prisma_day_completed';
   const PRISMA_MOMENTEN_KEY = 'prisma_momenten';
+  const PRISMA_DAY_TO_WEEK_HANDOFF_KEY = 'prisma_day_to_week_handoff';
 
   function getStoredNumber(key) {
     const value = parseInt(localStorage.getItem(key) || '0', 10);
@@ -1029,6 +1031,12 @@
     const next = getStoredNumber(key) + 1;
     localStorage.setItem(key, String(next));
     return next;
+  }
+
+  function storeDagWeekHandoff(data) {
+    try {
+      localStorage.setItem(PRISMA_DAY_TO_WEEK_HANDOFF_KEY, JSON.stringify(data));
+    } catch (e) {}
   }
 
   function trackDagStartOnce() {
@@ -1288,6 +1296,14 @@
     const behoeften = [...document.querySelectorAll('.behoefte-tag.selected')].map(t => t.dataset.need);
     const moetTaak = (moetAanwezig && document.getElementById('moet-taak').value.trim()) ? document.getElementById('moet-taak').value.trim() : null;
     const { tekst, taken } = bouwAdvies(geselecteerdNiveau, behoeften, geselecteerdeWerkstijl, moetTaak);
+    storeDagWeekHandoff({
+      timestamp: Date.now(),
+      niveau: geselecteerdNiveau,
+      behoeften,
+      werkstijl: geselecteerdeWerkstijl || null,
+      moetTaak,
+      resultText: translateDagText(tekst)
+    });
 
     document.getElementById('res-titel').textContent = base.titel;
     document.getElementById('res-niveau').textContent = base.naam;
@@ -1390,10 +1406,10 @@
       subtitle: 'Geen goed of fout antwoord. Je energie is informatie, geen oordeel.',
       progress: ['Energie','Behoeften','Werkstijl','Moet'],
       sectionLabels: [
-        'Stap 1, Hoeveel energie heb je nu?',
-        'Stap 2, Wat heeft je lijf of hoofd nodig?',
-        'Stap 3, Hoe werk jij het beste?',
-        'Stap 4, Is er iets wat je vandaag écht moet doen?'
+        'Hoeveel energie heb je nu?',
+        'Wat heb je nu nodig?',
+        'Hoe werk je het liefst?',
+        'Moet er iets vandaag?'
       ],
       energyNames: ['Bijna leeg','Laag','Midden','Goed','Vol'],
       energyDescriptions: [
@@ -1414,32 +1430,32 @@
         '🛋 Ik wil even niks hoeven',
         '🔇 Ik wil minder prikkels',
         '🚶 Ik wil bewegen of buiten zijn',
-        '📋 Ik wil weten wat ik ga doen',
+        '📋 Ik wil weten wat komt',
         '💬 Ik wil contact met iemand',
-        '🎨 Ik wil iets maken of bedenken',
+        '🎨 Ik wil iets maken',
         '📱 Iets op de achtergrond hebben',
-        '🎧 Ik wil muziek of geluid erbij',
+        '🎧 Ik wil geluid erbij',
         '⏱ Weten wanneer iets stopt',
         '🙈 Niet aangesproken worden'
       ],
-      step2Hint: 'Meerdere opties zijn mogelijk. Mag ook leeg blijven.',
+      step2Hint: 'Meer mag. Leeg mag ook.',
       workstyleNames: [
         'Meerdere dingen tegelijk',
-        'Één ding tegelijk, snel afmaken',
+        'Één ding tegelijk',
         'Blokken met pauzes',
-        'Ik ga mee met hoe ik me voel'
+        'Ik volg hoe het loopt'
       ],
       workstyleDescriptions: [
-        'Iets op de achtergrond terwijl je bezig bent. Zo blijft je brein actief en hou je het vol.',
-        'Je wil één ding echt afronden. Open eindjes voelen onrustig.',
-        'Werken, stoppen, opladen, weer werken. Vaste blokken geven je houvast.',
-        'Geen vaste aanpak nodig. Je kijkt wat nu voelt en gaat daarmee.'
+        'Met iets op de achtergrond.',
+        'Eerst één ding afmaken.',
+        'Werken met echte pauzes.',
+        'Volgen wat nu werkt.'
       ],
-      step3Hint: 'Mag ook leeg blijven als je het nog niet weet.',
-      mustHint: 'Ongeacht hoe je je voelt, iets wat niet kan wachten.',
-      mustNo: 'Nee, niets wat moet',
-      mustYes: 'Ja, er is iets wat moet',
-      mustPlaceholder: 'Wat moet er vandaag écht gebeuren? Schrijf het op.',
+      step3Hint: 'Leeg mag ook.',
+      mustHint: '',
+      mustNo: 'Nee, niets dringends',
+      mustYes: 'Ja, er is iets dringends',
+      mustPlaceholder: 'Wat moet vandaag echt gebeuren?',
       next: 'Verder →',
       back: '← Terug',
       resultButton: 'Kijk wat nu haalbaar is →',
@@ -1472,13 +1488,13 @@
       androidText: 'Tap here to install',
       logo: 'PRISMA Day',
       h1: 'How is your energy right now?',
-      subtitle: 'You do not have to be switched on first. We are only looking at what feels manageable today.',
+      subtitle: 'Only what feels manageable now.',
       progress: ['Energy','Needs','Work style','Must'],
       sectionLabels: [
-        'Step 1, How much energy do you have right now?',
-        'Step 2, What does your body or mind need?',
-        'Step 3, How do you work best?',
-        'Step 4, Is there anything you truly have to do today?'
+        'How much energy do you have right now?',
+        'What do you need right now?',
+        'How do you work best?',
+        'Does something need to happen today?'
       ],
       energyNames: ['Almost empty','Low','Middle','Good','Full'],
       energyDescriptions: [
@@ -1496,35 +1512,35 @@
         5: 'A full tank of energy. Save some for tomorrow too.'
       },
       needs: [
-        '🛋 I do not want to have to do anything for a while',
+        '🛋 I want a bit of breathing room',
         '🔇 I want fewer stimuli',
-        '🚶 I want to move or be outside',
-        '📋 I want to know what I am going to do',
+        '🚶 I want to move or go outside',
+        '📋 I want to know what is coming',
         '💬 I want contact with someone',
-        '🎨 I want to make or think of something',
+        '🎨 I want to make something',
         '📱 I want something in the background',
-        '🎧 I want music or sound with it',
+        '🎧 I want sound with it',
         '⏱ I want to know when something ends',
-        '🙈 I do not want to be spoken to'
+        '🙈 I do not want to be interrupted'
       ],
-      step2Hint: 'You can choose multiple options. It can also stay empty.',
+      step2Hint: 'More is fine. Leaving it empty is fine too.',
       workstyleNames: [
-        'Several things at once',
-        'One thing at a time, finish quickly',
+        'More than one thing at once',
+        'One thing at a time',
         'Blocks with breaks',
-        'I go with how I feel'
+        'I follow the day as it goes'
       ],
       workstyleDescriptions: [
-        'Something in the background while you work. That keeps your brain engaged and helps you keep going.',
-        'You want to truly finish one thing. Loose ends feel restless.',
-        'Work, stop, recharge, work again. Fixed blocks give you support.',
-        'No fixed approach needed. You notice what feels right now and follow that.'
+        'With something in the background.',
+        'Finish one thing first.',
+        'With real breaks.',
+        'Follow what works now.'
       ],
-      step3Hint: 'It can also stay empty if you do not know yet.',
-      mustHint: 'No matter how you feel, something that cannot wait.',
+      step3Hint: 'Leaving it empty is fine.',
+      mustHint: '',
       mustNo: 'No, nothing I have to do',
       mustYes: 'Yes, there is something I have to do',
-      mustPlaceholder: 'What truly has to happen today? Write it down.',
+      mustPlaceholder: 'What truly has to happen today?',
       next: 'Next →',
       back: '← Back',
       resultButton: 'See what feels manageable now →',
