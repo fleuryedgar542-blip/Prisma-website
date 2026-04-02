@@ -59,6 +59,10 @@
     --wit: #FDFCFA;
   }
 
+  html, body {
+    height: 100%;
+  }
+
   body {
     background: var(--beige);
     color: var(--grijs);
@@ -66,6 +70,8 @@
     font-weight: 300;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
   }
 
   /* ── NAV ── */
@@ -110,7 +116,7 @@
   /* ── MAIN ── */
   main {
     padding-top: 72px;
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -236,6 +242,12 @@
     font-size: 0.78rem;
     color: var(--grijs-mid);
     line-height: 1.6;
+  }
+  .prijs-trial {
+    font-size: 0.78rem;
+    color: var(--grijs-mid);
+    line-height: 1.6;
+    margin-top: 0.2rem;
   }
 
   .koop-btn {
@@ -528,6 +540,7 @@
       <div class="prijs-sectie">
         <div class="prijs-info">
           <div class="prijs-bedrag">€5.99</div>
+          <div class="prijs-trial">7 dagen gratis proberen</div>
         </div>
         <a href="/prisma-week.html" class="koop-btn">
           Ga naar PRISMA Week →
@@ -536,19 +549,18 @@
 
     </div>
   </div>
-
-  <footer>
-    <span class="footer-tekst">© 2026 PRISMA Systemen</span>
-    <div class="footer-links">
-      <a href="tools.html">Tools</a>
-      <a href="over.html">Over PRISMA</a>
-      <a href="contact.html">Contact</a>
-      <a href="blog.html">Blog</a>
-      <a href="voorwaarden.html">Voorwaarden</a>
-    </div>
-  </footer>
-
 </main>
+
+<footer>
+  <span class="footer-tekst">© 2026 PRISMA Systemen</span>
+  <div class="footer-links">
+    <a href="tools.html">Tools</a>
+    <a href="over.html">Over PRISMA</a>
+    <a href="contact.html">Contact</a>
+    <a href="blog.html">Blog</a>
+    <a href="voorwaarden.html">Voorwaarden</a>
+  </div>
+</footer>
 
 
 <script>
@@ -564,6 +576,7 @@
       heroTitle: 'Voor dagen waarop iets meer lukt.',
       heroSubtitle: 'Zonder druk. Zonder vol plannen.',
       priceAmount: '€5.99',
+      trialText: '7 dagen gratis proberen',
       buyBtn: 'Ga naar PRISMA Week →',
       footer: ['Tools', 'Over PRISMA', 'Contact', 'Blog', 'Voorwaarden']
     },
@@ -576,6 +589,7 @@
       heroTitle: 'For days when a little more feels possible.',
       heroSubtitle: 'No pressure. No full planning.',
       priceAmount: '€5.99',
+      trialText: '7-day free trial',
       buyBtn: 'Go to PRISMA Week →',
       footer: ['Tools', 'About PRISMA', 'Contact', 'Blog', 'Terms']
     }
@@ -715,6 +729,7 @@
     document.querySelector('.hero h1').textContent = t.heroTitle;
     document.querySelector('.hero-subtitel').textContent = t.heroSubtitle;
     document.querySelector('.prijs-bedrag').textContent = t.priceAmount;
+    document.querySelector('.prijs-trial').textContent = t.trialText;
     document.querySelector('.koop-btn').textContent = t.buyBtn;
     document.querySelectorAll('.footer-links a').forEach((el, index) => {
       if (t.footer[index] !== undefined) el.textContent = t.footer[index];
