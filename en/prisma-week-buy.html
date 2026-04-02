@@ -524,20 +524,10 @@
   <div class="kaart-wrap">
     <div class="kaart">
 
-      <!-- LANCERINGSBLOK -->
-      <div class="lancering-blok">
-        <div class="lancering-label">Launch offer, first 15 users</div>
-        <div class="lancering-hoofdtekst">Pay €2.99/month forever</div>
-        <div class="lancering-subtekst">Use this code if you decide to continue after the trial.</div>
-        <div class="lancering-code">EERSTE15</div>
-      </div>
-
       <!-- PRIJS + KNOP -->
       <div class="prijs-sectie">
         <div class="prijs-info">
-          <div class="prijs-oud">€5,99</div>
-          <div class="prijs-bedrag">€2,99</div>
-          <div class="prijs-details">per month with code EERSTE15 · then €5.99</div>
+          <div class="prijs-bedrag">€5.99</div>
         </div>
         <a href="/en/prisma-week.html" class="koop-btn">
           Go to PRISMA Week →
@@ -573,12 +563,7 @@
       heroLabel: 'PRISMA Week',
       heroTitle: 'Voor dagen waarop iets meer lukt.',
       heroSubtitle: 'Zonder druk. Zonder vol plannen.',
-      launchLabel: 'Lanceringsaanbieding, eerste 15 gebruikers',
-      launchMain: 'Betaal €2,99/maand voor altijd',
-      launchSub: 'Gebruik deze code als je later verder wilt na de proefperiode.',
-      priceOld: '€5,99',
-      priceAmount: '€2,99',
-      priceDetails: 'per maand met code EERSTE15 · daarna €5,99',
+      priceAmount: '€5.99',
       buyBtn: 'Ga naar PRISMA Week →',
       footer: ['Tools', 'Over PRISMA', 'Contact', 'Blog', 'Voorwaarden']
     },
@@ -590,12 +575,7 @@
       heroLabel: 'PRISMA Week',
       heroTitle: 'For days when a little more feels possible.',
       heroSubtitle: 'No pressure. No full planning.',
-      launchLabel: 'Launch offer, first 15 users',
-      launchMain: 'Pay €2.99/month forever',
-      launchSub: 'Use this code if you decide to continue after the trial.',
-      priceOld: '€5.99',
-      priceAmount: '€2.99',
-      priceDetails: 'per month with code EERSTE15 · then €5.99',
+      priceAmount: '€5.99',
       buyBtn: 'Go to PRISMA Week →',
       footer: ['Tools', 'About PRISMA', 'Contact', 'Blog', 'Terms']
     }
@@ -734,12 +714,7 @@
     document.querySelector('.hero-label').textContent = t.heroLabel;
     document.querySelector('.hero h1').textContent = t.heroTitle;
     document.querySelector('.hero-subtitel').textContent = t.heroSubtitle;
-    document.querySelector('.lancering-label').textContent = t.launchLabel;
-    document.querySelector('.lancering-hoofdtekst').textContent = t.launchMain;
-    document.querySelector('.lancering-subtekst').textContent = t.launchSub;
-    document.querySelector('.prijs-oud').textContent = t.priceOld;
     document.querySelector('.prijs-bedrag').textContent = t.priceAmount;
-    document.querySelector('.prijs-details').innerHTML = t.priceDetails;
     document.querySelector('.koop-btn').textContent = t.buyBtn;
     document.querySelectorAll('.footer-links a').forEach((el, index) => {
       if (t.footer[index] !== undefined) el.textContent = t.footer[index];
